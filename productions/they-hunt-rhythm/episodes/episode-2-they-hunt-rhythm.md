@@ -24,9 +24,9 @@ First frame: a tall black creature's featureless head pressed against a fogged a
 Timed visual beats:
 - [0–3s] (VO: "It's at the window."): The black featureless head presses against the window glass, fog creeping across it.
 - [3–5.5s] (VO: "It can't see you."): Under the table the little girl hums, small even red rings rising from her.
-- [5.5–8s] (VO: "But it can hear her humming, and it's moving in time with it."): The creature's head sways slowly side to side in perfect time with the rings.
+- [5.5–8s] (VO: "But it hears her humming, and sways in time with it."): The creature's head sways slowly side to side in perfect time with the rings.
 
-Audio voiceover only, strictly no speech bubbles, no dialogue boxes, and characters do not speak or lip-sync. Speak these exact words once, without adding, omitting, paraphrasing, repeating or reordering any words, and never caption, subtitle or visually transcribe them: "It's at the window. It can't see you. But it can hear her humming, and it's moving in time with it."
+Audio voiceover only, strictly no speech bubbles, no dialogue boxes, and characters do not speak or lip-sync. Speak these exact words once, without adding, omitting, paraphrasing, repeating or reordering any words, and never caption, subtitle or visually transcribe them: "It's at the window. It can't see you. But it hears her humming, and sways in time with it."
 
 One off-screen adult male narrator throughout, speaking in a close, low whisper. General American accent, deep soft baritone whisper, medium-low pitch, breathy airy texture with no rasp, calm and unsettling delivery like someone afraid of being heard, restrained pitch variation, steady unhurried pace, and very close, dry studio sound. Keep the same whispered timbre, register, accent, pace, and recording quality throughout. Emotional progression belongs to the visuals and music; do not change the narrator's voice, raise it to normal speech, or switch to character dialogue.
 

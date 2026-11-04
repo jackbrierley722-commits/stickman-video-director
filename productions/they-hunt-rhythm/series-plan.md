@@ -34,8 +34,8 @@ The aliens are **blind, and they don't hunt noise, they hunt rhythm**: heartbeat
 
 | Ep | Title | Hook | Ends on | VO words |
 |---|---|---|---|---|
-| 1 | **They Can't See** | At 11:52 PM the power dies and something tall walks past your window. It has no eyes. | The creature turns toward your window, and your sister starts to hum. | 130 |
-| 2 | **They Hunt Rhythm** | It can't see you, but it can hear her humming. | Her raincoat pocket starts playing a music box, perfectly in time. | 120 |
+| 1 | **They Can't See** | At 11:52 PM the power dies and something tall walks past your window. It has no eyes. | The creature turns toward your window, and your sister starts to hum. | 128 |
+| 2 | **They Hunt Rhythm** | It can't see you, but it can hear her humming. | Her raincoat pocket starts playing a music box, perfectly in time. | 118 |
 | 3 | **Never the Same Twice** | The music box that should get her killed becomes bait. | The generator dies. The only way left is a drum someone has to play by hand. | 132 |
 | 4 | **Drum or Run?** | The drum works, but whoever plays it can't escape. | A or B? Comment what you'd do. | 120 |
 
@@ -47,7 +47,7 @@ The aliens are **blind, and they don't hunt noise, they hunt rhythm**: heartbeat
 
 | Clip | Header (top-left) | Narration | What you see | Red caption words |
 |---|---|---|---|---|
-| 1 · Golden Hook | `PART 1 · 11:52 PM · YOUR APARTMENT` | "At 11:52 PM, the power dies. Something tall walks past your window. It has no eyes. That's the worst part." | The TV flickers and cuts to black → Outside the fogged window, an impossibly tall, thin, pitch-black creature glides past, its head level with the second floor, long limbs bending at wrong angles. → Slow push-in on its smooth, featureless, eyeless head tilting in the pale moonlight | NO EYES |
+| 1 · Golden Hook | `PART 1 · 11:52 PM · YOUR APARTMENT` | "At 11:52 PM, the power dies. Something tall walks past. It has no eyes. That's the worst part." | The TV flickers and cuts to black → Outside the fogged window, an impossibly tall, thin, pitch-black creature glides past, its head level with the second floor, long limbs bending at wrong angles. → Slow push-in on its smooth, featureless, eyeless head tilting in the pale moonlight | NO EYES |
 | 2 · Hook development | `11:58 PM · YOUR WINDOW` | "You wave your hand right in front of the glass. It doesn't react." | The man creeps to the window and slowly waves one hand inches from the glass, right in front of the creature's blank head. → The creature does not react | CAN'T SEE |
 | 3 · Hook development | `11:58 PM · YOUR WINDOW` | "It can't see. So you think you're safe. Your little sister wakes up and thinks it's a game." | The man lets out a shaky breath and looks back at the little girl, still asleep on the couch. → The little girl sits up rubbing her eyes, then smiles curiously, hugging her bunny. | CAN'T SEE |
 | 4 · Disrupting Assumptions | `12:04 AM · YOUR APARTMENT` | "So you whisper the rules: stay silent, stay still. And you hide together under the table." | The man kneels and presses a finger to his lips → They crawl under the kitchen table | A GAME |
@@ -64,7 +64,7 @@ The aliens are **blind, and they don't hunt noise, they hunt rhythm**: heartbeat
 
 | Clip | Header (top-left) | Narration | What you see | Red caption words |
 |---|---|---|---|---|
-| 1 · Golden Hook | `PART 2 · 12:20 AM · YOUR APARTMENT` | "It's at the window. It can't see you. But it can hear her humming, and it's moving in time with it." | The black featureless head presses against the window glass, fog creeping across it. → Under the table the little girl hums, small even red rings rising from her. → The creature's head sways slowly side to side in perfect time with the rings. | HUMMING |
+| 1 · Golden Hook | `PART 2 · 12:20 AM · YOUR APARTMENT` | "It's at the window. It can't see you. But it hears her humming, and sways in time with it." | The black featureless head presses against the window glass, fog creeping across it. → Under the table the little girl hums, small even red rings rising from her. → The creature's head sways slowly side to side in perfect time with the rings. | HUMMING |
 | 2 · Disrupting Assumptions | `12:20 AM · UNDER THE TABLE` | "Every instinct says freeze. But the stiller you get, the clearer every sound becomes." | The man gently covers the girl's mouth → His own heartbeat rings sharpen, brighter and more regular in the silence. | FREEZE |
 | 3 · Disrupting Assumptions | `12:20 AM · UNDER THE TABLE` | "Then long black fingers slide under the door. Your elbow knocks the shelf. Pots and pans crash everywhere," | Impossibly long, thin black fingers slide under the front door and spread across the floor. → The man's elbow bumps the shelf → Pots, pans and cutlery bounce across the floor, throwing a storm of scattered, uneven red sound sparks. | FREEZE |
 | 4 · Unveiling the Secret | `12:21 AM · THE KITCHEN` | "and the thing jerks back, twisting its head, completely lost. So you keep throwing things," | The black fingers snap back under the door → The man hurls the pan across the room | LOST |

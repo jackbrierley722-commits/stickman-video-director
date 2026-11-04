@@ -23,10 +23,10 @@ First frame: a dark, silent apartment living room at night, the man sitting on a
 
 Timed visual beats:
 - [0–3s] (VO: "At 11:52 PM, the power dies."): The TV flickers and cuts to black; the room drops into cold blue darkness; the man looks up slowly while the little girl sleeps on beside him.
-- [3–5.5s] (VO: "Something tall walks past your window."): Outside the fogged window, an impossibly tall, thin, pitch-black creature glides past, its head level with the second floor, long limbs bending at wrong angles.
+- [3–5.5s] (VO: "Something tall walks past."): Outside the fogged window, an impossibly tall, thin, pitch-black creature glides past, its head level with the second floor, long limbs bending at wrong angles.
 - [5.5–8s] (VO: "It has no eyes. That's the worst part."): Slow push-in on its smooth, featureless, eyeless head tilting in the pale moonlight; inside, the man's eyes go wide.
 
-Audio voiceover only, strictly no speech bubbles, no dialogue boxes, and characters do not speak or lip-sync. Speak these exact words once, without adding, omitting, paraphrasing, repeating or reordering any words, and never caption, subtitle or visually transcribe them: "At 11:52 PM, the power dies. Something tall walks past your window. It has no eyes. That's the worst part."
+Audio voiceover only, strictly no speech bubbles, no dialogue boxes, and characters do not speak or lip-sync. Speak these exact words once, without adding, omitting, paraphrasing, repeating or reordering any words, and never caption, subtitle or visually transcribe them: "At 11:52 PM, the power dies. Something tall walks past. It has no eyes. That's the worst part."
 
 One off-screen adult male narrator throughout, speaking in a close, low whisper. General American accent, deep soft baritone whisper, medium-low pitch, breathy airy texture with no rasp, calm and unsettling delivery like someone afraid of being heard, restrained pitch variation, steady unhurried pace, and very close, dry studio sound. Keep the same whispered timbre, register, accent, pace, and recording quality throughout. Emotional progression belongs to the visuals and music; do not change the narrator's voice, raise it to normal speech, or switch to character dialogue.
 
