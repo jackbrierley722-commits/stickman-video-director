@@ -1,185 +1,219 @@
-# Episode 1 · They Can't See — Omni Flash Prompts (Phase B)
+# Episode 1 · They Can't See — Google Flow prompts
 
-Part 1 of 6 · 9:16 · 5 clips, each generated at ~10s and trimmed to ~9s ≈ 45s. Every prompt is self-contained.
+Part 1 of 4 · 9:16 · 6 clips × ~10s = ~1 minute. Paste one prompt per clip into Flow (Video · portrait · x1).
 
 ## Clip 1.1 · Golden Hook
 
-```text
-Output: approximately ten seconds, vertical 9:16, 720p target, 24 FPS, synchronized audio.
-
-Environment: flat, uniform, pitch-black canvas with pure white line art. No gradients, no textures, no 3D depth.
-
-Use rapid scene changes, kinetic motion-graphic transformations, and frequent visual events, while preserving an identical stick-figure design, constant line weight, and strict temporal consistency.
-
-Use minimalist two-dimensional white line animation. Show the same consistent stick figure with a hollow circular head, occasional simple line expressions, no detailed facial features, no hair, no clothing, no filled body, stable proportions, connected line limbs, and uniform medium line weight. Exactly two arms and two legs are visible per figure. Each limb appears only in its current pose: raising or lowering the right arm replaces that arm's previous line, never leaving a resting arm beneath an active arm. The figure stays white; accent colors affect only props and graphic effects.
-
-Cast: the main stick figure is an adult survivor. Any other people are drawn with the identical white line rules; the little brother, when visible, is the same design at about two-thirds of the adult's height. The invaders are tall, thin, three-legged creatures drawn as glowing acid-green line art with smooth eyeless oval heads and long hanging arms; they tilt their heads to listen and never have eyes.
-
-Palette: only three saturated accents on the black canvas. Acid green is used only for the invaders and their ships. Vivid red is used only for rhythm made visible: expanding pulse rings, tick rings and scattered sound sparks. Warm gold is used only for human hope: lit windows, the radio tower beacon and the glow between held hands. All figures and scenery remain white line art.
-
-Composition for 9:16: stack action vertically with sky and threats in the upper frame and figures in the middle and lower frame, use foreground/background depth and vertical camera moves, and keep the right edge and bottom fifth of the frame free of key action for platform interface safety.
-
-First frame: an empty pitch-black sky at the top of the frame, the faint white line edge of rooftops at the very bottom.
-
-Timed synchronized visual beats:
-- [0–3s] (VO: "They have no eyes."): Giant acid-green ring-shaped ships iris open in the black sky; the camera tilts down vertically onto a white line-art city street.
-- [3–7s] (VO: "They can't see you."): A tall acid-green invader steps over a parked car, its leg crossing the foreground; the adult stick figure rises from behind the car and waves one hand right in front of the eyeless head, and the invader keeps walking without reacting.
-- [7–10s] (VO: "So why is the quiet side of the city disappearing first?"): Across the city, stacks of warm gold windows go out one by one; the camera whips toward one tall apartment building.
-
-Audio voiceover only, strictly no speech bubbles, no dialogue boxes. Speak these exact words once, without adding, omitting, paraphrasing, repeating or reordering any words, and never caption, subtitle or visually transcribe them: "They have no eyes. They can't see you. So why is the quiet side of the city disappearing first?"
-
-One off-screen adult female narrator throughout. General American accent, low warm alto, medium-low pitch, soft chest resonance, very slight natural breathiness and no rasp. Hushed, intimate, controlled delivery like telling a secret, restrained pitch variation, steady unhurried speaking pace, and close, dry studio sound. Keep the same vocal timbre, register, accent, pace, and recording quality throughout. Emotional progression belongs to the visuals and music; do not change the narrator's voice or switch to character dialogue.
-
-Audio: Voiceover clearly audible over a low sustained dark synth drone with a faint, slow, irregular ticking pulse, building quiet dread. Synchronized crisp SFX on physical actions. Voice-first mix. SFX: deep ship hum, heavy alien footfall, soft click as each window goes dark.
-
-Final frame: a tall white line apartment building with a few warm gold windows still lit, the camera pushing toward one of them.
-
-Negative constraints: no photorealism, no 3D humanoid rendering, no detailed eyes, pupils, lips or hair on stick figures, no eyes on the invaders, no extra limbs, no duplicated or retained limb poses, no filled heads or body silhouettes, no separate hand or foot shapes, no detached body lines, no changing line weight or proportions, no inverted white-on-black polarity, no colors beyond acid green, vivid red and warm gold, no gore, no unintended characters, no visible words, letters, numbers, captions, subtitles, interface copy, logos or watermarks, no speech bubbles, no comic dialog balloons, no visual text boxes, no abstract liquid or shape morphing.
-```
-
-## Clip 1.2 · Disrupting Assumptions
+CapCut header: `PART 1 · 11:52 PM · YOUR APARTMENT` · Orange caption words: SKY · NO EYES
 
 ```text
 Output: approximately ten seconds, vertical 9:16, 720p target, 24 FPS, synchronized audio.
 
-Environment: flat, uniform, pitch-black canvas with pure white line art. No gradients, no textures, no 3D depth.
+Visual style: clean flat 2D cartoon animation like a modern animated storytime short. Smooth vector shapes, clear dark outlines of even medium weight, flat color fills with soft cel shading, simple readable backgrounds layered into foreground, midground and background. Night scenes use a moody palette of deep navy, slate blue and charcoal with soft drifting fog and gentle rim light, with warm gold light from windows and lamps; day scenes use muted grey daylight in the same flat style. Expressive character acting through eyebrows, eye size and mouth shape. No photorealism, no 3D rendering, no glossy concept art.
 
-Use rapid scene changes, kinetic motion-graphic transformations, and frequent visual events, while preserving an identical stick-figure design, constant line weight, and strict temporal consistency.
+Use frequent visual events and purposeful shot changes every two to three seconds, while preserving identical character designs, constant outline weight and strict temporal consistency.
 
-Use minimalist two-dimensional white line animation. Show the same consistent stick figure with a hollow circular head, occasional simple line expressions, no detailed facial features, no hair, no clothing, no filled body, stable proportions, connected line limbs, and uniform medium line weight. Exactly two arms and two legs are visible per figure. Each limb appears only in its current pose: raising or lowering the right arm replaces that arm's previous line, never leaving a resting arm beneath an active arm. The figure stays white; accent colors affect only props and graphic effects.
+Cast, drawn identically in every shot: (1) The protagonist: a 2D cartoon character with a large white filled circular head, two small solid black dot eyes, simple expressive eyebrow strokes and a small mouth line, a slim white body and thick white rounded limbs with clean dark outlines, small rounded white hands, wearing a bright orange hoodie, no hair, adult height. (2) The little brother: the same drawing style at about two-thirds of the protagonist's height, white filled round head, black dot eyes, expressive eyebrows, a messy dark-brown hair tuft, a light-blue pajama shirt and a small teal backpack. (3) The invaders: tall, thin, three-legged cartoon creatures with glowing acid-green bodies outlined in dark lines, smooth eyeless oval heads with no face at all, and long hanging arms with three long fingers; they tilt their heads to listen and never have eyes. (4) Other survivors, only when the beats mention them: the same white round-head style, each with a simple distinct hairstyle or hat and muted clothing. Each character has exactly two arms and two legs (invaders have three legs), stable proportions, and only one current pose per limb.
 
-Cast: the main stick figure is an adult survivor. Any other people are drawn with the identical white line rules; the little brother, when visible, is the same design at about two-thirds of the adult's height. The invaders are tall, thin, three-legged creatures drawn as glowing acid-green line art with smooth eyeless oval heads and long hanging arms; they tilt their heads to listen and never have eyes.
+Color roles: acid green only for the invaders and their ships; vivid red only for visible sound and rhythm such as heartbeat rings, tick rings and scattered sound sparks; warm gold for human hope such as lit windows, lamps and the tower beacon; the protagonist's orange hoodie is the main warm accent on screen.
 
-Palette: only three saturated accents on the black canvas. Acid green is used only for the invaders and their ships. Vivid red is used only for rhythm made visible: expanding pulse rings, tick rings and scattered sound sparks. Warm gold is used only for human hope: lit windows, the radio tower beacon and the glow between held hands. All figures and scenery remain white line art.
+Composition for 9:16: stack action vertically with sky and threats in the upper frame and characters in the middle and lower frame, use depth and vertical camera moves, keep the top-left corner and the center band slightly clear for captions added later, and keep the right edge and bottom fifth free of key action for platform interface safety.
 
-Composition for 9:16: stack action vertically with sky and threats in the upper frame and figures in the middle and lower frame, use foreground/background depth and vertical camera moves, and keep the right edge and bottom fifth of the frame free of key action for platform interface safety.
+First frame: a cozy dark apartment living room at night, the protagonist sitting on a couch beside the sleeping little brother, a window on the left showing the night sky.
 
-First frame: a tall white line apartment building with a few warm gold windows still lit, the camera pushing toward one of them.
+Timed visual beats:
+- [0–3s] (VO: "At 11:52 PM, the sky opens."): In the dim living room lit by a pale blue TV glow, the protagonist on the couch looks up as acid-green light floods through the window; outside, giant ring-shaped ships open in the night sky.
+- [3–7s] (VO: "Something steps out onto your street."): Cut to the street below: a tall acid-green invader unfolds its three long legs and steps down between parked cars, fog rolling around its feet.
+- [7–10s] (VO: "It has no eyes. And that's the worst part."): Close-up on its smooth eyeless oval head tilting slowly to listen; the protagonist's eyes go wide behind the window glass.
 
-Timed synchronized visual beats:
-- [0–3s] (VO: "Day one, the radio said one thing:"): Inside the apartment, a small radio icon on a shelf pulses white sound waves; the adult stick figure listens beside it.
-- [3–7s] (VO: "hide, stay silent, don't move."): The adult turns the lock and drags a chair against the door; the little brother crawls under a table.
-- [7–10s] (VO: "So you lock the door and hide with your little brother."): The adult kneels beside him and raises one hand to its head in a hushing gesture; the warm gold lamp is switched off and the room goes still.
-
-Audio voiceover only, strictly no speech bubbles, no dialogue boxes. Speak these exact words once, without adding, omitting, paraphrasing, repeating or reordering any words, and never caption, subtitle or visually transcribe them: "Day one, the radio said one thing: hide, stay silent, don't move. So you lock the door and hide with your little brother."
+Audio voiceover only, strictly no speech bubbles, no dialogue boxes, and characters do not speak or lip-sync. Speak these exact words once, without adding, omitting, paraphrasing, repeating or reordering any words, and never caption, subtitle or visually transcribe them: "At 11:52 PM, the sky opens. Something steps out onto your street. It has no eyes. And that's the worst part."
 
 One off-screen adult female narrator throughout. General American accent, low warm alto, medium-low pitch, soft chest resonance, very slight natural breathiness and no rasp. Hushed, intimate, controlled delivery like telling a secret, restrained pitch variation, steady unhurried speaking pace, and close, dry studio sound. Keep the same vocal timbre, register, accent, pace, and recording quality throughout. Emotional progression belongs to the visuals and music; do not change the narrator's voice or switch to character dialogue.
 
-Audio: Voiceover seamlessly continues the identical low sustained dark synth drone and faint irregular ticking pulse from clip 1, maintaining identical tempo, instrumentation, and tense narrative momentum. Synchronized crisp SFX on physical actions. Voice-first mix. SFX: radio static, a lock clicking, a chair scraping, the lamp switch.
+Audio: Voiceover clearly audible over a low sustained dark synth drone with a faint, slow, irregular ticking pulse, building quiet dread. Synchronized crisp SFX on physical actions. Voice-first mix. SFX: deep rising ship hum, a heavy wet footfall, a low creature click.
 
-Final frame: the adult and the little brother crouched still under the table in a dark room, a window behind them.
+Final frame: the protagonist pressed against the window, looking down at the invader in the foggy street.
 
-Negative constraints: no photorealism, no 3D humanoid rendering, no detailed eyes, pupils, lips or hair on stick figures, no eyes on the invaders, no extra limbs, no duplicated or retained limb poses, no filled heads or body silhouettes, no separate hand or foot shapes, no detached body lines, no changing line weight or proportions, no inverted white-on-black polarity, no colors beyond acid green, vivid red and warm gold, no gore, no unintended characters, no visible words, letters, numbers, captions, subtitles, interface copy, logos or watermarks, no speech bubbles, no comic dialog balloons, no visual text boxes, no abstract liquid or shape morphing.
+Negative constraints: no visible words, letters, numbers, captions, subtitles, clock digits, interface copy, signs with writing, logos or watermarks; no speech bubbles or text boxes; no photorealism, no 3D CGI humans, no realistic skin or detailed realistic eyes; no eyes or faces on the invaders; no extra limbs, duplicated limbs or broken joints; no changes to character designs, hoodie color or proportions between shots; no gore or blood; no unintended extra characters; no abstract liquid or shape morphing.
 ```
 
-## Clip 1.3 · Unveiling the Secret
+## Clip 1.2 · Hook development
+
+CapCut header: `11:58 PM · THE STREET` · Orange caption words: CAN'T SEE · SAFE
 
 ```text
 Output: approximately ten seconds, vertical 9:16, 720p target, 24 FPS, synchronized audio.
 
-Environment: flat, uniform, pitch-black canvas with pure white line art. No gradients, no textures, no 3D depth.
+Visual style: clean flat 2D cartoon animation like a modern animated storytime short. Smooth vector shapes, clear dark outlines of even medium weight, flat color fills with soft cel shading, simple readable backgrounds layered into foreground, midground and background. Night scenes use a moody palette of deep navy, slate blue and charcoal with soft drifting fog and gentle rim light, with warm gold light from windows and lamps; day scenes use muted grey daylight in the same flat style. Expressive character acting through eyebrows, eye size and mouth shape. No photorealism, no 3D rendering, no glossy concept art.
 
-Use rapid scene changes, kinetic motion-graphic transformations, and frequent visual events, while preserving an identical stick-figure design, constant line weight, and strict temporal consistency.
+Use frequent visual events and purposeful shot changes every two to three seconds, while preserving identical character designs, constant outline weight and strict temporal consistency.
 
-Use minimalist two-dimensional white line animation. Show the same consistent stick figure with a hollow circular head, occasional simple line expressions, no detailed facial features, no hair, no clothing, no filled body, stable proportions, connected line limbs, and uniform medium line weight. Exactly two arms and two legs are visible per figure. Each limb appears only in its current pose: raising or lowering the right arm replaces that arm's previous line, never leaving a resting arm beneath an active arm. The figure stays white; accent colors affect only props and graphic effects.
+Cast, drawn identically in every shot: (1) The protagonist: a 2D cartoon character with a large white filled circular head, two small solid black dot eyes, simple expressive eyebrow strokes and a small mouth line, a slim white body and thick white rounded limbs with clean dark outlines, small rounded white hands, wearing a bright orange hoodie, no hair, adult height. (2) The little brother: the same drawing style at about two-thirds of the protagonist's height, white filled round head, black dot eyes, expressive eyebrows, a messy dark-brown hair tuft, a light-blue pajama shirt and a small teal backpack. (3) The invaders: tall, thin, three-legged cartoon creatures with glowing acid-green bodies outlined in dark lines, smooth eyeless oval heads with no face at all, and long hanging arms with three long fingers; they tilt their heads to listen and never have eyes. (4) Other survivors, only when the beats mention them: the same white round-head style, each with a simple distinct hairstyle or hat and muted clothing. Each character has exactly two arms and two legs (invaders have three legs), stable proportions, and only one current pose per limb.
 
-Cast: the main stick figure is an adult survivor. Any other people are drawn with the identical white line rules; the little brother, when visible, is the same design at about two-thirds of the adult's height. The invaders are tall, thin, three-legged creatures drawn as glowing acid-green line art with smooth eyeless oval heads and long hanging arms; they tilt their heads to listen and never have eyes.
+Color roles: acid green only for the invaders and their ships; vivid red only for visible sound and rhythm such as heartbeat rings, tick rings and scattered sound sparks; warm gold for human hope such as lit windows, lamps and the tower beacon; the protagonist's orange hoodie is the main warm accent on screen.
 
-Palette: only three saturated accents on the black canvas. Acid green is used only for the invaders and their ships. Vivid red is used only for rhythm made visible: expanding pulse rings, tick rings and scattered sound sparks. Warm gold is used only for human hope: lit windows, the radio tower beacon and the glow between held hands. All figures and scenery remain white line art.
+Composition for 9:16: stack action vertically with sky and threats in the upper frame and characters in the middle and lower frame, use depth and vertical camera moves, keep the top-left corner and the center band slightly clear for captions added later, and keep the right edge and bottom fifth free of key action for platform interface safety.
 
-Composition for 9:16: stack action vertically with sky and threats in the upper frame and figures in the middle and lower frame, use foreground/background depth and vertical camera moves, and keep the right edge and bottom fifth of the frame free of key action for platform interface safety.
+First frame: the protagonist pressed against the window, looking down at the invader in the foggy street.
 
-First frame: the adult and the little brother crouched still under the table in a dark room, a window behind them.
+Timed visual beats:
+- [0–3s] (VO: "Down the street, a man waves his flashlight right in its face."): On the street, a survivor in a grey cap backs away from the invader, frantically waving a flashlight beam across its eyeless head.
+- [3–7s] (VO: "It doesn't even flinch."): The invader walks straight past him without reacting; the flashlight beam slides uselessly over its smooth face.
+- [7–10s] (VO: "It can't see. So you think you're safe."): Back at the window, the protagonist lets out a breath and smiles in relief, turning to look at the sleeping little brother.
 
-Timed synchronized visual beats:
-- [0–3s] (VO: "Across the street, the loud family"): The camera drifts past the crouching pair to the window: across the street one warm gold window glows, a white line dog barking inside and throwing scattered vivid red sparks.
-- [3–7s] (VO: "with the barking dog is still alive."): Two acid-green invaders walk past that loud window without turning.
-- [7–10s] (VO: "The silent apartments around you go dark, one by one."): The camera tilts down your own building's silent windows; they go dark floor by floor toward yours.
-
-Audio voiceover only, strictly no speech bubbles, no dialogue boxes. Speak these exact words once, without adding, omitting, paraphrasing, repeating or reordering any words, and never caption, subtitle or visually transcribe them: "Across the street, the loud family with the barking dog is still alive. The silent apartments around you go dark, one by one."
+Audio voiceover only, strictly no speech bubbles, no dialogue boxes, and characters do not speak or lip-sync. Speak these exact words once, without adding, omitting, paraphrasing, repeating or reordering any words, and never caption, subtitle or visually transcribe them: "Down the street, a man waves his flashlight right in its face. It doesn't even flinch. It can't see. So you think you're safe."
 
 One off-screen adult female narrator throughout. General American accent, low warm alto, medium-low pitch, soft chest resonance, very slight natural breathiness and no rasp. Hushed, intimate, controlled delivery like telling a secret, restrained pitch variation, steady unhurried speaking pace, and close, dry studio sound. Keep the same vocal timbre, register, accent, pace, and recording quality throughout. Emotional progression belongs to the visuals and music; do not change the narrator's voice or switch to character dialogue.
 
-Audio: Voiceover seamlessly continues the identical low sustained dark synth drone and faint irregular ticking pulse from clip 1, maintaining identical tempo, instrumentation, and tense narrative momentum. Synchronized crisp SFX on physical actions. Voice-first mix. SFX: a distant dog barking and clattering, alien footfall, a soft click for each window going dark.
+Audio: Voiceover seamlessly continues the identical low sustained dark synth drone and faint irregular ticking pulse from clip 1, maintaining identical tempo, instrumentation, and tense narrative momentum. Synchronized crisp SFX on physical actions. Voice-first mix. SFX: flashlight click, creature footsteps passing, a relieved exhale.
 
-Final frame: the window darkening one floor below yours, the camera pulling back inside the room.
+Final frame: the protagonist turning away from the window toward the couch, the brother waking up and rubbing his eyes.
 
-Negative constraints: no photorealism, no 3D humanoid rendering, no detailed eyes, pupils, lips or hair on stick figures, no eyes on the invaders, no extra limbs, no duplicated or retained limb poses, no filled heads or body silhouettes, no separate hand or foot shapes, no detached body lines, no changing line weight or proportions, no inverted white-on-black polarity, no colors beyond acid green, vivid red and warm gold, no gore, no unintended characters, no visible words, letters, numbers, captions, subtitles, interface copy, logos or watermarks, no speech bubbles, no comic dialog balloons, no visual text boxes, no abstract liquid or shape morphing.
+Negative constraints: no visible words, letters, numbers, captions, subtitles, clock digits, interface copy, signs with writing, logos or watermarks; no speech bubbles or text boxes; no photorealism, no 3D CGI humans, no realistic skin or detailed realistic eyes; no eyes or faces on the invaders; no extra limbs, duplicated limbs or broken joints; no changes to character designs, hoodie color or proportions between shots; no gore or blood; no unintended extra characters; no abstract liquid or shape morphing.
 ```
 
-## Clip 1.4 · Ultimate Truth
+## Clip 1.3 · Disrupting Assumptions
+
+CapCut header: `12:04 AM · YOUR APARTMENT` · Orange caption words: SILENT · STILL
 
 ```text
 Output: approximately ten seconds, vertical 9:16, 720p target, 24 FPS, synchronized audio.
 
-Environment: flat, uniform, pitch-black canvas with pure white line art. No gradients, no textures, no 3D depth.
+Visual style: clean flat 2D cartoon animation like a modern animated storytime short. Smooth vector shapes, clear dark outlines of even medium weight, flat color fills with soft cel shading, simple readable backgrounds layered into foreground, midground and background. Night scenes use a moody palette of deep navy, slate blue and charcoal with soft drifting fog and gentle rim light, with warm gold light from windows and lamps; day scenes use muted grey daylight in the same flat style. Expressive character acting through eyebrows, eye size and mouth shape. No photorealism, no 3D rendering, no glossy concept art.
 
-Use rapid scene changes, kinetic motion-graphic transformations, and frequent visual events, while preserving an identical stick-figure design, constant line weight, and strict temporal consistency.
+Use frequent visual events and purposeful shot changes every two to three seconds, while preserving identical character designs, constant outline weight and strict temporal consistency.
 
-Use minimalist two-dimensional white line animation. Show the same consistent stick figure with a hollow circular head, occasional simple line expressions, no detailed facial features, no hair, no clothing, no filled body, stable proportions, connected line limbs, and uniform medium line weight. Exactly two arms and two legs are visible per figure. Each limb appears only in its current pose: raising or lowering the right arm replaces that arm's previous line, never leaving a resting arm beneath an active arm. The figure stays white; accent colors affect only props and graphic effects.
+Cast, drawn identically in every shot: (1) The protagonist: a 2D cartoon character with a large white filled circular head, two small solid black dot eyes, simple expressive eyebrow strokes and a small mouth line, a slim white body and thick white rounded limbs with clean dark outlines, small rounded white hands, wearing a bright orange hoodie, no hair, adult height. (2) The little brother: the same drawing style at about two-thirds of the protagonist's height, white filled round head, black dot eyes, expressive eyebrows, a messy dark-brown hair tuft, a light-blue pajama shirt and a small teal backpack. (3) The invaders: tall, thin, three-legged cartoon creatures with glowing acid-green bodies outlined in dark lines, smooth eyeless oval heads with no face at all, and long hanging arms with three long fingers; they tilt their heads to listen and never have eyes. (4) Other survivors, only when the beats mention them: the same white round-head style, each with a simple distinct hairstyle or hat and muted clothing. Each character has exactly two arms and two legs (invaders have three legs), stable proportions, and only one current pose per limb.
 
-Cast: the main stick figure is an adult survivor. Any other people are drawn with the identical white line rules; the little brother, when visible, is the same design at about two-thirds of the adult's height. The invaders are tall, thin, three-legged creatures drawn as glowing acid-green line art with smooth eyeless oval heads and long hanging arms; they tilt their heads to listen and never have eyes.
+Color roles: acid green only for the invaders and their ships; vivid red only for visible sound and rhythm such as heartbeat rings, tick rings and scattered sound sparks; warm gold for human hope such as lit windows, lamps and the tower beacon; the protagonist's orange hoodie is the main warm accent on screen.
 
-Palette: only three saturated accents on the black canvas. Acid green is used only for the invaders and their ships. Vivid red is used only for rhythm made visible: expanding pulse rings, tick rings and scattered sound sparks. Warm gold is used only for human hope: lit windows, the radio tower beacon and the glow between held hands. All figures and scenery remain white line art.
+Composition for 9:16: stack action vertically with sky and threats in the upper frame and characters in the middle and lower frame, use depth and vertical camera moves, keep the top-left corner and the center band slightly clear for captions added later, and keep the right edge and bottom fifth free of key action for platform interface safety.
 
-Composition for 9:16: stack action vertically with sky and threats in the upper frame and figures in the middle and lower frame, use foreground/background depth and vertical camera moves, and keep the right edge and bottom fifth of the frame free of key action for platform interface safety.
+First frame: the protagonist turning away from the window toward the couch, the brother waking up and rubbing his eyes.
 
-First frame: the window darkening one floor below yours, the camera pulling back inside the room.
+Timed visual beats:
+- [0–3s] (VO: "The emergency radio says one thing:"): A small battery radio on a shelf pulses with white sound waves; the protagonist leans in to listen, the brother clutching the hoodie sleeve.
+- [3–7s] (VO: "stay silent, stay still."): The protagonist turns the deadbolt, switches off the warm lamp, and the room drops into deep navy darkness.
+- [7–10s] (VO: "So you lock the door, kill the lights, and pull your brother under the table."): The protagonist pulls the little brother under the kitchen table and raises one finger to its lips; both freeze.
 
-Timed synchronized visual beats:
-- [0–3s] (VO: "Then the quiet gets so deep"): Back inside, the adult and the little brother hold perfectly still under the table; dust drifts in the dark room.
-- [3–7s] (VO: "you can hear something steady."): The camera pushes into the adult's chest as a single vivid red heartbeat ring blooms.
-- [7–10s] (VO: "Thump. Thump. It's coming from inside your own chest."): Ring after ring expands evenly through the white line walls and out into the night street.
-
-Audio voiceover only, strictly no speech bubbles, no dialogue boxes. Speak these exact words once, without adding, omitting, paraphrasing, repeating or reordering any words, and never caption, subtitle or visually transcribe them: "Then the quiet gets so deep you can hear something steady. Thump. Thump. It's coming from inside your own chest."
+Audio voiceover only, strictly no speech bubbles, no dialogue boxes, and characters do not speak or lip-sync. Speak these exact words once, without adding, omitting, paraphrasing, repeating or reordering any words, and never caption, subtitle or visually transcribe them: "The emergency radio says one thing: stay silent, stay still. So you lock the door, kill the lights, and pull your brother under the table."
 
 One off-screen adult female narrator throughout. General American accent, low warm alto, medium-low pitch, soft chest resonance, very slight natural breathiness and no rasp. Hushed, intimate, controlled delivery like telling a secret, restrained pitch variation, steady unhurried speaking pace, and close, dry studio sound. Keep the same vocal timbre, register, accent, pace, and recording quality throughout. Emotional progression belongs to the visuals and music; do not change the narrator's voice or switch to character dialogue.
 
-Audio: Voiceover seamlessly continues the identical low sustained dark synth drone and faint irregular ticking pulse from clip 1, maintaining identical tempo, instrumentation, and tense narrative momentum. Synchronized crisp SFX on physical actions. Voice-first mix. SFX: total hush, then a heartbeat thump synced to each red ring.
+Audio: Voiceover seamlessly continues the identical low sustained dark synth drone and faint irregular ticking pulse from clip 1, maintaining identical tempo, instrumentation, and tense narrative momentum. Synchronized crisp SFX on physical actions. Voice-first mix. SFX: radio static, deadbolt click, lamp switch, chair scrape, then hush.
 
-Final frame: perfectly even vivid red rings travelling out through the wall into the street.
+Final frame: the two characters crouched still under the table in the dark, a window behind them.
 
-Negative constraints: no photorealism, no 3D humanoid rendering, no detailed eyes, pupils, lips or hair on stick figures, no eyes on the invaders, no extra limbs, no duplicated or retained limb poses, no filled heads or body silhouettes, no separate hand or foot shapes, no detached body lines, no changing line weight or proportions, no inverted white-on-black polarity, no colors beyond acid green, vivid red and warm gold, no gore, no unintended characters, no visible words, letters, numbers, captions, subtitles, interface copy, logos or watermarks, no speech bubbles, no comic dialog balloons, no visual text boxes, no abstract liquid or shape morphing.
+Negative constraints: no visible words, letters, numbers, captions, subtitles, clock digits, interface copy, signs with writing, logos or watermarks; no speech bubbles or text boxes; no photorealism, no 3D CGI humans, no realistic skin or detailed realistic eyes; no eyes or faces on the invaders; no extra limbs, duplicated limbs or broken joints; no changes to character designs, hoodie color or proportions between shots; no gore or blood; no unintended extra characters; no abstract liquid or shape morphing.
 ```
 
-## Clip 1.5 · Cliffhanger
+## Clip 1.4 · Unveiling the Secret
+
+CapCut header: `12:11 AM · ACROSS THE STREET` · Orange caption words: STILL ALIVE · ONE BY ONE
 
 ```text
 Output: approximately ten seconds, vertical 9:16, 720p target, 24 FPS, synchronized audio.
 
-Environment: flat, uniform, pitch-black canvas with pure white line art. No gradients, no textures, no 3D depth.
+Visual style: clean flat 2D cartoon animation like a modern animated storytime short. Smooth vector shapes, clear dark outlines of even medium weight, flat color fills with soft cel shading, simple readable backgrounds layered into foreground, midground and background. Night scenes use a moody palette of deep navy, slate blue and charcoal with soft drifting fog and gentle rim light, with warm gold light from windows and lamps; day scenes use muted grey daylight in the same flat style. Expressive character acting through eyebrows, eye size and mouth shape. No photorealism, no 3D rendering, no glossy concept art.
 
-Use rapid scene changes, kinetic motion-graphic transformations, and frequent visual events, while preserving an identical stick-figure design, constant line weight, and strict temporal consistency.
+Use frequent visual events and purposeful shot changes every two to three seconds, while preserving identical character designs, constant outline weight and strict temporal consistency.
 
-Use minimalist two-dimensional white line animation. Show the same consistent stick figure with a hollow circular head, occasional simple line expressions, no detailed facial features, no hair, no clothing, no filled body, stable proportions, connected line limbs, and uniform medium line weight. Exactly two arms and two legs are visible per figure. Each limb appears only in its current pose: raising or lowering the right arm replaces that arm's previous line, never leaving a resting arm beneath an active arm. The figure stays white; accent colors affect only props and graphic effects.
+Cast, drawn identically in every shot: (1) The protagonist: a 2D cartoon character with a large white filled circular head, two small solid black dot eyes, simple expressive eyebrow strokes and a small mouth line, a slim white body and thick white rounded limbs with clean dark outlines, small rounded white hands, wearing a bright orange hoodie, no hair, adult height. (2) The little brother: the same drawing style at about two-thirds of the protagonist's height, white filled round head, black dot eyes, expressive eyebrows, a messy dark-brown hair tuft, a light-blue pajama shirt and a small teal backpack. (3) The invaders: tall, thin, three-legged cartoon creatures with glowing acid-green bodies outlined in dark lines, smooth eyeless oval heads with no face at all, and long hanging arms with three long fingers; they tilt their heads to listen and never have eyes. (4) Other survivors, only when the beats mention them: the same white round-head style, each with a simple distinct hairstyle or hat and muted clothing. Each character has exactly two arms and two legs (invaders have three legs), stable proportions, and only one current pose per limb.
 
-Cast: the main stick figure is an adult survivor. Any other people are drawn with the identical white line rules; the little brother, when visible, is the same design at about two-thirds of the adult's height. The invaders are tall, thin, three-legged creatures drawn as glowing acid-green line art with smooth eyeless oval heads and long hanging arms; they tilt their heads to listen and never have eyes.
+Color roles: acid green only for the invaders and their ships; vivid red only for visible sound and rhythm such as heartbeat rings, tick rings and scattered sound sparks; warm gold for human hope such as lit windows, lamps and the tower beacon; the protagonist's orange hoodie is the main warm accent on screen.
 
-Palette: only three saturated accents on the black canvas. Acid green is used only for the invaders and their ships. Vivid red is used only for rhythm made visible: expanding pulse rings, tick rings and scattered sound sparks. Warm gold is used only for human hope: lit windows, the radio tower beacon and the glow between held hands. All figures and scenery remain white line art.
+Composition for 9:16: stack action vertically with sky and threats in the upper frame and characters in the middle and lower frame, use depth and vertical camera moves, keep the top-left corner and the center band slightly clear for captions added later, and keep the right edge and bottom fifth free of key action for platform interface safety.
 
-Composition for 9:16: stack action vertically with sky and threats in the upper frame and figures in the middle and lower frame, use foreground/background depth and vertical camera moves, and keep the right edge and bottom fifth of the frame free of key action for platform interface safety.
+First frame: the two characters crouched still under the table in the dark, a window behind them.
 
-First frame: perfectly even vivid red rings travelling out through the wall into the street.
+Timed visual beats:
+- [0–3s] (VO: "But across the street, the loud family with the barking dog is still alive."): Through the window, a house across the street glows warm gold; inside a family argues and a small dog barks wildly, throwing scattered red sound sparks.
+- [3–7s] (VO: "And the silent apartments around you"): Two acid-green invaders walk right past that loud house without turning their heads.
+- [7–10s] (VO: "go dark, one by one."): The camera tilts down your own apartment building from outside: its quiet gold windows go dark floor by floor, toward yours.
 
-Timed synchronized visual beats:
-- [0–3s] (VO: "Outside, something tall stops walking."): Outside, an acid-green invader mid-stride freezes as the red rings wash over it.
-- [3–7s] (VO: "Its head turns toward your window."): Its eyeless head tilts and turns slowly up toward your window.
-- [7–10s] (VO: "And your brother's heart is beating even faster."): Inside, a second, smaller vivid red ring starts pulsing from the little brother's chest, faster than the first; the adult pulls him close.
-
-Audio voiceover only, strictly no speech bubbles, no dialogue boxes. Speak these exact words once, without adding, omitting, paraphrasing, repeating or reordering any words, and never caption, subtitle or visually transcribe them: "Outside, something tall stops walking. Its head turns toward your window. And your brother's heart is beating even faster."
+Audio voiceover only, strictly no speech bubbles, no dialogue boxes, and characters do not speak or lip-sync. Speak these exact words once, without adding, omitting, paraphrasing, repeating or reordering any words, and never caption, subtitle or visually transcribe them: "But across the street, the loud family with the barking dog is still alive. And the silent apartments around you go dark, one by one."
 
 One off-screen adult female narrator throughout. General American accent, low warm alto, medium-low pitch, soft chest resonance, very slight natural breathiness and no rasp. Hushed, intimate, controlled delivery like telling a secret, restrained pitch variation, steady unhurried speaking pace, and close, dry studio sound. Keep the same vocal timbre, register, accent, pace, and recording quality throughout. Emotional progression belongs to the visuals and music; do not change the narrator's voice or switch to character dialogue.
 
-Audio: Voiceover seamlessly continues the identical low sustained dark synth drone and faint irregular ticking pulse from clip 1, maintaining identical tempo, instrumentation, and tense narrative momentum. Synchronized crisp SFX on physical actions. Voice-first mix. SFX: the alien footfall stops, two heartbeats overlapping, the faster one rising.
+Audio: Voiceover seamlessly continues the identical low sustained dark synth drone and faint irregular ticking pulse from clip 1, maintaining identical tempo, instrumentation, and tense narrative momentum. Synchronized crisp SFX on physical actions. Voice-first mix. SFX: distant dog barking and clattering, steady creature footsteps, a soft click as each window goes dark.
 
-Final frame: the eyeless acid-green head rising into the window frame, two sets of red rings pulsing inside the room.
+Final frame: the window one floor below yours going dark, the camera pushing back inside.
 
-Negative constraints: no photorealism, no 3D humanoid rendering, no detailed eyes, pupils, lips or hair on stick figures, no eyes on the invaders, no extra limbs, no duplicated or retained limb poses, no filled heads or body silhouettes, no separate hand or foot shapes, no detached body lines, no changing line weight or proportions, no inverted white-on-black polarity, no colors beyond acid green, vivid red and warm gold, no gore, no unintended characters, no visible words, letters, numbers, captions, subtitles, interface copy, logos or watermarks, no speech bubbles, no comic dialog balloons, no visual text boxes, no abstract liquid or shape morphing.
+Negative constraints: no visible words, letters, numbers, captions, subtitles, clock digits, interface copy, signs with writing, logos or watermarks; no speech bubbles or text boxes; no photorealism, no 3D CGI humans, no realistic skin or detailed realistic eyes; no eyes or faces on the invaders; no extra limbs, duplicated limbs or broken joints; no changes to character designs, hoodie color or proportions between shots; no gore or blood; no unintended extra characters; no abstract liquid or shape morphing.
 ```
 
-## Stitching
+## Clip 1.5 · Ultimate Truth
 
-- Trim each clip to its strongest ~9s, cutting idle tails rather than narration. Cut on the matching frames listed in the Phase A table, with 2–4 frame audio crossfades.
-- Check that the narrator sounds the same across all five clips. If it drifts, confirm the voice block is unchanged before regenerating, or lay one continuous recorded VO over the edit.
-- Add these overlays in CapCut (never in the prompts): `PART 1/6` · `THEY CAN'T SEE` (clip 1) · `STAY SILENT` (clip 2) · `SO WHY ARE THEY ALIVE?` (clip 3) · `PART 2 →` (final hold)
-- Caption: They can't see us. So why are the quiet ones vanishing? Part 1/6 👽 #alieninvasion #horrorstory #stickman #series
+CapCut header: `12:19 AM · UNDER THE TABLE` · Orange caption words: HEARTBEAT
+
+```text
+Output: approximately ten seconds, vertical 9:16, 720p target, 24 FPS, synchronized audio.
+
+Visual style: clean flat 2D cartoon animation like a modern animated storytime short. Smooth vector shapes, clear dark outlines of even medium weight, flat color fills with soft cel shading, simple readable backgrounds layered into foreground, midground and background. Night scenes use a moody palette of deep navy, slate blue and charcoal with soft drifting fog and gentle rim light, with warm gold light from windows and lamps; day scenes use muted grey daylight in the same flat style. Expressive character acting through eyebrows, eye size and mouth shape. No photorealism, no 3D rendering, no glossy concept art.
+
+Use frequent visual events and purposeful shot changes every two to three seconds, while preserving identical character designs, constant outline weight and strict temporal consistency.
+
+Cast, drawn identically in every shot: (1) The protagonist: a 2D cartoon character with a large white filled circular head, two small solid black dot eyes, simple expressive eyebrow strokes and a small mouth line, a slim white body and thick white rounded limbs with clean dark outlines, small rounded white hands, wearing a bright orange hoodie, no hair, adult height. (2) The little brother: the same drawing style at about two-thirds of the protagonist's height, white filled round head, black dot eyes, expressive eyebrows, a messy dark-brown hair tuft, a light-blue pajama shirt and a small teal backpack. (3) The invaders: tall, thin, three-legged cartoon creatures with glowing acid-green bodies outlined in dark lines, smooth eyeless oval heads with no face at all, and long hanging arms with three long fingers; they tilt their heads to listen and never have eyes. (4) Other survivors, only when the beats mention them: the same white round-head style, each with a simple distinct hairstyle or hat and muted clothing. Each character has exactly two arms and two legs (invaders have three legs), stable proportions, and only one current pose per limb.
+
+Color roles: acid green only for the invaders and their ships; vivid red only for visible sound and rhythm such as heartbeat rings, tick rings and scattered sound sparks; warm gold for human hope such as lit windows, lamps and the tower beacon; the protagonist's orange hoodie is the main warm accent on screen.
+
+Composition for 9:16: stack action vertically with sky and threats in the upper frame and characters in the middle and lower frame, use depth and vertical camera moves, keep the top-left corner and the center band slightly clear for captions added later, and keep the right edge and bottom fifth free of key action for platform interface safety.
+
+First frame: the window one floor below yours going dark, the camera pushing back inside.
+
+Timed visual beats:
+- [0–3s] (VO: "Then the quiet gets so deep you hear it."): Under the table, dust drifts in a thin ray of moonlight; the protagonist holds the brother perfectly still, eyes darting.
+- [3–7s] (VO: "Thump. Thump."): Close-up on the protagonist's chest: a vivid red heartbeat ring blooms outward, then another.
+- [7–10s] (VO: "Your own heartbeat, pulsing straight through the wall."): The red rings expand evenly through the wall and out into the night street, perfectly regular.
+
+Audio voiceover only, strictly no speech bubbles, no dialogue boxes, and characters do not speak or lip-sync. Speak these exact words once, without adding, omitting, paraphrasing, repeating or reordering any words, and never caption, subtitle or visually transcribe them: "Then the quiet gets so deep you hear it. Thump. Thump. Your own heartbeat, pulsing straight through the wall."
+
+One off-screen adult female narrator throughout. General American accent, low warm alto, medium-low pitch, soft chest resonance, very slight natural breathiness and no rasp. Hushed, intimate, controlled delivery like telling a secret, restrained pitch variation, steady unhurried speaking pace, and close, dry studio sound. Keep the same vocal timbre, register, accent, pace, and recording quality throughout. Emotional progression belongs to the visuals and music; do not change the narrator's voice or switch to character dialogue.
+
+Audio: Voiceover seamlessly continues the identical low sustained dark synth drone and faint irregular ticking pulse from clip 1, maintaining identical tempo, instrumentation, and tense narrative momentum. Synchronized crisp SFX on physical actions. Voice-first mix. SFX: total hush, then a heartbeat thump in sync with each red ring.
+
+Final frame: even red rings travelling out through the apartment wall into the foggy street.
+
+Negative constraints: no visible words, letters, numbers, captions, subtitles, clock digits, interface copy, signs with writing, logos or watermarks; no speech bubbles or text boxes; no photorealism, no 3D CGI humans, no realistic skin or detailed realistic eyes; no eyes or faces on the invaders; no extra limbs, duplicated limbs or broken joints; no changes to character designs, hoodie color or proportions between shots; no gore or blood; no unintended extra characters; no abstract liquid or shape morphing.
+```
+
+## Clip 1.6 · Cliffhanger
+
+CapCut header: `12:20 AM · YOUR WINDOW` · Orange caption words: FASTER
+
+```text
+Output: approximately ten seconds, vertical 9:16, 720p target, 24 FPS, synchronized audio.
+
+Visual style: clean flat 2D cartoon animation like a modern animated storytime short. Smooth vector shapes, clear dark outlines of even medium weight, flat color fills with soft cel shading, simple readable backgrounds layered into foreground, midground and background. Night scenes use a moody palette of deep navy, slate blue and charcoal with soft drifting fog and gentle rim light, with warm gold light from windows and lamps; day scenes use muted grey daylight in the same flat style. Expressive character acting through eyebrows, eye size and mouth shape. No photorealism, no 3D rendering, no glossy concept art.
+
+Use frequent visual events and purposeful shot changes every two to three seconds, while preserving identical character designs, constant outline weight and strict temporal consistency.
+
+Cast, drawn identically in every shot: (1) The protagonist: a 2D cartoon character with a large white filled circular head, two small solid black dot eyes, simple expressive eyebrow strokes and a small mouth line, a slim white body and thick white rounded limbs with clean dark outlines, small rounded white hands, wearing a bright orange hoodie, no hair, adult height. (2) The little brother: the same drawing style at about two-thirds of the protagonist's height, white filled round head, black dot eyes, expressive eyebrows, a messy dark-brown hair tuft, a light-blue pajama shirt and a small teal backpack. (3) The invaders: tall, thin, three-legged cartoon creatures with glowing acid-green bodies outlined in dark lines, smooth eyeless oval heads with no face at all, and long hanging arms with three long fingers; they tilt their heads to listen and never have eyes. (4) Other survivors, only when the beats mention them: the same white round-head style, each with a simple distinct hairstyle or hat and muted clothing. Each character has exactly two arms and two legs (invaders have three legs), stable proportions, and only one current pose per limb.
+
+Color roles: acid green only for the invaders and their ships; vivid red only for visible sound and rhythm such as heartbeat rings, tick rings and scattered sound sparks; warm gold for human hope such as lit windows, lamps and the tower beacon; the protagonist's orange hoodie is the main warm accent on screen.
+
+Composition for 9:16: stack action vertically with sky and threats in the upper frame and characters in the middle and lower frame, use depth and vertical camera moves, keep the top-left corner and the center band slightly clear for captions added later, and keep the right edge and bottom fifth free of key action for platform interface safety.
+
+First frame: even red rings travelling out through the apartment wall into the foggy street.
+
+Timed visual beats:
+- [0–3s] (VO: "Outside, something tall stops walking."): Down in the street, an acid-green invader freezes mid-stride as the red rings wash over it.
+- [3–7s] (VO: "Its eyeless head turns toward your window."): Its eyeless head tilts and turns slowly up toward your window; low angle as it takes one step closer.
+- [7–10s] (VO: "And your brother's heart starts beating faster."): Inside, a second smaller red ring starts pulsing from the brother's chest, faster than the first; the protagonist pulls him close, terrified.
+
+Audio voiceover only, strictly no speech bubbles, no dialogue boxes, and characters do not speak or lip-sync. Speak these exact words once, without adding, omitting, paraphrasing, repeating or reordering any words, and never caption, subtitle or visually transcribe them: "Outside, something tall stops walking. Its eyeless head turns toward your window. And your brother's heart starts beating faster."
+
+One off-screen adult female narrator throughout. General American accent, low warm alto, medium-low pitch, soft chest resonance, very slight natural breathiness and no rasp. Hushed, intimate, controlled delivery like telling a secret, restrained pitch variation, steady unhurried speaking pace, and close, dry studio sound. Keep the same vocal timbre, register, accent, pace, and recording quality throughout. Emotional progression belongs to the visuals and music; do not change the narrator's voice or switch to character dialogue.
+
+Audio: Voiceover seamlessly continues the identical low sustained dark synth drone and faint irregular ticking pulse from clip 1, maintaining identical tempo, instrumentation, and tense narrative momentum. Synchronized crisp SFX on physical actions. Voice-first mix. SFX: the footsteps stop, two overlapping heartbeats, the faster one rising.
+
+Final frame: the eyeless acid-green head rising into the window frame, two sets of red rings pulsing in the dark room.
+
+Negative constraints: no visible words, letters, numbers, captions, subtitles, clock digits, interface copy, signs with writing, logos or watermarks; no speech bubbles or text boxes; no photorealism, no 3D CGI humans, no realistic skin or detailed realistic eyes; no eyes or faces on the invaders; no extra limbs, duplicated limbs or broken joints; no changes to character designs, hoodie color or proportions between shots; no gore or blood; no unintended extra characters; no abstract liquid or shape morphing.
+```
+
+## Putting it together in CapCut
+
+1. Import clips 1–6 in order and trim only dead air, so the episode stays at about 60s.
+2. Add the header text for each clip (top-left) and Auto captions styled as described in `series-plan.md`.
+3. Caption: The sky opened at 11:52 PM. They can't see you… so why are the quiet ones vanishing? Part 1 👽 #alieninvasion #horrorstory #animation #storytime
