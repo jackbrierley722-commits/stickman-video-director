@@ -6,12 +6,12 @@
 ## Look (matched to your reference screenshots)
 
 - **Drawing:** a flat 2D cartoon storytime look. Big **white filled round heads** with small black dot eyes and expressive eyebrows and mouths, white rounded limbs with clean dark outlines, and simple layered backgrounds.
-- **Mood:** night scenes in deep navy, slate and charcoal with fog, lit by warm gold windows and lamps. This is close to Style 4 (Cozy Storytelling) in this repo, adapted to your references.
+- **Mood: eerie.** Cold desaturated navy, ash grey and charcoal, thick fog, pale moonlight, long silences, slow creeping camera moves, and a near-silent soundtrack with a low drone and the odd detuned piano note.
 - **Cast:**
-  - **You:** bright orange hoodie, no hair. The orange stands out on navy like the character in your reference.
-  - **Little brother:** messy brown hair tuft, light-blue pyjamas, teal backpack.
-  - **The aliens:** tall, three-legged, acid-green and glowing, with smooth **eyeless** heads.
-- **Colour roles:** acid green = aliens · vivid red = sound and rhythm rings (what they hunt) · warm gold = hope.
+  - **Only two characters.** **The man (you):** short messy black hair, dark grey hoodie.
+  - **The little girl:** your little sister, about 5, with pigtails, a bright yellow raincoat and a stuffed bunny. She has no idea what's happening and thinks it's all a game.
+  - **The aliens:** unnaturally tall, thin, **pitch-black** and inhuman, with no faces, joints that bend the wrong way and slow jerky movement.
+- **Colour roles:** everything cold and grey · vivid red = sound and rhythm rings (what they hunt) · the girl's yellow raincoat is the only bright colour.
 - **On-screen text is added in CapCut, not in Flow.** AI video generators garble text, so the prompts ask for none. You add the header and captions afterwards (see below).
 
 ## On-screen text style (CapCut)
@@ -25,7 +25,7 @@
    - use CapCut's **Auto captions**
    - style: all caps, very heavy rounded font (e.g. Montserrat Black), white with a thick black outline and soft shadow
    - 1–3 words at a time
-   - make the key word **orange** (the words to highlight are listed per clip)
+   - make the key word **red** (the words to highlight are listed per clip)
 3. **The music and narrator** come from Flow. If the voice changes between clips, see the note at the bottom.
 
 ## Story
@@ -34,80 +34,80 @@ The aliens are **blind, and they don't hunt noise, they hunt rhythm**: heartbeat
 
 | Ep | Title | Hook | Ends on | VO words |
 |---|---|---|---|---|
-| 1 | **They Can't See** | The sky opens at 11:52 PM. The thing that steps out has no eyes. | An eyeless head turns toward your window, and your brother's heartbeat speeds up. | 131 |
-| 2 | **They Hunt Rhythm** | It can't see you, but it can hear two heartbeats. | Your brother's backpack starts playing a music box, perfectly in time. | 117 |
-| 3 | **Never the Same Twice** | The music box that should get you killed becomes bait. | The generator dies: the only way left is a drum someone has to play by hand. | 129 |
-| 4 | **Drum or Run?** | The drum works, but whoever plays it can't escape. | A or B? Comment what you'd do. | 125 |
+| 1 | **They Can't See** | At 11:52 PM the power dies and something tall walks past your window. It has no eyes. | The creature turns toward your window, and your sister starts to hum. | 130 |
+| 2 | **They Hunt Rhythm** | It can't see you, but it can hear her humming. | Her raincoat pocket starts playing a music box, perfectly in time. | 120 |
+| 3 | **Never the Same Twice** | The music box that should get her killed becomes bait. | The generator dies. The only way left is a drum someone has to play by hand. | 132 |
+| 4 | **Drum or Run?** | The drum works, but whoever plays it can't escape. | A or B? Comment what you'd do. | 120 |
 
-**Narrator:** one adult female for the whole series: hushed low alto, General American, steady pace. Ask if you'd prefer a deep male voice like most storytime channels; it's a one-line change.
+**Narrator:** one adult male voice for the whole series: a deep, soft **whisper**, General American, slow and steady, like someone afraid of being heard.
 
 ---
 
 ## Episode 1 · They Can't See
 
-| Clip | Header (top-left) | Narration | What you see | Orange caption words |
+| Clip | Header (top-left) | Narration | What you see | Red caption words |
 |---|---|---|---|---|
-| 1 · Golden Hook | `PART 1 · 11:52 PM · YOUR APARTMENT` | "At 11:52 PM, the sky opens. Something steps onto your street. It has no eyes. That's the worst part." | In the dim living room lit by a pale blue TV glow, the protagonist on the couch looks up as acid-green light floods through the window → Cut to the street below: a tall acid-green invader unfolds its three long legs and steps down between parked cars, fog rolling around its feet. → Close-up on its smooth eyeless oval head tilting slowly to listen | SKY · NO EYES |
-| 2 · Hook development | `11:58 PM · THE STREET` | "Down the street, a man waves his flashlight right in its face. It doesn't even flinch." | On the street, a survivor in a grey cap backs away from the invader, frantically waving a flashlight beam across its eyeless head. → The invader walks straight past him without reacting | CAN'T SEE · SAFE |
-| 3 · Hook development | `11:58 PM · THE STREET` | "It can't see. So you think you're safe. The emergency radio says one thing: stay silent, stay still." | Back at the window, the protagonist lets out a breath and smiles in relief, turning to look at the sleeping little brother. → A small battery radio on a shelf pulses with white sound waves → The protagonist turns the deadbolt, switches off the warm lamp, and the room drops into deep navy darkness. | CAN'T SEE · SAFE |
-| 4 · Disrupting Assumptions | `12:04 AM · YOUR APARTMENT` | "So you lock the door, kill the lights, and pull your brother under the table." | The protagonist pulls the little brother under the kitchen table and raises one finger to its lips | SILENT · STILL |
-| 5 · Unveiling the Secret | `12:11 AM · ACROSS THE STREET` | "But across the street, the loud family with the barking dog is still alive." | Through the window, a house across the street glows warm gold | STILL ALIVE · ONE BY ONE |
-| 6 · Unveiling the Secret | `12:11 AM · ACROSS THE STREET` | "And the silent apartments around you go dark, one by one." | Two acid-green invaders walk right past that loud house without turning their heads. → The camera tilts down your own apartment building from outside: its quiet gold windows go dark floor by floor, toward yours. | STILL ALIVE · ONE BY ONE |
-| 7 · Ultimate Truth | `12:19 AM · UNDER THE TABLE` | "Then the quiet gets so deep you hear it. Thump. Thump. Your own heartbeat, pulsing straight through the wall." | Under the table, dust drifts in a thin ray of moonlight → Close-up on the protagonist's chest: a vivid red heartbeat ring blooms outward, then another. → The red rings expand evenly through the wall and out into the night street, perfectly regular. | HEARTBEAT |
-| 8 · Cliffhanger | `12:20 AM · YOUR WINDOW` | "Outside, something tall stops walking. Its eyeless head turns toward your window. And your brother's heart starts beating faster." | Down in the street, an acid-green invader freezes mid-stride as the red rings wash over it. → Its eyeless head tilts and turns slowly up toward your window → Inside, a second smaller red ring starts pulsing from the brother's chest, faster than the first | FASTER |
+| 1 · Golden Hook | `PART 1 · 11:52 PM · YOUR APARTMENT` | "At 11:52 PM, the power dies. Something tall walks past your window. It has no eyes. That's the worst part." | The TV flickers and cuts to black → Outside the fogged window, an impossibly tall, thin, pitch-black creature glides past, its head level with the second floor, long limbs bending at wrong angles. → Slow push-in on its smooth, featureless, eyeless head tilting in the pale moonlight | NO EYES |
+| 2 · Hook development | `11:58 PM · YOUR WINDOW` | "You wave your hand right in front of the glass. It doesn't react." | The man creeps to the window and slowly waves one hand inches from the glass, right in front of the creature's blank head. → The creature does not react | CAN'T SEE |
+| 3 · Hook development | `11:58 PM · YOUR WINDOW` | "It can't see. So you think you're safe. Your little sister wakes up and thinks it's a game." | The man lets out a shaky breath and looks back at the little girl, still asleep on the couch. → The little girl sits up rubbing her eyes, then smiles curiously, hugging her bunny. | CAN'T SEE |
+| 4 · Disrupting Assumptions | `12:04 AM · YOUR APARTMENT` | "So you whisper the rules: stay silent, stay still. And you hide together under the table." | The man kneels and presses a finger to his lips → They crawl under the kitchen table | A GAME |
+| 5 · Unveiling the Secret | `12:11 AM · ACROSS THE STREET` | "But across the street, a dog has barked all night, and that house is still lit." | Through the window, a house across the foggy street still glows weak gold | STILL LIT · ONE BY ONE |
+| 6 · Unveiling the Secret | `12:11 AM · ACROSS THE STREET` | "The silent houses around you go dark, one by one. Then the quiet gets so deep you hear it." | Two tall black creatures walk straight past that noisy house without turning their heads. → Down the block, the last quiet lit windows go dark one by one, creeping toward yours. → Under the table, dust hangs in a thin ray of moonlight | STILL LIT · ONE BY ONE |
+| 7 · Ultimate Truth | `12:19 AM · UNDER THE TABLE` | "Thump. Thump. Your own heartbeat, pulsing straight through the wall. Outside, something stops walking." | Close-up on his chest: a vivid red heartbeat ring blooms outward, then another. → The red rings spread evenly through the wall and out into the fog, perfectly regular. → In the street, a tall black creature freezes mid-step as the red rings wash over it. | HEARTBEAT |
+| 8 · Cliffhanger | `12:20 AM · YOUR WINDOW` | "Its head turns toward your window. And beside you, your sister starts to hum." | Its head turns slowly up toward your window with small unnatural jerks. → Under the table, the little girl hums softly and swings her feet, small even red rings rising from her | HUM |
 
-**TikTok caption:** The sky opened at 11:52 PM. They can't see you… so why are the quiet ones vanishing? Part 1 👽 #alieninvasion #horrorstory #animation #storytime
+**TikTok caption:** At 11:52 PM the power died. It can't see you… so why are the quiet ones vanishing? Part 1 🖤 #alieninvasion #horrorstory #creepy #animation
 
 ---
 
 ## Episode 2 · They Hunt Rhythm
 
-| Clip | Header (top-left) | Narration | What you see | Orange caption words |
+| Clip | Header (top-left) | Narration | What you see | Red caption words |
 |---|---|---|---|---|
-| 1 · Golden Hook | `PART 2 · 12:20 AM · YOUR APARTMENT` | "It's right outside the window. It can't see you. But it can hear two heartbeats, and it's following them." | The eyeless acid-green head presses against the window glass, fogging it. → Under the table, the protagonist hugs the little brother → As the two shuffle sideways, the creature's head follows the rings in perfect time. | TWO HEARTBEATS |
-| 2 · Disrupting Assumptions | `12:20 AM · YOUR APARTMENT` | "Every instinct says freeze. But the stiller you get, the clearer those heartbeats ring." | The protagonist squeezes its eyes shut and freezes, holding the brother tight. → The red rings sharpen, brighter and more regular as they stay still. | FREEZE |
-| 3 · Disrupting Assumptions | `12:20 AM · YOUR APARTMENT` | "Then long green fingers slide through the wall. Your elbow knocks the shelf. Pots and pans crash everywhere," | Long three-fingered acid-green hands slide through the wall beside the window, reaching into the room. → The protagonist's elbow bumps the shelf → Pots, pans and cutlery bounce across the floor, throwing a storm of scattered, uneven red sound sparks. | FREEZE |
-| 4 · Unveiling the Secret | `12:21 AM · THE KITCHEN` | "and the creature flinches, twisting its head, completely lost. So you keep throwing things," | The green hand recoils → The protagonist hurls the pan across the room | LOST |
-| 5 · Escape | `12:22 AM · THE STAIRWELL` | "grab your brother, and run through the noise. Down the stairs. Out the door." | The protagonist grabs the brother's hand and they sprint out the apartment door, kicking a trash can down the hall. → They clatter down a dim stairwell, banging the railings, and burst out of the building's front door into the fog. | RUN |
-| 6 · Ultimate Truth | `DAY 9 · 3:14 PM · ABANDONED KITCHEN` | "Day nine. You test it. Shattering glass? They ignore it." | Grey daylight in a ruined kitchen: the protagonist places a round wall clock on the table and hides behind the counter with the brother. → Through the broken window, glass shatters down the block | DAY 9 · CLOCK |
-| 7 · Ultimate Truth | `DAY 9 · 3:14 PM · ABANDONED KITCHEN` | "A ticking clock? One crushes it in seconds. They don't hunt noise. They hunt rhythm." | The clock ticks, small even red rings pulsing → The protagonist ties a string of tin cans to its waist and to the brother's | DAY 9 · CLOCK |
-| 8 · Cliffhanger | `DAY 9 · 3:20 PM · THE STREET` | "Then your brother's backpack starts to play. A music box. Perfectly in time." | From the brother's teal backpack, small music-note icons drift up, each with a perfectly even red ring. → Three acid-green invaders down the street stop and turn their eyeless heads toward them at the same moment. | RHYTHM |
+| 1 · Golden Hook | `PART 2 · 12:20 AM · YOUR APARTMENT` | "It's at the window. It can't see you. But it can hear her humming, and it's moving in time with it." | The black featureless head presses against the window glass, fog creeping across it. → Under the table the little girl hums, small even red rings rising from her. → The creature's head sways slowly side to side in perfect time with the rings. | HUMMING |
+| 2 · Disrupting Assumptions | `12:20 AM · UNDER THE TABLE` | "Every instinct says freeze. But the stiller you get, the clearer every sound becomes." | The man gently covers the girl's mouth → His own heartbeat rings sharpen, brighter and more regular in the silence. | FREEZE |
+| 3 · Disrupting Assumptions | `12:20 AM · UNDER THE TABLE` | "Then long black fingers slide under the door. Your elbow knocks the shelf. Pots and pans crash everywhere," | Impossibly long, thin black fingers slide under the front door and spread across the floor. → The man's elbow bumps the shelf → Pots, pans and cutlery bounce across the floor, throwing a storm of scattered, uneven red sound sparks. | FREEZE |
+| 4 · Unveiling the Secret | `12:21 AM · THE KITCHEN` | "and the thing jerks back, twisting its head, completely lost. So you keep throwing things," | The black fingers snap back under the door → The man hurls the pan across the room | LOST |
+| 5 · Escape | `12:22 AM · THE STAIRWELL` | "scoop her up, and run through the noise. Down the stairs. Out the door." | He scoops the little girl onto his hip → They clatter down a dark stairwell, banging the railings, and slip out into the fog. | RUN |
+| 6 · Ultimate Truth | `DAY 9 · 3:14 PM · ABANDONED KITCHEN` | "Day nine. You test it. Shattering glass? They ignore it." | Dim grey daylight in a ruined kitchen: the man sets a round wall clock on the table and hides behind the counter with the girl. → Through the broken window, glass shatters down the block | DAY 9 · CLOCK |
+| 7 · Ultimate Truth | `DAY 9 · 3:14 PM · ABANDONED KITCHEN` | "A ticking clock? One crushes it in seconds. They don't hunt noise. They hunt rhythm." | The clock ticks, small even red rings pulsing → The man ties strings of tin cans to his belt and hers | DAY 9 · CLOCK |
+| 8 · Cliffhanger | `DAY 9 · 3:20 PM · THE STREET` | "Then her raincoat pocket starts to play. A music box. Perfectly in time." | From the girl's raincoat pocket, small music-note shapes drift up, each with a perfectly even red ring → Down the empty street, three tall black creatures stop and turn their heads toward her at the same moment. | RHYTHM |
 
-**TikTok caption:** They don't hunt noise. They hunt RHYTHM. Part 2 👽 #alieninvasion #horrorstory #animation #storytime
+**TikTok caption:** They don't hunt noise. They hunt RHYTHM. Part 2 🖤 #alieninvasion #horrorstory #creepy #animation
 
 ---
 
 ## Episode 3 · Never the Same Twice
 
-| Clip | Header (top-left) | Narration | What you see | Orange caption words |
+| Clip | Header (top-left) | Narration | What you see | Red caption words |
 |---|---|---|---|---|
-| 1 · Golden Hook | `PART 3 · DAY 9 · 3:21 PM · THE STREET` | "Three of them turn toward the music. You rip open the backpack" | The three invaders take one long step toward the two characters. → The protagonist yanks open the brother's teal backpack and pulls out a small wooden music box pulsing with even red rings. | THROW |
-| 2 · Golden Hook | `PART 3 · DAY 9 · 3:21 PM · THE STREET` | "and throw the music box as far as you can. They follow the song into a flooded subway entrance," | The protagonist throws it in a high arc down the street → The three invaders turn away from the characters and stride toward the music. | THROW |
-| 3 · Disrupting Assumptions | `DAY 9 · 3:22 PM · SUBWAY ENTRANCE` | "and they don't come back up. Rhythm isn't just the danger. It's bait." | The music box tumbles down the steps into dark water → The protagonist and the brother peek out from behind a car and look at each other, stunned. | BAIT |
-| 4 · Unveiling the Secret | `DAY 14 · 6:30 PM · DOWNTOWN` | "From then on, you move off-beat. Stumble. Pause. Skip. Rattle the cans on your belt." | Dusk in a wrecked downtown street: the two characters walk with deliberately uneven steps, stumble, pause, skip. → Their tin cans rattle and throw random red sparks | OFF-BEAT |
-| 5 · Unveiling the Secret | `DAY 14 · 6:30 PM · DOWNTOWN` | "Never the same twice. Day twenty. A radio crackles. Two hundred survivors are hiding at the old radio tower." | Invaders stride right beside them without turning → Night on a hillside: the protagonist holds a crackling handheld radio with white sound waves. → The camera cranes up a tall steel radio tower topped with a warm gold beacon | OFF-BEAT |
-| 6 · Insider Secret | `DAY 20 · 9:40 PM · RADIO TOWER` | "You climb toward the gold light. They show you the plan. Speakers on the tower, one giant beat," | The two characters climb the ladder up the vertical frame toward the gold light. → Survivors in simple hats and hairstyles crowd round a map → Shown as the plan: huge speakers on the tower blast giant red rings across the city. | 200 SURVIVORS |
-| 7 · Ultimate Truth | `DAY 20 · 10:05 PM · TOWER PLATFORM` | "and every alien in the city marches into the flooded quarry. Then the generator coughs, sparks, and dies." | A sea of acid-green invaders marches into the moonlit flooded quarry and sinks. → The generator sparks and dies | THE PLAN |
-| 8 · Cliffhanger | `DAY 20 · 10:12 PM · TOWER PLATFORM` | "No power. No speakers. Just an old marching drum, and someone has to play it." | Survivors bang uselessly on the dead speakers. → The protagonist pulls a tarp off a huge old marching drum in the corner | SOMEONE HAS TO PLAY |
+| 1 · Golden Hook | `PART 3 · DAY 9 · 3:21 PM · THE STREET` | "Three of them turn toward the music. You grab it from her pocket" | The three creatures take one long, jerky step toward them. → The man pulls a small wooden music box from the girl's pocket | THROW |
+| 2 · Golden Hook | `PART 3 · DAY 9 · 3:21 PM · THE STREET` | "and throw it as far as you can. They follow the song into a flooded subway entrance," | He throws it in a high arc down the street → The three creatures turn away and stalk toward the music. | THROW |
+| 3 · Disrupting Assumptions | `DAY 9 · 3:22 PM · SUBWAY ENTRANCE` | "and they don't come back up. Rhythm isn't just the danger. It's bait. From then on, you move off-beat." | The music box tumbles down the steps into black water → The man and the girl peek out from behind a car → Dusk in a foggy, empty downtown street: the man walks with deliberately uneven steps, stumble, pause, skip. | BAIT |
+| 4 · Unveiling the Secret | `DAY 14 · 6:30 PM · DOWNTOWN` | "Stumble. Pause. Skip. Rattle the cans on your belt. She thinks it's the funniest game in the world." | Their cans rattle with random red sparks → The creatures stalk past without turning | OFF-BEAT |
+| 5 · Insider Secret | `DAY 20 · 9:40 PM · RADIO TOWER` | "Day twenty. A radio crackles. Two hundred people are hiding in the tunnels below the tower." | Night on a fog-covered hill: the man holds a crackling handheld radio giving off faint white waves. → The camera cranes up a tall rusted radio tower topped with a weak, flickering gold beacon, a dark tunnel entrance at its base. | 200 PEOPLE |
+| 6 · Insider Secret | `DAY 20 · 9:40 PM · RADIO TOWER` | "You climb toward its light. The voice explains the plan. Speakers on the tower, one giant beat," | The man climbs the ladder with the girl on his back, up the vertical frame toward the light. → On the empty platform the radio crackles beside a row of big old speakers. → Shown as the plan: the speakers blast huge red rings across the foggy city. | 200 PEOPLE |
+| 7 · Ultimate Truth | `DAY 20 · 10:05 PM · TOWER PLATFORM` | "and every one of them walks into the flooded quarry. Then the generator coughs, sparks, and dies." | Hundreds of tall black creatures walk into the moonlit flooded quarry and sink. → The generator sparks and dies | THE PLAN |
+| 8 · Cliffhanger | `DAY 20 · 10:12 PM · TOWER PLATFORM` | "No power. No speakers. Just an old marching drum, and someone has to play it." | The man thumps the dead speakers uselessly. → He pulls a tarp off a huge old marching drum in the corner | SOMEONE HAS TO PLAY |
 
-**TikTok caption:** Rhythm isn't just the danger. It's bait. Part 3 👽 #alieninvasion #horrorstory #animation #storytime
+**TikTok caption:** Rhythm isn't just the danger. It's bait. Part 3 🖤 #alieninvasion #horrorstory #creepy #animation
 
 ---
 
 ## Episode 4 · Drum or Run?
 
-| Clip | Header (top-left) | Narration | What you see | Orange caption words |
+| Clip | Header (top-left) | Narration | What you see | Red caption words |
 |---|---|---|---|---|
-| 1 · Golden Hook | `PART 4 · DAY 20 · 11:47 PM · TOWER PLATFORM` | "The drum works. But whoever beats it has to stay up here, steady, until the swarm arrives." | The protagonist strikes the drum once → Far away, hundreds of acid-green glows turn toward the tower at once. | STAY · NO TIME |
-| 2 · Golden Hook | `PART 4 · DAY 20 · 11:47 PM · TOWER PLATFORM` | "There's no time to run after. Nobody steps forward." | A survivor traces a finger from the swarm to the tower to the quarry, then shakes their head slowly. → The survivors shuffle backwards, leaving the drum alone in a ring of empty space. | STAY · NO TIME |
-| 3 · Disrupting Assumptions | `11:49 PM · TOWER PLATFORM` | "Every head turns to you, the one who learned the rule. Then a small hand grabs yours." | The camera circles as every survivor's head turns toward the protagonist in the orange hoodie. → The little brother's small hand reaches up and grabs the protagonist's hand | EVERY HEAD · YOU |
-| 4 · The Stakes | `11:52 PM · THE TUNNELS` | "Below you, two hundred people are hiding in the tunnels. Without the drum, the swarm finds them before sunrise." | The camera tilts down the tower to a tunnel entrance in the hillside. → A long line of survivors, families and kids, files quietly into the dark tunnel holding hands. → On the horizon, the acid-green swarm pours over the hills toward the tunnel. | 200 PEOPLE |
-| 5 · Option A | `OPTION A · DRUM` | "Option A: you stay and drum. The swarm sinks in the quarry. Everyone lives," | Shown as option A, with a cool tint: the protagonist beats the drum, giant red rings flowing across the city. → The swarm marches into the flooded quarry and sinks | A: DRUM |
-| 6 · Option A | `OPTION A · DRUM` | "except you. Your brother grows up alone. Option B: you take his hand and run off-beat." | The little brother, now standing alone at the bottom of the tower, looks up at the empty platform. → Shown as option B, with a warm tint: the protagonist and the brother stumble-run down the tower and into the city, cans rattling. | A: DRUM |
-| 7 · Option B | `OPTION B · RUN` | "You both live. But the tower goes silent, and the tunnels go dark. The first beat is waiting." | They crest a hill at dawn, alive, holding hands. → Behind them the tower stands dark and the green swarm pours into the tunnel entrance. → Back on the tower in the present night: the protagonist stands at the drum with the drumstick raised high. | B: RUN |
-| 8 · The Decision | `11:59 PM · TOWER PLATFORM` | "His hand is shaking. A or B? Tell me in the comments what you'd do." | The brother tugs the protagonist's other hand → Hold on the raised drumstick as the first faint red ring begins to form | A OR B? |
+| 1 · Golden Hook | `PART 4 · DAY 20 · 11:47 PM · TOWER PLATFORM` | "The drum works. But whoever beats it stays up here, steady, until they arrive." | The man strikes the drum once → Far away, countless tall black silhouettes stop and turn toward the tower at once. | STAY |
+| 2 · Golden Hook | `PART 4 · DAY 20 · 11:47 PM · TOWER PLATFORM` | "There's no time to run after. There's no one else up here." | He looks down the ladder, then at the creatures, and slowly lowers the drumstick. → Wide shot: the empty platform, only the man, the girl and the drum in the fog. | STAY |
+| 3 · Disrupting Assumptions | `11:49 PM · TOWER PLATFORM` | "Just you, and a little girl who thinks this is a game. She grabs your hand." | The girl bounces on her toes, smiling, pointing at the drum as if she wants a turn. → Her small hand grabs his | A GAME |
+| 4 · The Stakes | `11:52 PM · THE TUNNELS` | "Below you, two hundred people are hiding in the dark. Without the drum, they're found before sunrise." | The camera tilts down the tower to the tunnel entrance, faint candlelight flickering deep inside. → The candlelight dims, one tiny flame at a time. → On the horizon, a wall of tall black creatures moves through the fog toward the tunnel. | 200 PEOPLE |
+| 5 · Option A | `OPTION A · DRUM` | "Option A: you stay and drum. They walk into the quarry. Two hundred people live," | Shown as option A, in cold grey tones: the man beats the drum, huge red rings flowing over the city. → The creatures walk into the flooded quarry and sink | A: DRUM |
+| 6 · Option A | `OPTION A · DRUM` | "but she grows up without you. Option B: you take her hand and run off-beat." | The little girl stands alone at the foot of the tower in her yellow raincoat, holding her bunny, looking up. → Shown as option B, in faded warm tones: the man and the girl stumble-run down the hill, cans rattling. | A: DRUM |
+| 7 · Option B | `OPTION B · RUN` | "You both live. But the tower goes silent, and the tunnels go dark." | They crest a far hill at dawn, alive, holding hands. → Behind them the tower stands silent and the tunnel entrance is swallowed by tall black shapes. | B: RUN |
+| 8 · The Decision | `11:59 PM · TOWER PLATFORM` | "The first beat is waiting. She's smiling. She doesn't understand. A or B? Tell me what you'd do." | Back on the tower in the present night: the man stands at the drum with the drumstick raised high. → The girl tugs his other hand, smiling up at him → Hold on the raised drumstick as the first faint red ring begins to form | A OR B? |
 
-**TikTok caption:** Drum or run? There's no right answer. Final part 👽 Comment A or B #alieninvasion #wouldyourather #horrorstory #animation
+**TikTok caption:** Drum or run? She doesn't understand. You do. Final part 🖤 Comment A or B #alieninvasion #wouldyourather #horrorstory #creepy
 
 ---
 
