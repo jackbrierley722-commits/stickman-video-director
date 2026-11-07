@@ -110,6 +110,8 @@ function buildFlat() {
   for (const [dx, dz] of [[-0.6, -0.4], [0.6, -0.4], [-0.6, 0.4], [0.6, 0.4]]) B(0.06, 0.74, 0.06, '#4a2c18', -1.5 + dx, 0.37, 1.2 + dz, kit);
   for (const [cx, cz, r] of [[-1.5, 0.4, 0], [-1.5, 2.1, Math.PI]]) { const ch = new T3.Group(); ch.position.set(cx, 0, cz); ch.rotation.y = r; kit.add(ch); B(0.45, 0.06, 0.45, '#5a3a22', 0, 0.48, 0, ch); B(0.45, 0.6, 0.06, '#5a3a22', 0, 0.8, -0.22, ch); for (const [dx, dz] of [[-0.2, -0.2], [0.2, -0.2], [-0.2, 0.2], [0.2, 0.2]]) B(0.05, 0.48, 0.05, '#3a2414', dx, 0.24, dz, ch); }
   B(0.12, 0.14, 0.12, '#d8d4cc', -1.2, 0.89, 1.0, kit);
+  B(0.02, 0.16, 0.12, '#e8e4dc', 2.95, 0.35, 0.0, kit); const plug = B(0.08, 0.08, 0.06, '#e8e8e0', 2.9, 0.35, 0.0, kit); const cable = B(0.03, 0.03, 0.6, '#d8d8d0', 2.9, 0.33, -0.3, kit);
+  const led = B(0.01, 0.05, 0.05, new T3.MeshBasicMaterial({ color: '#4aff7a' }), 2.14, 1.85, -0.65, kit); const fridgeGlow = new T3.PointLight('#a8d8ff', 0.6, 2.5, 1.5); fridgeGlow.position.set(1.9, 1.2, -0.9); kit.add(fridgeGlow);
   // front door on left wall + bookcase beside it
   const door = new T3.Group(); door.position.set(-2.96, 0, -0.9); kit.add(door); B(0.08, 2.1, 1.0, '#4a2c18', 0, 1.05, 0, door); const knob = B(0.08, 0.08, 0.08, '#c8b070', 0.08, 1.05, 0.38, door); const lock = B(0.05, 0.12, 0.05, '#c8b070', 0.08, 1.3, 0.38, door);
   B(0.1, 0.12, 1.15, '#2a1a10', -2.94, 2.14, -0.9, kit);
@@ -122,7 +124,7 @@ function buildFlat() {
   const pots = Array.from({ length: 4 }, (_, i) => { const p = new T3.Mesh(new T3.CylinderGeometry(0.08, 0.06, 0.12, 6), M('#f0e8d0')); p.position.set(-1.1 + (i % 2) * 0.18, 0.88, 1.35 + Math.floor(i / 2) * 0.18); kit.add(p); return p; });
   const jar = new T3.Mesh(new T3.CylinderGeometry(0.07, 0.07, 0.16, 7), M('#4a2a18')); jar.position.set(-1.25, 0.9, 0.85); kit.add(jar);
   const pad = B(0.26, 0.01, 0.34, new T3.MeshBasicMaterial({ map: TX.paper() }), -1.75, 0.83, 1.05, kit); pad.rotation.y = 0.2;
-  ROOMS.kit = { g: kit, light: kl, door, lock, bcase, jugs, stream, tins, pots, jar, pad, cabL: cabDoorL, cabR: cabDoorR, x: 0 };
+  ROOMS.kit = { plug, cable, led, fridgeGlow, g: kit, light: kl, door, lock, bcase, jugs, stream, tins, pots, jar, pad, cabL: cabDoorL, cabR: cabDoorR, x: 0 };
   // BATHROOM at x=40
   const bath = room(40, TT.checker([6, 6]), TT.plaster([2, 1]));
   const bal = pendant(bath, 0, -0.3);
@@ -178,7 +180,9 @@ const DIR = [
     k.pscr.material.color.set(lt > ph + 0.6 ? '#141820' : '#4ad0ff'); you.position.set(BX - 1.3, 0, 1.2); you.rotation.y = -Math.PI / 2 - 0.3; idle(you, T);
     const sk = prog(lt, sh + 0.1, sh + 1.0); shoeL.visible = shoeR.visible = lt > sh; shoeL.position.set(BX - 1.35 - sk * 0.7, 0.06 + S(sk * Math.PI) * 0.3, 1.25 + sk * 0.4); shoeR.position.set(BX - 1.2 + sk * 0.6, 0.06 + S(sk * Math.PI) * 0.25, 1.15 + sk * 0.5); shoeL.rotation.y = sk * 3; shoeR.rotation.y = -sk * 2.4;
     if (lt < sh - 0.2) { you.userData.armL.rotation.x = -0.9; camL([BX - 1.2, 1.3, 2.6], [BX - 1.8, 1.1, 2.0], prog(lt, 0, sh), [BX - 2.2, 0.7, 1.0], [BX - 2.2, 0.68, 1.0]); }
-    else if (lt < nw - 0.3) camL([BX - 0.4, 0.8, 2.6], [BX - 0.6, 0.6, 2.4], prog(lt, sh, nw), [BX - 1.3, 0.2, 1.4], [BX - 1.3, 0.2, 1.6]);
+    else if (lt < wt(2, 'you') - 0.15) camL([BX - 0.4, 0.8, 2.6], [BX - 0.6, 0.6, 2.4], prog(lt, sh, wt(2, 'you')), [BX - 1.3, 0.2, 1.4], [BX - 1.3, 0.2, 1.6]);
+    else if (lt < nw - 0.3) { const kk = ROOMS.kit; const up = wt(2, 'unplug'); const pk = ease(prog(lt, up + 0.1, up + 0.6)); kk.plug.position.set(lerp(2.9, 2.6, pk), lerp(0.35, 0.06, pk), 0); kk.cable.position.y = lerp(0.33, 0.04, pk); const on = lt < up + 0.5; kk.led.material.color.set(on ? '#4aff7a' : '#102018'); kk.fridgeGlow.intensity = on ? 0.6 + 0.1 * S(T * 40) : 0;
+      you.position.set(KX + 2.35, 0, 0.75); you.rotation.y = Math.PI / 2 + 0.5; crouch(you, 0.7); you.userData.armL.rotation.x = -1.2 - pk * 0.3; camL([KX + 0.7, 1.15, -0.2], [KX + 1.1, 0.95, -0.1], prog(lt, wt(2, 'you') - 0.15, nw), [KX + 2.9, 0.75, -0.3], [KX + 2.9, 0.6, -0.15]); }
     else { you.rotation.y = Math.PI / 2 + 0.6; you.position.set(BX - 1.3, 0, 1.2); you.userData.armR.rotation.x = -2.55; you.userData.armR.rotation.z = 0.35; camL([BX + 0.2, 1.95, 2.2], [BX - 0.1, 1.95, 1.9], prog(lt, nw - 0.3, D), [BX - 1.3, 1.85, 1.2], [BX - 1.3, 1.9, 1.2]); } },
   // 3: water — tap thins, jugs fill, bath fills
   (lt, T, D) => { const k = ROOMS.kit; const taps = wt(3, 'taps'), fill = wt(3, 'fill'), bathT = wt(3, 'bath'), four = wt(3, 'fourteen');
@@ -215,14 +219,14 @@ const DIR = [
 
 // ---------- HUD: survival log, banners, diagrams ----------
 function bigText(ctx, txt, y, size, col = '#ffd23a', a = 1, font = 'Russo') { if (a <= 0) return; ctx.save(); ctx.globalAlpha = a; ctx.font = `${size}px ${font}`; ctx.textAlign = 'center'; ctx.textBaseline = 'middle'; ctx.lineJoin = 'round'; ctx.lineWidth = size * 0.22; ctx.strokeStyle = '#05081a'; ctx.strokeText(txt, 360, y); ctx.fillStyle = col; ctx.fillText(txt, 360, y); ctx.restore(); }
-const EVT = { locked: AT(1, 'lock') + 0.5, blocked: AT(1, 'push') + 1.8, phone: AT(2, 'phone') + 0.6, shoes: AT(2, 'shoes') + 0.4, silent: AT(2, 'not'), wS: AT(3, 'fill'), wE: AT(3, 'bath') + 0.3, bath: AT(3, 'fourteen'), tins: AT(4, 'nine'), pots: AT(4, 'four'), jar: AT(4, 'jar'), power: AT(5, 'out'), scratch: AT(5, 'scratching') };
+const EVT = { locked: AT(1, 'lock') + 0.5, blocked: AT(1, 'push') + 1.8, phone: AT(2, 'phone') + 0.6, shoes: AT(2, 'shoes') + 0.4, fridge: AT(2, 'unplug') + 0.5, silent: AT(2, 'not'), wS: AT(3, 'fill'), wE: AT(3, 'bath') + 0.3, bath: AT(3, 'fourteen'), tins: AT(4, 'nine'), pots: AT(4, 'four'), jar: AT(4, 'jar'), power: AT(5, 'out'), scratch: AT(5, 'scratching') };
 function tracker(ctx, T) {
   if (T < CL[1].start + 0.2) return; const a = prog(T, CL[1].start + 0.2, CL[1].start + 0.6);
   const water = Math.round(clamp((T - EVT.wS) / (EVT.wE - EVT.wS)) * 14); const food = (T > EVT.tins ? 9 : 0) + (T > EVT.pots ? 4 : 0) + (T > EVT.jar ? 1 : 0);
-  const noise = T > EVT.silent ? 'SILENT' : T > EVT.shoes ? 'LOW' : T > EVT.phone ? 'MEDIUM' : 'LOUD';
+  const noise = T > EVT.silent ? 'SILENT' : T > EVT.fridge ? 'LOW' : T > EVT.phone ? 'MEDIUM' : 'LOUD';
   const rows = [['DAY', '1', '#fff', []], ['FLOOR', '28', '#fff', []],
     ['DOOR', T > EVT.scratch ? '!!' : T > EVT.blocked ? 'BLOCKED' : T > EVT.locked ? 'LOCKED' : 'OPEN', T > EVT.scratch ? '#ff5a3a' : T > EVT.locked ? '#7dffb0' : '#ffd23a', [EVT.locked, EVT.blocked, EVT.scratch]],
-    ['NOISE', noise, noise === 'SILENT' ? '#7dffb0' : noise === 'LOUD' ? '#ff5a3a' : '#ffd23a', [EVT.phone, EVT.shoes, EVT.silent]],
+    ['NOISE', noise, noise === 'SILENT' ? '#7dffb0' : noise === 'LOUD' ? '#ff5a3a' : '#ffd23a', [EVT.phone, EVT.shoes, EVT.fridge, EVT.silent]],
     ['WATER', `${water}L`, water >= 14 ? '#7dffb0' : '#7ad0ff', [EVT.wE]], ['BATH', T > EVT.bath ? 'FULL' : 'EMPTY', T > EVT.bath ? '#7dffb0' : '#9ab0d0', [EVT.bath]],
     ['FOOD', `${food}`, food ? '#7dffb0' : '#ff8a6a', [EVT.tins, EVT.pots, EVT.jar]], ['POWER', T > EVT.power ? 'OFF' : 'ON', T > EVT.power ? '#ff5a3a' : '#7dffb0', [EVT.power]]];
   ctx.save(); ctx.globalAlpha = a; ctx.translate(14, 60); ctx.scale(1.2, 1.2);
@@ -258,7 +262,7 @@ const DIAG = [
       if (k >= 1) txt(ctx, 'BLOCKED', ox + 150, oy + 250, 22, '#7dffb0', 'center'); ctx.restore(); } },
   // noise meter (right side)
   { a: () => AT(2, 'make'), b: () => CL[3].start, draw: (ctx, T, a, lt) => { const x = 560, y = 440, w = 150, h = 470; card(ctx, 'NOISE', x, y, w, h, a); ctx.save(); ctx.globalAlpha = a;
-      const lvl = T > EVT.silent ? 0 : T > EVT.shoes ? 0.25 : T > EVT.phone ? 0.55 : 0.9; const seg = 10; for (let i = 0; i < seg; i++) { const on = i < Math.round(lvl * seg + (lvl > 0 ? S(T * 20) * 0.6 : 0)); ctx.fillStyle = on ? (i > 6 ? '#ff4a3a' : i > 3 ? '#ffd23a' : '#7dffb0') : '#1a2440'; ctx.fillRect(x + 30, y + h - 40 - i * 36, 90, 28); }
+      const lvl = T > EVT.silent ? 0 : T > EVT.fridge ? 0.15 : T > EVT.shoes ? 0.4 : T > EVT.phone ? 0.65 : 0.9; const seg = 10; for (let i = 0; i < seg; i++) { const on = i < Math.round(lvl * seg + (lvl > 0 ? S(T * 20) * 0.6 : 0)); ctx.fillStyle = on ? (i > 6 ? '#ff4a3a' : i > 3 ? '#ffd23a' : '#7dffb0') : '#1a2440'; ctx.fillRect(x + 30, y + h - 40 - i * 36, 90, 28); }
             ctx.restore(); } },
   // water chart
   { a: () => AT(3, 'fourteen') - 0.3, b: () => CL[4].start, draw: (ctx, T, a, lt) => { const x = 60, y = 430, w = 600, h = 470; card(ctx, 'WATER PLAN', x, y, w, h, a); ctx.save(); ctx.globalAlpha = a;
@@ -282,7 +286,7 @@ const DIAG = [
 function merged(ws) { const o = []; for (let i = 0; i < ws.length; i++) { const w = ws[i], n = ws[i + 1]; if (/^twenty$/i.test(w.w) && n && /^eighth$/i.test(n.w)) { o.push({ w: '28th', a: w.a, b: n.b }); i++; } else if (/^fourteen$/i.test(w.w)) o.push({ w: '14', a: w.a, b: w.b }); else if (/^nine$/i.test(w.w)) o.push({ w: '9', a: w.a, b: w.b }); else if (/^four$/i.test(w.w)) o.push({ w: '4', a: w.a, b: w.b }); else if (/^(one|two)$/i.test(w.w) && ws[i - 1] && /^rule$/i.test(ws[i - 1].w)) o.push({ w: w.w.toLowerCase() === 'one' ? '1.' : '2.', a: w.a, b: w.b }); else o.push(w); } return o; }
 const CAPS = [];
 for (const c0 of CL) { const ws = merged(c0.words); let cur = []; const flush = () => { if (cur.length) CAPS.push({ a: cur[0].a, b: cur[cur.length - 1].b, txt: cur.map(w => w.w).join(' ') }); cur = []; };
-  ws.forEach(w => { if (cur.length && (cur.length >= 4 || w.a - cur[cur.length - 1].b > 0.3)) flush(); cur.push(w); }); flush(); }
+  ws.forEach(w => { if (cur.length && (cur.length >= 4 || w.a - cur[cur.length - 1].b > 0.2 || /^(No|Not|You|Phone|Shoes|Make|Stay|Lock|Everyone|That's|Next|On|So|14|Then|Search|9|Write|Everything|And|Option|Comment|That|The|If)$/.test(w.w) && cur.length > 1)) flush(); cur.push(w); }); flush(); }
 CAPS.forEach((c, i) => { const nx = CAPS[i + 1]; c.b = nx ? Math.min(nx.a, c.b + 0.35) : c.b + 0.8; c.txt = c.txt.replace(/[:\-]/g, '.'); });
 function captionBox(ctx, t) { ctx.save(); ctx.font = '50px Russo'; ctx.textAlign = 'center'; ctx.textBaseline = 'middle'; const words = t.split(' '); const lines = []; let cur = ''; for (const w of words) { const x = cur ? cur + ' ' + w : w; if (ctx.measureText(x).width > 600 && cur) { lines.push(cur); cur = w; } else cur = x; } lines.push(cur);
   const y0 = 1080 - (lines.length - 1) * 31; lines.forEach((l, i) => { ctx.lineJoin = 'round'; ctx.lineWidth = 11; ctx.strokeStyle = '#05081a'; ctx.strokeText(l, 360, y0 + i * 62); ctx.fillStyle = '#fff'; ctx.fillText(l, 360, y0 + i * 62); }); ctx.restore(); }
@@ -312,6 +316,7 @@ window.renderFrame = function (T) {
   { const k = ROOMS.kit; k.bcase.position.set(-2.7, 0, T > EVT.blocked ? -0.9 : 1.2); k.lock.rotation.x = T > EVT.locked ? Math.PI / 2 : 0; k.door.position.z = -0.9;
     k.jugs.forEach(j => { j.visible = T > EVT.wS - 0.5; j.userData.w.scale.y = T > EVT.wE ? 1 : 0.02; j.userData.w.position.y = T > EVT.wE ? 0 : -0.13; }); k.stream.visible = false;
     k.tins.forEach(t => t.visible = T > EVT.tins); k.pots.forEach(p => p.visible = T > EVT.pots); k.jar.visible = T > EVT.jar; const op = T > CL[4].start + 1.4 ? 1 : 0; k.cabL.rotation.y = -op * 1.6; k.cabR.rotation.y = op * 1.6;
+    const fOn = T < EVT.fridge; k.led.material.color.set(fOn ? '#4aff7a' : '#102018'); k.fridgeGlow.intensity = fOn ? 0.6 : 0; k.plug.position.x = fOn ? 2.9 : 2.6; k.plug.position.y = fOn ? 0.35 : 0.06; k.cable.position.y = fOn ? 0.33 : 0.04;
     ROOMS.bath.tubWater.position.y = T > EVT.bath ? 0.62 : 0.2; ROOMS.bed.pscr.material.color.set(T > EVT.phone ? '#141820' : '#4ad0ff'); shoeL.visible = shoeR.visible = T > EVT.shoes;
     if (T > EVT.shoes) { shoeL.position.set(BX - 2.05, 0.06, 1.65); shoeR.position.set(BX - 0.6, 0.06, 1.65); } }
   DIR[ci](lt, T, D);
@@ -324,9 +329,10 @@ window.renderFrame = function (T) {
   if (ci === 0 && T < AT(0, 'everyone') - 0.2) { bigText(octx, 'EMERGENCY ALERT', 210, 54, '#ff5a3a', prog(T, 0.3, 0.6) * (0.75 + 0.25 * S(T * 6))); bigText(octx, '28TH FLOOR', 300, 92, '#ffd23a', prog(T, 0.6, 1.0)); bigText(octx, "DON'T RUN.", 400, 70, '#fff', prog(T, AT(0, 'run') - 0.2, AT(0, 'run') + 0.1)); }
   tracker(octx, T);
   for (const d of DIAG) { const a0 = d.a(), b0 = d.b(); if (T >= a0 && T < b0) { const a = Math.min(prog(T, a0, a0 + 0.3), 1 - prog(T, b0 - 0.25, b0)); d.draw(octx, T, a, lt); } }
-  if (ci === 2 && T > AT(2, 'make')) { const items = [['PHONE', EVT.phone], ['SHOES', EVT.shoes], ['VOICE', EVT.silent]]; items.forEach(([s, t0], i) => { if (T > t0) bigText(octx, s + ' OFF', 520 + i * 70, 36, '#7dffb0', prog(T, t0, t0 + 0.2) * (T < CL[3].start - 0.2 ? 1 : 0)); }); }
+  if (ci === 2 && T > AT(2, 'make')) { const items = [['PHONE', EVT.phone], ['SHOES', EVT.shoes], ['FRIDGE', EVT.fridge], ['VOICE', EVT.silent]]; items.forEach(([s, t0], i) => { if (T > t0) bigText(octx, s + ' OFF', 500 + i * 62, 34, '#7dffb0', prog(T, t0, t0 + 0.2) * (T < CL[3].start - 0.2 ? 1 : 0)); }); }
   const BAN = [[1, 'rule', ['RULE 1.', 'STAY IN YOUR FLAT']], [2, 'rule', ['RULE 2.', 'MAKE NO SOUND']]];
   for (const [bc, w, lab] of BAN) { const t0 = AT(bc, w) - 0.15, t1 = t0 + 3.4; if (T >= t0 && T < t1) banner(octx, lab, prog(T, t0, t0 + 0.3), prog(T, t1 - 0.25, t1)); }
+  if (ci === 2 && lt > wt(2, 'you') - 0.15 && lt < wt(2, 'not') - 0.3) { const on = T < EVT.fridge; if (on) { octx.save(); for (let i = 0; i < 3; i++) { const k = ((T * 1.6 + i / 3) % 1); octx.strokeStyle = `rgba(255,214,90,${0.8 * (1 - k)})`; octx.lineWidth = 5; octx.beginPath(); octx.arc(470, 520, 40 + k * 140, -0.8, 0.8); octx.stroke(); } octx.restore(); bigText(octx, 'hmmmmmm...', 420, 44, '#ffd23a', 0.7 + 0.3 * S(T * 20)); } else bigText(octx, 'SILENCE', 420, 64, '#7dffb0', prog(T, EVT.fridge, EVT.fridge + 0.3)); }
   if (ci === 5 && lt > wt(5, 'scratching')) { bigText(octx, 'scritch... scritch...', 560, 46, '#ff8a6a', 0.6 + 0.4 * S(T * 12)); }
   if (ci === 6) { const optB = wt(6, 'option', 1), comment = wt(6, 'comment');
     if (lt < comment - 0.1) bigText(octx, lt < optB - 0.2 ? 'A. STAY SILENT & WAIT' : 'B. CHECK WHO IT IS', 600, 50, lt < optB - 0.2 ? '#7dffb0' : '#ffd23a', 1);

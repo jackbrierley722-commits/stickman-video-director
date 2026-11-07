@@ -52,6 +52,10 @@ lk = wt(1, 'lock'); tone(lk + 0.35, 0.05, 2000, 0.2, 60); thump(lk + 0.37, 0.25,
 ps = wt(1, 'push'); m = int(1.8 * SR); x = np.arange(m) / SR; add(ps, 0.16 * ma(np.sign(np.sin(2 * np.pi * np.cumsum(120 + 40 * np.sin(x * 18)) / SR)) + 0.5 * rng.normal(0, 1, m), 10) * np.hanning(m)); thump(ps + 1.8, 0.4, 60)
 # silence: phone blip, shoes thud
 tone(wt(2, 'phone') + 0.6, 0.12, 700, 0.07, 25); thump(wt(2, 'shoes') + 0.5, 0.25, 110); thump(wt(2, 'shoes') + 0.8, 0.22, 110)
+# fridge hum until unplugged
+fr = wt(2, 'unplug') + 0.5
+out += (0.03 * np.sin(2 * np.pi * 100 * t) + 0.015 * np.sin(2 * np.pi * 200 * t)) * (t < fr) * (t > CL[1]['start'])
+thump(fr, 0.35, 220); tone(fr, 0.05, 1500, 0.1, 50)
 # tap, filling jugs, bath
 tp = wt(3, 'taps'); fs = wt(3, 'fill'); bt = wt(3, 'bath'); fo = wt(3, 'fourteen')
 m = int((bt - CL[3]['start']) * SR); add(CL[3]['start'], 0.05 * ma(rng.normal(0, 1, m), 4) * np.interp(np.arange(m) / SR, [0, tp - CL[3]['start'], tp - CL[3]['start'] + 1, 99], [1, 1, 0.5, 0.5]))
