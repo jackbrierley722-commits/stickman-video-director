@@ -10,3 +10,4 @@ output/*/vo.wav
 output/*/mix.wav
 output/*/audio.wav
 output/*/node_modules/
+output/*/node_modules
