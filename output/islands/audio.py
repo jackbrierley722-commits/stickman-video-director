@@ -1,0 +1,56 @@
+# Island quiz-show bed + SFX; narrator on top
+import json, numpy as np, soundfile as sf
+SR = 44100
+TM = json.load(open('timing.json')); CL = TM['clips']; D = TM['total']; N = int(SR * D); t = np.arange(N) / SR
+rng = np.random.default_rng(77)
+def wt(ci, word, n=0):
+    k = 0
+    for w in CL[ci]['words']:
+        if ''.join(ch for ch in w['w'].lower() if ch.isalnum() or ch == "'") == word:
+            if k == n: return w['a']
+            k += 1
+    return CL[ci]['start']
+def ma(x, k):
+    c = np.cumsum(np.insert(x, 0, 0)); y = (c[k:] - c[:-k]) / k; return np.concatenate([y, np.full(k - 1, y[-1])])
+out = np.zeros(N); mus = np.zeros(N)
+def add(at, y, buf=None):
+    b = out if buf is None else buf; i = int(at * SR)
+    if 0 <= i < N: b[i:i + len(y)] += y[:N - i]
+def env(n, d=8): x = np.arange(n) / SR; e = np.exp(-x * d); a = max(1, int(0.003 * SR)); e[:a] *= np.linspace(0, 1, a); return e
+def tone(at, dur, f, amp, d=6, sq=False): m = int(dur * SR); x = np.arange(m) / SR; w = np.sign(np.sin(2 * np.pi * f * x)) if sq else np.sin(2 * np.pi * f * x); add(at, amp * w * env(m, d))
+bpm = 120; beat = 0.5; nb = int(D / beat) + 1
+chords = [[220, 277, 330], [196, 247, 294], [175, 220, 262], [196, 247, 294]]
+for b in range(nb):
+    at = b * beat; ch = chords[(b // 8) % 4]
+    if b % 2 == 0: x = np.arange(int(0.2 * SR)) / SR; add(at, 0.4 * np.sin(2 * np.pi * (48 + 80 * np.exp(-x * 30)) * x) * np.exp(-x * 14), mus)
+    else: m = int(0.12 * SR); add(at, 0.12 * ma(rng.normal(0, 1, m), 2) * env(m, 25), mus)
+    m = int(0.03 * SR); hn = rng.normal(0, 1, m); add(at + beat / 2, 0.04 * (hn - ma(hn, 3)) * env(m, 80), mus)
+    for q in range(2): f = ch[(b * 2 + q) % 3] * 2; m = int(beat / 2 * SR); x = np.arange(m) / SR; add(at + q * beat / 2, 0.03 * np.sign(np.sin(2 * np.pi * f * x)) * env(m, 12), mus)
+    m = int(beat * SR); x = np.arange(m) / SR; add(at, 0.08 * np.sin(2 * np.pi * ch[0] / 2 * x) * env(m, 3), mus)
+out += mus * np.interp(t, [0, 0.3, D - 1.5, D], [0, 0.8, 0.8, 0])
+def ev(ci, w, n=0): return wt(ci, w, n)
+# ocean waves bed
+out += ma(rng.normal(0, 1, N), 60) * 0.05 * (0.6 + 0.4 * np.sin(2 * np.pi * 0.12 * t))
+# game-show sting on the title, countdown ticks with rising pitch, final buzzer
+for i, f in enumerate([523, 659, 784, 1047]): tone(0.2 + i * 0.1, 0.4, f, 0.07, 6, True)
+for i in range(5): s0 = CL[1 + i]['start']; tone(s0, 0.18, 660 + i * 110, 0.12, 10, True); tone(s0 + 0.5, 0.05, 2400, 0.05, 60)
+tone(CL[6]['start'] - 0.05, 0.6, 220, 0.12, 4, True)
+# A: honks
+for k in range(3): s0 = ev(6, 'hates') - 0.1 + k * 0.7; m = int(0.3 * SR); x = np.arange(m) / SR; add(s0, 0.18 * np.sign(np.sin(2 * np.pi * (420 - 120 * x / x[-1]) * x)) * env(m, 6))
+for s0 in np.arange(ev(6, 'goose'), CL[7]['start'], 0.14): add(s0, 0.05 * ma(rng.normal(0, 1, int(0.05 * SR)), 2) * env(int(0.05 * SR), 50))
+# B: bonk + rewind-style steps
+x = np.arange(int(0.25 * SR)) / SR; add(ev(7, 'sunset') + 0.3, 0.4 * np.sin(2 * np.pi * (300 - 200 * x) * x) * np.exp(-x * 12))
+for s0 in np.arange(ev(7, 'backwards') - 0.2, ev(7, 'sunset'), 0.22): tone(s0, 0.06, 900, 0.04, 40)
+# C: munching then sad trombone at broccoli
+for s0 in np.arange(ev(8, 'pizza'), ev(8, 'broccoli') - 0.2, 0.2): add(s0, 0.06 * ma(rng.normal(0, 1, int(0.06 * SR)), 3) * env(int(0.06 * SR), 40))
+for i, f in enumerate([392, 370, 349, 311]): tone(ev(8, 'broccoli') + i * 0.22, 0.32, f, 0.08, 4, True)
+# D: dramatic sting at "real", lots of clicking crab legs
+for f in [110, 165, 220]: tone(ev(9, 'real') - 0.05, 1.2, f, 0.08, 2, True)
+for s0 in np.arange(ev(9, 'millions') - 0.3, CL[10]['start'], 0.03): add(s0, 0.025 * rng.uniform(0.3, 1) * np.sign(rng.normal(0, 1, int(0.008 * SR))))
+# end: quiz-show chime
+for i, f in enumerate([784, 988, 1175]): tone(ev(10, 'comment') + i * 0.12, 0.5, f, 0.06, 5)
+out *= np.interp(t, [0, 0.1, D - 0.7, D], [0, 1, 1, 0])
+vo, vsr = sf.read('vo.wav'); vo = np.interp(np.arange(N) / SR, np.arange(len(vo)) / vsr, vo, right=0)
+e = ma(np.abs(vo), 4000); duck = 1 - 0.55 * np.clip(e / (e.max() * 0.25), 0, 1)
+mix = np.tanh((out * duck + vo * 1.6) * 1.05) * 0.9
+sf.write('mix.wav', np.stack([mix, mix], 1), SR, subtype='PCM_16'); print('mix ok', round(D, 2))
