@@ -29,7 +29,7 @@ function cam(p, l) { camera.position.set(p[0], p[1], p[2]); camera.lookAt(l[0], 
 function camL(a, b, k, la, lb) { k = ease(k); cam([lerp(a[0], b[0], k), lerp(a[1], b[1], k), lerp(a[2], b[2], k)], [lerp(la[0], lb[0], k), lerp(la[1], lb[1], k), lerp(la[2], lb[2], k)]); }
 function camLin(a, b, k, la, lb) { cam([lerp(a[0], b[0], k), lerp(a[1], b[1], k), lerp(a[2], b[2], k)], [lerp(la[0], lb[0], k), lerp(la[1], lb[1], k), lerp(la[2], lb[2], k)]); }
 function shades(p) { const h = p.userData.head; add(h, Bx(0.42, 0.1, 0.04), Bm('#0a0a0a'), 0, 0.06, 0.25); add(h, Bx(0.15, 0.12, 0.03), Bm('#2a2a3a'), -0.1, 0.04, 0.27); add(h, Bx(0.15, 0.12, 0.03), Bm('#2a2a3a'), 0.1, 0.04, 0.27); }
-const G = {};
+const G = {}, PTEX = {};
 
 // ---------- SPACE (overview grid) ----------
 function buildSpace() { const g = G.S = new T3.Group(); scene.add(g);
@@ -38,17 +38,11 @@ function buildSpace() { const g = G.S = new T3.Group(); scene.add(g);
   const sunL = new T3.DirectionalLight('#ffffff', 2.2); sunL.position.set(-6, 4, 8); g.add(sunL); g.add(new T3.AmbientLight('#404060', 0.6));
   const neb = glow(g, '#6a3aaa', 120, -30, 20, -120, 0.35); glow(g, '#2a6aaa', 100, 40, -30, -120, 0.3);
   const pl = []; const P0 = [[-1.75, 1.75], [1.75, 1.75], [-1.75, -2.75], [1.75, -2.75]];
-  // A glass
-  { const m = add(g, new T3.IcosahedronGeometry(1.25, 2), Ph('#a8ecff', { shininess: 160, emissive: '#1a4a6a' })); const r2 = add(m, new T3.IcosahedronGeometry(1.32, 1), Ph('#ffffff', { transparent: true, opacity: 0.25, shininess: 200 })); pl.push(m); }
-  // B eclipsia: dark + terminator glow + city lights
-  { const t = ctex(256, 128, (c, w, h) => { c.fillStyle = '#3a2058'; c.fillRect(0, 0, w, h); const r = rng(9); for (let i = 0; i < 260; i++) { c.fillStyle = r() > 0.5 ? '#ffd27a' : '#7af0ff'; c.fillRect(r() * w, 30 + r() * 70, 1.5, 1.5); } c.fillStyle = 'rgba(200,210,255,0.6)'; c.fillRect(0, 0, w, 12); c.fillRect(0, h - 12, w, 12); });
-    const m = add(g, new T3.SphereGeometry(1.25, 32, 20), new T3.MeshLambertMaterial({ map: t, emissive: '#ffffff', emissiveMap: t, emissiveIntensity: 0.35 })); glow(m, '#ff8a4a', 3.6, 0, 0, -0.3, 0.45); pl.push(m); }
-  // C boring
-  { const m = add(g, new T3.SphereGeometry(1.25, 24, 16), new T3.MeshLambertMaterial({ color: '#8c8c8a' })); pl.push(m); }
-  // D 404 voxel glitch
-  { const m = new T3.Group(); g.add(m); add(m, new T3.IcosahedronGeometry(1.15, 1), L('#3a1a5a', { emissive: '#2a0a4a' })); const r = rng(4); m.userData.cubes = [];
-    for (let i = 0; i < 26; i++) { const a = r() * PI * 2, b = Math.acos(r() * 2 - 1); const c = add(m, Bx(0.35, 0.35, 0.35), L(['#b84aff', '#3affd8', '#ff3a8a', '#1a1a2a'][i % 4], { emissive: ['#5a1a8a', '#0a6a5a', '#6a0a3a', '#000'][i % 4] }), 1.2 * S(b) * C(a), 1.2 * C(b), 1.2 * S(b) * S(a)); c.userData.d = [S(b) * C(a), C(b), S(b) * S(a)]; c.userData.s = r(); m.userData.cubes.push(c); }
-    pl.push(m); }
+  G.deb = []; { const r = rng(88); const cols = ['#4a8a3a', '#6a8ad8', '#8a6a4a', '#e0e0f0', '#3a6a2a'];
+    for (let i = 0; i < 34; i++) { const sz = 0.06 + r() * 0.14; const c = new T3.Mesh(Bx(sz, sz, sz * 0.6), new T3.MeshLambertMaterial({ color: cols[i % 5], emissive: '#2a1040', transparent: true, depthWrite: false }));
+      const e = new T3.Mesh(Bx(sz * 1.08, sz * 1.08, sz * 0.5), new T3.MeshBasicMaterial({ color: '#c060ff', transparent: true, opacity: 0.5, depthWrite: false })); e.position.z = -0.02; c.add(e);
+      c.userData = { a: -1.0 + r() * 2.0, sp: 0.07 + r() * 0.09, o: r(), spin: (r() - 0.5) * 4, e }; g.add(c); G.deb.push(c); } }
+  for (const k of 'ABCD') { const m = new T3.Sprite(new T3.SpriteMaterial({ map: PTEX[k], transparent: true, depthWrite: false })); m.scale.set(3.3, 3.3, 1); g.add(m); pl.push(m); }
   pl.forEach((m, i) => { m.position.set(P0[i][0], P0[i][1], 0); m.userData.home = P0[i]; });
   g.userData.pl = pl; }
 
@@ -189,17 +183,21 @@ function updD(T) { const glitchT = Math.floor(T * 8);
 
 // ---------- SHOTS ----------
 const S0 = CL[6].start, S1 = CL[7].start, S2 = CL[8].start, S3 = CL[9].start, END = CL[10].start;
-function spaceShot(lt, T, mode) { const pl = G.S.userData.pl; pl.forEach((m, i) => { m.rotation.y = T * 0.4 + i; m.rotation.x = 0.3; m.position.set(m.userData.home[0], m.userData.home[1], 0); m.scale.setScalar(1); });
-  const c = pl[3].userData.cubes; c.forEach(q => { const j = S(T * 7 + q.userData.s * 40) > 0.85 ? 0.35 : 0; q.position.set(q.userData.d[0] * (1.2 + j), q.userData.d[1] * (1.2 + j), q.userData.d[2] * (1.2 + j)); });
-  if (mode === 'hook') { pl.forEach((m, i) => m.scale.setScalar(ease(prog(T, 1.0 + i * 0.25, 1.4 + i * 0.25)))); camL([0, -0.5, 13.5], [0, -0.5, 11.5], prog(T, 0, CL[1].start), [0, -0.5, 0], [0, -0.5, 0]); }
+function spaceShot(lt, T, mode, focus = -1) { const pl = G.S.userData.pl; pl.forEach((m, i) => { m.visible = focus < 0 || focus === i; m.position.set(m.userData.home[0], m.userData.home[1], 0); const sc = 3.3 * (1 + 0.015 * S(T * 1.3 + i)); m.scale.set(sc, sc, 1); m.material.rotation = 0;
+    if (i === 3 && S(T * 9) > 0.8) m.position.x += 0.06 * S(T * 70); });
+  pl.forEach((m, i) => { m.position.x += 0.05 * C(T * 0.55 + i * 1.3); m.position.y += 0.07 * S(T * 0.8 + i * 1.7); m.material.rotation = 0.035 * S(T * 0.4 + i * 2); });
+  if (mode === 'hook') { pl.forEach((m, i) => { const k = ease(prog(T, 1.0 + i * 0.25, 1.4 + i * 0.25)); m.scale.set(3.3 * k, 3.3 * k, 1); }); camL([0, -0.5, 13.5], [0, -0.5, 11.5], prog(T, 0, CL[1].start), [0, -0.5, 0], [0, -0.5, 0]); }
   else if (mode === 'count') { cam([S(T * 0.6) * 0.6, -0.5 + C(T * 0.5) * 0.3, 11.5 - (T - CL[1].start) * 0.2], [0, -0.5, 0]); }
-  else { camL([0, -0.5, 13.5], [0, -0.5, 11.5], prog(lt, 0, 2), [0, -0.5, 0], [0, -0.5, 0]); } }
+  else if (mode === 'approach') { const m = pl[focus]; m.position.set(0, 0, 0); m.material.rotation = lerp(0.04, -0.04, lt / 2.5) + 0.02 * S(T * 0.7); m.position.y = 0.05 * S(T * 0.8); const k = lt / 2.6; cam([0, 0, lerp(7.5, 2.6, ease(k) * 0.6 + k * 0.4)], [0, 0, 0]); }
+  else { camL([0, -0.5, 13.5], [0, -0.5, 11.5], prog(lt, 0, 2), [0, -0.5, 0], [0, -0.5, 0]); } 
+  const D_ = pl[3], sc = D_.scale.x / 3.3; G.deb.forEach(c => { const u = c.userData; c.visible = D_.visible && sc > 0.05; const ph = (T * u.sp + u.o) % 1; const rr = (1.05 + ph * 1.5) * sc;
+    c.position.set(D_.position.x + C(u.a) * rr, D_.position.y + S(u.a) * rr - ph * ph * 0.3 * sc, 0.3); c.scale.setScalar(sc); c.rotation.set(T * u.spin * 0.3, T * u.spin * 0.5, T * u.spin); const op = clamp(ph * 6) * clamp((1 - ph) * 3); c.material.opacity = op; u.e.material.opacity = 0.5 * op; }); }
 // [startTime, planet, label, fn(k, lt, T)]
 const SH = [
   [0, 'S', '', (k, lt, T) => spaceShot(lt, T, 'hook')],
   [CL[1].start, 'S', '', (k, lt, T) => spaceShot(lt, T, 'count')],
   // ---- A
-  [S0, 'A', 'MIRROR DESERT', (k) => camL([10, 30, 120], [5, 22, 40], k, [0, 20, -200], [0, 30, -260])],
+  [S0, 'SA', '', (k, lt, T) => spaceShot(lt, T, 'approach', 0)],
   [AT(6, 'giant'), 'A', 'CRYSTAL MOUNTAINS', (k) => camL([-60, 8, -110], [40, 14, -115], k, [-30, 40, -230], [60, 45, -230])],
   [AT(6, 'deserts'), 'A', 'MIRROR DESERT', (k) => camLin([-20, 2.5, 40], [-5, 2.5, 0], k, [30, 2, -60], [50, 3, -90])],
   [AT(6, 'trees'), 'A', 'SHINING FOREST', (k) => camL([45, 4, 95], [55, 5, 75], k, [75, 9, 30], [80, 10, 25])],
@@ -208,7 +206,8 @@ const SH = [
   [AT(6, 'just'), 'A', 'GLASS BRIDGE', (k, lt, T) => { const u = G.Aguy; u.position.set(OC[0] - 30 + k * 4, 7.2, OC[1] + 10); u.rotation.y = PI / 2; run(u, T * 5, 0.5); camL([OC[0] - 22, 9.5, OC[1] + 16], [OC[0] - 23, 9.2, OC[1] + 14], k, [OC[0] - 28, 8.6, OC[1] + 10], [OC[0] - 26, 8.6, OC[1] + 10]); }],
   [AT(6, 'a', 1), 'A', 'GLASS BRIDGE', (k, lt, T) => { const u = G.Aguy; u.position.set(OC[0] - 26, 7.2, OC[1] + 10); u.rotation.y = 0.5; idle(u, T); u.userData.armR.rotation.x = -2.2; u.userData.armR.rotation.z = 0.4; camL([OC[0] - 24.5, 9.0, OC[1] + 13], [OC[0] - 25, 9.0, OC[1] + 12.2], k, [OC[0] - 26, 8.9, OC[1] + 10], [OC[0] - 26, 9.0, OC[1] + 10]); }],
   // ---- B
-  [S1, 'B', 'THE HORIZON', (k) => camL([0, 6, 60], [0, 9, 30], k, [0, 4, -300], [0, 8, -300])],
+  [S1, 'SB', '', (k, lt, T) => spaceShot(lt, T, 'approach', 1)],
+  [AT(7, 'the'), 'B', 'THE HORIZON', (k) => camL([0, 6, 60], [0, 9, 30], k, [0, 4, -300], [0, 8, -300])],
   [AT(7, 'under'), 'B', 'PURPLE CLOUDS', (k) => camL([20, 4, 20], [10, 6, 0], k, [0, 80, -120], [-30, 85, -160])],
   [AT(7, 'icy'), 'B', 'ICY MOUNTAINS', (k) => camL([190, 14, 60], [165, 22, 35], k, [260, 45, -240], [270, 55, -240])],
   [AT(7, 'forests'), 'B', 'GLOW FOREST', (k) => camL([60, 2.5, 90], [72, 3, 62], k, [75, 4, 20], [80, 5, 10])],
@@ -217,7 +216,8 @@ const SH = [
   [AT(7, "it's", 1), 'B', 'MINUS 40 DEGREES', (k, lt, T) => { const u = G.Bguy; u.position.set(0, 0, 0); u.rotation.y = 0.3; idle(u, T); u.userData.armL.rotation.set(-1.2, 0, 0.75); u.userData.armR.rotation.set(-1.2, 0, -0.75); u.userData.head.rotation.x = 0.15; u.position.x = S(T * 50) * 0.02; G.Bsnow.position.set(-40, 0, -40); camL([1.2, 2.0, 4.0], [0.8, 1.9, 3.2], k, [0, 1.6, 0], [0, 1.7, 0]); }],
   [AT(7, 'but'), 'B', 'GOLDEN HOUR', (k, lt, T) => { const u = G.Bguy; u.position.set(0, hfB(0, -20), -20); u.rotation.y = PI; idle(u, T); cam([lerp(3, 0, ease(k)), 2.5, lerp(-6, -4, ease(k))], [0, 3, -300]); }],
   // ---- C
-  [S2, 'C', 'BORING TOWN', (k) => camL([0, 18, 40], [0, 16, 20], k, [0, 2, -60], [0, 2, -80])],
+  [S2, 'SC', '', (k, lt, T) => spaceShot(lt, T, 'approach', 2)],
+  [AT(8, 'boring') + 0.5, 'C', 'BORING TOWN', (k) => camL([0, 18, 40], [0, 16, 20], k, [0, 2, -60], [0, 2, -80])],
   [AT(8, 'absolutely'), 'C', 'NOTHING HAPPENING', (k, lt, T) => { const u = G.Cguy; u.position.set(0, 0, 0); u.rotation.y = 0; pose0(u); cam([2.4, 1.7, 5.5], [0, 1.4, 0]); }],
   [AT(8, 'flat'), 'C', 'FLAT GREY DESERT', (k) => camL([60, 3, 60], [50, 3, 40], k, [60, 1, -100], [40, 1, -100])],
   [AT(8, 'dull'), 'C', 'DULL MOUNTAINS', (k) => camL([-20, 6, -120], [0, 6, -130], k, [-20, 15, -260], [0, 15, -260])],
@@ -228,7 +228,7 @@ const SH = [
   [AT(8, 'same', 1), 'C', 'DAY 365', (k, lt, T) => boringDay(T)],
   [AT(8, 'but'), 'C', 'DANGER LEVEL 0%', (k, lt, T) => { const u = G.Cguy; u.position.set(0, 0.0, -0.1); u.rotation.y = 0; pose0(u); u.userData.legL.rotation.x = u.userData.legR.rotation.x = -1.5; u.userData.body.position.y = -0.35; u.userData.armR.rotation.x = -1.6 * ease(prog(lt, 0.5, 0.9)); G.Cchair.position.set(0, 0, 0); G.Cchair.visible = true; camL([2.6, 1.6, 4.4], [2.2, 1.5, 3.6], k, [0, 1.2, 0], [0, 1.25, 0]); }],
   // ---- D
-  [S3, 'D', 'ERROR 404', (k) => camL([0, 40, 110], [0, 30, 80], k, [0, 10, -60], [0, 15, -80])],
+  [S3, 'SD', '', (k, lt, T) => spaceShot(lt, T, 'approach', 3)],
   [AT(9, 'reality'), 'D', 'GLITCHED GROUND', (k) => camL([-20, 4, 30], [-5, 5, 20], k, [10, 0, -10], [20, 0, -20])],
   [AT(9, 'buildings'), 'D', 'FLOATING BUILDINGS', (k) => camL([-40, 20, 20], [-20, 30, 0], k, [-30, 40, -100], [0, 40, -120])],
   [AT(9, 'the'), 'D', 'PURPLE DISTORTIONS', (k) => camL([0, 6, 40], [0, 8, 30], k, [0, 120, -150], [30, 150, -150])],
@@ -264,6 +264,7 @@ const V = new T3.Vector3(); function proj(o) { o.getWorldPosition(V); V.project(
 window.initFootball = async function () {
   await Promise.all(['30px Russo', '20px PressStart', '30px Bangers'].map(f => document.fonts.load(f)));
   makeTextures();
+  for (const k of 'ABCD') { const im = new Image(); im.src = window['PLANET_' + k]; await im.decode(); const t = new T3.Texture(im); t.colorSpace = T3.SRGBColorSpace; t.needsUpdate = true; PTEX[k] = t; }
   GLOW = ctex(64, 64, (c, w, h) => { const gr = c.createRadialGradient(32, 32, 0, 32, 32, 32); gr.addColorStop(0, 'rgba(255,255,255,1)'); gr.addColorStop(0.25, 'rgba(255,255,255,0.6)'); gr.addColorStop(1, 'rgba(255,255,255,0)'); c.fillStyle = gr; c.fillRect(0, 0, w, h); });
   glc = document.createElement('canvas'); glc.width = RW; glc.height = RH;
   renderer = new T3.WebGLRenderer({ canvas: glc, antialias: true, preserveDrawingBuffer: true }); renderer.setPixelRatio(1); renderer.setSize(RW, RH, false); renderer.outputColorSpace = T3.SRGBColorSpace;
@@ -276,8 +277,9 @@ const FOGS = { S: null, A: ['#b8d8f4', 220, 900], B: ['#2a1640', 60, 520], C: ['
 window.renderFrame = function (T) {
   let ci = CL.findIndex(c => T >= c.start && T < c.start + c.dur); if (ci < 0) ci = CL.length - 1;
   const si = shotAt(T), sh = SH[si], t0 = sh[0], t1 = si + 1 < SH.length ? SH[si + 1][0] : TM.total, p = sh[1]; const k = prog(T, t0, t1), lt = T - t0;
-  for (const key of ['S', 'A', 'B', 'C', 'D']) G[key].visible = key === p;
-  scene.background = new T3.Color(p === 'S' ? '#02020a' : '#000'); const f = FOGS[p]; scene.fog = f ? new T3.Fog(f[0], f[1], f[2]) : null;
+  const grp = p[0] === 'S' ? 'S' : p, PL_ = p.length === 2 ? p[1] : p;
+  for (const key of ['S', 'A', 'B', 'C', 'D']) G[key].visible = key === grp;
+  scene.background = new T3.Color(grp === 'S' ? '#02020a' : '#000'); const f = FOGS[grp]; scene.fog = f ? new T3.Fog(f[0], f[1], f[2]) : null;
   camera.fov = 60; camera.updateProjectionMatrix();
   G.Aguy.visible = G.Bguy.visible = G.Cguy.visible = G.Dguy.visible = false; G.Cchair.visible = false; G.Csign.visible = false;
   if (p === 'A') { updA(T); G.Aguy.visible = sh[2] === 'GLASS BRIDGE'; pose0(G.Aguy); }
@@ -288,10 +290,10 @@ window.renderFrame = function (T) {
   renderer.render(scene, camera);
   // ---- composite (smooth upscale, soft bloom)
   octx.imageSmoothingEnabled = true; octx.imageSmoothingQuality = 'high'; octx.globalCompositeOperation = 'source-over'; octx.drawImage(glc, 0, 0, W, H);
-  const bloom = { S: 0.35, A: 0.18, B: 0.45, C: 0, D: 0.4 }[p]; if (bloom) { sctx.drawImage(glc, 0, 0, 90, 160); octx.globalCompositeOperation = 'screen'; octx.globalAlpha = bloom; octx.drawImage(small, 0, 0, W, H); octx.globalAlpha = 1; octx.globalCompositeOperation = 'source-over'; }
+  const bloom = { S: 0.25, A: 0.18, B: 0.45, C: 0, D: 0.4 }[grp]; if (bloom) { sctx.drawImage(glc, 0, 0, 90, 160); octx.globalCompositeOperation = 'screen'; octx.globalAlpha = bloom; octx.drawImage(small, 0, 0, W, H); octx.globalAlpha = 1; octx.globalCompositeOperation = 'source-over'; }
   if (p === 'A') { const gl = 0.25 + 0.15 * S(T * 3); const gr = octx.createRadialGradient(620, 160, 0, 620, 160, 420); gr.addColorStop(0, `rgba(255,255,240,${gl * 0.45})`); gr.addColorStop(1, 'rgba(255,255,240,0)'); octx.fillStyle = gr; octx.fillRect(0, 0, W, H);
     if (sh[2] === 'GLASS BRIDGE' && si === SH.findIndex(s => s[0] === AT(6, 'a', 1))) { const fl = 0.5 + 0.4 * S(T * 20); octx.fillStyle = `rgba(255,255,255,${fl * 0.35})`; octx.fillRect(0, 0, W, H); } }
-  if (p === 'D') { const r = rng(Math.floor(T * 12)); const burst = (T > VAN() - 0.4 && T < VAN() + 0.5) || (T > REAP() - 0.2 && T < REAP() + 0.4) ? 3 : 1; const n = Math.floor(r() * 4 * burst) + (r() < 0.3 ? 2 : 0);
+  if (p === 'D' || p === 'SD') { const r = rng(Math.floor(T * 12)); const burst = (T > VAN() - 0.4 && T < VAN() + 0.5) || (T > REAP() - 0.2 && T < REAP() + 0.4) ? 3 : 1; const n = Math.floor(r() * 4 * burst) + (r() < 0.3 ? 2 : 0);
     for (let i = 0; i < n; i++) { const y = r() * H, h = 10 + r() * 60 * burst, dx = (r() - 0.5) * 80 * burst; octx.drawImage(out, 0, y, W, h, dx, y, W, h); octx.fillStyle = r() < 0.5 ? 'rgba(255,60,230,0.18)' : 'rgba(60,255,220,0.18)'; octx.fillRect(0, y, W, h); } }
   if (p === 'C') { octx.fillStyle = 'rgba(128,128,128,0.08)'; octx.fillRect(0, 0, W, H); }
   octx.fillStyle = 'rgba(0,0,0,0.04)'; for (let y = 0; y < H; y += 4) octx.fillRect(0, y, W, 1);
@@ -302,7 +304,7 @@ window.renderFrame = function (T) {
     if (ci === 0) { bigText(octx, 'PICK A PLANET', 110, 80, '#ffd23a', prog(T, 0.1, 0.4)); bigText(octx, 'LIVE THERE FOR 1 YEAR', 180, 40, '#fff', prog(T, AT(0, 'you') - 0.1, AT(0, 'you') + 0.2)); }
     if (ci >= 1 && ci <= 5) { const n = 6 - ci, lt2 = T - CL[ci].start; const sc = 1 + 0.6 * (1 - ease(prog(lt2, 0, 0.25))); octx.save(); octx.translate(360, 640); octx.scale(sc, sc); bigText(octx, String(n), 0, 260, n <= 2 ? '#ff5a3a' : '#ffd23a', 1 - prog(lt2, 0.85, 1.2), 'Russo', 0); octx.restore(); }
     if (ci === 10) { bigText(octx, 'WHICH ONE?', 110, 84, '#ffd23a', prog(T, END, END + 0.3)); bigText(octx, 'COMMENT A B C OR D', 180, 44, '#fff', prog(T, AT(10, 'comment') - 0.1, AT(10, 'comment') + 0.2)); } }
-  else { const pStart = SH.find(s => s[1] === p)[0]; header(octx, p, T, pStart); locLabel(octx, sh[2], T, t0, PL[p].c);
+  else { const pStart = SH.find(s => s[1] === PL_ || s[1] === 'S' + PL_)[0]; header(octx, PL_, T, pStart); locLabel(octx, sh[2], T, t0, PL[PL_].c);
     if (p === 'A' && /CLEAR OCEAN/.test(sh[2])) { const d = Math.round(lerp(0, 5280, prog(T, AT(6, 'clear'), AT(6, 'down') + 0.4))); bigText(octx, `DEPTH ${d.toLocaleString('en-US').replace(',', ' ')} FT`, 260, 40, '#8ff0ff', prog(T, AT(6, 'clear'), AT(6, 'clear') + 0.2)); }
     if (p === 'A' && T > AT(6, 'a', 1)) bigText(octx, 'BRING SUNGLASSES', 300, 56, '#ffd23a', prog(T, AT(6, 'a', 1), AT(6, 'a', 1) + 0.2));
     if (p === 'B' && T > AT(7, 'golden')) bigText(octx, 'ALWAYS GOLDEN HOUR', 300, 52, '#ffb060', prog(T, AT(7, 'golden'), AT(7, 'golden') + 0.3));

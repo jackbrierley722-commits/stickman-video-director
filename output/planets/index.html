@@ -3,7 +3,7 @@
 body{margin:0;background:#000}canvas{display:block}</style></head><body>
 <canvas id="c" width="720" height="1280"></canvas>
 <script src="node_modules/three/build/three.min.js"></script>
-<script src="timing.js"></script><script src="world.js"></script><script src="scenes.js"></script>
+<script src="timing.js"></script><script src="planets.js"></script><script src="world.js"></script><script src="scenes.js"></script>
 <script>
 window.ready=initFootball();
 window.frame=(t,q)=>{renderFrame(t);return document.getElementById('c').toDataURL('image/jpeg',q||0.9)};
