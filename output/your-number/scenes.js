@@ -177,7 +177,7 @@ function big(s, y, size, col, a = 1, font = 'P8', x = 360) { if (a <= 0) return;
 function tag(s, x, y, a, col = '#f7f1e8', tc = '#2a2a2a') { if (a <= 0) return; ctx.save(); ctx.globalAlpha = a; ctx.font = '26px P8'; const w = ctx.measureText(s).width + 40; rr(x - w / 2, y - 26, w, 52, 26, col); text(s, x, y + 1, 26, tc, 'P8'); ctx.restore(); }
 // captions
 const CAPS = []; CL.forEach((c0, ci) => { let cur = []; const flush = () => { if (cur.length) CAPS.push({ a: cur[0].a, b: cur[cur.length - 1].b, txt: cur.map(w => w.w).join(' ') }); cur = []; };
-  c0.words.forEach(w => { if (cur.length && (cur.length >= 4 || w.a - cur[cur.length - 1].b > 0.2 || (/^(What|From|And|Whatever|Do|It's|Your|But|You|Who|Three|Then|Twenty|Please|Lily|The|Four|Knock|Hey|Open|Don't|That's|I|Slowly|Towards|Option|Stay|Comment)$/.test(w.w) && cur.length > 1))) flush(); cur.push(w); }); flush(); });
+  c0.words.forEach(w => { if (cur.length && (cur.length >= 4 || w.a - cur[cur.length - 1].b > 0.2 || (/^(What|From|And|Whatever|Like|Do|It's|Your|But|You|Who|Three|Then|Twenty|Please|Lily|The|Four|Knock|Hey|Open|Don't|That's|I|Slowly|Towards|Option|Stay|Comment)$/.test(w.w) && cur.length > 1))) flush(); cur.push(w); }); flush(); });
 CAPS.forEach((c, i) => { const nx = CAPS[i + 1]; c.b = nx ? Math.min(nx.a, c.b + 0.35) : c.b + 0.8; c.txt = c.txt.replace(/[:\-"]/g, '').replace(/three fourteen/i, '3.14').replace(/four o'clock/i, '4.00').replace(/Three fifty nine/i, '3.59').replace(/^Four o'clock/i, '4.00'); });
 function caption(s) { ctx.save(); ctx.font = '44px P8'; const words = s.split(' '); const lines = []; let cur = ''; for (const w of words) { const x = cur ? cur + ' ' + w : w; if (ctx.measureText(x).width > 600 && cur) { lines.push(cur); cur = w; } else cur = x; } lines.push(cur);
   const y0 = 1110 - (lines.length - 1) * 30; lines.forEach((l, i) => { ctx.lineJoin = 'round'; ctx.lineWidth = 10; ctx.strokeStyle = 'rgba(20,16,30,0.95)'; ctx.textAlign = 'center'; ctx.textBaseline = 'middle'; ctx.strokeText(l, 360, y0 + i * 60); ctx.fillStyle = '#fff'; ctx.fillText(l, 360, y0 + i * 60); }); ctx.restore(); }
@@ -260,6 +260,9 @@ window.renderFrame = function (T) { ctx.setTransform(1, 0, 0, 1, 0, 0); ctx.fill
   ctx.globalAlpha = 1; ctx.drawImage(grain, 0, 0, W, H); const vg = ctx.createRadialGradient(360, 640, 500, 360, 640, 980); vg.addColorStop(0, 'rgba(0,0,0,0)'); vg.addColorStop(1, 'rgba(10,6,20,0.45)'); ctx.fillStyle = vg; ctx.fillRect(0, 0, W, H);
   // HUD
   if (kind !== 'choice') { liveCard(T, prog(T, CL[3].start, CL[3].start + 0.4)); clockChip(T, clockAt(T), prog(T, 0.2, 0.6)); }
+  { const l0 = AT(0, 'like'), l1 = CL[1].start; if (T > l0 - 0.15 && T < l1 + 0.3) { const k = ease(prog(T, l0 - 0.15, l0 + 0.15)) * (1 - ease(prog(T, l1, l1 + 0.3))); ctx.save(); ctx.globalAlpha = k; ctx.translate(0, (1 - k) * 30); rr(190, 1000, 340, 64, 32, 'rgba(247,241,232,0.95)');
+    const hb = 1 + 0.25 * Math.max(0, S((T - l0) * 9)) * (T < l0 + 0.7 ? 1 : 0); ctx.save(); ctx.translate(236, 1032); ctx.scale(hb, hb); ctx.fillStyle = '#d9533f'; ctx.beginPath(); ctx.moveTo(0, 12); ctx.bezierCurveTo(-26, -6, -12, -26, 0, -12); ctx.bezierCurveTo(12, -26, 26, -6, 0, 12); ctx.fill(); ctx.restore();
+    text('LIKE', 294, 1033, 24, '#2a2a2a', 'P8'); rr(350, 1012, 160, 42, 21, AT(0, 'follow') < T ? '#3f8f86' : '#2a2a2a'); text(T > AT(0, 'follow') + 0.3 ? 'FOLLOWING' : '+ FOLLOW', 430, 1034, 20, '#fff', 'P8'); ctx.restore(); } }
   if (T < E.text) big('3.14 AM', 640, 120, '#f6d08a', prog(T, AT(0, 'three') - 0.1, AT(0, 'three') + 0.3));
   const cap = CAPS.find(c => T >= c.a && T < c.b); if (cap) caption(cap.txt);
   if (T < 0.25) { ctx.fillStyle = `rgba(0,0,0,${1 - T / 0.25})`; ctx.fillRect(0, 0, W, H); }

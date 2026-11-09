@@ -12,7 +12,7 @@ def whisper(a, SR=24000):
     y = lfilter([1, -0.92], [1], y); y = y / (np.abs(y).max() + 1e-9) * 0.85; return y[:len(a)]
 VOICE = sys.argv[1] if len(sys.argv) > 1 else 'am_michael'
 VO = [
- "What if, at three fourteen in the morning, you got a text. From your own phone number. And it said. Whatever happens at four o'clock, do not open your door.",
+ "What if, at three fourteen in the morning, you got a text. From your own phone number. And it said. Whatever happens at four o'clock, do not open your door. Like and follow, so you don't miss part two.",
  "It's your number. Your name. Your photo. But you never sent it. And it's not in your sent messages.",
  "You text back. Who is this? Three dots appear. Then. It's you. Twenty minutes from now. Please listen this time.",
  "You tell yourself it's a scam. But you lock your door anyway. Your little sister Lily is asleep, across the hall.",
