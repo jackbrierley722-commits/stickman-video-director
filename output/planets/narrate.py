@@ -7,13 +7,14 @@ from kokoro import KPipeline
 VOICE = sys.argv[1] if len(sys.argv) > 1 else 'am_michael'
 VO = [
  "Pick a planet. You have to live there for one whole year. No coming back. Choose fast.",
- "Five.", "Four.", "Three.", "Two.", "One.",
- "Planet A. Planet Glass. Giant crystal mountains. Deserts so shiny, they reflect the sky. Trees that glow like lamps. And the oceans are so clear, you can see a mile straight down. Just bring sunglasses. A lot of sunglasses.",
- "Planet B. Eclipsia. The sun never fully rises, so it's always twilight, under dark purple clouds. Icy mountains. Forests that glow in the dark. And enormous cities, powered by giant artificial suns. It's freezing. But it's always golden hour.",
- "Planet C. Planet Boring. Absolutely nothing happens. Ever. Flat grey deserts. Dull mountains. Identical little houses. The sky is always grey, and every day is exactly the same. Exactly. The. Same. But hey, nothing here can hurt you.",
- "Planet D. Planet 404. Reality glitches. Buildings float in mid air. The sky is full of purple distortions. And every twenty four hours, a random piece of the planet disappears, and reappears somewhere else. Hopefully not the piece you're standing on.",
+ "", "", "", "", "",
+ "Planet A. Giant crystal mountains. Deserts so shiny, they reflect the sky. Trees that glow like lamps. And the oceans are so clear, you can see a mile straight down. Just bring sunglasses. A lot of sunglasses.",
+ "Planet B. The sun never fully rises, so it's always twilight, under dark purple clouds. Icy mountains. Forests that glow in the dark. A dark ocean, with glowing bridges, little boats, and a tiny oasis in the middle. And enormous cities, powered by giant artificial suns. It's freezing. But it's always golden hour.",
+ "Planet C. Absolutely nothing happens. Ever. Flat grey deserts. Dull mountains. Identical little houses. The sky is always grey, and every day is exactly the same. Exactly. The. Same. But hey, nothing here can hurt you.",
+ "Planet D. Reality glitches. Whole islands float in mid air. Holes rip open in the sky. And every twenty four hours, a random piece of the planet disappears, and reappears somewhere else. Hopefully not the piece you're standing on.",
  "So, which planet are you picking? Comment A, B, C, or D.",
 ]
+
 
 MIN = {1: 1.0, 2: 1.0, 3: 1.0, 4: 1.0, 5: 1.0}
 SR = 24000; LEAD = 0.3; TAIL = 0.5
@@ -36,8 +37,8 @@ for i, text in enumerate(VO):
         segs.append(a); off += len(a) / SR + lead / SR
      gap = 0.22 if si < len(sents) - 1 else 0.1
      segs.append(np.zeros(int(gap * SR))); off += gap
-    body = np.concatenate(segs)
-    dur = max(MIN.get(i, 0), LEAD + len(body) / SR + TAIL)
+    body = np.concatenate(segs) if segs else np.zeros(0)
+    dur = MIN[i] if not text else max(MIN.get(i, 0), LEAD + len(body) / SR + TAIL)
     clip = np.zeros(int(round(dur * SR))); clip[int(LEAD * SR):int(LEAD * SR) + len(body)] = body
     audio.append(clip); clips.append({'start': round(t, 3), 'dur': round(dur, 3), 'words': words}); t += dur
 full = np.concatenate(audio)

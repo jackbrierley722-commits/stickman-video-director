@@ -87,8 +87,8 @@ for i in range(8): add(e0 + 0.2 + i * 0.3, sine(hz([76, 81, 84, 88][i % 4]), 0.8
 def whoosh(at, amp=0.18, dur=0.6):
     n = int(dur * SR); xx = np.arange(n) / SR; add(at - dur * 0.6, nz(dur, 8) * np.sin(np.pi * xx / xx[-1]) ** 2 * amp)
 for s_ in (S0, S1, S2, S3, END): whoosh(s_, 0.22, 0.7); add(s_, sine(50, 0.5) * env(int(0.5 * SR), 0.002, 8) * 0.4)
-cuts = [wt(6, w) for w in ('giant', 'deserts', 'trees', 'and', 'just')] + [wt(6, 'mile') - 0.2, wt(6, 'a', 1)] + [wt(7, w) for w in ('under', 'icy', 'forests', 'and', 'but')] + [wt(7, 'artificial') - 0.4, wt(7, "it's", 1)] \
-     + [wt(9, w) for w in ('reality', 'buildings', 'the', 'and', 'hopefully')]
+cuts = [wt(6, w) for w in ('giant', 'deserts', 'trees', 'and', 'just')] + [wt(6, 'mile') - 0.2, wt(6, 'a', 2)] + [wt(7, w) for w in ('the', 'under', 'icy', 'forests', 'a', 'but')] + [wt(7, 'boats') - 0.3, wt(7, 'oasis') - 0.3, wt(7, 'and', 1), wt(7, 'artificial') - 0.4, wt(7, "it's", 1)] \
+     + [wt(9, w) for w in ('reality', 'whole', 'holes', 'and', 'hopefully')] + [wt(9, 'reappears') - 0.05]
 for c in cuts: whoosh(c, 0.07, 0.35)
 for c in [wt(8, w) for w in ('absolutely', 'flat', 'dull', 'identical', 'the', 'every', 'but')] + [wt(8, 'exactly', 1), wt(8, 'same', 1)]: add(c, nz(0.02) * env(int(0.02 * SR), 0.0005, 150) * 0.08)
 # glass ting on 'sunglasses' glare, crystal chime on 'crystal'
