@@ -33,9 +33,9 @@ def sweep(at, dur, f0, f1, amp):
     n = int(dur * SR); x = np.arange(n) / SR; f = np.linspace(f0, f1, n); add(at, np.sin(2 * np.pi * np.cumsum(f) / SR) * np.hanning(n) * amp)
 def chime(at, amp=0.04):
     for k, m in enumerate([84, 88, 91, 96]): tone(at + k * 0.05, 0.8, hz(m), amp, 5)
-E = dict(look=wt(0, 'look'), every0=wt(0, 'every'), A=wt(1, 'heart'), everyone=wt(1, 'everyone'), songs=wt(1, 'songs'), boat=wt(1, 'boat'), cA=CL[2]['start'], bath=wt(2, 'bathroom'),
-         B=wt(3, 'dollar'), cash=wt(3, 'cash'), money=wt(3, 'money'), cB=CL[4]['start'], shop=wt(4, 'shop'), like=wt(4, 'like'), because=wt(4, 'because'),
-         C=wt(5, 'normal'), frozen=wt(5, 'frozen'), still=wt(5, 'still'), here=wt(5, 'here'), cC=CL[6]['start'], step=wt(6, 'step'), every6=wt(6, 'every'),
+E = dict(look=wt(0, 'every'), every0=wt(0, 'every'), A=wt(1, 'heart'), everyone=wt(1, 'everyone'), songs=wt(1, 'songs'), boat=wt(1, 'boat'), cA=wt(2, 'but'), bath=wt(2, 'bathroom'),
+         B=wt(3, 'dollar'), cash=wt(3, 'cash'), money=wt(3, 'money'), cB=CL[4]['start'], shop=wt(4, 'shop'), like=wt(4, 'like'), because=wt(4, 'last'),
+         C=wt(5, 'normal'), frozen=wt(5, 'frozen'), still=wt(5, 'still'), here=wt(5, 'here'), cC=wt(6, 'but'), step=wt(6, 'step'), every6=wt(6, 'every'),
          D=wt(7, 'twisted'), sparkles=wt(7, 'sparkles'), sp=wt(7, 'superpower'), yest=wt(7, 'neighbour'), cD=CL[8]['start'], crabs2=wt(8, 'and'), end=CL[9]['start'], comment=wt(9, 'comment'), follow=wt(9, 'follow'))
 # ocean bed: slow swells of filtered noise (still on island C)
 sw = ma(rng.normal(0, 1, N), 60) * (0.55 + 0.45 * np.sin(2 * np.pi * 0.13 * t)) * 0.12
@@ -43,7 +43,7 @@ calm = np.interp(t, [E['C'] - 0.2, E['C'] + 0.3, E['cC'] - 0.2, E['cC'] + 0.3], 
 for g in np.arange(2.5, D - 5, 9.0):  # gulls
     if not (E['C'] < g < E['cC']): sweep(g, 0.35, 1800, 1300, 0.012); sweep(g + 0.45, 0.3, 1900, 1400, 0.01)
 # opening: bright plucks, 4 hits on the 4 islands
-for k, s_ in enumerate([0, 0.8, 1.5, 2.2]): pluck(s_, [72, 76, 79, 84][k], 0.06); thump(s_, 0.25, 60, 25)
+for k, s_ in enumerate([0, 0.6, 1.2, 1.8]): pluck(s_, [72, 76, 79, 84][k], 0.06); thump(s_, 0.25, 60, 25)
 for k, s_ in enumerate(np.arange(E['look'], E['A'], 0.3)): pluck(s_, [72, 79, 76, 81, 79, 84][k % 6], 0.03, 7)
 # A: romantic pads + harp
 pad(E['A'], E['cA'], [65, 69, 72, 76], 0.012)

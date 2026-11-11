@@ -112,9 +112,9 @@ function sea(cx, cz, T, i = 0) { OCEAN.material.color.set(OC[i]); OCEAN.material
   for (let k = 0; k < p.count; k++) { const x = OBASE[k * 3] + ox, z = OBASE[k * 3 + 2] + oz; p.array[k * 3 + 1] = am * (0.22 * S(0.16 * x + 1.4 * T) + 0.16 * S(0.21 * z + 1.1 * T) + 0.07 * S(0.55 * (x + z) + 2.3 * T)); } p.needsUpdate = true; OCEAN.geometry.computeVertexNormals(); }
 
 // ---------- timeline ----------
-const E = { look: AT(0, 'look'), heart: AT(1, 'heart'), hearts: AT(1, 'hearts'), pink: AT(1, 'water'), everyone: AT(1, 'everyone'), songs: AT(1, 'songs'), boat: AT(1, 'boat'), cA: CL[2].start, bath: AT(2, 'bathroom'),
-  dollar: AT(3, 'dollar'), green: AT(3, 'water'), cash: AT(3, 'cash'), money: AT(3, 'money'), cB: CL[4].start, shop: AT(4, 'shop'), like: AT(4, 'like'), because: AT(4, 'because'),
-  normal: AT(5, 'normal'), frozen: AT(5, 'frozen'), still: AT(5, 'still'), here: AT(5, 'here'), cC: CL[6].start, step: AT(6, 'step'), every6: AT(6, 'every'),
+const E = { look: AT(0, 'every'), heart: AT(1, 'heart'), hearts: AT(1, 'hearts'), pink: AT(1, 'water'), everyone: AT(1, 'everyone'), songs: AT(1, 'songs'), boat: AT(1, 'boat'), cA: AT(2, 'but'), bath: AT(2, 'bathroom'),
+  dollar: AT(3, 'dollar'), green: AT(3, 'water'), cash: AT(3, 'cash'), money: AT(3, 'money'), cB: CL[4].start, shop: AT(4, 'shop'), like: AT(4, 'like'), because: AT(4, 'last'),
+  normal: AT(5, 'normal'), frozen: AT(5, 'frozen'), still: AT(5, 'still'), here: AT(5, 'here'), cC: AT(6, 'but'), step: AT(6, 'step'), every6: AT(6, 'every'),
   twisted: AT(7, 'twisted'), trees7: AT(7, 'trees'), sparkles: AT(7, 'sparkles'), morning: AT(7, 'superpower'), yest: AT(7, 'neighbour'), cD: CL[8].start, crabs2: AT(8, 'and'), end: CL[9].start, a9: AT(9, 'a'), b9: AT(9, 'b'), c9: AT(9, 'c'), d9: AT(9, 'd'), comment: AT(9, 'comment'), follow: AT(9, 'follow') };
 E.coco = E.money; E.A = E.heart; E.B = E.dollar; E.C = E.normal; E.D = E.twisted; E.here = AT(5, 'here');
 const REV = [E.heart, E.dollar, E.normal, E.twisted];
@@ -123,15 +123,15 @@ function topDown(i, k, h0, h1, a0, a1) { const h = lerp(h0, h1, ease(k)), a = le
 const lp = (i, x, z) => [IX[i] + x, HT(i, x, z), z];
 function orbit(i, cx, cz, r, h, a0, a1, k, ly = 1) { const a = lerp(a0, a1, k); cam(PP(i, cx + S(a) * r, h, cz + C(a) * r), PP(i, cx, HT(i, cx, cz) + ly, cz)); }
 const SH = [
-  [0, 0, (k, T) => topDown(0, k, 92, 84, 0, 0.05)], [0.8, 1, (k, T) => topDown(1, k, 92, 84, 0, 0.05)], [1.5, 2, (k, T) => topDown(2, k, 92, 84, 0, 0.05)], [2.2, 3, (k, T) => topDown(3, k, 92, 84, 0, 0.05)],
+  [0, 0, (k, T) => topDown(0, k, 92, 84, 0, 0.05)], [0.6, 1, (k, T) => topDown(1, k, 92, 84, 0, 0.05)], [1.2, 2, (k, T) => topDown(2, k, 92, 84, 0, 0.05)], [1.8, 3, (k, T) => topDown(3, k, 92, 84, 0, 0.05)],
   [E.look - 0.05, 0, (k, T) => { cam(PP(0, lerp(-34, -18, k), lerp(12, 24, k), lerp(52, 42, k)), PP(0, 0, 0, 0)); }],
   [E.heart - 0.1, 0, (k, T) => topDown(0, k, 115, 82, -0.3, 0.1)],
   [E.hearts - 0.1, 0, (k, T) => { const t = G.i0.userData.palms[1].position; cam(PP(0, t.x + lerp(5, 4, k), t.y + 4, t.z + lerp(6, 5, k)), PP(0, t.x, t.y + 3.6, t.z)); }],
   [E.pink - 0.05, 0, (k, T) => { cam(PP(0, lerp(-6, 2, k), 1.2, 44), PP(0, 0, 1, 20)); }],
   [E.everyone - 0.1, 0, (k, T) => orbit(0, 0, 2, 9, 3.2, -0.6, 0.2, k, 1.2)],
   [E.songs - 0.1, 0, (k, T) => { const a = R.adm[0].position; cam(PP(0, a.x * 0.45, a.y + 1.7, a.z * 0.45 + 1), PP(0, a.x, a.y + 1.2, a.z)); }],
-  [E.boat - 0.1, 0, (k, T) => { cam(PP(0, lerp(14, 10, k), 2.5, 36), PP(0, 5, 1.2, 33)); }],
-  [E.cA, 0, (k, T) => orbit(0, 0, 2, lerp(16, 7, ease(k)), lerp(14, 4, ease(k)), 0.8, 1.4, k, 1)],
+  [E.boat - 0.1, 0, (k, T) => { cam(PP(0, lerp(17, 13, k), 3.2, 41), PP(0, 5, 1.6, 33)); }],
+  [CL[2].start, 0, (k, T) => orbit(0, 0, 2, lerp(16, 7, ease(k)), lerp(14, 4, ease(k)), 0.8, 1.4, k, 1)],
   [E.bath - 0.1, 0, (k, T) => { cam(PP(0, R.hut[0] - 8, 7.5, R.hut[1] + 13), PP(0, R.hut[0] - 1.5, 1.4, R.hut[1] + 1)); }],
   [E.dollar - 0.1, 1, (k, T) => topDown(1, k, 115, 82, 0.3, -0.05)],
   [E.green - 0.05, 1, (k, T) => { cam(PP(1, lerp(8, -4, k), 1.4, 46), PP(1, 0, 1.5, 20)); }],
@@ -232,12 +232,12 @@ window.renderFrame = function (T) { const ci = CLI(T); const { si, t0, isl } = s
       if (!on && T < E.comment) { octx.fillStyle = 'rgba(0,10,20,0.45)'; octx.fillRect(qx - 180, qy, 360, 640); } big(NAMES[i], qy + 90, on ? 96 : 80, on ? COLS[i] : '#fff', Math.max(0.4, pop), qx); icon(i, qx, qy + 175, 54, '#fff'); } 
     if (T > E.comment - 0.1) { octx.fillStyle = 'rgba(8,20,30,0.85)'; octx.beginPath(); octx.roundRect(70, 570, 580, 140, 30); octx.fill(); big('COMMENT A, B, C OR D', 618, 44, '#fff', prog(T, E.comment - 0.1, E.comment + 0.15)); big('FOLLOW FOR THE NEXT PICK', 672, 32, '#5ac8f8', prog(T, E.follow - 0.2, E.follow + 0.1)); } }
   let cur = -1; for (let k = 0; k < 4; k++) if (T >= REV[k] - 0.1 && T < E.end) cur = k; if (isl !== 'grid') chips(T, cur);
-  if (ci === 0) { big('PICK AN ISLAND', 230, 74, '#fff', 1); big('LIVE THERE FOREVER', 310, 42, '#ffe08a', prog(T, AT(0, 'forever') - 0.3, AT(0, 'forever'))); if (T > AT(0, 'every') - 0.1) big('EVERY DETAIL IS A CLUE', 380, 44, '#8ae8ff', prog(T, AT(0, 'every') - 0.1, AT(0, 'every') + 0.15)); }
+  if (ci === 0) { big('WHICH ISLAND', 230, 80, '#fff', 1); big('WOULD YOU PICK?', 310, 54, '#fff', 1); big('LIVE THERE FOREVER', 380, 42, '#ffe08a', prog(T, AT(0, 'forever') - 0.3, AT(0, 'forever'))); if (T > AT(0, 'every') - 0.1) big('EVERY DETAIL IS A CLUE', 445, 44, '#8ae8ff', prog(T, AT(0, 'every') - 0.1, AT(0, 'every') + 0.15)); }
   if (ci >= 1 && ci <= 8 && ci % 2 === 1 && T > REV[(ci - 1) / 2] - 0.1) { const i = (ci - 1) / 2, s0 = REV[i] - 0.1; const k = prog(T, s0, s0 + 0.2); big('ISLAND ' + NAMES[i], 190, 84, COLS[i], k); const pk = [E.everyone, E.money, E.here, E.morning][i]; const TAGS = [[[E.hearts, 'TREES . HEART SHAPED'], [E.pink, 'WATER . SOFT PINK']], [[E.green, 'WATER . EMERALD'], [E.cash, 'COCONUTS . CASH']], [[E.frozen, 'LEAVES . FROZEN'], [E.still, 'WATER . STILL AS GLASS']], [[E.trees7, 'TREES . SPIRAL'], [E.sparkles, 'WATER . PURPLE SPARKLE']]][i];
     TAGS.forEach(([t_, s_]) => { if (T > t_ - 0.1 && T < pk - 0.2) { const a = prog(T, t_ - 0.1, t_ + 0.15); octx.save(); octx.globalAlpha = a; octx.font = '30px Russo'; const w = octx.measureText(s_).width + 50; octx.fillStyle = 'rgba(8,20,30,0.8)'; octx.beginPath(); octx.roundRect(360 - w / 2, 300, w, 58, 29); octx.fill(); octx.strokeStyle = COLS[i]; octx.lineWidth = 3; octx.stroke(); txt(s_, 360, 330, 30, '#fff'); octx.restore(); } }); if (T > pk - 0.2) big(PERK[i], 270, PERK[i].length > 24 ? 34 : 40, '#fff', prog(T, pk - 0.2, pk + 0.1)); }
-  if (ci >= 2 && ci <= 8 && ci % 2 === 0) { const s0 = CL[ci].start; big('BUT...', 190, 90, '#ff5a5a', prog(T, s0, s0 + 0.2));
+  if (ci >= 2 && ci <= 8 && ci % 2 === 0) { const ck = (ci - 2) / 2, s0 = [E.cA, CL[4].start, E.cC, CL[8].start][ck]; if (T > s0 - 0.05) big(['BUT...', 'ONE PROBLEM...', 'BUT...', 'TODAY...'][ck], 190, ck === 1 ? 64 : 90, '#ff5a5a', prog(T, s0 - 0.05, s0 + 0.2));
     const L = [[E.bath, 'NEVER ALONE. EVER.'], [E.shop, 'NOTHING TO BUY'], [E.every6, '+60 YEARS AT ONCE'], [E.crabs2, 'THE CRABS ARE RUDE']][(ci - 2) / 2]; if (T > L[0] - 0.2) big(L[1], 275, 44, '#fff', prog(T, L[0] - 0.2, L[0] + 0.1)); }
-  if (ci === 4 && T > E.because - 0.1) big('ISLAND D IS NEXT...', 350, 40, '#8ab4ff', prog(T, E.because - 0.1, E.because + 0.2));
+  if (ci === 4 && T > E.because - 0.1) big('THE STRANGEST IS NEXT...', 450, 40, '#8ab4ff', prog(T, E.because - 0.1, E.because + 0.2));
   if (ci === 7 && T > E.morning) { octx.fillStyle = 'rgba(8,20,30,0.82)'; octx.beginPath(); octx.roundRect(150, 330, 420, 84, 24); octx.fill(); const pw = ['FLYING', 'X RAY EYES', 'SUPER SPEED', 'INVISIBLE', 'TALK TO CRABS', 'LASER SNEEZE']; const fin = T > E.yest - 0.1; txt(fin ? 'YESTERDAY . FLYING' : 'TODAY . ' + pw[Math.floor(T * 12) % pw.length], 360, 372, 32, fin ? '#8ab4ff' : '#ffe08a'); }
   if (ci === 8) { octx.fillStyle = 'rgba(8,20,30,0.82)'; octx.beginPath(); octx.roundRect(150, 330, 420, 84, 24); octx.fill(); txt('TODAY . TALK TO CRABS', 360, 372, 32, '#ff8a6a');
     if (T > E.crabs2 + 0.2) { const lines = ['NICE HAIR. NOT.', 'WHO INVITED HIM?', 'MOVE.']; R.crabs.slice(0, 3).forEach((c, k) => { const w = new T3.Vector3(); c.getWorldPosition(w); bubble([w.x, w.y + 0.5, w.z], lines[k], prog(T, E.crabs2 + 0.2 + k * 0.4, E.crabs2 + 0.4 + k * 0.4)); }); } }
