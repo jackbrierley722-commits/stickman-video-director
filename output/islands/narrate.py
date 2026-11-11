@@ -6,15 +6,24 @@ espeakng_loader.get_data_path = lambda: '/usr/lib/x86_64-linux-gnu/espeak-ng-dat
 from kokoro import KPipeline
 VOICE = sys.argv[1] if len(sys.argv) > 1 else 'am_michael'
 VO = [
- "Pick an island. You have to live there for one whole year. Choose fast.",
- "Five.", "Four.", "Three.", "Two.", "One.",
- "Island A. A free mansion, with a pool. The catch? A goose lives there. It hates you. And it's faster than you.",
- "Island B. The best beaches on Earth. But you can only walk backwards. Want to watch the sunset? Better turn around.",
- "Island C. Any food you want, for free. Pizza. Burgers. Cake. But everything tastes like broccoli. Even the ice cream.",
- "Island D looks normal. But this one's real. It's Christmas Island, in the Indian Ocean. Every year, tens of millions of red crabs march across the whole island. On the roads. In the gardens. At your front door.",
- "So, which island did you pick? Comment A, B, C, or D.",
+ "Pick an island to live on forever. Look closely. Every detail is a clue.",
+ "Island A is shaped like a heart. The trees grow into little hearts, and the water is a soft pink. Everyone here has a crush on you. They write you songs. Someone even named a boat after you.",
+ "But you are never alone. Even the bathroom has a queue.",
+ "Island B is shaped like a dollar sign. The water is emerald green, and the coconuts are full of cash. Money really does grow on trees.",
+ "But there is nothing to buy. The nearest shop is a thousand miles away. Like and follow, because island D is the strangest.",
+ "Island C looks normal. Until you notice a leaf, frozen in the air. The water is still as glass. Here, you never get older.",
+ "But if you ever step off, every year catches up with you at once.",
+ "Island D has twisted, spiral trees, and purple water that sparkles. Every morning, you get a random superpower. Yesterday, your neighbour could fly.",
+ "Today, he can only talk to crabs. And the crabs are rude.",
+ "A. Love. B. Money. C. Forever young. D. Random powers. Comment A, B, C or D. And follow for the next pick.",
 ]
-MIN = {1: 1.0, 2: 1.0, 3: 1.0, 4: 1.0, 5: 1.0}
+
+
+
+
+
+
+MIN = {}
 SR = 24000; LEAD = 0.3; TAIL = 0.5
 pipe = KPipeline(lang_code='a')
 audio = []; clips = []; t = 0.0
@@ -35,8 +44,8 @@ for i, text in enumerate(VO):
         segs.append(a); off += len(a) / SR + lead / SR
      gap = 0.22 if si < len(sents) - 1 else 0.1
      segs.append(np.zeros(int(gap * SR))); off += gap
-    body = np.concatenate(segs)
-    dur = max(MIN.get(i, 0), LEAD + len(body) / SR + TAIL)
+    body = np.concatenate(segs) if segs else np.zeros(0)
+    dur = MIN[i] if not text else max(MIN.get(i, 0), LEAD + len(body) / SR + TAIL)
     clip = np.zeros(int(round(dur * SR))); clip[int(LEAD * SR):int(LEAD * SR) + len(body)] = body
     audio.append(clip); clips.append({'start': round(t, 3), 'dur': round(dur, 3), 'words': words}); t += dur
 full = np.concatenate(audio)
