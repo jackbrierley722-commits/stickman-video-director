@@ -6,15 +6,15 @@ espeakng_loader.get_data_path = lambda: '/usr/lib/x86_64-linux-gnu/espeak-ng-dat
 from kokoro import KPipeline
 VOICE = sys.argv[1] if len(sys.argv) > 1 else 'am_michael'
 VO = [
- "There is no room four twenty nine A. So why did someone just call from it? Like and follow, because this is part one.",
- "This is Leo. It's his first night shift at the Hollow Crest Hotel. On the fourth floor, there's room four twenty nine, and room four thirty. Nothing in between.",
- "At four twenty nine in the morning, the front desk phone rings. The little screen says. Room four twenty nine A.",
- "Leo checks the computer. No such room. But there is a booking. One guest. Checked in, forty years ago tonight. Never checked out.",
- "Then he finds a sticky note, under the desk. Rule one. Never go up to a room that doesn't exist. And it's written in his own handwriting.",
- "Leo takes the lift to the fourth floor anyway. Room four twenty nine. Room four thirty. And between them, a door that wasn't there this afternoon.",
- "The brass number on the door is still warm. And from inside the room, the phone is still ringing.",
+ "There is no room four twenty nine A. So who just called from it?",
+ "Leo works the night desk at the Hollow Crest Hotel. Room four twenty nine is right next to four thirty. Nothing in between.",
+ "But at four twenty nine in the morning, the phone rings. Room four twenty nine A.",
+ "The computer says. No such room. But there is a booking. Checked in forty years ago tonight. Never checked out. Like and follow, because this gets worse.",
+ "Under the desk, a note. Never go up to a room that doesn't exist. Written in Leo's own handwriting.",
+ "He goes up anyway. Four twenty nine. Four thirty. And between them, a door that wasn't there this afternoon.",
+ "The number is still warm. And inside, the phone is still ringing.",
  "Then the handle turns. From the inside.",
- "Option A. Open the door. Option B. Run back to the lift, and call the manager. Comment A or B. The most popular choice decides part two.",
+ "A. Open the door. B. Run, and call the manager. Comment A or B. And follow, so you don't miss part two.",
 ]
 
 

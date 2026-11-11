@@ -37,10 +37,10 @@ def ring(at, dur):  # classic bell phone: two-tone tremolo bursts
         add(s_, sig * 0.05); s_ += 1.6
 def creak(at, dur=1.0, f0=200, amp=0.07):
     m = int(dur * SR); x = np.arange(m) / SR; add(at, ma(np.sign(np.sin(2 * np.pi * np.cumsum(f0 + 70 * np.sin(x * 5)) / SR)), 6) * np.hanning(m) * amp)
-E = dict(so0=wt(0, 'so'), like=wt(0, 'like'), leo=wt(1, 'leo'), on1=wt(1, 'on'), nothing=wt(1, 'nothing'), phone2=wt(2, 'phone'), the2=wt(2, 'the', 1), room2=wt(2, 'room'),
-         no3=wt(3, 'no'), but3=wt(3, 'but'), forty=wt(3, 'forty'), never3=wt(3, 'never'), rule=wt(4, 'rule'), and4=wt(4, 'and'), lift=wt(5, 'lift'), room5=wt(5, 'room'), and5=wt(5, 'and'), door5=wt(5, 'door'),
-         warm=wt(6, 'warm'), and6=wt(6, 'and'), handle=wt(7, 'handle'), turns=wt(7, 'turns'), opt=CL[8]['start'], optB=wt(8, 'option', 1), comment=wt(8, 'comment'))
-cuts = [E['so0'] - 0.1, E['like'] - 0.2, E['leo'] - 0.2, E['on1'] - 0.1, CL[2]['start'], E['phone2'] - 0.2, E['the2'] - 0.1, CL[3]['start'], E['no3'] - 0.2, CL[4]['start'], E['and4'] - 0.1, CL[5]['start'], E['room5'] - 0.2, CL[6]['start'], E['and6'] - 0.1, CL[7]['start'], CL[8]['start']]
+E = dict(so0=wt(0, 'so'), like=wt(3, 'like'), leo=wt(1, 'leo'), hollow=wt(1, 'hollow'), on1=wt(1, 'room'), nothing=wt(1, 'nothing'), phone2=wt(2, 'phone'), the2=wt(2, 'room'), room2=wt(2, 'room'),
+         no3=wt(3, 'no'), but3=wt(3, 'but'), forty=wt(3, 'forty'), never3=wt(3, 'never'), rule=wt(4, 'rule'), and4=wt(4, 'written'), lift=wt(5, 'he'), room5=wt(5, 'four'), and5=wt(5, 'and'), door5=wt(5, 'door'),
+         warm=wt(6, 'warm'), and6=wt(6, 'and'), handle=wt(7, 'handle'), turns=wt(7, 'turns'), opt=CL[8]['start'], optB=wt(8, 'b'), fol=wt(8, 'follow'), comment=wt(8, 'comment'))
+cuts = [E['so0'] - 0.1, E['leo'] - 0.2, E['hollow'] - 0.1, E['on1'] - 0.1, CL[2]['start'], E['phone2'] - 0.2, E['the2'] - 0.1, CL[3]['start'], E['no3'] - 0.2, E['like'] - 0.15, CL[4]['start'], E['and4'] - 0.1, CL[5]['start'], E['room5'] - 0.2, CL[6]['start'], E['and6'] - 0.1, CL[7]['start'], CL[8]['start']]
 # bed: low hotel drone + fluorescent hum, drops before the reveal moments
 lvl = np.interp(t, [0, 0.2, E['handle'] - 0.3, E['handle'], E['turns'] + 0.6, E['opt'], D - 0.8, D], [1, 1, 1, 0.15, 0.15, 1.2, 1.2, 0])
 out += (0.055 * np.sin(2 * np.pi * 41 * t) + 0.03 * np.sin(2 * np.pi * 61.5 * t + np.sin(2 * np.pi * 0.09 * t)) + 0.012 * np.sin(2 * np.pi * 123 * t)) * (0.75 + 0.25 * np.sin(2 * np.pi * 0.13 * t)) * lvl
@@ -80,7 +80,7 @@ while s_ < E['handle'] - 0.2:
 creak(E['handle'] + 0.1, 0.9, 260, 0.08); tone(E['turns'] + 0.75, 0.05, 2600, 0.08, 60); thump(E['turns'] + 0.75, 0.6, 40); sting(E['turns'] + 0.8, 55, 0.1)
 # choice: ticking clock + rising tone
 for s_ in np.arange(E['opt'], D - 0.5, 0.5): add(s_, nz(0.02) * env(int(0.02 * SR), 0.0005, 150) * 0.08)
-tone(E['opt'] + 0.2, 0.2, 660, 0.05, 12); tone(E['optB'], 0.2, 990, 0.05, 12)
+tone(E['fol'], 0.12, 1400, 0.06, 30); tone(E['fol'] + 0.06, 0.12, 2100, 0.04, 30); tone(E['opt'] + 0.2, 0.2, 660, 0.05, 12); tone(E['optB'], 0.2, 990, 0.05, 12)
 m = int((D - E['opt']) * SR); x = np.arange(m) / SR; add(E['opt'], np.sin(2 * np.pi * (55 + 30 * x / x[-1]) * x) * 0.05 * (x / x[-1]))
 out *= np.interp(t, [0, 0.02, D - 0.6, D], [0, 1, 1, 0])
 vo, vsr = sf.read('vo.wav')

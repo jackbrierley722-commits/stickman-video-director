@@ -89,8 +89,8 @@ function buildCorr() { const g = G.corr = new T3.Group(); g.position.x = 100; sc
   g.add(new T3.HemisphereLight('#b8a890', '#2a1a14', 0.35)); R.corrLeo = human({ top: '#6a1420', bot: '#1a1a22', hair: '#3a2414', skin: '#e0b090' }); g.add(R.corrLeo); }
 
 // ---------- timeline ----------
-const E = { so0: AT(0, 'so'), like: AT(0, 'like'), leo: AT(1, 'leo'), fourth: AT(1, 'on'), nothing: AT(1, 'nothing'), rings: AT(2, 'phone'), screen: AT(2, 'the', 1), says: AT(2, 'room'), checks: AT(3, 'checks'), nosuch: AT(3, 'no'), booking: AT(3, 'but'), one3: AT(3, 'one'), checked: AT(3, 'checked'), forty: AT(3, 'forty'), never3: AT(3, 'never'),
-  finds: AT(4, 'then'), rule: AT(4, 'rule'), hand: AT(4, 'and'), lift: AT(5, 'leo'), r429: AT(5, 'room'), r430: AT(5, 'room', 1), between: AT(5, 'and'), door5: AT(5, 'door'), brass: AT(6, 'the'), inside6: AT(6, 'and'), turns: AT(7, 'handle'), fromIn: AT(7, 'from'), optB: AT(8, 'option', 1), comment: AT(8, 'comment') };
+const E = { so0: AT(0, 'so'), leo: AT(1, 'leo'), fourth: AT(1, 'room'), hollow: AT(1, 'hollow'), likeT: AT(3, 'like'), nothing: AT(1, 'nothing'), rings: AT(2, 'phone'), screen: AT(2, 'room'), says: AT(2, 'room'), checks: AT(3, 'checks'), nosuch: AT(3, 'no'), booking: AT(3, 'but'), one3: AT(3, 'one'), checked: AT(3, 'checked'), forty: AT(3, 'forty'), never3: AT(3, 'never'),
+  finds: AT(4, 'then'), rule: AT(4, 'rule'), hand: AT(4, 'written'), lift: AT(5, 'he'), r429: AT(5, 'four'), r430: AT(5, 'four', 1), between: AT(5, 'and'), door5: AT(5, 'door'), brass: AT(6, 'the'), inside6: AT(6, 'and'), turns: AT(7, 'handle'), fromIn: AT(7, 'from'), optB: AT(8, 'b'), comment: AT(8, 'comment') };
 function CLI(T) { let ci = CL.findIndex(c => T >= c.start && T < c.start + c.dur); return ci < 0 ? CL.length - 1 : ci; }
 function show(k) { for (const n of ['lobby', 'lift', 'corr']) G[n].visible = n === k; }
 const DOOR_APPEAR = () => E.between + 0.3;
@@ -102,8 +102,9 @@ function corrState(T, appear) { const d = R.doors[3]; const a = appear; d.userDa
 const SH = [
   [0, 'corr', (k, T) => { corrState(T, 1); R.corrLeo.visible = false; camL([100 + 0.9, 1.7, DZ[3] + 0.9], [100 + 0.6, 1.66, DZ[3] + 0.55], k, [100 - 1.45, 1.6, DZ[3]], [100 - 1.45, 1.6, DZ[3]]); }],
   [E.so0 - 0.1, 'lobby', (k, T) => { drawLCD(true, T); cam([1.0, 1.42, -0.05], [0.93, 1.16, -0.5]); }],
-  [E.like - 0.2, 'lobby', (k, T) => { drawLCD(true, T); camL([4.5, 2.6, 5.5], [3.6, 2.2, 4.6], k, [0, 1.3, -1.5], [0, 1.3, -1.5]); }],
   [E.leo - 0.2, 'lobby', (k, T) => { camL([1.4, 1.75, 1.4], [1.2, 1.7, 1.1], k, [0, 1.6, -1.25], [0, 1.65, -1.25]); }],
+  [E.hollow - 0.1, 'lobby', (k, T) => { drawLCD(true, T); camL([4.5, 2.6, 5.5], [3.6, 2.2, 4.6], k, [0, 1.3, -1.5], [0, 1.3, -1.5]); }],
+  [E.likeT - 0.15, 'lobby', (k, T) => { camL([1.1, 1.7, -2.2], [1.25, 1.62, -2.6], k, [1.33, 1.56, -3.22], [1.33, 1.56, -3.22]); }],
   [E.fourth - 0.1, 'corr', (k, T) => { corrState(T, 0); R.corrLeo.visible = false; camL([100 + 1.1, 1.8, 2], [100 + 1.0, 1.7, 0], k, [100 - 1.3, 1.2, -12], [100 - 1.3, 1.2, -13]); }],
   [CL[2].start, 'lobby', (k, T) => { cam([-2.6, 2.6, -2.3], [-2.6, 2.6, -3.36]); }],
   [E.rings - 0.2, 'lobby', (k, T) => { drawLCD(true, T); camL([1.7, 1.75, 0.9], [1.4, 1.6, 0.5], k, [0.8, 1.2, -0.6], [0.85, 1.18, -0.55]); }],
@@ -118,8 +119,9 @@ const SH = [
   [CL[6].start, 'corr', (k, T) => { corrState(T, 1); R.corrLeo.visible = false; camL([100 - 0.95, 1.68, DZ[3] + 0.35], [100 - 1.05, 1.66, DZ[3] + 0.25], k, [100 - 1.45, 1.65, DZ[3]], [100 - 1.45, 1.65, DZ[3]]); }],
   [E.inside6 - 0.1, 'corr', (k, T) => { corrState(T, 1); R.corrLeo.visible = false; camL([100 - 0.6, 0.35, DZ[3] + 0.6], [100 - 0.7, 0.3, DZ[3] + 0.5], k, [100 - 1.45, 0.1, DZ[3]], [100 - 1.45, 0.08, DZ[3]]); }],
   [CL[7].start, 'corr', (k, T) => { corrState(T, 1); R.corrLeo.visible = false; camL([100 - 1.0, 1.15, DZ[3] + 0.75], [100 - 1.1, 1.08, DZ[3] + 0.6], k, [100 - 1.38, 1.0, DZ[3] + 0.3], [100 - 1.38, 1.0, DZ[3] + 0.3]); }],
-  [CL[8].start, 'corr', (k, T) => { corrState(T, 1); R.corrLeo.visible = true; R.corrLeo.position.set(0.1, 0, DZ[3] + 0.6); R.corrLeo.rotation.y = -PI / 2 - 0.2; rest(R.corrLeo); camL([100 + 1.3, 1.6, DZ[3] + 3], [100 + 1.2, 1.7, DZ[3] + 3.5], k, [100 - 1, 1.3, DZ[3]], [100 - 1, 1.3, DZ[3] - 1]); }],
+  [CL[8].start, 'corr', (k, T) => { corrState(T, 1); R.corrLeo.visible = true; R.corrLeo.position.set(-0.45, 0, DZ[3] + 0.9); R.corrLeo.rotation.y = -PI / 2 - 0.5; rest(R.corrLeo); camL([100 + 1.2, 1.5, DZ[3] + 4.2], [100 + 1.1, 1.55, DZ[3] + 3.6], k, [100 - 1.2, 1.2, DZ[3] - 0.2], [100 - 1.3, 1.2, DZ[3] - 0.2]); }],
 ];
+SH.sort((a, b) => a[0] - b[0]);
 function shotAt(T) { let i = 0; for (let k = 0; k < SH.length; k++) if (T >= SH[k][0]) i = k; return i; }
 function shot(T) { const ci = CLI(T); const si = shotAt(T), sh = SH[si], t0 = sh[0], t1 = si + 1 < SH.length ? SH[si + 1][0] : TM.total; show(sh[1]); scene.background = new T3.Color('#050406');
   const ringing = T > E.rings - 0.3 && T < CL[3].start || T < E.leo - 0.2; R.phone.position.x = 0.9 + (ringing ? S(T * 60) * 0.004 : 0); R.ringL.intensity = ringing && S(T * 10) > 0 ? 0.35 : 0; drawLCD(ringing, T);
@@ -135,15 +137,15 @@ const CLUES = [['CALL FROM 429A', () => E.rings], ['BOOKED IN 1986', () => E.for
 function caseFile(T) { if (T < CL[1].start) return; const a = prog(T, CL[1].start, CL[1].start + 0.3); octx.save(); octx.globalAlpha = a; octx.fillStyle = 'rgba(14,10,8,0.82)'; octx.beginPath(); octx.roundRect(24, 40, 420, 66 + CLUES.length * 34, 18); octx.fill(); octx.strokeStyle = 'rgba(200,160,80,0.6)'; octx.lineWidth = 2; octx.stroke();
   txt('CASE FILE . 429A', 44, 68, 18, '#e8c870', 'left', 'PressStart'); CLUES.forEach(([s_, f], i) => { const on = T > f(); const fl = on && T < f() + 0.5 ? 1 - (T - f()) / 0.5 : 0; const y = 108 + i * 34; if (fl) { octx.fillStyle = `rgba(232,200,112,${0.35 * fl})`; octx.fillRect(30, y - 15, 408, 30); } txt(on ? '■' : '□', 50, y, 18, on ? '#ff5a4a' : '#6a5a4a', 'left'); txt(on ? s_ : '???', 78, y, 20, on ? '#fff' : '#6a5a4a', 'left'); }); octx.restore();
   octx.save(); octx.fillStyle = 'rgba(14,10,8,0.82)'; octx.beginPath(); octx.roundRect(470, 40, 226, 90, 18); octx.fill(); const mm = 29 + Math.floor(prog(T, CL[2].start, TM.total) * 12); txt(`4.${mm} AM`, 583, 86, 38, T > CL[2].start ? '#ff7a5a' : '#fff'); octx.restore(); }
-function likePill(T) { const l0 = E.like, l1 = CL[1].start; if (T < l0 - 0.15 || T > l1 + 0.2) return; const k = ease(prog(T, l0 - 0.15, l0 + 0.15)) * (1 - ease(prog(T, l1 - 0.1, l1 + 0.2))); octx.save(); octx.globalAlpha = k; octx.translate(0, (1 - k) * 30);
+function likePill(T) { const l0 = E.likeT, l1 = CL[4].start - 0.1; if (T < l0 - 0.15 || T > l1 + 0.2) return; const k = ease(prog(T, l0 - 0.15, l0 + 0.15)) * (1 - ease(prog(T, l1 - 0.1, l1 + 0.2))); octx.save(); octx.globalAlpha = k; octx.translate(0, (1 - k) * 30);
   octx.fillStyle = 'rgba(10,8,8,0.85)'; octx.beginPath(); octx.roundRect(170, 960, 380, 70, 35); octx.fill(); octx.strokeStyle = '#e8c870'; octx.lineWidth = 3; octx.stroke();
   const hb = 1 + 0.25 * Math.max(0, S((T - l0) * 9)) * (T < l0 + 0.7 ? 1 : 0); octx.save(); octx.translate(216, 995); octx.scale(hb, hb); octx.fillStyle = '#ff5a6a'; octx.beginPath(); octx.moveTo(0, 12); octx.bezierCurveTo(-26, -6, -12, -26, 0, -12); octx.bezierCurveTo(12, -26, 26, -6, 0, 12); octx.fill(); octx.restore();
-  txt('LIKE', 270, 996, 24, '#fff'); const fo = T > AT(0, 'follow'); octx.fillStyle = fo ? '#5ad88a' : '#e8c870'; octx.beginPath(); octx.roundRect(340, 973, 190, 44, 22); octx.fill(); txt(fo && T > AT(0, 'follow') + 0.3 ? 'FOLLOWING' : '+ FOLLOW', 435, 996, 20, '#0a0a10'); octx.restore(); }
+  txt('LIKE', 270, 996, 24, '#fff'); const fo = T > AT(3, 'follow'); octx.fillStyle = fo ? '#5ad88a' : '#e8c870'; octx.beginPath(); octx.roundRect(340, 973, 190, 44, 22); octx.fill(); txt(fo && T > AT(3, 'follow') + 0.3 ? 'FOLLOWING' : '+ FOLLOW', 435, 996, 20, '#0a0a10'); octx.restore(); }
 const SEQ = [[['four', 'twenty', 'nine', 'a'], '429A'], [['four', 'twenty', 'nine'], '429'], [['four', 'thirty'], '430'], [['rule', 'one'], 'Rule 1.'], [['part', 'one'], 'part 1'], [['part', 'two'], 'part 2']];
 function mergeWords(ws) { const o = []; for (let i = 0; i < ws.length; i++) { let hit = null; for (const [seq, rep] of SEQ) if (seq.every((s_, k) => ws[i + k] && ws[i + k].w.toLowerCase().replace(/[^a-z]/g, '') === s_)) { hit = [seq.length, rep]; break; } if (hit) { o.push({ w: hit[1] + (/\.$/.test(ws[i + hit[0] - 1].w) && !/\.$/.test(hit[1]) ? '.' : ''), a: ws[i].a, b: ws[i + hit[0] - 1].b }); i += hit[0] - 1; } else o.push(ws[i]); } return o; }
 const CAPS = []; CL.forEach((c0) => { const ws = mergeWords(c0.words); let cur = []; const flush = () => { if (cur.length) CAPS.push({ a: cur[0].a, b: cur[cur.length - 1].b, txt: cur.map(w => w.w).join(' ') }); cur = []; };
-  ws.forEach(w => { if (cur.length && (cur.length >= 4 || w.a - cur[cur.length - 1].b > 0.2 || (/^(There|So|Like|This|It's|On|Nothing|At|The|Room|Leo|No|But|One|Checked|Never|Then|Rule|And|From|Option|Open|Run|Comment)$/.test(w.w) && cur.length > 1))) flush(); cur.push(w); }); flush(); });
-CAPS.forEach((c, i) => { const nx = CAPS[i + 1]; c.b = nx ? Math.min(nx.a, c.b + 0.35) : c.b + 0.8; c.txt = c.txt.replace(/[:\-"]/g, '').replace(/^At 429/, 'At 4.29'); });
+  ws.forEach(w => { if (cur.length && (cur.length >= 5 || w.a - cur[cur.length - 1].b > 0.2 || (/^(There|So|Like|This|It's|On|Nothing|At|The|Room|Leo|No|But|One|Checked|Never|Then|Rule|And|From|Option|Open|Run|Comment|Under|Written|He|Four|A\.|B\.)$/.test(w.w) && cur.length > 1))) flush(); cur.push(w); }); flush(); });
+CAPS.forEach((c, i) => { const nx = CAPS[i + 1]; c.b = nx ? Math.min(nx.a, c.b + 0.35) : c.b + 0.8; c.txt = c.txt.replace(/[:\-"]/g, '').replace(/\bat 429 in\b/i, 'at 4.29 in'); });
 function caption(s_) { octx.save(); octx.font = '50px Russo'; octx.textAlign = 'center'; octx.textBaseline = 'middle'; const words = s_.split(' '); const lines = []; let cur = ''; for (const w of words) { const x = cur ? cur + ' ' + w : w; if (octx.measureText(x).width > 620 && cur) { lines.push(cur); cur = w; } else cur = x; } lines.push(cur);
   const y0 = 1100 - (lines.length - 1) * 31; lines.forEach((l, i) => { octx.lineJoin = 'round'; octx.lineWidth = 12; octx.strokeStyle = 'rgba(5,4,8,0.95)'; octx.strokeText(l, 360, y0 + i * 62); octx.fillStyle = '#fff'; octx.fillText(l, 360, y0 + i * 62); }); octx.restore(); }
 
@@ -169,16 +171,16 @@ window.renderFrame = function (T) { const ci = CLI(T); const { si, t0 } = shot(T
   const vg = octx.createRadialGradient(360, 640, 380, 360, 640, 900); vg.addColorStop(0, 'rgba(0,0,0,0)'); vg.addColorStop(1, 'rgba(0,0,0,0.6)'); octx.fillStyle = vg; octx.fillRect(0, 0, W, H);
   if (ci === 0) { big('THERE IS NO', 230, 54, '#fff', 1); big('ROOM 429A', 320, 100, '#e8c870', 1); if (T > E.so0 - 0.1) big('SO WHO JUST CALLED?', 420, 44, '#ff5a4a', prog(T, E.so0 - 0.1, E.so0 + 0.15)); }
   caseFile(T); likePill(T);
-  if (ci === 1) { if (T < E.fourth - 0.1) { big('LEO', 300, 90, '#e8c870', prog(T, E.leo - 0.1, E.leo + 0.2)); big('FIRST NIGHT SHIFT', 380, 40, '#fff', prog(T, AT(1, 'first') - 0.1, AT(1, 'first') + 0.2)); } else { big('429', 300, 60, '#fff', prog(T, AT(1, 'room') - 0.1, AT(1, 'room') + 0.2), 220); big('430', 300, 60, '#fff', prog(T, AT(1, 'room', 1) - 0.1, AT(1, 'room', 1) + 0.2), 500); if (T > E.nothing - 0.1) big('NOTHING IN BETWEEN', 390, 46, '#ff5a4a', prog(T, E.nothing - 0.1, E.nothing + 0.2)); } }
+  if (ci === 1) { if (T < E.fourth - 0.1) { big('LEO', 300, 90, '#e8c870', prog(T, E.leo - 0.1, E.leo + 0.2)); big('NIGHT DESK', 380, 44, '#fff', prog(T, AT(1, 'night') - 0.1, AT(1, 'night') + 0.2)); } else { big('429', 300, 60, '#fff', prog(T, AT(1, 'room') - 0.1, AT(1, 'room') + 0.2), 220); big('430', 300, 60, '#fff', prog(T, AT(1, 'thirty') - 0.2, AT(1, 'thirty') + 0.1), 500); if (T > E.nothing - 0.1) big('NOTHING IN BETWEEN', 390, 46, '#ff5a4a', prog(T, E.nothing - 0.1, E.nothing + 0.2)); } }
   if (ci === 2 && T < E.rings - 0.2) big('4.29 AM', 330, 96, '#ff7a5a', prog(T, CL[2].start, CL[2].start + 0.2));
   if (ci === 2 && T > E.says) big('ROOM 429A', 300, 80, '#ff5a4a', prog(T, E.says, E.says + 0.2));
   if (ci === 3 && T > E.forty - 0.2) big('40 YEARS AGO TONIGHT', 300, 46, '#e8c870', prog(T, E.forty - 0.2, E.forty + 0.1));
-  if (ci === 4 && T > E.hand - 0.1) { big('HIS OWN', 290, 70, '#fff', prog(T, E.hand - 0.1, E.hand + 0.2)); big('HANDWRITING', 370, 70, '#ff5a4a', prog(T, AT(4, 'handwriting') - 0.1, AT(4, 'handwriting') + 0.2)); }
+  if (ci === 4 && T > E.hand - 0.1) { big("LEO'S OWN", 290, 70, '#fff', prog(T, AT(4, 'own') - 0.3, AT(4, 'own'))); big('HANDWRITING', 370, 70, '#ff5a4a', prog(T, AT(4, 'handwriting') - 0.1, AT(4, 'handwriting') + 0.2)); }
   if (ci === 5 && T > E.door5 - 0.2) big("WASN'T THERE THIS AFTERNOON", 330, 36, '#e8c870', prog(T, E.door5 - 0.2, E.door5 + 0.1));
   if (ci === 6) { if (T < E.inside6) big('STILL WARM', 320, 70, '#ff9a5a', prog(T, AT(6, 'warm') - 0.1, AT(6, 'warm') + 0.2)); else big('STILL RINGING', 320, 64, '#ff5a4a', prog(T, AT(6, 'ringing') - 0.1, AT(6, 'ringing') + 0.2)); }
   if (ci === 7 && T > E.fromIn - 0.1) big('FROM THE INSIDE', 320, 64, '#ff5a4a', prog(T, E.fromIn - 0.1, E.fromIn + 0.2));
   if (ci === 8) { if (T < E.comment - 0.1) { const A = T < E.optB - 0.2; big(A ? 'A. OPEN THE DOOR' : 'B. RUN TO THE LIFT', 520, A ? 62 : 56, A ? '#e8c870' : '#7ad0ff', 1); big(A ? 'SEE WHO IS INSIDE' : 'CALL THE MANAGER', 600, 38, '#fff', 1); }
-    else { big('COMMENT A OR B', 520, 70, '#e8c870', prog(T, E.comment - 0.1, E.comment + 0.2)); big('PART 2 DECIDES...', 610, 40, '#fff', prog(T, E.comment + 0.8, E.comment + 1.1)); } }
+    else { big('COMMENT A OR B', 520, 70, '#e8c870', prog(T, E.comment - 0.1, E.comment + 0.2)); big('FOLLOW FOR PART 2', 610, 44, '#fff', prog(T, AT(8, 'follow') - 0.2, AT(8, 'follow') + 0.1)); } }
   const cap = CAPS.find(c => T >= c.a && T < c.b); if (cap) caption(cap.txt);
   if (T > TM.total - 0.6) { octx.fillStyle = `rgba(0,0,0,${prog(T, TM.total - 0.6, TM.total)})`; octx.fillRect(0, 0, W, H); } };
 })();
