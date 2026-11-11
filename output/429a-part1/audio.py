@@ -51,7 +51,8 @@ for i, s_ in enumerate(np.arange(0.4, CL[5]['start'], 0.85)):
     f = 440 * 2 ** ((mel[i % 8] - 69) / 12); n = int(0.9 * SR); add(s_, (sine(f * 2, 0.9) + 0.3 * sine(f * 6.02, 0.9)) * env(n, 0.002, 6) * 0.018)
 # opening: phone ring under the hook, sting on "so"
 ring(0.0, E['leo'] - 0.4); sting(E['so0'], 87, 0.06)
-for c in cuts: whoosh(c, 0.05)
+# no whoosh on every cut (user preference); only on the two big reveals
+for c in (E["door5"] - 0.2, CL[7]["start"]): whoosh(c, 0.05)
 # like pop
 tone(E['like'], 0.12, 1400, 0.06, 30); tone(E['like'] + 0.06, 0.12, 2100, 0.04, 30)
 # corridor reveal "nothing in between"
