@@ -77,6 +77,12 @@ m = int(1.4 * SR); x = np.linspace(0, 1, m); add(E['yest'] + 0.2, nz(1.4, 4) * n
 sweep(E['cD'], 0.35, 600, 250, 0.04)
 for s_ in np.arange(E['cD'] + 0.2, E['end'] - 0.2, 0.13): add(s_ + rng.random() * 0.04, nz(0.01) * env(int(0.01 * SR), 0.0005, 300) * 0.06)  # crab clicks
 for k in range(3): sweep(E['crabs2'] + 0.25 + k * 0.4, 0.18, 700, 500, 0.03)  # crab sass
+# transition whooshes on SOME cuts only: the four island reveals and the BUT catches
+def whoosh(at, amp=0.05):
+    m = int(0.45 * SR); x = np.linspace(0, 1, m); n = nz(0.45, 1); lo = ma(n, 3); hi = n - ma(n, 12)
+    add(at - 0.3, (lo * x + hi * (1 - x) * 0.6) * np.sin(np.pi * x) ** 2 * amp * 3)
+for c in (E['A'] - 0.1, E['B'] - 0.1, E['C'] - 0.1, E['D'] - 0.1, E['end']): whoosh(c, 0.05)
+for c in (E['cB'], E['cC'], E['cD']): whoosh(c, 0.035)
 # end: pick hits, ticking, follow
 for k, w in enumerate(['a', 'b', 'c', 'd']): s_ = wt(9, w); pluck(s_, [72, 76, 79, 84][k], 0.05); thump(s_, 0.3, 60, 25)
 for s_ in np.arange(E['comment'], D - 0.4, 0.5): add(s_, nz(0.02) * env(int(0.02 * SR), 0.0005, 150) * 0.07)
