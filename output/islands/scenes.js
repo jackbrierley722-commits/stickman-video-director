@@ -34,7 +34,7 @@ const G = {}; const R = {}; let SNAP;
 const IX = [0, 300, 600, 900], SZ = 60, MR = 256; const MK = [];
 const PP = (i, x, y, z) => [IX[i] + x, y, z];
 function drawShape(i, c) { c.fillStyle = '#fff'; c.strokeStyle = '#fff'; c.lineJoin = 'round';
-  if (i === 0) { c.beginPath(); c.moveTo(128, 228); c.bezierCurveTo(18, 150, 6, 58, 75, 46); c.bezierCurveTo(106, 41, 124, 64, 128, 82); c.bezierCurveTo(132, 64, 150, 41, 181, 46); c.bezierCurveTo(250, 58, 238, 150, 128, 228); c.fill(); }
+  if (i === 0) { [[125, 130, 82, 78, 0.3], [178, 92, 42, 38, 0], [82, 172, 44, 34, 0.4], [150, 178, 36, 30, 0], [70, 95, 30, 28, 0]].forEach(([x, y, a, b, r]) => { c.beginPath(); c.ellipse(x, y, a, b, r, 0, 7); c.fill(); }); }
   if (i === 1) { c.font = '250px Russo'; c.textAlign = 'center'; c.textBaseline = 'middle'; c.lineWidth = 16; c.strokeText('$', 128, 134); c.fillText('$', 128, 134); }
   if (i === 2) { [[128, 125, 78, 92, 0.2], [92, 150, 40, 45, 0], [170, 95, 38, 34, 0], [140, 200, 36, 30, 0]].forEach(([x, y, a, b, r]) => { c.beginPath(); c.ellipse(x, y, a, b, r, 0, 7); c.fill(); }); }
   if (i === 3) { [[120, 115, 82, 70, -0.3], [165, 150, 45, 50, 0], [90, 160, 42, 36, 0], [150, 205, 28, 26, 0]].forEach(([x, y, a, b, r]) => { c.beginPath(); c.ellipse(x, y, a, b, r, 0, 7); c.fill(); }); } }
@@ -72,7 +72,18 @@ function buildIsland(i) { buildMask(i); const g = G['i' + i] = new T3.Group(); g
   spots.slice(3).forEach(([x, z], k) => { if (k % 4 === 3) { const fl = add(g, new T3.SphereGeometry(0.6, 10, 8), SM(i === 0 ? '#ff6a9a' : '#f4d24a', { roughness: 0.8 }), x, HT(i, x, z) + 0.3, z); fl.scale.y = 0.5; } else { const y = HT(i, x, z) - 0.1, s_ = 0.8 + (k % 3) * 0.15; g.userData.palms.push(i === 0 ? heartTree(g, x, y, z, s_, k) : i === 1 ? palm(g, x, y, z, s_, true, k) : i === 2 ? roundTree(g, x, y, z, s_, k) : spiralTree(g, x, y, z, s_, k)); } });
   const sl = new T3.DirectionalLight('#fff4e0', 3.2); sl.position.set(30, 60, 25); sl.target.position.set(0, 0, 0); sl.castShadow = true; sl.shadow.mapSize.set(2048, 2048); const sc = sl.shadow.camera; sc.left = sc.bottom = -40; sc.right = sc.top = 40; sc.near = 1; sc.far = 150; sl.shadow.bias = -0.0005; g.add(sl); g.add(sl.target); g.add(new T3.HemisphereLight('#bfe4ff', '#c8b890', 0.7)); }
 const DRESS = ['#e85a7a', '#5aa8e8', '#f4c24a', '#8a5ae8', '#4ac88a', '#e8884a', '#ffffff', '#3a3a4a'];
-function person(p, x, z, i, k, o = {}) { const h = human(Object.assign({ top: DRESS[k % 8], bot: ['#2a3a5a', '#3a2a1a', '#e8e0d0', '#1a1a1a'][k % 4], hair: ['#2a1a10', '#d8b060', '#6a3a1a', '#111'][k % 4], skin: ['#e8b898', '#b07a50', '#f0c8a8', '#8a5a3a'][k % 4] }, o)); h.position.set(x, HT(i, x, z), z); p.add(h); return h; }
+const SKINS = ['#f0c8a8', '#c88a60', '#8a5a3a', '#e8b898', '#5a3a24', '#f4d4bc', '#a8724a'], HAIRS = ['#2a1a10', '#d8b060', '#6a3a1a', '#111', '#b8482a', '#e8e0d0', '#4a2a1a'];
+function person(p, x, z, i, k, o = {}) { if (!o.skin) o.skin = SKINS[(k * 3 + i) % 7]; if (!o.hair) o.hair = HAIRS[(k * 5 + i * 2) % 7]; const h = person0(p, x, z, i, k, o); const b = h.userData.body, hs = (k * 7 + i * 3) % 6;
+  h.scale.set(0.92 + ((k * 13) % 5) * 0.05, 0.9 + ((k * 7 + i) % 5) * 0.05, 1); const hm = SM(o.hair, { roughness: 0.85 });
+  if (hs === 1) { add(b, new T3.CylinderGeometry(0.14, 0.16, 0.42, 16, 1, true), hm, 0, 1.55, -0.03, false); }
+  if (hs === 2) add(b, new T3.SphereGeometry(0.07, 12, 10), hm, 0, 1.84, -0.07, false);
+  if (hs === 3) { const capC = ['#e83a3a', '#3a6ae8', '#f4c24a', '#2a2a2a'][k % 4]; add(b, new T3.SphereGeometry(0.14, 18, 10, 0, PI * 2, 0, PI * 0.5), SM(capC), 0, 1.72, 0, false); add(b, new T3.CylinderGeometry(0.12, 0.12, 0.02, 16), SM(capC), 0, 1.74, 0.12, false).scale.z = 0.8; }
+  if (hs === 4) b.children[2].visible = false;
+  if (hs === 5) { add(b, new T3.SphereGeometry(0.06, 10, 8), hm, -0.13, 1.66, -0.02, false); add(b, new T3.SphereGeometry(0.06, 10, 8), hm, 0.13, 1.66, -0.02, false); }
+  if ((k + i) % 3 === 0) for (const sx of [-1, 1]) add(b, new T3.TorusGeometry(0.03, 0.007, 6, 14), SM('#1a1a1a'), sx * 0.045, 1.7, 0.125, false);
+  if ((k * 3 + i) % 4 === 1) { const sk = add(b, new T3.CylinderGeometry(0.17, 0.3, 0.45, 18, 1, true), SM(o.top || DRESS[k % 8], { side: T3.DoubleSide, roughness: 0.8 }), 0, 0.78, 0, false); }
+  return h; }
+function person0(p, x, z, i, k, o = {}) { const h = human(Object.assign({ top: DRESS[k % 8], bot: ['#2a3a5a', '#3a2a1a', '#e8e0d0', '#1a1a1a', '#6a8a4a', '#8a2a3a'][k % 6],  }, o)); h.position.set(x, HT(i, x, z), z); p.add(h); return h; }
 function buildA() { const g = G.i0, i = 0; R.you = person(g, 0, 2, i, 6, { top: '#ffffff', bot: '#4a7ab8', hair: '#3a2414' }); R.adm = []; R.hearts = [];
   for (let k = 0; k < 9; k++) { const a = k / 9 * PI * 2; const x = S(a) * 4.2, z = 2 + C(a) * 4.2; const h = person(g, x, z, i, k); h.rotation.y = Math.atan2(-x, 2 - z); R.adm.push(h); R.hearts.push(sprite(g, heartTex('#ff4a7a'), 0.6, x, h.position.y + 2.2, z)); }
   R.guitar = new T3.Group(); R.adm[0].userData.body.add(R.guitar); R.guitar.position.set(0, 1.15, 0.22); add(R.guitar, new T3.SphereGeometry(0.22, 14, 10), SM('#a8642a'), 0, -0.05, 0).scale.z = 0.4; add(R.guitar, Bx(0.06, 0.6, 0.04), SM('#5a3a1a'), 0.15, 0.25, 0).rotation.z = -0.9; R.guitar.rotation.z = 0.9; R.adm[0].userData.armR.rotation.x = -0.9;
@@ -112,9 +123,9 @@ function sea(cx, cz, T, i = 0) { OCEAN.material.color.set(OC[i]); OCEAN.material
   for (let k = 0; k < p.count; k++) { const x = OBASE[k * 3] + ox, z = OBASE[k * 3 + 2] + oz; p.array[k * 3 + 1] = am * (0.22 * S(0.16 * x + 1.4 * T) + 0.16 * S(0.21 * z + 1.1 * T) + 0.07 * S(0.55 * (x + z) + 2.3 * T)); } p.needsUpdate = true; OCEAN.geometry.computeVertexNormals(); }
 
 // ---------- timeline ----------
-const E = { look: AT(0, 'every'), heart: AT(1, 'heart'), hearts: AT(1, 'hearts'), pink: AT(1, 'water'), everyone: AT(1, 'everyone'), songs: AT(1, 'songs'), boat: AT(1, 'boat'), cA: AT(2, 'but'), bath: AT(2, 'bathroom'),
+const E = { look: AT(0, 'every'), heart: AT(1, 'paradise'), gridT: AT(0, 'forever') + 0.45, hearts: AT(1, 'hearts'), pink: AT(1, 'water'), everyone: AT(1, 'everyone'), songs: AT(1, 'songs'), boat: AT(1, 'boat'), cA: AT(2, 'but'), bath: AT(2, 'bathroom'),
   dollar: AT(3, 'dollar'), green: AT(3, 'water'), cash: AT(3, 'cash'), money: AT(3, 'money'), cB: CL[4].start, shop: AT(4, 'shop'), like: AT(4, 'like'), because: AT(4, 'last'),
-  normal: AT(5, 'normal'), frozen: AT(5, 'frozen'), still: AT(5, 'still'), here: AT(5, 'here'), cC: AT(6, 'but'), step: AT(6, 'step'), every6: AT(6, 'every'),
+  normal: AT(5, 'nothing'), frozen: AT(5, 'frozen'), still: AT(5, 'still'), here: AT(5, 'here'), cC: AT(6, 'but'), step: AT(6, 'step'), every6: AT(6, 'every'),
   twisted: AT(7, 'twisted'), trees7: AT(7, 'trees'), sparkles: AT(7, 'sparkles'), morning: AT(7, 'superpower'), yest: AT(7, 'neighbour'), cD: CL[8].start, crabs2: AT(8, 'and'), end: CL[9].start, a9: AT(9, 'a'), b9: AT(9, 'b'), c9: AT(9, 'c'), d9: AT(9, 'd'), comment: AT(9, 'comment'), follow: AT(9, 'follow') };
 E.coco = E.money; E.loop = AT(9, 'tell') - 0.05; E.A = E.heart; E.B = E.dollar; E.C = E.normal; E.D = E.twisted; E.here = AT(5, 'here');
 const REV = [E.heart, E.dollar, E.normal, E.twisted];
@@ -123,8 +134,8 @@ function topDown(i, k, h0, h1, a0, a1) { const h = lerp(h0, h1, ease(k)), a = le
 const lp = (i, x, z) => [IX[i] + x, HT(i, x, z), z];
 function orbit(i, cx, cz, r, h, a0, a1, k, ly = 1) { const a = lerp(a0, a1, k); cam(PP(i, cx + S(a) * r, h, cz + C(a) * r), PP(i, cx, HT(i, cx, cz) + ly, cz)); }
 const SH = [
-  [0, 0, (k, T) => topDown(0, k, 92, 84, 0, 0.05)], [0.6, 1, (k, T) => topDown(1, k, 92, 84, 0, 0.05)], [1.2, 2, (k, T) => topDown(2, k, 92, 84, 0, 0.05)], [1.8, 3, (k, T) => topDown(3, k, 92, 84, 0, 0.05)],
-  [E.look - 0.05, 0, (k, T) => { cam(PP(0, lerp(-34, -18, k), lerp(12, 24, k), lerp(52, 42, k)), PP(0, 0, 0, 0)); }],
+  [0, 0, (k, T) => topDown(0, k, 92, 84, 0, 0.05)], [0.5, 1, (k, T) => topDown(1, k, 92, 84, 0, 0.05)], [1.0, 2, (k, T) => topDown(2, k, 92, 84, 0, 0.05)], [1.5, 3, (k, T) => topDown(3, k, 92, 84, 0, 0.05)],
+  [E.gridT, 'grid', () => {}],
   [E.heart - 0.1, 0, (k, T) => topDown(0, k, 115, 82, -0.3, 0.1)],
   [E.hearts - 0.1, 0, (k, T) => { const t = G.i0.userData.palms[1].position; cam(PP(0, t.x + lerp(5, 4, k), t.y + 4, t.z + lerp(6, 5, k)), PP(0, t.x, t.y + 3.6, t.z)); }],
   [E.pink - 0.05, 0, (k, T) => { cam(PP(0, lerp(-6, 2, k), 1.2, 44), PP(0, 0, 1, 20)); }],
@@ -229,12 +240,13 @@ window.renderFrame = function (T) { const ci = CLI(T); const { si, t0, isl } = s
   octx.globalCompositeOperation = 'overlay'; octx.globalAlpha = 0.05; octx.drawImage(GRAIN, -Math.floor(Math.random() * 300), -Math.floor(Math.random() * 300), W + 300, H + 300); octx.globalAlpha = 1; octx.globalCompositeOperation = 'source-over';
   const vg = octx.createRadialGradient(360, 640, 420, 360, 640, 900); vg.addColorStop(0, 'rgba(0,0,0,0)'); vg.addColorStop(1, 'rgba(0,0,0,0.4)'); octx.fillStyle = vg; octx.fillRect(0, 0, W, H);
   if (isl === 'grid') { octx.strokeStyle = '#fff'; octx.lineWidth = 6; octx.beginPath(); octx.moveTo(360, 0); octx.lineTo(360, H); octx.moveTo(0, 640); octx.lineTo(W, 640); octx.stroke(); const hl = [E.a9, E.b9, E.c9, E.d9];
-    for (let i = 0; i < 4; i++) { const qx = (i % 2) * 360 + 180, qy = Math.floor(i / 2) * 640; const on = T > hl[i] - 0.1 && (i === 3 ? T < E.comment : T < hl[i + 1] - 0.1) || T > E.comment; const pop = prog(T, hl[i] - 0.1, hl[i] + 0.15);
+    for (let i = 0; i < 4; i++) { const qx = (i % 2) * 360 + 180, qy = Math.floor(i / 2) * 640; const on = T < E.end || T > hl[i] - 0.1 && (i === 3 ? T < E.comment : T < hl[i + 1] - 0.1) || T > E.comment; const pop = T < E.end ? prog(T, E.gridT + i * 0.08, E.gridT + 0.2 + i * 0.08) : prog(T, hl[i] - 0.1, hl[i] + 0.15);
       if (!on && T < E.comment) { octx.fillStyle = 'rgba(0,10,20,0.45)'; octx.fillRect(qx - 180, qy, 360, 640); } big(NAMES[i], qy + 90, on ? 96 : 80, on ? COLS[i] : '#fff', Math.max(0.4, pop), qx); icon(i, qx, qy + 175, 54, '#fff'); } 
+    if (T < E.end) { octx.fillStyle = 'rgba(8,20,30,0.85)'; octx.beginPath(); octx.roundRect(60, 560, 600, 160, 30); octx.fill(); big('WHICH ISLAND', 610, 58, '#fff', 1); big('WOULD YOU PICK?', 675, 40, '#ffe08a', 1); }
     if (T > E.comment - 0.1) { octx.fillStyle = 'rgba(8,20,30,0.85)'; octx.beginPath(); octx.roundRect(70, 570, 580, 140, 30); octx.fill(); big('COMMENT A, B, C OR D', 618, 44, '#fff', prog(T, E.comment - 0.1, E.comment + 0.15)); big('AND FOLLOW', 672, 32, '#5ac8f8', prog(T, E.follow - 0.2, E.follow + 0.1)); } }
   let cur = -1; for (let k = 0; k < 4; k++) if (T >= REV[k] - 0.1 && T < E.end) cur = k; if (isl !== 'grid' && T < E.loop) chips(T, cur);
   if (T > E.loop) { big('WHICH ISLAND', 230, 80, '#fff', 1); big('WOULD YOU PICK?', 310, 54, '#fff', 1); }
-  if (ci === 0) { big('WHICH ISLAND', 230, 80, '#fff', 1); big('WOULD YOU PICK?', 310, 54, '#fff', 1); big('LIVE THERE FOREVER', 380, 42, '#ffe08a', prog(T, AT(0, 'forever') - 0.3, AT(0, 'forever'))); if (T > AT(0, 'every') - 0.1) big('EVERY DETAIL IS A CLUE', 445, 44, '#8ae8ff', prog(T, AT(0, 'every') - 0.1, AT(0, 'every') + 0.15)); }
+  if (ci === 0 && isl !== 'grid') { big('WHICH ISLAND', 230, 80, '#fff', 1); big('WOULD YOU PICK?', 310, 54, '#fff', 1); big('LIVE THERE FOREVER', 380, 42, '#ffe08a', prog(T, AT(0, 'forever') - 0.3, AT(0, 'forever'))); }
   if (ci >= 1 && ci <= 8 && ci % 2 === 1 && T > REV[(ci - 1) / 2] - 0.1) { const i = (ci - 1) / 2, s0 = REV[i] - 0.1; const k = prog(T, s0, s0 + 0.2); big('ISLAND ' + NAMES[i], 190, 84, COLS[i], k); const pk = [E.everyone, E.money, E.here, E.morning][i]; const TAGS = [[[E.hearts, 'TREES . HEART SHAPED'], [E.pink, 'WATER . SOFT PINK']], [[E.green, 'WATER . EMERALD'], [E.cash, 'COCONUTS . CASH']], [[E.frozen, 'LEAVES . FROZEN'], [E.still, 'WATER . STILL AS GLASS']], [[E.trees7, 'TREES . SPIRAL'], [E.sparkles, 'WATER . PURPLE SPARKLE']]][i];
     TAGS.forEach(([t_, s_]) => { if (T > t_ - 0.1 && T < pk - 0.2) { const a = prog(T, t_ - 0.1, t_ + 0.15); octx.save(); octx.globalAlpha = a; octx.font = '30px Russo'; const w = octx.measureText(s_).width + 50; octx.fillStyle = 'rgba(8,20,30,0.8)'; octx.beginPath(); octx.roundRect(360 - w / 2, 300, w, 58, 29); octx.fill(); octx.strokeStyle = COLS[i]; octx.lineWidth = 3; octx.stroke(); txt(s_, 360, 330, 30, '#fff'); octx.restore(); } }); if (T > pk - 0.2) big(PERK[i], 270, PERK[i].length > 24 ? 34 : 40, '#fff', prog(T, pk - 0.2, pk + 0.1)); }
   if (ci >= 2 && ci <= 8 && ci % 2 === 0) { const ck = (ci - 2) / 2, s0 = [E.cA, CL[4].start, E.cC, CL[8].start][ck]; if (T > s0 - 0.05) big(['BUT...', 'ONE PROBLEM...', 'BUT...', 'TODAY...'][ck], 190, ck === 1 ? 64 : 90, '#ff5a5a', prog(T, s0 - 0.05, s0 + 0.2));
@@ -244,6 +256,6 @@ window.renderFrame = function (T) { const ci = CLI(T); const { si, t0, isl } = s
   if (ci === 8) { octx.fillStyle = 'rgba(8,20,30,0.82)'; octx.beginPath(); octx.roundRect(150, 330, 420, 84, 24); octx.fill(); txt('TODAY . TALK TO CRABS', 360, 372, 32, '#ff8a6a');
     if (T > E.crabs2 + 0.2) { const lines = ['NICE HAIR. NOT.', 'WHO INVITED HIM?', 'MOVE.']; R.crabs.slice(0, 3).forEach((c, k) => { const w = new T3.Vector3(); c.getWorldPosition(w); bubble([w.x, w.y + 0.5, w.z], lines[k], prog(T, E.crabs2 + 0.2 + k * 0.4, E.crabs2 + 0.4 + k * 0.4)); }); } }
   likePill(T, E.like, CL[5].start - 0.1, AT(4, 'follow')); if (T > E.follow - 0.2 && T < E.loop) likePill(T, E.follow, TM.total + 1, E.follow + 0.2);
-  const cap = CAPS.find(c => T >= c.a && T < c.b); if (cap && isl !== 'grid') caption(cap.txt);
+  const cap = CAPS.find(c => T >= c.a && T < c.b); if (cap && (isl !== 'grid' || T < E.end)) caption(cap.txt);
 };
 })();

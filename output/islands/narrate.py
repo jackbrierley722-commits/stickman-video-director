@@ -6,13 +6,13 @@ espeakng_loader.get_data_path = lambda: '/usr/lib/x86_64-linux-gnu/espeak-ng-dat
 from kokoro import KPipeline
 VOICE = sys.argv[1] if len(sys.argv) > 1 else 'am_michael'
 VO = [
- "Which island would you live on forever? ~ Every detail is a clue.",
- "The first one? Shaped like a heart. Its trees grow into little hearts. The water is soft pink. ~ And everyone here has a crush on you. They write you songs. Someone named a boat after you.",
+ "Which island would you live on forever?",
+ "The first one looks like paradise. Its trees grow into little hearts. The water is soft pink. ~ And everyone here has a crush on you. They write you songs. Someone named a boat after you.",
  "Sounds perfect. ~ But you are never alone. Even the bathroom has a queue.",
  "Island B? A dollar sign. The water is emerald green. And the coconuts? ~ Full of cash. Money really does grow on trees.",
  "There is just one problem. ~ There is nothing to buy. The nearest shop is a thousand miles away. Like and follow. The last island is the strangest.",
- "The third island looks normal. ~ Until you notice a leaf. Frozen. In mid air. The water is still as glass. Here, you never get older.",
- "Not one day. ~ But if you ever step off, every year catches up with you. All at once.",
+ "The third island? Nothing special. ~ Until you notice a leaf. Frozen. In mid air. The water is still as glass. Here, you never get older.",
+ "Not one day. ~ But if you ever step off, every year [catches](/kˈæʧᵻz/) up with you. All at once.",
  "And the last island? ~ Twisted spiral trees. Purple water that sparkles. Every morning, you get a random superpower. Yesterday, your neighbour could fly.",
  "Today? ~ He can only talk to crabs. And the crabs are rude.",
  "Which one? A. Love. B. Money. C. Forever young. D. Random powers. Comment, follow, and tell me.",
@@ -23,7 +23,7 @@ VO = [
 
 
 
-MIN = {}
+MIN = {0: 3.3}
 SR = 24000; LEAD = 0.15; TAIL = 0.3
 pipe = KPipeline(lang_code='a')
 audio = []; clips = []; t = 0.0
