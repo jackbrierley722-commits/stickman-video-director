@@ -15,7 +15,7 @@ VO = [
  "Not one day. ~ But if you ever step off, every year catches up with you. All at once.",
  "And the last island? ~ Twisted spiral trees. Purple water that sparkles. Every morning, you get a random superpower. Yesterday, your neighbour could fly.",
  "Today? ~ He can only talk to crabs. And the crabs are rude.",
- "Which one? A. Love. B. Money. C. Forever young. D. Random powers. Comment A, B, C or D. And follow for the next pick.",
+ "Which one? A. Love. B. Money. C. Forever young. D. Random powers. Comment, follow, and tell me.",
 ]
 
 

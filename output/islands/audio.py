@@ -87,7 +87,7 @@ for c in (E['cB'], E['cC'], E['cD']): whoosh(c, 0.035)
 for k, w in enumerate(['a', 'b', 'c', 'd']): s_ = wt(9, w); pluck(s_, [72, 76, 79, 84][k], 0.05); thump(s_, 0.3, 60, 25)
 for s_ in np.arange(E['comment'], D - 0.4, 0.5): add(s_, nz(0.02) * env(int(0.02 * SR), 0.0005, 150) * 0.07)
 tone(E['follow'], 0.12, 1400, 0.06, 30); tone(E['follow'] + 0.06, 0.12, 2100, 0.04, 30)
-out *= np.interp(t, [0, 0.02, D - 0.5, D], [0, 1, 1, 0])
+out *= np.interp(t, [0, 0.02, D - 0.03, D], [0, 1, 1, 0])  # no fade: video loops
 vo, vsr = sf.read('vo.wav')
 if vo.ndim > 1: vo = vo.mean(1)
 vo = np.interp(np.arange(N) / SR, np.arange(len(vo)) / vsr, vo, right=0)

@@ -116,7 +116,7 @@ const E = { look: AT(0, 'every'), heart: AT(1, 'heart'), hearts: AT(1, 'hearts')
   dollar: AT(3, 'dollar'), green: AT(3, 'water'), cash: AT(3, 'cash'), money: AT(3, 'money'), cB: CL[4].start, shop: AT(4, 'shop'), like: AT(4, 'like'), because: AT(4, 'last'),
   normal: AT(5, 'normal'), frozen: AT(5, 'frozen'), still: AT(5, 'still'), here: AT(5, 'here'), cC: AT(6, 'but'), step: AT(6, 'step'), every6: AT(6, 'every'),
   twisted: AT(7, 'twisted'), trees7: AT(7, 'trees'), sparkles: AT(7, 'sparkles'), morning: AT(7, 'superpower'), yest: AT(7, 'neighbour'), cD: CL[8].start, crabs2: AT(8, 'and'), end: CL[9].start, a9: AT(9, 'a'), b9: AT(9, 'b'), c9: AT(9, 'c'), d9: AT(9, 'd'), comment: AT(9, 'comment'), follow: AT(9, 'follow') };
-E.coco = E.money; E.A = E.heart; E.B = E.dollar; E.C = E.normal; E.D = E.twisted; E.here = AT(5, 'here');
+E.coco = E.money; E.loop = AT(9, 'tell') - 0.05; E.A = E.heart; E.B = E.dollar; E.C = E.normal; E.D = E.twisted; E.here = AT(5, 'here');
 const REV = [E.heart, E.dollar, E.normal, E.twisted];
 function CLI(T) { let ci = CL.findIndex(c => T >= c.start && T < c.start + c.dur); return ci < 0 ? CL.length - 1 : ci; }
 function topDown(i, k, h0, h1, a0, a1) { const h = lerp(h0, h1, ease(k)), a = lerp(a0, a1, k); camera.up.set(S(a), 0, -C(a)); cam(PP(i, 0, h, 0.001), PP(i, 0, 0, 0)); }
@@ -154,6 +154,7 @@ const SH = [
   [E.cD, 3, (k, T) => { const [x, z] = R.dotP; orbit(3, x, z, 4.5, 1.6, -0.4, 0.1, k, 0.6); }],
   [E.crabs2 - 0.1, 3, (k, T) => { const [x, z] = R.dotP; cam(PP(3, x + 1.6, HT(3, x, z) + 0.7, z + 2.6), PP(3, x, HT(3, x, z) + 0.5, z)); }],
   [E.end, 'grid', () => {}],
+  [E.loop, 0, (k, T) => topDown(0, 0, 92, 92, 0, 0)],
 ];
 SH.sort((a, b) => a[0] - b[0]);
 function shotAt(T) { let i = 0; for (let k = 0; k < SH.length; k++) if (T >= SH[k][0]) i = k; return i; }
@@ -230,8 +231,9 @@ window.renderFrame = function (T) { const ci = CLI(T); const { si, t0, isl } = s
   if (isl === 'grid') { octx.strokeStyle = '#fff'; octx.lineWidth = 6; octx.beginPath(); octx.moveTo(360, 0); octx.lineTo(360, H); octx.moveTo(0, 640); octx.lineTo(W, 640); octx.stroke(); const hl = [E.a9, E.b9, E.c9, E.d9];
     for (let i = 0; i < 4; i++) { const qx = (i % 2) * 360 + 180, qy = Math.floor(i / 2) * 640; const on = T > hl[i] - 0.1 && (i === 3 ? T < E.comment : T < hl[i + 1] - 0.1) || T > E.comment; const pop = prog(T, hl[i] - 0.1, hl[i] + 0.15);
       if (!on && T < E.comment) { octx.fillStyle = 'rgba(0,10,20,0.45)'; octx.fillRect(qx - 180, qy, 360, 640); } big(NAMES[i], qy + 90, on ? 96 : 80, on ? COLS[i] : '#fff', Math.max(0.4, pop), qx); icon(i, qx, qy + 175, 54, '#fff'); } 
-    if (T > E.comment - 0.1) { octx.fillStyle = 'rgba(8,20,30,0.85)'; octx.beginPath(); octx.roundRect(70, 570, 580, 140, 30); octx.fill(); big('COMMENT A, B, C OR D', 618, 44, '#fff', prog(T, E.comment - 0.1, E.comment + 0.15)); big('FOLLOW FOR THE NEXT PICK', 672, 32, '#5ac8f8', prog(T, E.follow - 0.2, E.follow + 0.1)); } }
-  let cur = -1; for (let k = 0; k < 4; k++) if (T >= REV[k] - 0.1 && T < E.end) cur = k; if (isl !== 'grid') chips(T, cur);
+    if (T > E.comment - 0.1) { octx.fillStyle = 'rgba(8,20,30,0.85)'; octx.beginPath(); octx.roundRect(70, 570, 580, 140, 30); octx.fill(); big('COMMENT A, B, C OR D', 618, 44, '#fff', prog(T, E.comment - 0.1, E.comment + 0.15)); big('AND FOLLOW', 672, 32, '#5ac8f8', prog(T, E.follow - 0.2, E.follow + 0.1)); } }
+  let cur = -1; for (let k = 0; k < 4; k++) if (T >= REV[k] - 0.1 && T < E.end) cur = k; if (isl !== 'grid' && T < E.loop) chips(T, cur);
+  if (T > E.loop) { big('WHICH ISLAND', 230, 80, '#fff', 1); big('WOULD YOU PICK?', 310, 54, '#fff', 1); }
   if (ci === 0) { big('WHICH ISLAND', 230, 80, '#fff', 1); big('WOULD YOU PICK?', 310, 54, '#fff', 1); big('LIVE THERE FOREVER', 380, 42, '#ffe08a', prog(T, AT(0, 'forever') - 0.3, AT(0, 'forever'))); if (T > AT(0, 'every') - 0.1) big('EVERY DETAIL IS A CLUE', 445, 44, '#8ae8ff', prog(T, AT(0, 'every') - 0.1, AT(0, 'every') + 0.15)); }
   if (ci >= 1 && ci <= 8 && ci % 2 === 1 && T > REV[(ci - 1) / 2] - 0.1) { const i = (ci - 1) / 2, s0 = REV[i] - 0.1; const k = prog(T, s0, s0 + 0.2); big('ISLAND ' + NAMES[i], 190, 84, COLS[i], k); const pk = [E.everyone, E.money, E.here, E.morning][i]; const TAGS = [[[E.hearts, 'TREES . HEART SHAPED'], [E.pink, 'WATER . SOFT PINK']], [[E.green, 'WATER . EMERALD'], [E.cash, 'COCONUTS . CASH']], [[E.frozen, 'LEAVES . FROZEN'], [E.still, 'WATER . STILL AS GLASS']], [[E.trees7, 'TREES . SPIRAL'], [E.sparkles, 'WATER . PURPLE SPARKLE']]][i];
     TAGS.forEach(([t_, s_]) => { if (T > t_ - 0.1 && T < pk - 0.2) { const a = prog(T, t_ - 0.1, t_ + 0.15); octx.save(); octx.globalAlpha = a; octx.font = '30px Russo'; const w = octx.measureText(s_).width + 50; octx.fillStyle = 'rgba(8,20,30,0.8)'; octx.beginPath(); octx.roundRect(360 - w / 2, 300, w, 58, 29); octx.fill(); octx.strokeStyle = COLS[i]; octx.lineWidth = 3; octx.stroke(); txt(s_, 360, 330, 30, '#fff'); octx.restore(); } }); if (T > pk - 0.2) big(PERK[i], 270, PERK[i].length > 24 ? 34 : 40, '#fff', prog(T, pk - 0.2, pk + 0.1)); }
@@ -241,7 +243,7 @@ window.renderFrame = function (T) { const ci = CLI(T); const { si, t0, isl } = s
   if (ci === 7 && T > E.morning) { octx.fillStyle = 'rgba(8,20,30,0.82)'; octx.beginPath(); octx.roundRect(150, 330, 420, 84, 24); octx.fill(); const pw = ['FLYING', 'X RAY EYES', 'SUPER SPEED', 'INVISIBLE', 'TALK TO CRABS', 'LASER SNEEZE']; const fin = T > E.yest - 0.1; txt(fin ? 'YESTERDAY . FLYING' : 'TODAY . ' + pw[Math.floor(T * 12) % pw.length], 360, 372, 32, fin ? '#8ab4ff' : '#ffe08a'); }
   if (ci === 8) { octx.fillStyle = 'rgba(8,20,30,0.82)'; octx.beginPath(); octx.roundRect(150, 330, 420, 84, 24); octx.fill(); txt('TODAY . TALK TO CRABS', 360, 372, 32, '#ff8a6a');
     if (T > E.crabs2 + 0.2) { const lines = ['NICE HAIR. NOT.', 'WHO INVITED HIM?', 'MOVE.']; R.crabs.slice(0, 3).forEach((c, k) => { const w = new T3.Vector3(); c.getWorldPosition(w); bubble([w.x, w.y + 0.5, w.z], lines[k], prog(T, E.crabs2 + 0.2 + k * 0.4, E.crabs2 + 0.4 + k * 0.4)); }); } }
-  likePill(T, E.like, CL[5].start - 0.1, AT(4, 'follow')); if (T > E.follow - 0.2) likePill(T, E.follow, TM.total + 1, E.follow + 0.2);
+  likePill(T, E.like, CL[5].start - 0.1, AT(4, 'follow')); if (T > E.follow - 0.2 && T < E.loop) likePill(T, E.follow, TM.total + 1, E.follow + 0.2);
   const cap = CAPS.find(c => T >= c.a && T < c.b); if (cap && isl !== 'grid') caption(cap.txt);
-  if (T > TM.total - 0.5) { octx.fillStyle = `rgba(0,0,0,${prog(T, TM.total - 0.5, TM.total)})`; octx.fillRect(0, 0, W, H); } };
+};
 })();
