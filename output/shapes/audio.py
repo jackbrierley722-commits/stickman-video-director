@@ -29,7 +29,9 @@ for i, s_ in enumerate(np.arange(0, D, 0.25)):
     ch = [(60, 64, 67), (57, 60, 64), (65, 69, 72), (67, 71, 74)][int(s_ / 2) % 4]; n = int(0.3 * SR); x = np.arange(n) / SR
     add(s_, np.sin(2 * np.pi * hz([ch[0], ch[2], ch[1], ch[2]][i % 4] + 12) * x) * env(n, 0.002, 18), 0.014)
     if i % 4 == 0: add(s_, np.sin(2 * np.pi * hz(ch[0] - 12) * x) * env(n, 0.002, 10), 0.04)
-boing(0.2); thunk(wt(0, 'squares')); ting(wt(0, 'triangles'))
+boing(wt(0, 'safe')); [tone(wt(0, 'perfect') + k * 0.06, 0.5, hz(m), 0.03, 6) for k, m in enumerate([84, 88, 91])]; thunk(wt(0, 'trustworthy'), 0.6)
+n = int(0.5 * SR); x = np.arange(n) / SR; add(wt(0, 'weird'), np.sin(2 * np.pi * np.cumsum(500 + 200 * np.sin(2 * np.pi * 8 * x)) / SR) * env(n, 0.005, 5) * 0.05)
+ting(wt(0, 'dangerous'), 0.06); n = int(0.4 * SR); x = np.arange(n) / SR; add(wt(0, 'dangerous'), np.sin(2 * np.pi * 50 * x) * np.exp(-x * 10) * 0.5)
 for k in range(4): tone(wt(0, 'brain') + k * 0.05, 0.1, 2000 + k * 300, 0.02, 30)
 boing(wt(1, 'bouba') - 0.05, 0.07); ting(wt(1, 'kiki') - 0.05, 0.06)
 for k in range(3): pop(wt(1, 'pick') + k * 0.33, 1000, 0.03)
@@ -50,6 +52,9 @@ out *= np.interp(t, [0, 0.02, D - 0.03, D], [0, 1, 1, 0])
 vo, vsr = sf.read('vo.wav')
 if vo.ndim > 1: vo = vo.mean(1)
 vo = np.interp(np.arange(N) / SR, np.arange(len(vo)) / vsr, vo, right=0)
+for w in CL[0]['words']:
+    if w['w'].lower().strip('.!,?') in ('safe', 'perfect', 'trustworthy', 'weird', 'dangerous'):
+        i0, i1 = int((w['a'] - 0.02) * SR), int((w['b'] + 0.05) * SR); g_ = np.ones(i1 - i0) * 1.7; r_ = int(0.02 * SR); g_[:r_] = np.linspace(1, 1.7, r_); g_[-r_:] = np.linspace(1.7, 1, r_); vo[i0:i1] *= g_
 e = ma(np.abs(vo), 4000); duck = 1 - 0.4 * np.clip(e / (e.max() * 0.25), 0, 1)
 mix = np.tanh((out * 1.2 * duck + vo * 1.6) * 1.05) * 0.9
 sf.write('mix.wav', np.stack([mix, mix], 1), SR, subtype='PCM_16'); print('mix ok', round(D, 2))

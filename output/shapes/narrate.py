@@ -13,7 +13,7 @@ def whisper(a, SR=24000):
 
 VOICE = sys.argv[1] if len(sys.argv) > 1 else 'am_michael'
 VO = [
- "Circles feel safe. Squares feel trustworthy. Triangles feel dangerous. ~ And your brain decides that before you can even think.",
+ "Circles are, ~ [safe](+2)! And [perfect](+2)! ~ Squares are, ~ [trustworthy](+2)! ~ Triangles are, ~ [weird](+2)! And [dangerous](+2)! ~ And your brain decides that before you can even think.",
  "Quick test. ~ One of these shapes is called [Bouba](/bˈubə/). The other is [Kiki](/kˈiki/). ~ Pick one. Remember your answer.",
  "This is the psychology of shapes.",
  "In two thousand and six, scientists showed people hundreds of everyday objects. ~ People liked the curved ones more. ~ Sharp corners put them slightly on edge.",
