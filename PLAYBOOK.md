@@ -54,6 +54,20 @@ Example: "Leo opened the door to room 429A. Inside, it's still 1986. And the tea
 
 ---
 
+### View ceilings (what blocks each level)
+
+| Stuck under | Fix |
+|---|---|
+| 1k | **Hook clarity.** Subject is clear, stakes are clear, simple words, short punchy sentences. |
+| 10k | **Topic selection.** Tie the topic to an outcome the viewer cares about (a pain point or a desire), and get to it early. |
+| 100k | **Angle explosivity.** A non-obvious take that is broadly relatable. Example: "there's no muscle in them at all" took the breasts explainer to 93k. |
+| 1M | **Broad topic or controversy.** A huge topic (dating, sports, music, culture, school), or a narrow topic with a take that starts arguments in the comments. |
+
+The usual ceiling here is about 2k, so topic selection is the bottleneck.
+
+- **Horror:** connect it to a real fear the viewer owns. Example: "If your phone does this at 3am…"
+- **Facts:** use myth-busting angles on things everyone has.
+
 ## 3. Script rules
 
 **Rhythm**
