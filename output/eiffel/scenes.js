@@ -17,8 +17,8 @@ function tornPath(g, pts, seed, amp = 3, step = 7) { const r = rng(seed); g.begi
 function circPts(cx, cy, r, n = 40) { const o = []; for (let i = 0; i < n; i++) o.push([cx + C(i / n * PI * 2) * r, cy + S(i / n * PI * 2) * r]); return o; }
 // a cut-out: white paper border (torn), coloured paper inside, grain on top
 function cut(w, h, shapeFn, fill, seed, opt = {}) { const pad = 14; const [c, g] = mk(w + pad * 2, h + pad * 2); g.translate(pad, pad);
-  if (opt.border !== false) { g.save(); g.fillStyle = '#fbf8f0'; shapeFn(g, 6, seed + 1); g.fill(); g.restore(); }
-  g.save(); shapeFn(g, 0, seed); g.clip(); g.fillStyle = fill; g.fillRect(-pad, -pad, w + pad * 2, h + pad * 2); if (opt.inner) opt.inner(g, w, h); g.globalCompositeOperation = 'multiply'; g.globalAlpha = 0.35; g.drawImage(GRAIN, -pad, -pad, w + pad * 2, h + pad * 2); g.restore();
+  if (opt.border !== false) { g.save(); g.fillStyle = '#fbf8f0'; shapeFn(g, opt.borderW || 6, seed + 1); g.fill(opt.evenodd ? 'evenodd' : 'nonzero'); g.restore(); }
+  g.save(); shapeFn(g, 0, seed); g.clip(opt.evenodd ? 'evenodd' : 'nonzero'); g.fillStyle = fill; g.fillRect(-pad, -pad, w + pad * 2, h + pad * 2); if (opt.inner) opt.inner(g, w, h); g.globalCompositeOperation = 'multiply'; g.globalAlpha = 0.35; g.drawImage(GRAIN, -pad, -pad, w + pad * 2, h + pad * 2); g.restore();
   return { c, w: w + pad * 2, h: h + pad * 2 }; }
 const rectShape = (w, h, a = 3) => (g, grow, seed) => tornPath(g, [[-grow, -grow], [w + grow, -grow], [w + grow, h + grow], [-grow, h + grow]], seed, a);
 const circShape = (cx, cy, r, a = 2.5) => (g, grow, seed) => tornPath(g, circPts(cx, cy, r + grow, 48), seed, a, 6);
@@ -29,14 +29,33 @@ function tape(cx, cy, rot, w = 90, id = 3) { const [jx, jy] = bj(id, 0.8); x.sav
 
 // ---------- assets ----------
 const A = {};
-function towerShape(g, grow, seed) { // Eiffel silhouette, 420 x 900 box, apex at top centre
-  const cx = 210, R = [[4, 0], [7, 40], [12, 70], [26, 78], [26, 92], [16, 96], [52, 380], [92, 384], [92, 402], [62, 406], [118, 560], [158, 566], [158, 590], [128, 594], [205, 900], [120, 900], [96, 760], [60, 700], [0, 680]];
-  const pts = R.map(([a, b]) => [cx + a + Math.sign(a) * grow, b - (b < 10 ? grow : 0) + (b > 890 ? grow : 0)]); const L = R.slice(0, -1).reverse().map(([a, b]) => [cx - a - Math.sign(a) * grow, b - (b < 10 ? grow : 0) + (b > 890 ? grow : 0)]);
-  tornPath(g, pts.concat(L), seed, 2.2, 6); }
-function latticeInner(g, w, h) { g.fillStyle = '#9a5634'; g.fillRect(0, 0, w, h); g.strokeStyle = 'rgba(40,18,8,0.55)'; g.lineWidth = 2.2; for (let k = -h; k < w + h; k += 22) { g.beginPath(); g.moveTo(k, 0); g.lineTo(k + h * 0.5, h); g.stroke(); g.beginPath(); g.moveTo(k, 0); g.lineTo(k - h * 0.5, h); g.stroke(); }
-  g.fillStyle = 'rgba(40,18,8,0.7)'; for (const y of [92, 384, 402, 562, 590]) g.fillRect(0, y, w, 6); g.fillStyle = 'rgba(255,220,180,0.18)'; for (let yy = 0; yy < h; yy += 7) for (let xx = (yy / 7) % 2 * 3.5; xx < w; xx += 7) { g.beginPath(); g.arc(xx, yy, 1.4, 0, 7); g.fill(); } }
+// real proportions in a 420 x 900 box (900 px = 330 m): floors at 57 m, 116 m, 276 m; base 125 m wide
+const TW = { cx: 210, y1: 745, y2: 584, y3: 147 };
+function bez(p0, p1, p2, n = 14) { const o = []; for (let i = 0; i <= n; i++) { const t = i / n; o.push([(1 - t) ** 2 * p0[0] + 2 * (1 - t) * t * p1[0] + t * t * p2[0], (1 - t) ** 2 * p0[1] + 2 * (1 - t) * t * p1[1] + t * t * p2[1]]); } return o; }
+function towerRight(grow) { // outer right edge, top to bottom (offsets from centre)
+  const g = grow; let p = [[2 + g, 0], [2 + g, 60], [6 + g, 100], [14 + g, 122], [14 + g, 136], [22 + g, 136], [22 + g, 150], [16 + g, 152]];
+  p = p.concat(bez([16 + g, 152], [28 + g, 430], [54 + g, 574]).slice(1)); p.push([70 + g, 576], [70 + g, 594], [58 + g, 596]);
+  p = p.concat(bez([58 + g, 596], [70 + g, 680], [98 + g, 733]).slice(1)); p.push([122 + g, 735], [122 + g, 762], [104 + g, 764]);
+  p = p.concat(bez([104 + g, 764], [128 + g, 850], [178 + g, 900 + g]).slice(1)); return p; }
+function towerArch(grow) { // inner leg + big decorative arch, from right foot to centre
+  const g = grow; return [[118 - g, 900 + g]].concat(bez([118 - g, 900 + g], [96 - g, 830], [78 - g, 800]).slice(1)).concat(bez([78 - g, 800], [40, 776 - g], [0, 772 - g]).slice(1)); }
+function towerShape(g, grow, seed) { const cx = TW.cx; const R = towerRight(grow), A_ = towerArch(grow);
+  const pts = R.map(([a, b]) => [cx + a, b]).concat(A_.map(([a, b]) => [cx + a, b])).concat(A_.slice(0, -1).reverse().map(([a, b]) => [cx - a, b])).concat(R.slice().reverse().map(([a, b]) => [cx - a, b]));
+  tornPath(g, pts, seed, 1.6, 6);
+  // open gap between the legs from the 1st floor up to just under the 2nd
+  const gp = [[0, 606 + grow], [14 - grow, 650], [30 - grow, 726 - grow], [-30 + grow, 726 - grow], [-14 + grow, 650]].map(([a, b]) => [cx + a, b]); { const r = rng(seed + 5); g.moveTo(gp[0][0], gp[0][1]); gp.slice(1).forEach(q => g.lineTo(q[0] + (r() - 0.5) * 2, q[1])); g.closePath(); } }
+function latticeInner(g, w, h) { const cx = TW.cx; g.fillStyle = '#7a4a30'; g.fillRect(0, 0, w, h);
+  // X-bracing: finer up the spire, bigger down the legs
+  g.strokeStyle = 'rgba(36,18,8,0.6)'; for (const [y0, y1, sp, lw] of [[150, 576, 12, 1.3], [596, 735, 16, 1.8], [764, 900, 22, 2.2]]) { g.save(); g.beginPath(); g.rect(0, y0, w, y1 - y0); g.clip(); g.lineWidth = lw; for (let k = -h; k < w + h; k += sp) { g.beginPath(); g.moveTo(k, y0); g.lineTo(k + (y1 - y0) * 0.6, y1); g.stroke(); g.beginPath(); g.moveTo(k, y0); g.lineTo(k - (y1 - y0) * 0.6, y1); g.stroke(); } g.restore(); }
+  // leg rails following the silhouette
+  const R = towerRight(0); g.strokeStyle = 'rgba(30,14,6,0.75)'; g.lineWidth = 4; for (const sx of [1, -1]) { g.beginPath(); R.slice(7).forEach(([a, b], i) => { const X = cx + sx * (a - 6); i ? g.lineTo(X, b) : g.moveTo(X, b); }); g.stroke(); }
+  // decorative arch band
+  g.lineWidth = 7; g.strokeStyle = 'rgba(30,14,6,0.8)'; g.beginPath(); towerArch(0).forEach(([a, b], i) => i ? g.lineTo(cx + a, b - 8) : g.moveTo(cx + a, b - 8)); g.stroke(); g.beginPath(); towerArch(0).forEach(([a, b], i) => i ? g.lineTo(cx - a, b - 8) : g.moveTo(cx - a, b - 8)); g.stroke();
+  // platforms (girders + railing)
+  g.fillStyle = '#4a2a18'; for (const [y, hw, hh] of [[735, 122, 27], [576, 70, 18], [136, 22, 14]]) { g.fillRect(cx - hw, y, hw * 2, hh); g.fillStyle = 'rgba(230,190,140,0.35)'; for (let X = cx - hw + 4; X < cx + hw - 4; X += 7) g.fillRect(X, y + 3, 2, hh * 0.45); g.fillStyle = '#4a2a18'; }
+  g.fillStyle = 'rgba(255,215,170,0.16)'; for (let yy = 0; yy < h; yy += 7) for (let xx = (yy / 7) % 2 * 3.5; xx < w; xx += 7) { g.beginPath(); g.arc(xx, yy, 1.3, 0, 7); g.fill(); } }
 function buildAssets() {
-  A.tower = cut(420, 900, towerShape, '#9a5634', 11, { inner: latticeInner });
+  A.tower = cut(420, 900, towerShape, '#7a4a30', 11, { inner: latticeInner, evenodd: true, borderW: 5 });
   A.sun = cut(240, 240, (g, gr, sd) => { const r = rng(sd); g.beginPath(); for (let i = 0; i < 24; i++) { const a = i / 24 * PI * 2, R = (i % 2 ? 84 : 118) + gr + (r() - 0.5) * 6; i ? g.lineTo(120 + C(a) * R, 120 + S(a) * R) : g.moveTo(120 + C(a) * R, 120 + S(a) * R); } g.closePath(); }, '#f6b72a', 21, { inner: (g) => { g.fillStyle = '#f9d24a'; g.beginPath(); g.arc(120, 120, 70, 0, 7); g.fill(); g.fillStyle = '#5a3a14'; for (const sx of [-1, 1]) { g.beginPath(); g.arc(120 + sx * 24, 108, 7, 0, 7); g.fill(); } g.lineWidth = 6; g.strokeStyle = '#5a3a14'; g.beginPath(); g.arc(120, 124, 26, 0.3, PI - 0.3); g.stroke(); } });
   A.snow = cut(150, 150, (g, gr, sd) => { g.beginPath(); for (let i = 0; i < 12; i++) { const a = i / 12 * PI * 2, R = (i % 2 ? 26 : 70) + gr; i ? g.lineTo(75 + C(a) * R, 75 + S(a) * R) : g.moveTo(75 + C(a) * R, 75 + S(a) * R); } g.closePath(); }, '#e8f4ff', 31);
   A.ruler = cut(70, 760, rectShape(70, 760, 2), '#f2d44a', 41, { inner: (g, w, h) => { g.fillStyle = '#2a2014'; g.font = '20px Russo'; for (let y = 0; y < h; y += 19) { g.fillRect(0, y, y % 95 === 0 ? 34 : 18, 3); if (y % 95 === 0) g.fillText(String(Math.round((h - y) / 19)), 38, y + 8); } } });
