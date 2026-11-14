@@ -85,7 +85,7 @@ The usual ceiling here is about 2k, so topic selection is the bottleneck.
 - Every story needs someone to root for, something at risk and a reason it matters now.
 - Add humour where it fits, even in horror (the crabs are rude).
 - Never pad. Cut any line that does not move the story.
-- Target 35 to 55s. Over 60s hurts completion. On TikTok, 14s average watch time on a 66s video is too long.
+- Length is flexible: the video can be as long as the story needs, as long as nothing is filler. Cut empty space, repeated lines and slow setup, not content. (Earlier note for reference: a 66s video with 14s average watch time on TikTok had padding, which was the real problem.)
 
 **Facts**
 - Never invent facts or studies. If no solid study exists, frame it as convention ("designers use squares…").
@@ -187,6 +187,6 @@ The usual ceiling here is about 2k, so topic selection is the bottleneck.
 - [ ] Sound effects only on actions; whooshes only on big moments
 - [ ] Pronunciation checked
 - [ ] On-screen text uses "." for ":" and "-"; options are capital A/B
-- [ ] Under about 55s, ending loops, outro under 3s
+- [ ] No filler or empty space (length is flexible), ending loops, outro under 3s
 - [ ] Self-critique before delivery: would someone stop scrolling? Is any section boring? Does anything feel AI-generic?
 - [ ] Deliver the title plus 5 hashtags, together under 100 characters, plus the direct download link
