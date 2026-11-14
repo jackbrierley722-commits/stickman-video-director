@@ -153,13 +153,19 @@ The usual ceiling here is about 2k, so topic selection is the bottleneck.
 - Build visual structures for explainers: labelled diagrams, checklists, progress rails, comparison grids, 2x2 option grids.
 - Survival-game HUD for horror series: night or day counter, clock, rules checklist, a resource that runs out.
 - Keep characters, sets and style consistent within a series. Vary character looks: skin, hair, glasses, height.
-- Styles available:
-  - realistic 3D (PS4-style)
-  - PS2/PS3 low-poly
-  - flat vector
-  - neon glass 3D
-  - miniature tilt-shift
-  - space and scale zoom
+- **Before every new video, ask the user to pick a style with clickable options** (two questions: 3D styles and 2D styles, with "Other" for anything new). Styles used so far:
+  - **3D:**
+    - **Stylised-realistic 3D** (video-game look: smooth PBR, shadows, detailed sets). Example: Source Code v2.
+    - **Smooth 3D (PS4-ish)**: warm lighting, rounded characters. Examples: 429A, Gas Station, prison 3rd-person.
+    - **PS3 low-poly first person**: faceted polygons, first-person hands. Examples: Prison Escape P1/P2.
+    - **Cosy pixel 3D**: low-res pixelated render, pixel font. Example: Pick a Planet.
+    - **Neon glass 3D**: glowing glass shapes on dark. Example: Shapes (neon).
+    - **Space / scale zoom**: continuous zoom across sizes. Example: Atom to Star.
+    - **PS2 retro low-poly**: chunky, low-res textures. Not used yet.
+  - **2D:**
+    - **Flat vector**: clean cartoon characters. Examples: Shower, Fat Friend, Your Number.
+    - **Paper collage**: torn paper cut-outs, tape, stop-motion. Example: Eiffel Tower.
+    - **Miniature tilt-shift**: tiny-world look. Not used yet.
 
 ---
 
