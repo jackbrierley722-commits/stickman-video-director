@@ -50,7 +50,7 @@ for k in range(6): tone(S0[10] + 0.2 + k * 0.6, 0.25, 220, 0.03, 6)  # alarm
 tone(S0[7], 0.12, 1400, 0.06, 30); tone(wt(7, 'follow') + 0.2, 0.12, 2100, 0.05, 30)
 for d_ in (0, 0.25): tone(wt(8, 'where') + 0.4 + d_, 0.06, 2200, 0.03, 40)  # vent clicks + beep
 for k in range(8): tone(wt(8, 'where') + 0.8 + k * 0.25, 0.04, 2600, 0.02, 60)
-tone(wt(11, 'simulation'), 0.2, 660, 0.05, 12); tone(wt(11, 'or'), 0.2, 990, 0.05, 12)
+tone(wt(11, 'real'), 0.2, 660, 0.05, 12); tone(wt(11, 'or'), 0.2, 990, 0.05, 12)
 out *= np.interp(t, [0, 0.02, D - 0.03, D], [0, 1, 1, 0])
 vo, vsr = sf.read('vo.wav')
 if vo.ndim > 1: vo = vo.mean(1)

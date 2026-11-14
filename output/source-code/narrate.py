@@ -24,7 +24,7 @@ VO = [
  "Each loop, he learns more. ~ Who's on the train. ~ Where the bomb is.",
  "But there's one problem. ~ He's not travelling back in time.",
  "And the closer he gets, ~ the less he trusts the people sending him back.",
- "So. Simulation, or a second chance? ~ Comment A or B. ~ Before your eight minutes run out.",
+ "So, are those eight minutes real? ~ Or fake? ~ Comment real or fake. ~ Before your eight minutes run out.",
 ]
 
 

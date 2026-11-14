@@ -20,7 +20,7 @@ function fp(p, l, T, bob = 0, sway = 1) { const br = S(T * 1.7) * 0.006 * sway, 
 // ---------- timing ----------
 const E = { again: AT(0, 'again'), title: CL[1].start, y2011: AT(1, 'twenty'), wakes: CL[2].start, stranger: AT(2, 'in'), noidea: AT(2, 'no'), coffee: CL[3].start, woman: AT(3, 'same', 1), then: AT(3, 'then'), boom: AT(3, 'explodes'),
   pod: CL[4].start, strapped: AT(4, 'strapped'), voice: CL[5].start, relive: AT(5, 'he'), over: AT(5, 'over'), mission: CL[6].start, find: AT(6, 'find'), chicago: AT(6, 'chicago'), like: CL[7].start, follow7: AT(7, 'follow'), strange: AT(7, 'this'),
-  learn: CL[8].start, who: AT(8, "who's"), where: AT(8, 'where'), problem: CL[9].start, nottime: AT(9, "he's"), trust: CL[10].start, end: CL[11].start, simA: AT(11, 'simulation'), cmt: AT(11, 'comment'), before: AT(11, 'before') };
+  learn: CL[8].start, who: AT(8, "who's"), where: AT(8, 'where'), problem: CL[9].start, nottime: AT(9, "he's"), trust: CL[10].start, end: CL[11].start, simA: AT(11, 'real'), fakeW: AT(11, 'or'), cmt: AT(11, 'comment'), before: AT(11, 'before') };
 E.loop = TM.total - 0.4;
 const BOOMS = [E.again + 0.25, E.boom + 0.1, AT(5, 'over') + 0.05, AT(5, 'over', 1) + 0.05];
 const FL = [];
@@ -196,7 +196,7 @@ window.renderFrame = function (T) { const ci = CLI(T); const { si, t0, place } =
   if (ci === 8) { if (T > E.who - 0.1 && T < E.where - 0.1) big('WHO IS ON THE TRAIN', 400, 50, '#ffd27a', 1); if (T > E.where - 0.1) big('WHERE THE BOMB IS', 400, 52, '#ff3a2a', prog(T, E.where - 0.1, E.where + 0.1)); }
   if (ci === 9 && T > E.nottime - 0.1) big('NOT TIME TRAVEL', 400, 66, '#3affea', prog(T, E.nottime - 0.1, E.nottime + 0.1));
   if (ci === 10) big('WHO DO YOU TRUST?', 400, 58, '#ff5a4a', prog(T, E.trust, E.trust + 0.2));
-  if (ci === 11 && !loop) { if (T < E.cmt - 0.1) { big('A. SIMULATION', 380, 58, '#3affea', prog(T, E.simA - 0.1, E.simA + 0.1)); big('B. SECOND CHANCE', 460, 52, '#ffd27a', prog(T, AT(11, 'or') - 0.1, AT(11, 'or') + 0.1)); } else { big('COMMENT A OR B', 400, 66, '#fff', prog(T, E.cmt - 0.1, E.cmt + 0.1)); } }
+  if (ci === 11 && !loop) { if (T < E.cmt - 0.1) { big('REAL?', 380, 80, '#3affea', prog(T, E.simA - 0.1, E.simA + 0.1)); if (T > E.fakeW - 0.1) big('OR FAKE?', 470, 70, '#ff5a4a', prog(T, E.fakeW - 0.1, E.fakeW + 0.1)); } else { big('COMMENT', 380, 60, '#fff', prog(T, E.cmt - 0.1, E.cmt + 0.1)); big('REAL OR FAKE', 460, 66, '#ffd27a', prog(T, E.cmt, E.cmt + 0.2)); } }
   likePill(T, E.like, E.learn - 0.2, E.follow7);
   const cap = CAPS.find(c => T >= c.a && T < c.b); if (cap && !loop) caption(cap); };
 })();
