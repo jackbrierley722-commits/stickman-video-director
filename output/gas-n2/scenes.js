@@ -68,10 +68,10 @@ function buildSet() { const g = G.set = new T3.Group(); scene.add(g);
   R.fzDoor = new T3.Group(); R.fz.add(R.fzDoor); add(R.fzDoor, Bx(1.0, 2.2, 0.1), stl, 0.5, 1.1, 0.05); for (const y of [0.4, 1.95]) add(R.fzDoor, Bx(0.96, 0.04, 0.02), SM('#8a9098', { metalness: 0.8 }), 0.5, y, 0.11, false); add(R.fzDoor, Bx(0.06, 0.4, 0.08), SM('#2a2a2e', { metalness: 0.8 }), 0.9, 1.1, 0.14);
   R.fzT = ctex(256, 320, () => {}); R.fzWin = add(R.fzDoor, new T3.PlaneGeometry(0.36, 0.45), new T3.MeshBasicMaterial({ map: R.fzT, toneMapped: false }), 0.5, 1.6, 0.105, false);
   add(g, new T3.PlaneGeometry(0.9, 0.22), new T3.MeshBasicMaterial({ map: plateT('WALK-IN FREEZER', '#1a3a6a', '#e8f4ff', 512, 128, 50), toneMapped: false }), -5.15, 2.6, -3.82, false);
-  R.fzGap = add(g, new T3.PlaneGeometry(1.0, 0.03), new T3.MeshBasicMaterial({ color: '#9ad8ff', toneMapped: false, transparent: true, opacity: 0.9 }), -5.15, 0.016, -3.77, false); R.fzGap.rotation.x = -PI / 2;
+  R.fzGap = add(g, new T3.PlaneGeometry(1.0, 0.03), new T3.MeshBasicMaterial({ color: '#9ad8ff', toneMapped: false, transparent: true, opacity: 0.9 }), -5.15, 0.058, -3.77, false); R.fzGap.rotation.x = -PI / 2;
   R.fzL = new T3.PointLight('#8ac8ff', 1.5, 3, 1.5); R.fzL.position.set(-5.15, 0.3, -3.4); g.add(R.fzL); R.aisleL = new T3.PointLight('#e8f0ff', 3, 5, 1.5); R.aisleL.position.set(-5.2, 2.9, -2.4); g.add(R.aisleL);
   R.fzOpenL = new T3.PointLight('#cfeeff', 0, 6, 1.2); R.fzOpenL.position.set(-5.1, 1.4, -3.4); g.add(R.fzOpenL); R.mist = []; for (let i = 0; i < 14; i++) R.mist.push(glow(g, '#dff4ff', 0.7, -5.15, 0.2, -3.5, 0));
-  R.floorCoins = new T3.Group(); g.add(R.floorCoins); for (let i = 0; i < 7; i++) add(R.floorCoins, new T3.CylinderGeometry(0.03, 0.03, 0.006, 16), SM(['#b8902a', '#6a7a5a', '#8a6a3a'][i % 3], { metalness: 0.9, roughness: 0.4 }), (i - 3) * 0.075, 0.004, (i % 2) * 0.05, false);
+  R.floorCoins = new T3.Group(); g.add(R.floorCoins); for (let i = 0; i < 7; i++) add(R.floorCoins, new T3.CylinderGeometry(0.045, 0.045, 0.01, 16), SM(['#b8902a', '#6a7a5a', '#8a6a3a'][i % 3], { metalness: 0.9, roughness: 0.4 }), (i - 3) * 0.1, 0.062, (i % 2) * 0.06, false);
   // ice chest outside
   R.ice = new T3.Group(); R.ice.position.set(-4.6, 0, 5.0); g.add(R.ice); const wht = SM('#e8ecf0', { roughness: 0.5 }), inn = SM('#3a5a78', { roughness: 0.9 }); add(R.ice, Bx(1.8, 0.1, 0.9), wht, 0, 0.05, 0); add(R.ice, Bx(1.8, 1.0, 0.08), wht, 0, 0.5, 0.41); add(R.ice, Bx(1.8, 1.0, 0.08), wht, 0, 0.5, -0.41); add(R.ice, Bx(0.08, 1.0, 0.9), wht, -0.86, 0.5, 0); add(R.ice, Bx(0.08, 1.0, 0.9), wht, 0.86, 0.5, 0); add(R.ice, Bx(1.64, 0.04, 0.74), inn, 0, 0.45, 0); add(R.ice, new T3.PlaneGeometry(1.2, 0.4), new T3.MeshBasicMaterial({ map: plateT('ICE', '#e8ecf0', '#2a6ad8', 256, 96, 80) }), 0, 0.55, 0.46, false);
   R.lid = new T3.Group(); R.lid.position.set(0, 1.0, -0.45); R.ice.add(R.lid); add(R.lid, Bx(1.8, 0.08, 0.9), SM('#e8eaee', { roughness: 0.5 }), 0, 0.04, 0.45); R.bag = add(R.ice, RB(0.55, 0.22, 0.4, 0.1), new T3.MeshStandardMaterial({ color: '#e8f4ff', transparent: true, opacity: 0.85, roughness: 0.2 }), 0.3, 0.58, 0.0); R.iceL = new T3.PointLight('#bfe4ff', 0, 2.5, 2); R.iceL.position.set(0, 1.4, 0.2); R.ice.add(R.iceL);
@@ -87,24 +87,24 @@ function buildSet() { const g = G.set = new T3.Group(); scene.add(g);
   R.coins = []; const cm = [SM('#b8902a', { metalness: 0.9, roughness: 0.4 }), SM('#6a7a5a', { metalness: 0.7, roughness: 0.6 }), SM('#8a6a3a', { metalness: 0.8, roughness: 0.5 })]; for (let i = 0; i < 9; i++) { const cn = add(R.tray, new T3.CylinderGeometry(0.035, 0.035, 0.008, 20), cm[i % 3], (i % 3 - 1) * 0.08 + S(i) * 0.02, 0.01 + Math.floor(i / 3) * 0.008, (Math.floor(i / 3) - 1) * 0.07); R.coins.push(cn); cn.userData.c0 = '#' + cm[i % 3].color.getHexString(); } }
 // ---------- timeline ----------
 const E = { paid: AT(0, 'paid'), for0: AT(0, 'for'), n2: CL[1].start, notw: AT(1, "he's"), inside1: AT(1, "he's", 1), recap: CL[2].start, kept: AT(2, 'and'), rule3: AT(2, 'rule'), both: AT(2, 'both'), thought: AT(2, 'you', 2),
-  like: CL[3].start, t158: CL[4].start, lockN: AT(4, 'you'), frost: AT(4, 'the'), t241: CL[5].start, pump: AT(5, 'pump'), nobody: AT(5, "nobody's"), knock: AT(5, 'then'), inside5: AT(5, 'from'), scrape: CL[6].start, never: AT(6, 'never'),
+  like: CL[3].start, t158: CL[4].start, lockN: AT(4, 'you'), frost: AT(4, 'the', 1), t241: CL[5].start, pump: AT(5, 'pump'), nobody: AT(5, "nobody's"), knock: AT(5, 'then'), inside5: AT(5, 'from'), scrape: CL[6].start, never: AT(6, 'never'),
   paid2: CL[7].start, optA: CL[8].start, optB: AT(8, 'option', 1), comment: AT(8, 'comment'), follow: AT(8, 'follow') };
 E.loop = TM.total - 0.4;
 function CLI(T) { let ci = CL.findIndex(c => T >= c.start && T < c.start + c.dur); return ci < 0 ? CL.length - 1 : ci; }
 const SHEET = (z = 0.9) => (k, T) => camL([1.6 + 0.05, 1.75, -3.88 + z + 0.15], [1.6, 1.75, -3.88 + z], k, [1.6, 1.75, -3.88], [1.6, 1.75, -3.88]);
 const FZC = (k, T, z0 = -0.9, z1 = -1.5) => camL([-5.25, 1.55, z0], [-5.2, 1.58, z1], k, [-5.15, 1.45, -3.84], [-5.15, 1.5, -3.84]);
-const FZW = (k, T) => camL([-5.15, 1.62, -2.9], [-5.15, 1.62, -3.15], k, [-5.15, 1.6, -3.84], [-5.15, 1.6, -3.84]);
+const FZW = (k, T) => camL([-5.15, 1.75, -2.75], [-5.15, 1.75, -3.0], k, [-5.15, 1.82, -3.84], [-5.15, 1.82, -3.84]);
 const SH = [
   [0, (k, T) => FZC(k, T)], [E.for0 - 0.1, FZW],
   [E.n2, (k, T) => camL([2.5, 2.2, 34], [1.5, 2.0, 28], k, [0, 1.8, 4], [0, 1.8, 4])], [E.notw - 0.1, (k, T) => camL([0, 1.6, 2.3], [0, 1.6, 2.7], k, [0, 1.4, 5.0], [0, 1.45, 5.0])], [E.inside1 - 0.1, (k, T) => FZC(k, T, -0.4, -1.4)],
   [E.recap, (k, T) => camL([0.3, 1.45, 4.6], [0.2, 1.35, 4.5], k, [0, 0.97, 4.25], [0, 0.97, 4.25])], [E.kept - 0.1, (k, T) => camL([-4.3, 1.7, 5.9], [-4.3, 1.55, 5.65], k, [-4.3, 0.6, 5.0], [-4.3, 0.6, 5.0])], [E.rule3 - 0.1, SHEET(1.0)], [E.thought - 0.1, (k, T) => FZC(k, T, -1.6, -2.0)],
   [E.like - 0.15, (k, T) => camL([5.4, 3.0, 3.6], [5.2, 2.9, 3.4], k, [-1, 0.8, -1], [-1.2, 0.8, -1.2])],
-  [E.t158, (k, T) => camL([-0.6, 2.5, -3.2], [-0.6, 2.5, -3.35], k, [-0.6, 2.5, -3.88], [-0.6, 2.5, -3.88])], [E.lockN - 0.1, (k, T) => camL([-1.6, 1.6, 2.4], [-1.8, 1.5, 2.8], k, [-2.6, 1.1, 4], [-2.6, 1.1, 4])], [E.frost - 0.1, (k, T) => camL([1.45, 1.85, 2.0], [1.35, 1.75, 2.15], k, [1.2, 1.43, 2.5], [1.2, 1.43, 2.5])],
+  [E.t158, (k, T) => camL([-0.6, 2.5, -3.2], [-0.6, 2.5, -3.35], k, [-0.6, 2.5, -3.88], [-0.6, 2.5, -3.88])], [E.lockN - 0.1, (k, T) => camL([-2.0, 1.3, 3.0], [-2.2, 1.2, 3.3], k, [-2.55, 1.1, 3.98], [-2.55, 1.1, 3.98])], [E.frost - 0.1, (k, T) => camL([1.45, 1.85, 2.0], [1.35, 1.75, 2.15], k, [1.2, 1.43, 2.5], [1.2, 1.43, 2.5])],
   [E.t241, (k, T) => cam([-0.6, 2.5, -3.3], [-0.6, 2.5, -3.88])], [E.pump - 0.1, (k, T) => camL([4, 2.2, 23], [5, 2.3, 20.5], k, [6, 1.8, 15], [6, 2.0, 15])], [E.nobody - 0.1, (k, T) => camL([3.5, 1.7, 3.6], [4.6, 1.7, 5.5], k, [6.9, 1.6, 13.6], [6.9, 1.7, 13.6])],
   [E.knock - 0.1, (k, T) => FZC(k, T, -0.2, -1.2)], [E.inside5 - 0.1, FZW],
-  [E.scrape, SHEET(0.9)], [E.never - 0.1, (k, T) => camL([1.6, 1.38, -3.35], [1.6, 1.38, -3.45], k, [1.6, 1.38, -3.88], [1.6, 1.38, -3.88])],
+  [E.scrape, SHEET(0.9)], [E.never - 0.1, SHEET(0.75)],
   [E.paid2, (k, T) => FZW(k, T)],
-  [E.optA, (k, T) => camL([-4.6, 1.5, -1.6], [-4.75, 1.5, -1.9], k, [-5.15, 1.2, -3.84], [-5.15, 1.2, -3.84])], [E.optB - 0.1, (k, T) => camL([-5.0, 0.35, -2.7], [-5.05, 0.3, -2.9], k, [-5.15, 0.0, -3.84], [-5.15, 0.0, -3.84])],
+  [E.optA, (k, T) => camL([-4.6, 1.5, -1.6], [-4.75, 1.5, -1.9], k, [-5.15, 1.2, -3.84], [-5.15, 1.2, -3.84])], [E.optB - 0.1, (k, T) => camL([-5.05, 0.32, -2.85], [-5.1, 0.26, -3.05], k, [-5.15, 0.02, -3.8], [-5.15, 0.02, -3.8])],
   [E.comment - 0.1, (k, T) => FZC(k * 0.5, T)], [E.loop, (k, T) => FZC(0, T)] ];
 SH.sort((a, b) => a[0] - b[0]);
 function shotAt(T) { let i = 0; for (let k = 0; k < SH.length; k++) if (T >= SH[k][0]) i = k; return i; }
@@ -114,12 +114,12 @@ function anim(T) { const loop = T >= E.loop; const ci = CLI(T);
   const p4 = T > E.pump && T < E.knock + 0.5; const fl = T > E.pump && T < E.pump + 0.8 ? (Math.floor(T * 14) % 3 ? 1 : 0) : 1; R.pumps[3].userData.top.material.color.set(p4 && fl ? '#ffe880' : '#3a3a3a'); R.pumps[3].userData.pl.intensity = p4 && fl ? 3 : 0;
   R.fig.visible = false; R.old.visible = false;
   const locked = T > E.lockN + 0.3 || T < E.t158; R.bolt.position.x = locked ? -2.38 : -2.5;
-  rest(R.you); R.you.visible = true; R.you.position.set(0, 0, 1.7); R.you.rotation.y = 0; if (T > E.lockN - 0.1 && T < E.frost - 0.1) { R.you.position.set(-2.4, 0, 3.5); R.you.userData.armR.rotation.x = -1.4; } if (ci === 6) { R.you.position.set(1.6, 0, -3.2); R.you.rotation.y = PI; }
+  rest(R.you); R.you.visible = true; R.you.position.set(0, 0, 1.7); R.you.rotation.y = 0; if (T > E.lockN - 0.1 && T < E.frost - 0.1) R.you.visible = false; if (ci === 6) R.you.visible = false;
   // knocking + face in the freezer window
   const knocking = ci === 0 || ci === 7 || (ci === 5 && T > E.knock) || (T > E.comment - 0.1) || loop; const kn = knocking ? Math.max(0, S(T * 9)) ** 8 : 0;
   const face = ci === 0 || ci === 7 || loop || T > E.comment - 0.1 ? 1 : (ci === 1 && T > E.inside1) ? 0.8 : (ci === 5 && T > E.inside5) ? ease(prog(T, E.inside5, E.inside5 + 0.6)) : 0; const hand = (ci === 0 && T > E.for0) || ci === 7 || loop || T > E.comment - 0.1 ? 1 : 0;
   drawFz(T, face, hand, kn); const open = ci === 8 && T < E.optB - 0.1 ? ease(prog(T, E.optA + 0.3, E.optA + 1.5)) * 0.45 : 0; R.fzDoor.rotation.y = -open + kn * 0.006; R.fzDoor.position.z = kn * 0.012;
-  R.fzOpenL.intensity = open * 12; R.mist.forEach((m, i) => { const q = (T * 0.25 + i / 14) % 1; m.position.set(-5.1 + S(i * 3) * 0.4 + q * 0.4, 0.15 + q * 1.4, -3.6 + q * 1.2); m.material.opacity = open * 0.35 * S(q * PI); });
+  R.fzOpenL.intensity = open * 12; const ob = ci === 8 && T > E.optB - 0.1 && T < E.comment - 0.1; R.fzL.intensity = ob ? 0.2 : 1.5; R.aisleL.intensity = ob ? 0.6 : 3; R.mist.forEach((m, i) => { const q = (T * 0.25 + i / 14) % 1; m.position.set(-5.1 + S(i * 3) * 0.4 + q * 0.4, 0.15 + q * 1.4, -3.6 + q * 1.2); m.material.opacity = open * 0.35 * S(q * PI); });
   R.floorCoins.visible = ci === 8 && T > E.optB - 0.1 && T < E.comment - 0.1; R.floorCoins.position.set(-5.15, 0, lerp(-3.0, -3.75, ease(prog(T, E.optB + 0.3, E.optB + 2.0))));
   // frosted coins on the register
   R.tray.visible = ci === 2 && T < E.kept - 0.1 || ci === 4 && T > E.frost - 0.1; if (ci === 4) R.tray.position.set(1.2, 1.44, 2.5); else R.tray.position.set(0, 0.97, 4.25); R.coins.forEach(cn => cn.material.color.set(ci === 4 ? '#cfe4f0' : cn.userData.c0)); 
