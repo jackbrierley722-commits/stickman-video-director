@@ -44,18 +44,18 @@ function towerShape(g, grow, seed) { const cx = TW.cx; const R = towerRight(grow
   tornPath(g, pts, seed, 1.6, 6);
   // open gap between the legs from the 1st floor up to just under the 2nd
   const gp = [[0, 606 + grow], [14 - grow, 650], [30 - grow, 726 - grow], [-30 + grow, 726 - grow], [-14 + grow, 650]].map(([a, b]) => [cx + a, b]); { const r = rng(seed + 5); g.moveTo(gp[0][0], gp[0][1]); gp.slice(1).forEach(q => g.lineTo(q[0] + (r() - 0.5) * 2, q[1])); g.closePath(); } }
-function latticeInner(g, w, h) { const cx = TW.cx; g.fillStyle = '#a8642a'; g.fillRect(0, 0, w, h);
+function latticeInner(g, w, h) { const cx = TW.cx; g.fillStyle = '#f4b818'; g.fillRect(0, 0, w, h);
   // X-bracing: finer up the spire, bigger down the legs
-  g.strokeStyle = 'rgba(36,18,8,0.6)'; for (const [y0, y1, sp, lw] of [[150, 576, 12, 1.3], [596, 735, 16, 1.8], [764, 900, 22, 2.2]]) { g.save(); g.beginPath(); g.rect(0, y0, w, y1 - y0); g.clip(); g.lineWidth = lw; for (let k = -h; k < w + h; k += sp) { g.beginPath(); g.moveTo(k, y0); g.lineTo(k + (y1 - y0) * 0.6, y1); g.stroke(); g.beginPath(); g.moveTo(k, y0); g.lineTo(k - (y1 - y0) * 0.6, y1); g.stroke(); } g.restore(); }
+  g.strokeStyle = 'rgba(120,60,0,0.6)'; for (const [y0, y1, sp, lw] of [[150, 576, 12, 1.3], [596, 735, 16, 1.8], [764, 900, 22, 2.2]]) { g.save(); g.beginPath(); g.rect(0, y0, w, y1 - y0); g.clip(); g.lineWidth = lw; for (let k = -h; k < w + h; k += sp) { g.beginPath(); g.moveTo(k, y0); g.lineTo(k + (y1 - y0) * 0.6, y1); g.stroke(); g.beginPath(); g.moveTo(k, y0); g.lineTo(k - (y1 - y0) * 0.6, y1); g.stroke(); } g.restore(); }
   // leg rails following the silhouette
-  const R = towerRight(0); g.strokeStyle = 'rgba(30,14,6,0.75)'; g.lineWidth = 4; for (const sx of [1, -1]) { g.beginPath(); R.slice(7).forEach(([a, b], i) => { const X = cx + sx * (a - 6); i ? g.lineTo(X, b) : g.moveTo(X, b); }); g.stroke(); }
+  const R = towerRight(0); g.strokeStyle = 'rgba(110,50,0,0.8)'; g.lineWidth = 4; for (const sx of [1, -1]) { g.beginPath(); R.slice(7).forEach(([a, b], i) => { const X = cx + sx * (a - 6); i ? g.lineTo(X, b) : g.moveTo(X, b); }); g.stroke(); }
   // decorative arch band
-  g.lineWidth = 7; g.strokeStyle = 'rgba(30,14,6,0.8)'; g.beginPath(); towerArch(0).forEach(([a, b], i) => i ? g.lineTo(cx + a, b - 8) : g.moveTo(cx + a, b - 8)); g.stroke(); g.beginPath(); towerArch(0).forEach(([a, b], i) => i ? g.lineTo(cx - a, b - 8) : g.moveTo(cx - a, b - 8)); g.stroke();
+  g.lineWidth = 7; g.strokeStyle = 'rgba(110,50,0,0.85)'; g.beginPath(); towerArch(0).forEach(([a, b], i) => i ? g.lineTo(cx + a, b - 8) : g.moveTo(cx + a, b - 8)); g.stroke(); g.beginPath(); towerArch(0).forEach(([a, b], i) => i ? g.lineTo(cx - a, b - 8) : g.moveTo(cx - a, b - 8)); g.stroke();
   // platforms (girders + railing)
-  g.fillStyle = '#4a2a18'; for (const [y, hw, hh] of [[735, 122, 27], [576, 70, 18], [136, 22, 14]]) { g.fillRect(cx - hw, y, hw * 2, hh); g.fillStyle = 'rgba(230,190,140,0.35)'; for (let X = cx - hw + 4; X < cx + hw - 4; X += 7) g.fillRect(X, y + 3, 2, hh * 0.45); g.fillStyle = '#4a2a18'; }
-  g.fillStyle = 'rgba(255,215,170,0.16)'; for (let yy = 0; yy < h; yy += 7) for (let xx = (yy / 7) % 2 * 3.5; xx < w; xx += 7) { g.beginPath(); g.arc(xx, yy, 1.3, 0, 7); g.fill(); } }
+  g.fillStyle = '#b8620a'; for (const [y, hw, hh] of [[735, 122, 27], [576, 70, 18], [136, 22, 14]]) { g.fillRect(cx - hw, y, hw * 2, hh); g.fillStyle = 'rgba(230,190,140,0.35)'; for (let X = cx - hw + 4; X < cx + hw - 4; X += 7) g.fillRect(X, y + 3, 2, hh * 0.45); g.fillStyle = '#b8620a'; }
+  g.fillStyle = 'rgba(255,245,170,0.3)'; for (let yy = 0; yy < h; yy += 7) for (let xx = (yy / 7) % 2 * 3.5; xx < w; xx += 7) { g.beginPath(); g.arc(xx, yy, 1.3, 0, 7); g.fill(); } }
 function buildAssets() {
-  A.tower = cut(420, 900, towerShape, '#9a5a24', 11, { inner: latticeInner, evenodd: true, borderW: 5 });
+  A.tower = cut(420, 900, towerShape, '#f2b51e', 11, { inner: latticeInner, evenodd: true, borderW: 5 });
   A.sun = cut(240, 240, (g, gr, sd) => { const r = rng(sd); g.beginPath(); for (let i = 0; i < 24; i++) { const a = i / 24 * PI * 2, R = (i % 2 ? 84 : 118) + gr + (r() - 0.5) * 6; i ? g.lineTo(120 + C(a) * R, 120 + S(a) * R) : g.moveTo(120 + C(a) * R, 120 + S(a) * R); } g.closePath(); }, '#f6b72a', 21, { inner: (g) => { g.fillStyle = '#f9d24a'; g.beginPath(); g.arc(120, 120, 70, 0, 7); g.fill(); g.fillStyle = '#5a3a14'; for (const sx of [-1, 1]) { g.beginPath(); g.arc(120 + sx * 24, 108, 7, 0, 7); g.fill(); } g.lineWidth = 6; g.strokeStyle = '#5a3a14'; g.beginPath(); g.arc(120, 124, 26, 0.3, PI - 0.3); g.stroke(); } });
   A.snow = cut(150, 150, (g, gr, sd) => { g.beginPath(); for (let i = 0; i < 12; i++) { const a = i / 12 * PI * 2, R = (i % 2 ? 26 : 70) + gr; i ? g.lineTo(75 + C(a) * R, 75 + S(a) * R) : g.moveTo(75 + C(a) * R, 75 + S(a) * R); } g.closePath(); }, '#e8f4ff', 31);
   A.ruler = cut(70, 760, rectShape(70, 760, 2), '#f2d44a', 41, { inner: (g, w, h) => { g.fillStyle = '#2a2014'; g.font = '20px Russo'; for (let y = 0; y < h; y += 19) { g.fillRect(0, y, y % 95 === 0 ? 34 : 18, 3); if (y % 95 === 0) g.fillText(String(Math.round((h - y) / 19)), 38, y + 8); } } });
@@ -128,14 +128,12 @@ function caption(T) { const c = CAPS.find(c => T >= c.a && T < c.b); if (!c || T
 
 // ---------- frame ----------
 window.init = async function () { await Promise.all(['40px Russo', '30px Caveat', '30px P8'].map(f => document.fonts.load(f))); cv = document.getElementById('c'); x = cv.getContext('2d');
-  GRAIN = grainTex(); const [k, kg] = mk(W, H); kg.fillStyle = '#e6c27a'; kg.fillRect(0, 0, W, H); kg.globalCompositeOperation = 'multiply'; kg.globalAlpha = 0.5; for (let yy = 0; yy < H; yy += 256) for (let xx = 0; xx < W; xx += 256) kg.drawImage(GRAIN, xx, yy); kg.globalCompositeOperation = 'source-over'; kg.globalAlpha = 1; const vg = kg.createRadialGradient(360, 640, 300, 360, 640, 900); vg.addColorStop(0, 'rgba(0,0,0,0)'); vg.addColorStop(1, 'rgba(60,35,10,0.35)'); kg.fillStyle = vg; kg.fillRect(0, 0, W, H); KRAFT = k;
+  GRAIN = grainTex(); const [k, kg] = mk(W, H); kg.fillStyle = '#d6bf94'; kg.fillRect(0, 0, W, H); kg.globalCompositeOperation = 'multiply'; kg.globalAlpha = 0.5; for (let yy = 0; yy < H; yy += 256) for (let xx = 0; xx < W; xx += 256) kg.drawImage(GRAIN, xx, yy); kg.globalCompositeOperation = 'source-over'; kg.globalAlpha = 1; const vg = kg.createRadialGradient(360, 640, 300, 360, 640, 900); vg.addColorStop(0, 'rgba(0,0,0,0)'); vg.addColorStop(1, 'rgba(60,35,10,0.35)'); kg.fillStyle = vg; kg.fillRect(0, 0, W, H); KRAFT = k;
   buildAssets(); [GC, GX] = mk(W, H); };
 window.DURATION = TM.total;
 window.renderFrame = function (T) { TQ = Math.floor(T * 12) / 12; BOIL = Math.floor(T * 8); const ci = CLI(T); const loop = T >= E.loop; x.setTransform(1, 0, 0, 1, 0, 0); x.globalAlpha = 1; bg();
   if (loop || ci === 0) hookScene(T, loop); else if (ci === 1) ironScene(T); else if (ci === 2) atomsScene(T); else if (ci === 3) metreScene(T); else if (ci === 4) mathScene(T); else if (ci === 5) likeScene(T); else if (ci === 6) leanScene(T); else commentScene(T);
   // quick paper-slide transition on scene change (2 frames)
   const st = CL[ci].start; if (ci > 0 && !loop && T - st < 2 / 12) { x.save(); x.globalAlpha = 0.5; x.fillStyle = '#d6bf94'; x.fillRect(0, 0, W * (1 - (T - st) * 6), H); x.restore(); }
-  // warm saturated grade: boost saturation, then a golden wash
-  GX.clearRect(0, 0, W, H); GX.drawImage(cv, 0, 0); x.save(); x.filter = 'saturate(1.55) contrast(1.06) brightness(1.03)'; x.drawImage(GC, 0, 0); x.restore(); x.save(); x.globalCompositeOperation = 'soft-light'; x.fillStyle = 'rgba(255,200,40,0.55)'; x.fillRect(0, 0, W, H); x.restore();
   caption(T); };
 })();
