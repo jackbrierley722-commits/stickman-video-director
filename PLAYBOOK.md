@@ -144,6 +144,7 @@ The usual ceiling here is about 2k, so topic selection is the bottleneck.
 - Transition whooshes only on some cuts, where they fit (big reveals). Never on every cut.
 - Music should match the mood and change per section or option.
 - Duck the music under the narration.
+- **Sound effects must never be louder than the narration.** That includes explosions, thunder and stings. In the mix, cap the music and SFX bus so its loud moments sit at least 6 dB below the narration's level (`sfx *= min(1, 0.5 * peak(voice) / peak(sfx))`, then a soft limiter), and duck it under speech by about 50 to 60%. The voice should always be the clearest thing you hear.
 
 ---
 
