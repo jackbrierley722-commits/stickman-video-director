@@ -26,27 +26,32 @@ def creak(at, dur=1.0, f0=200, amp=0.06): m = int(dur * SR); x = np.arange(m) / 
 S0 = [c['start'] for c in CL]
 def sq(at, dur, f, amp, d=6):  # chiptune square note
     n = int(dur * SR); x = np.arange(n) / SR; add(at, np.sign(np.sin(2 * np.pi * f * x)) * env(n, 0.002, d) * amp)
-# soft chiptune bed (C major, 100 bpm), quieter under narration via the duck
+# soft chiptune bed (C major), muted during the planet 3 omen
+omen0, omen1 = S0[6], wt(7, 'a')
 beat = 0.6; prog_ = [[60, 64, 67], [57, 60, 64], [65, 69, 72], [67, 71, 74]]
 for i, s_ in enumerate(np.arange(0, D - 0.4, beat)):
-    ch = prog_[(i // 4) % 4]; sq(s_, 0.25, 440 * 2 ** ((ch[i % 3] - 69) / 12), 0.012, 10); 
+    if omen0 - 0.2 < s_ < omen1 + 0.3: continue
+    ch = prog_[(i // 4) % 4]; sq(s_, 0.25, 440 * 2 ** ((ch[i % 3] - 69) / 12), 0.012, 10)
     if i % 4 == 0: tone(s_, 0.5, 440 * 2 ** ((ch[0] - 81) / 12), 0.03, 4)
-lib = (S0[1], S0[3]); spr = (S0[3], S0[5]); mkt = (S0[6], S0[8]); isl = (S0[8], S0[10])
+lib = (S0[1], S0[3]); spr = (S0[3], S0[5]); mkt = (S0[7], S0[9]); isl = (S0[9], S0[11])
 def band(a, b, y, fade=0.3): g = np.clip(np.minimum((t - a) / fade, (b - t) / fade), 0, 1); return y * g
-out += band(*lib, (nz(D, 2) - nz(D, 8)) * 0.025)  # rain on windows
-out += band(*spr, ma(rng.normal(0, 1, N), 60) * 0.05 * (1 + 3 * ((t > wt(4, "it's")) & (t < S0[5]))))  # wind -> blizzard
-out += band(*mkt, ma(rng.normal(0, 1, N), 12) * 0.012 + np.sin(2 * np.pi * 180 * t) * 0.0)  # crowd murmur
-out += band(*isl, ma(rng.normal(0, 1, N), 80) * 0.06 * (0.6 + 0.4 * np.sin(2 * np.pi * 0.15 * t)))  # waves
-for k in range(int((lib[1] - lib[0]) / 0.3)): tone(lib[0] + 0.3 + k * 0.3 + rng.random() * 0.2, 0.03, 900 + rng.random() * 600, 0.006, 60)  # fire crackle
-# verdict stings: good = up, worst = down, not bad = flat, alright = mild up
-for ci, notes in [(1, [72, 76, 79]), (3, [67, 63, 58]), (6, [69, 69]), (8, [67, 72])]:
+out += band(*lib, (nz(D, 2) - nz(D, 8)) * 0.025)
+out += band(*spr, ma(rng.normal(0, 1, N), 60) * 0.05 * (1 + 3 * ((t > wt(4, "it's")) & (t < S0[5]))))
+out += band(*mkt, ma(rng.normal(0, 1, N), 12) * 0.012)
+out += band(*isl, ma(rng.normal(0, 1, N), 80) * 0.06 * (0.6 + 0.4 * np.sin(2 * np.pi * 0.15 * t)))
+for k in range(int((lib[1] - lib[0]) / 0.3)): tone(lib[0] + 0.3 + k * 0.3 + rng.random() * 0.2, 0.03, 900 + rng.random() * 600, 0.006, 60)
+# omen: low drone + reversed swell into "bad choice", heavy hit on the stamp
+dr = band(omen0 - 0.1, omen1 + 0.6, (np.sin(2 * np.pi * 41 * t) * 0.07 + np.sin(2 * np.pi * 61.7 * t) * 0.04 + np.sin(2 * np.pi * 82.4 * t + np.sin(2 * np.pi * 0.3 * t)) * 0.03), 0.6); out += dr
+bad = wt(6, 'bad'); m = int(1.0 * SR); x = np.arange(m) / SR; add(bad - 1.0, nz(1.0, 3) * (x / 1.0) ** 3 * 0.12); thump(bad, 0.9, 38, 5); sting(bad, 46, 0.12)
+# market catch: the smile — one detuned music-box note
+sm = wt(8, 'and'); tone(sm + 0.2, 1.6, 523, 0.04, 1.5); tone(sm + 0.2, 1.6, 540, 0.03, 1.5)
+# verdict stings: good = up, not bad = flat, alright = mild up
+for ci, notes in [(1, [72, 76, 79]), (3, [69, 69]), (9, [67, 72])]:
     for j, n in enumerate(notes): sq(S0[ci] + 0.05 + j * 0.09, 0.14, 440 * 2 ** ((n - 69) / 12), 0.05, 12)
-for ci in (2, 4, 7, 9): thump(S0[ci] + 0.05, 0.4, 70, 20); sting(wt(ci, 'catch') + 0.3, 62, 0.05)  # THE CATCH?
-for (ci, w_) in [(1, 'main'), (2, 'no'), (3, 'lowkey'), (4, 'your'), (6, 'no'), (7, 'your'), (9, 'the', )]:
-    at = wt(ci, w_) if w_ != 'the' else wt(9, 'the', 1); tone(at, 0.08, 1600, 0.04, 30); tone(at + 0.05, 0.1, 2400, 0.03, 30)  # punchline pop
-for k in range(4): tone(wt(8, 'dog') + 0.15 + k * 0.18, 0.06, 900 + k * 40, 0.03, 40)  # tiny bark-ish yips
+for ci in (2, 4, 8, 10): thump(S0[ci] + 0.05, 0.4, 70, 20); sting(wt(ci, 'catch') + 0.3, 62, 0.05)
+for k in range(4): tone(wt(9, 'dog') + 0.15 + k * 0.18, 0.06, 900 + k * 40, 0.03, 40)
 tone(S0[5], 0.12, 1400, 0.06, 30); tone(wt(5, 'follow') + 0.2, 0.12, 2100, 0.05, 30)
-for ci in (1, 3, 6, 8): m = int(0.5 * SR); x = np.arange(m) / SR; add(S0[ci] + 0.6, np.sin(2 * np.pi * np.cumsum(300 + 900 * x) / SR) * np.hanning(m) * 0.03)  # zoom-in whoosh
+for ci in (1, 3, 9): m = int(0.5 * SR); x = np.arange(m) / SR; add(S0[ci] + 0.6, np.sin(2 * np.pi * np.cumsum(300 + 900 * x) / SR) * np.hanning(m) * 0.03)
 out *= np.interp(t, [0, 0.02, D - 0.03, D], [0, 1, 1, 0])
 vo, vsr = sf.read('vo.wav')
 if vo.ndim > 1: vo = vo.mean(1)

@@ -13,16 +13,17 @@ def whisper(a, SR=24000):
 
 VOICE = sys.argv[1] if len(sys.argv) > 1 else 'am_michael'
 VO = [
- "Pick a planet. Three hundred and sixty five days. ~ No way home. Every planet has a catch.",
- "Good choice. ~ Planet one. The library planet. ~ Every book ever written. ~ Main character energy.",
- "The catch? ~ You can only whisper. ~ No yapping allowed.",
- "Worst choice. ~ Planet two. Hot springs everywhere. Free ramen. ~ Lowkey a vibe.",
- "The catch? ~ Step out of the water, ~ it's minus thirty. ~ Your toes are not making it.",
- "Like and follow. ~ Planet four is the one everyone picks.",
- "Not bad. ~ Planet three. A night market that never closes. ~ Everything is free. No cap.",
- "The catch? ~ It's always two in the morning. ~ Your sleep schedule is cooked.",
- "Alright. ~ Planet four. Your own island. Sunsets. ~ And a dog.",
- "The catch? ~ You're the only human there. ~ The dog is your therapist now.",
+ "Pick a planet. You have to live there for a year. ~ And every planet has a catch.",
+ "Good choice. ~ Planet one. The library planet. ~ Every book ever written. Rain on the windows.",
+ "The catch? ~ You can only whisper. ~ All year.",
+ "Not bad. ~ Planet two. Snowy mountains, and hot springs everywhere. ~ Free ramen.",
+ "The catch? ~ The second you step out of the water, ~ it's minus thirty.",
+ "Like and follow. ~ Planet three is the one nobody comes back from.",
+ "OMEN|Bad choice.",
+ "Planet three. A night market that never closes. ~ Lanterns. Street food. Everything is free.",
+ "The catch? ~ It's always two in the morning. ~ The sun never rises. ~ And the vendors never stop smiling.",
+ "Alright. ~ Planet four. Your own island. ~ A lighthouse, endless sunsets, ~ and a dog.",
+ "The catch? ~ You're the only human there.",
  "Which planet are you picking? ~ Comment one, two, three, or four.",
 ]
 
@@ -37,7 +38,8 @@ SR = 24000; LEAD = 0.08; TAIL = 0.14
 pipe = KPipeline(lang_code='a')
 audio = []; clips = []; t = 0.0
 for i, text in enumerate(VO):
-    V = VOICE; SP = 1.3
+    V = VOICE; SP = 1.3; OMEN = text.startswith('OMEN|')
+    if OMEN: text = text[5:]; SP = 0.85
     if '|' in text: V, text = text.split('|', 1); SP = 1.12
     segs = []; words = []; off = LEAD
     import re
@@ -60,6 +62,17 @@ for i, text in enumerate(VO):
      segs.append(np.zeros(int(gap * SR))); off += gap
     body = np.concatenate(segs) if segs else np.zeros(0)
     if i in WHISPER: body = whisper(body)
+    if OMEN:  # long tired sigh, then the line slower and deeper
+        from scipy.signal import lfilter as lf, resample
+        n = int(1.5 * SR); x = np.arange(n) / SR; rn = np.random.default_rng(3).normal(0, 1, n)
+        def reson(sig, f, bw): r_ = np.exp(-np.pi * bw / SR); return lf([1 - r_], [1, -2 * r_ * np.cos(2 * np.pi * f / SR), r_ * r_], sig)
+        br = reson(rn, 650, 300) * 0.6 + reson(rn, 1150, 400) * 0.35 + reson(rn, 2600, 900) * 0.12
+        voiced = np.sin(2 * np.pi * np.cumsum(115 - 30 * x / 1.5) / SR) * 0.25 * np.exp(-x * 2.2)
+        e_ = np.minimum(1, x / 0.18) * np.exp(-np.maximum(0, x - 0.18) * 1.9); sig = (br + voiced * 0.4) * e_; sig = sig / (np.abs(sig).max() + 1e-9) * 0.42
+        gap = np.zeros(int(0.45 * SR)); fct = 1 / 0.86; body2 = resample(body, int(len(body) * fct)) * 0.95
+        pre = len(sig) + len(gap); cs = t + LEAD
+        for w in words: w['a'] = round(cs + pre / SR + (w['a'] - cs) * fct, 3); w['b'] = round(cs + pre / SR + (w['b'] - cs) * fct, 3)
+        body = np.concatenate([sig, gap, body2])
     if V == 'am_onyx':  # guard: shouted down a concrete corridor (band-limited + echo)
         from scipy.signal import butter, sosfilt
         body = sosfilt(butter(4, [300, 3400], 'bandpass', fs=SR, output='sos'), body); e = np.zeros(len(body) + int(0.5 * SR)); e[:len(body)] += body
