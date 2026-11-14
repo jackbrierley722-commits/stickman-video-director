@@ -6,9 +6,9 @@ const clamp = (v, a = 0, b = 1) => Math.max(a, Math.min(b, v)), lerp = (a, b, t)
 function rng(seed) { let s = seed >>> 0; return () => { s = (s * 1664525 + 1013904223) >>> 0; return s / 4294967296; }; }
 function AT(ci, word, n = 0) { let k = 0; for (const w of CL[ci].words) if (w.w.toLowerCase().replace(/[^a-z0-9']/g, '') === word) { if (k === n) return w.a; k++; } return CL[ci].start; }
 let renderer, scene, camera, out, octx, small, sctx, glc, GRAIN, GLOW, SNAP;
-const SM = (c, o = {}) => new T3.MeshStandardMaterial(Object.assign({ color: c, roughness: 0.75, metalness: 0, flatShading: true }, o));
+const SM = (c, o = {}) => new T3.MeshStandardMaterial(Object.assign({ color: c, roughness: 0.65, metalness: 0, flatShading: false }, o));
 function add(p, geo, mat, x = 0, y = 0, z = 0, sh = true) { const m = new T3.Mesh(geo, mat); m.position.set(x, y, z); m.castShadow = sh; m.receiveShadow = true; p.add(m); return m; }
-const Bx = (w, h, d) => new T3.BoxGeometry(w, h, d), Cy = (a, b, h, n = 8) => new T3.CylinderGeometry(a, b, h, n), Sp = (r, a = 10, b = 8) => new T3.SphereGeometry(r, a, b);
+const Bx = (w, h, d) => new T3.BoxGeometry(w, h, d), Cy = (a, b, h, n = 8) => new T3.CylinderGeometry(a, b, h, Math.max(n, 18)), Sp = (r, a = 10, b = 8) => new T3.SphereGeometry(r, Math.max(a, 24), Math.max(b, 18));
 function ctex(w, h, draw) { const c = document.createElement('canvas'); c.width = w; c.height = h; const g = c.getContext('2d'); draw(g, w, h); const t = new T3.CanvasTexture(c); t.colorSpace = T3.SRGBColorSpace; t.anisotropy = 4; t.userData = { c, g }; return t; }
 function glow(p, col, size, x, y, z, op) { const s = new T3.Sprite(new T3.SpriteMaterial({ map: GLOW, color: col, transparent: true, opacity: op, blending: T3.AdditiveBlending, depthWrite: false })); s.scale.set(size, size, 1); s.position.set(x, y, z); p.add(s); return s; }
 function look(p, l) { camera.position.set(p[0], p[1], p[2]); camera.lookAt(l[0], l[1], l[2]); }
@@ -99,29 +99,29 @@ function drawScreen(T, mode) { const c = R.scrT.userData.g, w = 320, h = 200; c.
 // ---------- shots ----------
 const TR = (k, a, b, la, lb) => look(L3(a, b, ease(k)), L3(la, lb, ease(k)));
 const SH = [
-  [0, 'train', (k, T) => TR(k, [0.2, 1.7, 6.5], [0.15, 1.65, 5.2], [0, 1.5, -8], [0, 1.6, -8])],
-  [E.title, 'ext', (k, T) => look([-60 + 7, 3.2, lerp(-12, -9, k)], [-60, 2.2, 14])],
-  [E.wakes, 'train', (k, T) => TR(k, [-0.55, 1.42, 1.1], [-0.6, 1.4, 1.0], [-0.95, 1.38, 0.35], [-0.95, 1.38, 0.35])],
-  [E.stranger - 0.1, 'train', (k, T) => TR(k, [-1.25, 1.45, 0.95], [-1.3, 1.45, 0.9], [-1.6, 1.4, 0.4], [-1.6, 1.4, 0.4])],
-  [E.noidea - 0.1, 'train', (k, T) => TR(k, [0.4, 1.9, 2.8], [0.3, 1.8, 2.4], [-0.95, 1.1, 0.3], [-0.95, 1.1, 0.3])],
-  [E.coffee, 'train', (k, T) => TR(k, [-0.45, 0.55, 1.5], [-0.5, 0.5, 1.4], [-0.8, 0.05, 0.85], [-0.8, 0.05, 0.85])],
-  [E.woman - 0.1, 'train', (k, T) => TR(k, [-0.85, 1.42, 0.85], [-0.88, 1.42, 1.0], [-0.95, 1.4, 2.1], [-0.95, 1.4, 2.1])],
-  [E.then - 0.1, 'train', (k, T) => TR(k, [0.1, 1.7, 3.5], [0.05, 1.7, 3.2], [0, 1.6, -8], [0, 1.6, -8])],
-  [E.boom - 0.15, 'ext', (k, T) => look([-60 + 14 + S(T * 50) * 0.3 * (T > E.boom + 0.1 ? 1 : 0), 6, 30], [-60, 2, 0])],
-  [E.pod, 'cap', (k, T) => TR(k, [60.5, 1.8, -0.7], [60.45, 1.7, -0.55], [60, 1.5, 0.45], [60, 1.55, 0.45])],
-  [E.strapped - 0.1, 'cap', (k, T) => TR(k, [61.0, 2.2, -0.9], [60.9, 2.0, -0.8], [60, 1.2, 0.45], [60, 1.2, 0.45])],
-  [E.voice, 'cap', (k, T) => TR(k, [60.2, 1.7, 0.3], [60.15, 1.72, 0.0], [60, 1.75, -1.45], [60, 1.75, -1.45])],
-  [E.relive - 0.1, 'train', (k, T) => TR(k, [0.2, 1.7, 6.5], [0.15, 1.65, 5.6], [0, 1.5, -8], [0, 1.6, -8])],
-  [E.over - 0.15, 'train', (k, T) => TR(k, [0.4, 1.9, 2.8], [0.3, 1.8, 2.5], [-0.95, 1.1, 0.3], [-0.95, 1.1, 0.3])],
-  [AT(5, 'over', 1) - 0.1, 'train', (k, T) => TR(k, [-0.85, 1.42, 0.85], [-0.88, 1.42, 1.0], [-0.95, 1.4, 2.1], [-0.95, 1.4, 2.1])],
-  [E.mission, 'cap', (k, T) => TR(k, [60.2, 1.7, 0.1], [60.1, 1.72, -0.3], [60, 1.75, -1.45], [60, 1.75, -1.45])],
-  [E.like - 0.1, 'ext', (k, T) => look([-60 - 6, 2.2, lerp(30, 20, k)], [-60, 2, lerp(0, -10, k)])],
-  [E.learn, 'train', (k, T) => TR(k, [0.1, 2.2, 6.8], [0.1, 2.1, 5.8], [0, 0.8, -2], [0, 0.8, -3])],
-  [E.where - 0.1, 'train', (k, T) => TR(k, [0.2, 1.7, -5.8], [0.1, 1.9, -6.6], [0, 2.2, -7.9], [0, 2.2, -7.9])],
-  [E.problem, 'cap', (k, T) => TR(k, [60.3, 1.8, 0.2], [60.2, 1.75, -0.2], [60, 1.75, -1.45], [60, 1.75, -1.45])],
-  [E.trust, 'cap', (k, T) => TR(k, [60.0, 1.6, -1.2], [60.0, 1.55, -1.25], [60, 1.4, 0.45], [60, 1.45, 0.45])],
-  [E.end, 'train', (k, T) => TR(k, [0.2, 1.7, 6.5], [0.15, 1.65, 6.0], [0, 1.5, -8], [0, 1.55, -8])],
-  [E.loop, 'train', (k, T) => TR(0, [0.2, 1.7, 6.5], [0.15, 1.65, 5.2], [0, 1.5, -8], [0, 1.6, -8])] ];
+  [0, 'train', (k, T) => TR(k, [0.2, 1.9, 7.6], [0.15, 1.85, 6.8], [0, 1.4, -8], [0, 1.45, -8])],
+  [E.title, 'ext', (k, T) => look([-60 + 13, 5, lerp(-18, -14, k)], [-60, 2.2, 14])],
+  [E.wakes, 'train', (k, T) => TR(k, [0.8, 2.35, 3.0], [0.7, 2.3, 2.7], [-0.95, 1.1, 0.3], [-0.95, 1.15, 0.3])],
+  [E.stranger - 0.1, 'train', (k, T) => TR(k, [0.4, 1.8, 1.9], [0.3, 1.8, 1.7], [-1.6, 1.3, 0.1], [-1.6, 1.3, 0.1])],
+  [E.noidea - 0.1, 'train', (k, T) => TR(k, [0.8, 2.2, 4.8], [0.7, 2.1, 4.3], [-0.95, 1.0, 0.3], [-0.95, 1.0, 0.3])],
+  [E.coffee, 'train', (k, T) => TR(k, [0.5, 1.4, 2.8], [0.45, 1.35, 2.6], [-0.8, 0.3, 0.9], [-0.8, 0.3, 0.9])],
+  [E.woman - 0.1, 'train', (k, T) => TR(k, [0.6, 1.8, -0.9], [0.55, 1.8, -0.6], [-0.95, 1.2, 2.1], [-0.95, 1.2, 2.1])],
+  [E.then - 0.1, 'train', (k, T) => TR(k, [0.2, 1.9, 7.4], [0.15, 1.9, 7.0], [0, 1.5, -8], [0, 1.5, -8])],
+  [E.boom - 0.15, 'ext', (k, T) => look([-60 + 26 + S(T * 50) * 0.4 * (T > E.boom + 0.1 ? 1 : 0), 10, 44], [-60, 2, 12])],
+  [E.pod, 'cap', (k, T) => TR(k, [61.05, 2.3, -1.1], [61.0, 2.25, -1.0], [60, 1.3, 0.45], [60, 1.35, 0.45])],
+  [E.strapped - 0.1, 'cap', (k, T) => TR(k, [60.9, 2.5, -1.15], [60.85, 2.45, -1.1], [60, 1.1, 0.45], [60, 1.1, 0.45])],
+  [E.voice, 'cap', (k, T) => TR(k, [60.7, 2.0, 1.1], [60.6, 2.0, 0.95], [60, 1.6, -1.45], [60, 1.65, -1.45])],
+  [E.relive - 0.1, 'train', (k, T) => TR(k, [0.2, 1.9, 7.6], [0.15, 1.85, 7.0], [0, 1.4, -8], [0, 1.45, -8])],
+  [E.over - 0.15, 'train', (k, T) => TR(k, [0.8, 2.2, 4.8], [0.7, 2.1, 4.4], [-0.95, 1.0, 0.3], [-0.95, 1.0, 0.3])],
+  [AT(5, 'over', 1) - 0.1, 'train', (k, T) => TR(k, [0.6, 1.8, -0.9], [0.55, 1.8, -0.6], [-0.95, 1.2, 2.1], [-0.95, 1.2, 2.1])],
+  [E.mission, 'cap', (k, T) => TR(k, [60.7, 2.0, 1.1], [60.6, 2.0, 0.9], [60, 1.7, -1.45], [60, 1.7, -1.45])],
+  [E.like - 0.1, 'ext', (k, T) => look([-60 - 12, 3.5, lerp(40, 32, k)], [-60, 2, lerp(10, 6, k)])],
+  [E.learn, 'train', (k, T) => TR(k, [0.1, 2.3, 7.7], [0.1, 2.25, 7.2], [0, 0.8, -3], [0, 0.8, -3.5])],
+  [E.where - 0.1, 'train', (k, T) => TR(k, [0.4, 1.7, -4.3], [0.3, 1.8, -4.8], [0, 2.1, -7.9], [0, 2.1, -7.9])],
+  [E.problem, 'cap', (k, T) => TR(k, [60.7, 2.0, 1.1], [60.6, 1.95, 0.95], [60, 1.6, -1.45], [60, 1.6, -1.45])],
+  [E.trust, 'cap', (k, T) => TR(k, [60.95, 2.3, -1.15], [60.9, 2.25, -1.1], [60, 1.25, 0.45], [60, 1.3, 0.45])],
+  [E.end, 'train', (k, T) => TR(k, [0.2, 1.9, 7.6], [0.15, 1.85, 7.2], [0, 1.4, -8], [0, 1.45, -8])],
+  [E.loop, 'train', (k, T) => TR(0, [0.2, 1.9, 7.6], [0.15, 1.85, 6.8], [0, 1.4, -8], [0, 1.45, -8])] ];
 SH.sort((a, b) => a[0] - b[0]);
 function shotAt(T) { let i = 0; for (let k = 0; k < SH.length; k++) if (T >= SH[k][0]) i = k; return i; }
 const boomK = (T) => { let v = 0; for (const b of BOOMS) { const d = T - b; if (d >= 0 && d < 1.2) v = Math.max(v, d); } return v; };
@@ -143,7 +143,7 @@ function anim(T) { const ci = CLI(T); const loop = T >= E.loop;
   drawScreen(T, ci === 6 ? 'mission' : ci === 9 ? 'glitch' : ci === 10 ? 'cold' : 'face'); R.capRed.intensity = ci === 10 ? 3 + S(T * 4) * 2 : 0; R.scrL.color.set(ci === 6 || ci === 10 ? '#ff6a5a' : '#8ac8ff');
   { const u = R.pilot.userData; u.head.rotation.x = ci === 4 && T < E.strapped ? lerp(0.5, 0, ease(prog(T, E.pod, E.pod + 0.9))) : 0; u.armL.rotation.x = u.armR.rotation.x = -0.5; u.armL.userData.e.rotation.x = u.armR.userData.e.rotation.x = -0.4; }
 }
-function shot(T) { const si = shotAt(T), sh = SH[si], t0 = sh[0], t1 = si + 1 < SH.length ? SH[si + 1][0] : TM.total; camera.fov = 58; camera.updateProjectionMatrix(); anim(T); R.train.visible = sh[1] === 'train'; R.ext.visible = sh[1] === 'ext'; R.cap.visible = sh[1] === 'cap'; scene.background = new T3.Color(sh[1] === 'cap' ? '#05070a' : '#0a0a0e'); sh[2](prog(T, t0, t1), T); return { si, t0, place: sh[1] }; }
+function shot(T) { const si = shotAt(T), sh = SH[si], t0 = sh[0], t1 = si + 1 < SH.length ? SH[si + 1][0] : TM.total; camera.fov = 72; camera.updateProjectionMatrix(); anim(T); R.train.visible = sh[1] === 'train'; R.ext.visible = sh[1] === 'ext'; R.cap.visible = sh[1] === 'cap'; scene.background = new T3.Color(sh[1] === 'cap' ? '#05070a' : '#0a0a0e'); sh[2](prog(T, t0, t1), T); return { si, t0, place: sh[1] }; }
 
 // ---------- overlay ----------
 function txt(s_, x, y, size, col, align = 'center', font = 'Russo') { octx.font = `${size}px ${font}`; octx.fillStyle = col; octx.textAlign = align; octx.textBaseline = 'middle'; octx.fillText(s_, x, y); }
