@@ -43,6 +43,10 @@ Example: "Leo opened the door to room 429A. Inside, it's still 1986. And the tea
 - Frame 1 must be a strong image with text already on screen.
 - No fade in from black. No logo intros.
 - Never open with "Have you ever wondered", "Imagine a world where" or "Welcome to".
+- **Frame one shows exactly what the hook says.** Viewers decide in about one second. If the hook says "this animal shouldn't exist", show the animal immediately. Eyes first, ears second: the picture lands before the words do.
+  - Put the most interesting moment of the video on frame one (not the build-up to it).
+  - If the hook names a number or change (+15 cm, 90 seconds, knocking from the freezer), the number or change must already be visible on frame one.
+  - Frame one should make people want to see frame two.
 - Hook phrases worth rotating (adapted, not verbatim):
   - "Nobody talks about…"
   - "You might disagree, but…" (drives comments)
@@ -176,6 +180,7 @@ The usual ceiling here is about 2k, so topic selection is the bottleneck.
 ## 8. Every-video checklist
 
 - [ ] Frame 1 is a strong image with the hook text already on screen
+- [ ] Frame 1 *shows* what the hook *says* (the payoff image, not the setup)
 - [ ] Triple hook lands by about 3s
 - [ ] The narration rhythm is right: short lines, pauses, describe then twist
 - [ ] Like/follow comes mid-video; the comment ask (with a reason) is early and is a single keyword or letter
