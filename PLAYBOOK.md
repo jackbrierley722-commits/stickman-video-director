@@ -19,6 +19,11 @@ Paste this file into a Claude Project's instructions, or hand it to any new sess
 - The breasts explainer reached 93k views and 3.8k shares on TikTok.
 - Lead with a funny everyday word, keep it educational and never sexual, and keep it short (25 to 35s).
 
+**Pillar 4. "In this town…" world-rule stories (testing)**
+- One strange town rule, quick funny examples of living with it, a planted exception, someone breaks the rule, the hero finds out why, a twist that pays off the exception, an emotional ending back home.
+- First-person narrator ("my dad", "my best friend"). Every part stands alone. Hook opens with "In this town…".
+- A reference account doing this format gets 10K–320K views per video at 2–2.5 minutes. Learn the structure only, never their stories.
+
 **Occasional videos**
 - Shareable "send this to the friend who…" videos (the shower video had a 5% share rate).
 - Big "what if" videos (humans disappeared, the world ending).
@@ -142,9 +147,8 @@ The usual ceiling here is about 2k, so topic selection is the bottleneck.
 **Sound**
 - Sound effects only on real on-screen actions: knocks, rings, locks, coins, crashes and so on.
 - Transition whooshes only on some cuts, where they fit (big reveals). Never on every cut.
-- Music should match the mood and change per section or option.
-- Duck the music under the narration.
-- **Sound effects must never be louder than the narration.** That includes explosions, thunder and stings. In the mix, cap the music and SFX bus so its loud moments sit at least 6 dB below the narration's level (`sfx *= min(1, 0.5 * peak(voice) / peak(sfx))`, then a soft limiter), and duck it under speech by about 50 to 60%. The voice should always be the clearest thing you hear.
+- **No background music.** The user adds music in the edit. Deliver narration plus sound effects only.
+- **Sound effects must never be louder than the narration.** That includes explosions, thunder and stings. In the mix, cap the SFX bus so its loud moments sit at least 6 dB below the narration's level (`sfx *= min(1, 0.5 * peak(voice) / peak(sfx))`, then a soft limiter), and duck it under speech by about 50 to 60%. The voice should always be the clearest thing you hear.
 
 ---
 
@@ -163,6 +167,7 @@ The usual ceiling here is about 2k, so topic selection is the bottleneck.
     - **Neon glass 3D**: glowing glass shapes on dark. Example: Shapes (neon).
     - **Space / scale zoom**: continuous zoom across sizes. Example: Atom to Star.
     - **PS2 retro low-poly**: chunky, low-res textures. Not used yet.
+    - **Bright blocky 3D**: box characters with 2D faces, sunny saturated town, name tags. Example: In This Town (body swap).
   - **2D:**
     - **Flat vector**: clean cartoon characters. Examples: Shower, Fat Friend, Your Number.
     - **Paper collage**: torn paper cut-outs, tape, stop-motion. Example: Eiffel Tower.
@@ -196,7 +201,8 @@ The usual ceiling here is about 2k, so topic selection is the bottleneck.
 - [ ] Triple hook lands by about 3s
 - [ ] The narration rhythm is right: short lines, pauses, describe then twist
 - [ ] Like/follow comes mid-video; the comment ask (with a reason) is early and is a single keyword or letter
-- [ ] Sound effects only on actions; whooshes only on big moments
+- [ ] Sound effects only on actions; whooshes only on big moments; no background music
+- [ ] Nobody floats: anyone sitting or lying is checked in snapshots (beds, chairs, crates)
 - [ ] Pronunciation checked
 - [ ] On-screen text uses "." for ":" and "-"; options are capital A/B
 - [ ] No filler or empty space (length is flexible), ending loops, outro under 3s
