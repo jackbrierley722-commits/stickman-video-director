@@ -192,10 +192,16 @@ The usual ceiling here is about 2k, so topic selection is the bottleneck.
 | Series parts (Prison P1→P2, Gas N1→N2, IG) | 2.2K→595, 2.1K→464 | Follow-up parts lose most viewers. Keep series as a side pillar. |
 | Source Code full explainer (2 min) | 531 IG plays / 221 TikTok | Long recaps don't suit this audience yet. |
 | TikTok overall (Nov 2026) | Every video 33–958 views, 87 followers | New-account ceiling. Shares are the lever, and only the "send this" format gets them. |
+| **Instagram owner insights (15 Nov 2026, 12 reels)** | Goon: 264K plays, **34K shares (13%)**, 36% watched, 37% early skip. Everything else: 100–2.3K plays, ~0 shares, 16–36% watched, 35–60% early skip. | **Shares drive reach, not retention.** Retention ceiling is ~36%. Targets: early skip under 35%, watched over 36%, share rate over 2%. Phone friend (60% skip, 200 plays) = a polite topic flops. Source Code had the longest avg watch (26.7s) and 10 saves but no spread. |
 
 ---
 
 ## 8. Every-video checklist
+
+**Step 0: check the stats first (every time the user asks for a video).**
+- Pull the latest reels with `vidiq_instagram_owner_insights` (mode reels, account id from `vidiq_social_account_list`; free, 0 credits). Use TikTok public stats (`vidiq_tiktok_profile_videos`) only if the user OKs the credits.
+- Compare each recent reel's plays, share rate, % watched, average watch time and early-skip rate against the benchmarks below.
+- Tell the user in a few lines what the numbers say and what this video will do differently because of them, before building it.
 
 - [ ] Frame 1 is a strong image with the hook text already on screen
 - [ ] Frame 1 *shows* what the hook *says* (the payoff image, not the setup)
