@@ -21,7 +21,7 @@ Paste this file into a Claude Project's instructions, or hand it to any new sess
 
 **Pillar 4. "In this town…" world-rule stories (testing)**
 - One strange town rule, quick funny examples of living with it, a planted exception, someone breaks the rule, the hero finds out why, a twist that pays off the exception, an emotional ending back home.
-- First-person narrator ("my dad", "my best friend"). Every part stands alone. Hook opens with "In this town…".
+- First-person narrator ("my dad", "my best friend"). Every part stands alone. Hook opens with "In this town…". Voice sped up 1.2x with pitch up (`tools/voice_speed.py`).
 - A reference account doing this format gets 10K–320K views per video at 2–2.5 minutes. Learn the structure only, never their stories.
 
 **Occasional videos**
@@ -129,7 +129,7 @@ The usual ceiling here is about 2k, so topic selection is the bottleneck.
 
 **Narrator**
 - am_michael (Kokoro TTS).
-- **Default delivery: fast and slightly higher-pitched** (the energetic story-channel sound). After narrate.py, run `tools/voice_speed.py` (1.2x speed with pitch up, timings rescaled) so the finished video needs no speed-up in the edit.
+- **"In this town…" videos only: fast and slightly higher-pitched delivery** (the energetic story-channel sound). After narrate.py, run `tools/voice_speed.py` (1.2x speed with pitch up, timings rescaled) so the video needs no speed-up in the edit. All other videos keep the normal narrator voice.
 - A whispered version of the narrator for impostor, ghost or phone lines.
 - Check pronunciation every time and force the phonemes when needed. Known traps:
   - catches (kætʃɪz)
