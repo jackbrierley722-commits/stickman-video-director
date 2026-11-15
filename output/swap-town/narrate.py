@@ -13,7 +13,7 @@ def whisper(a, SR=24000):
 
 VOICE = sys.argv[1] if len(sys.argv) > 1 else 'am_michael'
 VO = [
- "Every Monday, my whole town wakes up in the wrong body. ~ Except one man. ~ And now, me.",
+ "In this town. ~ Every Monday, everyone wakes up in the wrong body. ~ Except one man. ~ And now, me.",
  "At seven, you wake up as a random neighbour, for a whole week. ~ Last week, my dad woke up as the baker. ~ He made four hundred croissants. ~ He can't even make toast.",
  "My teacher spent a week as a baby. ~ He still gave us homework.",
  "At weddings, everyone wears name tags. ~ Because by Monday, your wife could be the postman.",

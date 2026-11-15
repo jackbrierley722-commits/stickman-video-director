@@ -111,7 +111,7 @@ function anim(T, si) {
   if (R.toast.visible) { R.toast.position.set(-0.05, 2.15, 0.6); R.smoke.forEach((m, i) => { const ph = (T * 0.7 + i / 8) % 1; m.position.set(S(i * 2 + T) * 0.15, 0.35 + ph * 1.4, 0); m.scale.setScalar(0.6 + ph * 1.6); m.material.opacity = 0.55 * (1 - ph); }); }
   // bedroom
   R.youGran.visible = cl === 1 && T < E.dadB - 0.1; R.meDad.visible = cl === 16;
-  for (const p of [R.youGran, R.meDad]) { if (!p.visible) continue; p.position.set(-1.4, 0.55, -1.9); p.rotation.y = 0; sitP(p); const up = p === R.youGran ? prog(T, E.wake + 0.9, E.wake + 1.3) : 1; p.userData.body.rotation.x = -1.4 * (1 - up); }
+  for (const p of [R.youGran, R.meDad]) { if (!p.visible) continue; p.position.set(-1.4, 0.02, -1.9); p.rotation.y = 0; sitP(p); const up = p === R.youGran ? prog(T, E.wake + 0.9, E.wake + 1.3) : 1; p.userData.body.rotation.x = -1.4 * (1 - up); }
   if (R.youGran.visible) { const awake = T > E.wake + 0.7; setFace(R.youGran, !awake ? 'sleep' : T > E.wake + 1.4 ? 'shock' : 'neutral'); if (T > E.wake + 1.4) { R.youGran.userData.armL.rotation.x = -1.6; R.youGran.userData.armR.rotation.x = -1.6; R.youGran.userData.head.rotation.x = 0.4; } }
   if (R.meDad.visible) { setFace(R.meDad, T > E.tired - 0.1 ? (S(T * 3) > 0.3 ? 'talk' : 'tired') : 'tired'); R.meDad.userData.armR.rotation.x = T > E.tired ? -2.6 : 0; }
   R.alarm.rotation.z = cl === 1 && T < E.wake + 1.2 ? S(T * 60) * 0.12 : 0;
@@ -125,7 +125,7 @@ function anim(T, si) {
   R.bride.visible = !(cl === 3 && T > E.post - 0.1); R.postBride.visible = !R.bride.visible; [R.bride, R.postBride, R.groom].forEach(p => { p.userData.armL.rotation.x = -0.3; });
   if (R.postBride.visible) setFace(R.groom, 'shock');
   // basement
-  R.leoB.position.y = 0.3; sitP(R.leoB); R.bulb.position.x = 0.6 + S(T * 1.6) * 0.15; R.bulbL.position.x = R.bulb.position.x; R.bulbG.position.x = R.bulb.position.x; R.bulbL.intensity = SH[si][3] && SH[si][2] === BS ? 6 : 0;
+  R.leoB.position.y = 0.16; sitP(R.leoB); R.bulb.position.x = 0.6 + S(T * 1.6) * 0.15; R.bulbL.position.x = R.bulb.position.x; R.bulbG.position.x = R.bulb.position.x; R.bulbL.intensity = SH[si][3] && SH[si][2] === BS ? 6 : 0;
   R.leoB.userData.body.position.x = (cl === 6 && T > E.eyes) || cl === 7 ? S(T * 40) * 0.01 : 0; setFace(R.leoB, cl === 7 && T > E.exLeo + 0.6 ? 'shock' : 'wide');
   if (cl === 7 && T > E.exLeo - 0.3 && T < E.patrol) { const k = prog(T, E.exLeo - 0.3, E.exLeo + 0.6); const bx = k < 0.6 ? lerp(-3, 0, k / 0.6) : lerp(0, 2.6, (k - 0.6) / 0.4); const by = k < 0.6 ? lerp(2.8, 1.7, k / 0.6) : lerp(1.7, 3.2, (k - 0.6) / 0.4); R.bOrb.position.set(bx, by, -0.4); R.bOrb.material.opacity = 0.9; }
   // stairs

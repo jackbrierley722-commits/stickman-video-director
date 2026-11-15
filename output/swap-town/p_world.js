@@ -89,7 +89,7 @@ function build() {
   // ===== BEDROOM =====
   const BRG = grp(BR); R.bedroom = BRG; wallSet(BRG, 7, 4, 6, '#b5e3ff', '#d9b58a');
   R.bwin = add(BRG, Bx(1.8, 1.5, 0.1), SM('#bfe6ff', { emissive: '#ffffff', emissiveIntensity: 0.6 }), 1.6, 2.4, -2.9); add(BRG, Bx(2.0, 0.12, 0.2), SM('#fff'), 1.6, 1.6, -2.85);
-  add(BRG, Bx(2.4, 0.5, 3.6), SM('#8a5a32'), -1.4, 0.35, -1.1); add(BRG, Bx(2.2, 0.3, 3.4), SM('#ffffff'), -1.4, 0.75, -1.1); R.blanket = add(BRG, Bx(2.3, 0.18, 2.2), SM('#ff7675'), -1.4, 0.95, -0.4); add(BRG, Bx(1.2, 0.25, 0.6), SM('#ffffff'), -1.4, 1.0, -2.5); add(BRG, Bx(2.4, 1.4, 0.2), SM('#8a5a32'), -1.4, 0.9, -2.95);
+  add(BRG, Bx(2.4, 0.5, 3.6), SM('#8a5a32'), -1.4, 0.35, -1.1); add(BRG, Bx(2.2, 0.3, 3.4), SM('#ffffff'), -1.4, 0.75, -1.1); R.blanket = add(BRG, Bx(2.3, 0.42, 2.4), SM('#ff7675'), -1.4, 1.1, -0.45); add(BRG, Bx(1.2, 0.25, 0.6), SM('#ffffff'), -1.4, 1.0, -2.5); add(BRG, Bx(2.4, 1.4, 0.2), SM('#8a5a32'), -1.4, 0.9, -2.95);
   add(BRG, Bx(0.8, 0.8, 0.7), SM('#a0703a'), 0.6, 0.4, -2.4);
   R.alarmTex = ctex(128, 64, g => { g.fillStyle = '#111'; g.fillRect(0, 0, 128, 64); g.fillStyle = '#ff3b30'; g.font = '40px Russo'; g.textAlign = 'center'; g.textBaseline = 'middle'; g.fillText('7.00', 64, 34); });
   R.alarm = new T3.Group(); R.alarm.position.set(0.6, 1.0, -2.3); BRG.add(R.alarm); add(R.alarm, Bx(0.5, 0.3, 0.2), SM('#e74c3c'), 0, 0, 0); add(R.alarm, new T3.PlaneGeometry(0.42, 0.21), BM('#ffffff', { map: R.alarmTex }), 0, 0, 0.101, false);
@@ -109,7 +109,7 @@ function build() {
   add(CRG, Bx(6, 2.2, 0.1), SM('#ffffff', { map: ctex(512, 192, g => { g.fillStyle = '#2d5a3d'; g.fillRect(0, 0, 512, 192); g.strokeStyle = '#8a5a32'; g.lineWidth = 14; g.strokeRect(0, 0, 512, 192); g.fillStyle = '#f4f4f4'; g.font = '52px Russo'; g.textAlign = 'center'; g.fillText('HOMEWORK', 256, 80); g.font = '38px Russo'; g.fillText('PAGE 40 TO 95', 256, 140); }) }), 0, 2.5, -3.85);
   add(CRG, Bx(2.6, 1.0, 1.2), SM('#a0703a'), 0, 0.5, -2.2);
   R.babyT = person({ s: 0.48, kid: true, big: true, skin: '#ffd9b8', top: '#ffffff', bot: '#ffffff', hair: '#d9b45a', style: 'none', extras: ['glasses', 'tie'], face: 'baby' }); place(R.babyT, CRG, 0, -2.2, 0); R.babyT.position.y = 1.0; tag(R.babyT, 'TEACHER', '#ffffff');
-  R.kids = []; [[-3.0, 0.6], [3.0, 0.6], [-1.8, 2.8], [1.8, 2.8]].forEach(([x, z], i) => { add(CRG, Bx(1.2, 0.7, 0.8), SM('#e1b382'), x, 0.75, z - 0.6); add(CRG, Bx(1.25, 0.06, 0.85), SM('#a0703a'), x, 1.1, z - 0.6); const k = townie(20 + i, { s: 0.78, kid: true }); place(k, CRG, x, z, PI); sitP(k); k.position.y = -0.25; R.kids.push(k); });
+  R.kids = []; [[-3.0, 0.6], [3.0, 0.6], [-1.8, 2.8], [1.8, 2.8]].forEach(([x, z], i) => { add(CRG, Bx(1.2, 0.7, 0.8), SM('#e1b382'), x, 0.75, z - 0.6); add(CRG, Bx(1.25, 0.06, 0.85), SM('#a0703a'), x, 1.1, z - 0.6); add(CRG, Bx(0.7, 0.42, 0.6), SM('#5a6a7a'), x, 0.21, z); const k = townie(20 + i, { s: 0.78, kid: true }); place(k, CRG, x, z, PI); sitP(k); k.position.y = 0.42 - 0.55; R.kids.push(k); });
 
   // ===== WEDDING =====
   const WDG = grp(WD); R.wed = WDG; add(WDG, Bx(1.6, 0.04, 14), SM('#c0392b'), 0, 0.03, 3);
@@ -126,7 +126,7 @@ function build() {
   for (const [x, z, s] of [[-2.4, -2, 1], [-1.6, -2.2, 0.7], [2.4, -1.8, 1.1], [2.6, -0.6, 0.6]]) add(BSG, Bx(s, s, s), SM('#9a7a4a'), x, s / 2, z);
   add(BSG, Bx(0.9, 0.7, 0.9), SM('#9a7a4a'), 0, 0.35, -0.6);
   R.bulb = add(BSG, Sp(0.12, 10, 8), BM('#fff2b0'), 0.6, 2.7, 0.2, false); add(BSG, Cy(0.01, 0.01, 0.7, 4), BM('#222'), 0.6, 3.05, 0.2, false); R.bulbL = new T3.PointLight('#ffcf80', 0, 9, 1.6); R.bulbL.position.set(0.6, 2.6, 0.2); BSG.add(R.bulbL); R.bulbG = glow(BSG, '#ffcf80', 1.6, 0.6, 2.7, 0.2, 0.5);
-  R.leoB = person({ s: 0.78, kid: true, skin: '#ffd9b8', top: '#d63031', bot: '#2d3436', hair: '#e0b44a', style: 'spiky', face: 'wide' }); place(R.leoB, BSG, 0, -0.6, 0); sitP(R.leoB); R.leoB.position.y = 0.3; tag(R.leoB, 'LEO', '#ffb0a0');
+  R.leoB = person({ s: 0.78, kid: true, skin: '#ffd9b8', top: '#d63031', bot: '#2d3436', hair: '#e0b44a', style: 'spiky', face: 'wide' }); place(R.leoB, BSG, 0, -0.6, 0); sitP(R.leoB); R.leoB.position.y = 0.16; tag(R.leoB, 'LEO', '#ffb0a0');
   R.bOrb = glow(BSG, '#7fe8ff', 1.4, 0, -50, 0, 0);
 
   // ===== STAIRS =====

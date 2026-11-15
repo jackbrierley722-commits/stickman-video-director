@@ -68,7 +68,7 @@ for a, b, k in SEC:
     elif k == 'swell':
         pad(a, b, [note(48), note(52), note(55), note(60)], 0.04)
         for j, t0 in enumerate(np.arange(a, b, BEAT)): pluck(t0, note([72, 76, 79, 76][j % 4]), 0.03, 3, 1.0)
-out += mus
+# no background music (added in the edit)
 # ---- SFX on real actions ----
 def whoosh(at, amp=0.12, dur=0.7):
     n = int(dur * SR); x = np.arange(n) / SR; y = ma(rng.normal(0, 1, n), 8) - ma(rng.normal(0, 1, n), 40); add(at, y * np.sin(np.pi * x / dur) ** 2 * amp)

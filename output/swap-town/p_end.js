@@ -31,7 +31,7 @@ window.renderFrame = function (T) { const ci = CLI(T); const loop = T >= E.loop;
   for (const f of [E.wake + 0.5, E.swap7 + 0.15, E.sit + 0.3]) { const d = T - f; if (d > 0 && d < 0.3) { octx.fillStyle = `rgba(160,240,255,${0.45 * (1 - d / 0.3)})`; octx.fillRect(0, 0, W, H); } }
   hud(T);
   const fi = (a, d = 0.12) => prog(T, a - 0.1, a - 0.1 + d);
-  if (ci === 0 || loop) { if (T < E.except0 - 0.1 || loop) { big('EVERY MONDAY', 380, 74, '#ffd34a', 1); big('EVERYONE SWAPS BODIES', 460, 44, '#fff', 1); } else if (T < E.now0 - 0.1) big('EXCEPT HIM', 400, 80, '#ffd34a', fi(E.except0)); else big('AND NOW . ME', 400, 80, '#7fe8ff', fi(E.now0)); }
+  if (ci === 0 || loop) { if (T < E.except0 - 0.1 || loop) { big('IN THIS TOWN...', 380, 74, '#ffd34a', 1); big('EVERYONE SWAPS BODIES', 460, 44, '#fff', 1); } else if (T < E.now0 - 0.1) big('EXCEPT HIM', 400, 80, '#ffd34a', fi(E.except0)); else big('AND NOW . ME', 400, 80, '#7fe8ff', fi(E.now0)); }
   else if (ci === 1) { if (T < E.dadB - 0.1) big('7.00 AM . SWAP', 400, 64, '#7fe8ff', fi(E.wake)); else if (T > E.toast - 0.1) big("CAN'T MAKE TOAST", 400, 62, '#fff', fi(E.toast)); else if (T > E.four - 0.1) big('400 CROISSANTS', 400, 70, '#ffd34a', fi(E.four)); }
   else if (ci === 2) { if (T > E.hw - 0.1) big('STILL GAVE HOMEWORK', 400, 54, '#fff', fi(E.hw)); else big('TEACHER . AGE 1', 400, 60, '#ffd34a', fi(E.teach)); }
   else if (ci === 3) { if (T > E.post - 0.1) big('THE WIFE . THIS WEEK', 400, 56, '#ffb6e1', fi(E.post)); else big('NAME TAGS AT WEDDINGS', 400, 52, '#fff', fi(E.wed)); }

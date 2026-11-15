@@ -194,7 +194,7 @@ function build() {
   // ===== BEDROOM =====
   const BRG = grp(BR); R.bedroom = BRG; wallSet(BRG, 7, 4, 6, '#b5e3ff', '#d9b58a');
   R.bwin = add(BRG, Bx(1.8, 1.5, 0.1), SM('#bfe6ff', { emissive: '#ffffff', emissiveIntensity: 0.6 }), 1.6, 2.4, -2.9); add(BRG, Bx(2.0, 0.12, 0.2), SM('#fff'), 1.6, 1.6, -2.85);
-  add(BRG, Bx(2.4, 0.5, 3.6), SM('#8a5a32'), -1.4, 0.35, -1.1); add(BRG, Bx(2.2, 0.3, 3.4), SM('#ffffff'), -1.4, 0.75, -1.1); R.blanket = add(BRG, Bx(2.3, 0.18, 2.2), SM('#ff7675'), -1.4, 0.95, -0.4); add(BRG, Bx(1.2, 0.25, 0.6), SM('#ffffff'), -1.4, 1.0, -2.5); add(BRG, Bx(2.4, 1.4, 0.2), SM('#8a5a32'), -1.4, 0.9, -2.95);
+  add(BRG, Bx(2.4, 0.5, 3.6), SM('#8a5a32'), -1.4, 0.35, -1.1); add(BRG, Bx(2.2, 0.3, 3.4), SM('#ffffff'), -1.4, 0.75, -1.1); R.blanket = add(BRG, Bx(2.3, 0.42, 2.4), SM('#ff7675'), -1.4, 1.1, -0.45); add(BRG, Bx(1.2, 0.25, 0.6), SM('#ffffff'), -1.4, 1.0, -2.5); add(BRG, Bx(2.4, 1.4, 0.2), SM('#8a5a32'), -1.4, 0.9, -2.95);
   add(BRG, Bx(0.8, 0.8, 0.7), SM('#a0703a'), 0.6, 0.4, -2.4);
   R.alarmTex = ctex(128, 64, g => { g.fillStyle = '#111'; g.fillRect(0, 0, 128, 64); g.fillStyle = '#ff3b30'; g.font = '40px Russo'; g.textAlign = 'center'; g.textBaseline = 'middle'; g.fillText('7.00', 64, 34); });
   R.alarm = new T3.Group(); R.alarm.position.set(0.6, 1.0, -2.3); BRG.add(R.alarm); add(R.alarm, Bx(0.5, 0.3, 0.2), SM('#e74c3c'), 0, 0, 0); add(R.alarm, new T3.PlaneGeometry(0.42, 0.21), BM('#ffffff', { map: R.alarmTex }), 0, 0, 0.101, false);
@@ -214,7 +214,7 @@ function build() {
   add(CRG, Bx(6, 2.2, 0.1), SM('#ffffff', { map: ctex(512, 192, g => { g.fillStyle = '#2d5a3d'; g.fillRect(0, 0, 512, 192); g.strokeStyle = '#8a5a32'; g.lineWidth = 14; g.strokeRect(0, 0, 512, 192); g.fillStyle = '#f4f4f4'; g.font = '52px Russo'; g.textAlign = 'center'; g.fillText('HOMEWORK', 256, 80); g.font = '38px Russo'; g.fillText('PAGE 40 TO 95', 256, 140); }) }), 0, 2.5, -3.85);
   add(CRG, Bx(2.6, 1.0, 1.2), SM('#a0703a'), 0, 0.5, -2.2);
   R.babyT = person({ s: 0.48, kid: true, big: true, skin: '#ffd9b8', top: '#ffffff', bot: '#ffffff', hair: '#d9b45a', style: 'none', extras: ['glasses', 'tie'], face: 'baby' }); place(R.babyT, CRG, 0, -2.2, 0); R.babyT.position.y = 1.0; tag(R.babyT, 'TEACHER', '#ffffff');
-  R.kids = []; [[-3.0, 0.6], [3.0, 0.6], [-1.8, 2.8], [1.8, 2.8]].forEach(([x, z], i) => { add(CRG, Bx(1.2, 0.7, 0.8), SM('#e1b382'), x, 0.75, z - 0.6); add(CRG, Bx(1.25, 0.06, 0.85), SM('#a0703a'), x, 1.1, z - 0.6); const k = townie(20 + i, { s: 0.78, kid: true }); place(k, CRG, x, z, PI); sitP(k); k.position.y = -0.25; R.kids.push(k); });
+  R.kids = []; [[-3.0, 0.6], [3.0, 0.6], [-1.8, 2.8], [1.8, 2.8]].forEach(([x, z], i) => { add(CRG, Bx(1.2, 0.7, 0.8), SM('#e1b382'), x, 0.75, z - 0.6); add(CRG, Bx(1.25, 0.06, 0.85), SM('#a0703a'), x, 1.1, z - 0.6); add(CRG, Bx(0.7, 0.42, 0.6), SM('#5a6a7a'), x, 0.21, z); const k = townie(20 + i, { s: 0.78, kid: true }); place(k, CRG, x, z, PI); sitP(k); k.position.y = 0.42 - 0.55; R.kids.push(k); });
 
   // ===== WEDDING =====
   const WDG = grp(WD); R.wed = WDG; add(WDG, Bx(1.6, 0.04, 14), SM('#c0392b'), 0, 0.03, 3);
@@ -231,7 +231,7 @@ function build() {
   for (const [x, z, s] of [[-2.4, -2, 1], [-1.6, -2.2, 0.7], [2.4, -1.8, 1.1], [2.6, -0.6, 0.6]]) add(BSG, Bx(s, s, s), SM('#9a7a4a'), x, s / 2, z);
   add(BSG, Bx(0.9, 0.7, 0.9), SM('#9a7a4a'), 0, 0.35, -0.6);
   R.bulb = add(BSG, Sp(0.12, 10, 8), BM('#fff2b0'), 0.6, 2.7, 0.2, false); add(BSG, Cy(0.01, 0.01, 0.7, 4), BM('#222'), 0.6, 3.05, 0.2, false); R.bulbL = new T3.PointLight('#ffcf80', 0, 9, 1.6); R.bulbL.position.set(0.6, 2.6, 0.2); BSG.add(R.bulbL); R.bulbG = glow(BSG, '#ffcf80', 1.6, 0.6, 2.7, 0.2, 0.5);
-  R.leoB = person({ s: 0.78, kid: true, skin: '#ffd9b8', top: '#d63031', bot: '#2d3436', hair: '#e0b44a', style: 'spiky', face: 'wide' }); place(R.leoB, BSG, 0, -0.6, 0); sitP(R.leoB); R.leoB.position.y = 0.3; tag(R.leoB, 'LEO', '#ffb0a0');
+  R.leoB = person({ s: 0.78, kid: true, skin: '#ffd9b8', top: '#d63031', bot: '#2d3436', hair: '#e0b44a', style: 'spiky', face: 'wide' }); place(R.leoB, BSG, 0, -0.6, 0); sitP(R.leoB); R.leoB.position.y = 0.16; tag(R.leoB, 'LEO', '#ffb0a0');
   R.bOrb = glow(BSG, '#7fe8ff', 1.4, 0, -50, 0, 0);
 
   // ===== STAIRS =====
@@ -387,7 +387,7 @@ function anim(T, si) {
   if (R.toast.visible) { R.toast.position.set(-0.05, 2.15, 0.6); R.smoke.forEach((m, i) => { const ph = (T * 0.7 + i / 8) % 1; m.position.set(S(i * 2 + T) * 0.15, 0.35 + ph * 1.4, 0); m.scale.setScalar(0.6 + ph * 1.6); m.material.opacity = 0.55 * (1 - ph); }); }
   // bedroom
   R.youGran.visible = cl === 1 && T < E.dadB - 0.1; R.meDad.visible = cl === 16;
-  for (const p of [R.youGran, R.meDad]) { if (!p.visible) continue; p.position.set(-1.4, 0.55, -1.9); p.rotation.y = 0; sitP(p); const up = p === R.youGran ? prog(T, E.wake + 0.9, E.wake + 1.3) : 1; p.userData.body.rotation.x = -1.4 * (1 - up); }
+  for (const p of [R.youGran, R.meDad]) { if (!p.visible) continue; p.position.set(-1.4, 0.02, -1.9); p.rotation.y = 0; sitP(p); const up = p === R.youGran ? prog(T, E.wake + 0.9, E.wake + 1.3) : 1; p.userData.body.rotation.x = -1.4 * (1 - up); }
   if (R.youGran.visible) { const awake = T > E.wake + 0.7; setFace(R.youGran, !awake ? 'sleep' : T > E.wake + 1.4 ? 'shock' : 'neutral'); if (T > E.wake + 1.4) { R.youGran.userData.armL.rotation.x = -1.6; R.youGran.userData.armR.rotation.x = -1.6; R.youGran.userData.head.rotation.x = 0.4; } }
   if (R.meDad.visible) { setFace(R.meDad, T > E.tired - 0.1 ? (S(T * 3) > 0.3 ? 'talk' : 'tired') : 'tired'); R.meDad.userData.armR.rotation.x = T > E.tired ? -2.6 : 0; }
   R.alarm.rotation.z = cl === 1 && T < E.wake + 1.2 ? S(T * 60) * 0.12 : 0;
@@ -401,7 +401,7 @@ function anim(T, si) {
   R.bride.visible = !(cl === 3 && T > E.post - 0.1); R.postBride.visible = !R.bride.visible; [R.bride, R.postBride, R.groom].forEach(p => { p.userData.armL.rotation.x = -0.3; });
   if (R.postBride.visible) setFace(R.groom, 'shock');
   // basement
-  R.leoB.position.y = 0.3; sitP(R.leoB); R.bulb.position.x = 0.6 + S(T * 1.6) * 0.15; R.bulbL.position.x = R.bulb.position.x; R.bulbG.position.x = R.bulb.position.x; R.bulbL.intensity = SH[si][3] && SH[si][2] === BS ? 6 : 0;
+  R.leoB.position.y = 0.16; sitP(R.leoB); R.bulb.position.x = 0.6 + S(T * 1.6) * 0.15; R.bulbL.position.x = R.bulb.position.x; R.bulbG.position.x = R.bulb.position.x; R.bulbL.intensity = SH[si][3] && SH[si][2] === BS ? 6 : 0;
   R.leoB.userData.body.position.x = (cl === 6 && T > E.eyes) || cl === 7 ? S(T * 40) * 0.01 : 0; setFace(R.leoB, cl === 7 && T > E.exLeo + 0.6 ? 'shock' : 'wide');
   if (cl === 7 && T > E.exLeo - 0.3 && T < E.patrol) { const k = prog(T, E.exLeo - 0.3, E.exLeo + 0.6); const bx = k < 0.6 ? lerp(-3, 0, k / 0.6) : lerp(0, 2.6, (k - 0.6) / 0.4); const by = k < 0.6 ? lerp(2.8, 1.7, k / 0.6) : lerp(1.7, 3.2, (k - 0.6) / 0.4); R.bOrb.position.set(bx, by, -0.4); R.bOrb.material.opacity = 0.9; }
   // stairs
@@ -485,7 +485,7 @@ window.renderFrame = function (T) { const ci = CLI(T); const loop = T >= E.loop;
   for (const f of [E.wake + 0.5, E.swap7 + 0.15, E.sit + 0.3]) { const d = T - f; if (d > 0 && d < 0.3) { octx.fillStyle = `rgba(160,240,255,${0.45 * (1 - d / 0.3)})`; octx.fillRect(0, 0, W, H); } }
   hud(T);
   const fi = (a, d = 0.12) => prog(T, a - 0.1, a - 0.1 + d);
-  if (ci === 0 || loop) { if (T < E.except0 - 0.1 || loop) { big('EVERY MONDAY', 380, 74, '#ffd34a', 1); big('EVERYONE SWAPS BODIES', 460, 44, '#fff', 1); } else if (T < E.now0 - 0.1) big('EXCEPT HIM', 400, 80, '#ffd34a', fi(E.except0)); else big('AND NOW . ME', 400, 80, '#7fe8ff', fi(E.now0)); }
+  if (ci === 0 || loop) { if (T < E.except0 - 0.1 || loop) { big('IN THIS TOWN...', 380, 74, '#ffd34a', 1); big('EVERYONE SWAPS BODIES', 460, 44, '#fff', 1); } else if (T < E.now0 - 0.1) big('EXCEPT HIM', 400, 80, '#ffd34a', fi(E.except0)); else big('AND NOW . ME', 400, 80, '#7fe8ff', fi(E.now0)); }
   else if (ci === 1) { if (T < E.dadB - 0.1) big('7.00 AM . SWAP', 400, 64, '#7fe8ff', fi(E.wake)); else if (T > E.toast - 0.1) big("CAN'T MAKE TOAST", 400, 62, '#fff', fi(E.toast)); else if (T > E.four - 0.1) big('400 CROISSANTS', 400, 70, '#ffd34a', fi(E.four)); }
   else if (ci === 2) { if (T > E.hw - 0.1) big('STILL GAVE HOMEWORK', 400, 54, '#fff', fi(E.hw)); else big('TEACHER . AGE 1', 400, 60, '#ffd34a', fi(E.teach)); }
   else if (ci === 3) { if (T > E.post - 0.1) big('THE WIFE . THIS WEEK', 400, 56, '#ffb6e1', fi(E.post)); else big('NAME TAGS AT WEDDINGS', 400, 52, '#fff', fi(E.wed)); }
