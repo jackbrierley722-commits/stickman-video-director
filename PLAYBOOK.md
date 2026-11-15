@@ -129,6 +129,7 @@ The usual ceiling here is about 2k, so topic selection is the bottleneck.
 
 **Narrator**
 - am_michael (Kokoro TTS).
+- **Default delivery: fast and slightly higher-pitched** (the energetic story-channel sound). After narrate.py, run `tools/voice_speed.py` (1.2x speed with pitch up, timings rescaled) so the finished video needs no speed-up in the edit.
 - A whispered version of the narrator for impostor, ghost or phone lines.
 - Check pronunciation every time and force the phonemes when needed. Known traps:
   - catches (kætʃɪz)
