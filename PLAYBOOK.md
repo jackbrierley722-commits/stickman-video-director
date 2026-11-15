@@ -181,6 +181,11 @@ The usual ceiling here is about 2k, so topic selection is the bottleneck.
 | Pick a hotel room | 33% held, 0.0% comments | The vote ask came too late, and the reward wasn't in the hook. |
 | Text from your own number | Top views and follows on Instagram | Interactive horror series build followers. |
 | Floor 28 day 6 | 1 like | Late series parts die without a standalone hook. |
+| **"Send this to the friend who goons" (IG)** | **203.6K plays, 4.9K likes, 142 comments**; TikTok 754 views but **48 shares (6%)** | **Breakout format.** |
+| **"Send this to your friend who doesn't shower" (IG)** | **182.8K plays, 3.7K likes, 140 comments** | Same format, same result. Make "Send this to your friend who…" the main series. |
+| Series parts (Prison P1→P2, Gas N1→N2, IG) | 2.2K→595, 2.1K→464 | Follow-up parts lose most viewers. Keep series as a side pillar. |
+| Source Code full explainer (2 min) | 531 IG plays / 221 TikTok | Long recaps don't suit this audience yet. |
+| TikTok overall (Nov 2026) | Every video 33–958 views, 87 followers | New-account ceiling. Shares are the lever, and only the "send this" format gets them. |
 
 ---
 
