@@ -140,7 +140,7 @@ Fast cuts (1–2s per beat), punchy SFX (boing, snap, crunch) on each fail, stif
   - Kiki (kiːki)
   - a second "A M" (write "in the morning")
   - stressing important final words (write "Is Leo", not "Is him")
-- Emphasise key words when needed: stress markers, a short pause before the word, a volume boost, and the word slamming onto the screen.
+- **Never use word emphasis (user rule, Nov 2026).** No slowed, louder or paused-before emphasis words in the narration, and no bigger popping emphasis words in the captions. Keep the narration at one even delivery. (A shouted character line, like an angry outburst, is a separate thing and still allowed when the story calls for it.)
 
 **On-screen text**
 - Replace ":" and "-" with "." in on-screen text (for example 4.29 AM).
