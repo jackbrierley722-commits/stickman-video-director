@@ -220,10 +220,8 @@ Fast cuts (1–2s per beat), punchy SFX (boing, snap, crunch) on each fail, stif
 
 ---
 
-## 9. Pending (user asked to do later)
+## 9. Tools tested
 
-- **Make a short test video with VoiceStudio + Hallmark** (requested 16 Nov 2026).
-  - VoiceStudio (github.com/debpalash/VoiceStudio, AGPL app, OmniVoice engine, CPU-capable): try it for a more natural/acted narrator and character voices; compare against Kokoro before switching. Only clone a voice with its owner's permission.
-  - Hallmark (github.com/Nutlope/hallmark, MIT design skill): makes web pages, not video. Use it to design the HTML on-screen cards/text layouts so they look human-designed, then render them through our Playwright pipeline.
-  - Review both install scripts before running them.
-
+- **VoiceStudio / OmniVoice + Hallmark test video done** (16 Nov 2026, output/laugh-test).
+  - OmniVoice (VoiceStudio's engine, `pip install omnivoice`, venv in the scratchpad `omni/`): voice design from a text description (`instruct="male, low pitch, american accent"`), real `[laughter]`, `[sigh]`, `[surprise-oh]` tags. About 12s per line on this CPU. Lines with heavy laughter can swallow the words: always check every line with Whisper (`asr.py`) and regenerate until the words are heard.
+  - Hallmark design rules carry over to on-screen video design: tokens for colours and fonts, sentence case, one idea per screen, no invented numbers. `sloplint.mjs` (static checks only, no network) lints the HTML; aim for 0 FAIL.
