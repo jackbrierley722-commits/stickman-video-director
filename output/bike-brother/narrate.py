@@ -7,13 +7,13 @@ from kokoro import KPipeline
 
 VOICE = sys.argv[1] if len(sys.argv) > 1 else 'am_michael'
 VO = [
- "To beat your brother to school, ~ you invent the bike.",
- "A wooden frame. ~ No pedals. ~ You're basically running, ~ sitting down. ~ Your brother walks past you. ~ The little shit.",
+ "To beat your bro to school, ~ you invent the bike.",
+ "A wooden frame. ~ No pedals. ~ You're basically running, ~ sitting down. ~ Your bro walks past you. ~ The little shit.",
  "So you stick pedals on the front wheel. ~ But the wheels are iron rimmed wood, ~ and every bump goes straight up your spine. ~ They called it the boneshaker.",
  "So you make the front wheel massive. ~ One pedal turn goes way further. ~ Genius. ~ Until one pebble ~ sends you over the handlebars.",
  "So, pedals in the middle, ~ a chain to the back wheel, ~ same size wheels. ~ The safety bicycle.",
  "But it still rattles your teeth. ~ So you fill the tyres with air.",
- "Now you beat your brother every single day. ~ He takes the bus.",
+ "Now you beat your bro every single day. ~ He takes the bus.",
 ]
 SR = 24000; LEAD = 0.08; TAIL = 0.14
 pipe = KPipeline(lang_code='a')

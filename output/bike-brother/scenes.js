@@ -136,11 +136,11 @@ function build() {
   // bikes
   R.bikes = [bikeDraisine(), bikeBoneshaker(), bikePenny(), bikeSafety()]; R.bikes.forEach(b => G.add(b));
   R.you = person({ s: 0.78, kid: true, skin: '#e0a878', top: '#2a6fdb', bot: '#2d3436', hair: '#3a2410', style: 'short', face: 'neutral' }); G.add(R.you); tag(R.you, 'YOU', '#9ad0ff');
-  R.bro = person({ s: 0.8, kid: true, skin: '#e0a878', top: '#2ecc71', bot: '#2d3436', hair: '#3a2410', style: 'spiky', face: 'grin', extras: ['bag'] }); G.add(R.bro); tag(R.bro, 'BROTHER', '#8ff0a4');
+  R.bro = person({ s: 0.8, kid: true, skin: '#e0a878', top: '#2ecc71', bot: '#2d3436', hair: '#3a2410', style: 'spiky', face: 'grin', extras: ['bag'] }); G.add(R.bro); tag(R.bro, 'BRO', '#8ff0a4');
   // bus
   R.bus = new T3.Group(); G.add(R.bus); add(R.bus, Bx(8, 2.8, 2.6), SM('#f1c40f'), 0, 1.8, 0); add(R.bus, Bx(8.02, 0.3, 2.62), SM('#222'), 0, 1.1, 0); for (let i = 0; i < 5; i++) add(R.bus, Bx(1.1, 0.9, 0.05), SM('#bfe6ff', { roughness: 0.1, transparent: true, opacity: 0.35 }), -3 + i * 1.5, 2.4, 1.31, false);
   for (const x of [-2.6, 2.6]) for (const z of [-1.2, 1.2]) add(R.bus, Cy(0.5, 0.5, 0.3, 12), SM('#151515'), x, 0.5, z).rotation.x = PI / 2;
-  R.broBus = person({ s: 0.8, kid: true, skin: '#e0a878', top: '#2ecc71', bot: '#2d3436', hair: '#3a2410', style: 'spiky', face: 'sad' }); R.broBus.position.set(-1.5, 1.35, 0.95); R.bus.add(R.broBus); tag(R.broBus, 'BROTHER', '#8ff0a4');
+  R.broBus = person({ s: 0.8, kid: true, skin: '#e0a878', top: '#2ecc71', bot: '#2d3436', hair: '#3a2410', style: 'spiky', face: 'sad' }); R.broBus.position.set(-1.5, 1.35, 0.95); R.bus.add(R.broBus); tag(R.broBus, 'BRO', '#8ff0a4');
   // tyre pump
   R.pump = new T3.Group(); G.add(R.pump); add(R.pump, Cy(0.06, 0.06, 0.7, 8), SM('#c0392b'), 0, 0.35, 0); add(R.pump, Bx(0.3, 0.05, 0.05), SM('#222'), 0, 0.75, 0); R.pumpH = R.pump.children[1];
   R.dust = []; for (let i = 0; i < 10; i++) R.dust.push(add(G, Sp(0.15, 6, 5), SM('#d9c9a8', { transparent: true, opacity: 0.6 }), 0, -5, 0, false));
@@ -210,7 +210,7 @@ function likePill(T, l0, l1, fT) { if (T < l0 - 0.15 || T > l1 + 0.2) return; co
 function mergeWords(ws) { const o = []; for (let i = 0; i < ws.length; i++) { let hit = null; for (const [seq, rep] of SEQ) if (seq.every((s_, k) => ws[i + k] && ws[i + k].w.toLowerCase().replace(/[^a-z]/g, '') === s_)) { hit = [seq.length, rep]; break; } if (hit) { const lw = ws[i + hit[0] - 1].w; o.push({ w: hit[1] + (/[.,?!]$/.test(lw) ? lw.slice(-1) : ''), a: ws[i].a, b: ws[i + hit[0] - 1].b }); i += hit[0] - 1; } else o.push(ws[i]); } return o; }
 const SEQ = [[['shit'], 'S**T']];
 const VCOL = {}, VWHO = {};
-const HL = /^(brother|bike|pedals|boneshaker|massive|genius|pebble|handlebars|chain|safety|bicycle|air|bus|s\*\*t)$/i;
+const HL = /^(bro|brother|bike|pedals|boneshaker|massive|genius|pebble|handlebars|chain|safety|bicycle|air|bus|s\*\*t)$/i;
 const CAPS = []; CL.forEach((c0) => { const ws = mergeWords(c0.words); let cur = []; const flush = () => { if (cur.length) CAPS.push({ a: cur[0].a, b: cur[cur.length - 1].b, txt: cur.map(w => w.w).join(' '), col: VCOL[c0.voice] || '#fff', who: VWHO[c0.voice] }); cur = []; }; ws.forEach(w => { const cap_ = /^[A-Z]/.test(w.w) && !/^(I|Genius|They|The)$/.test(w.w.replace(/[.,?!]/g, '')); if (cur.length && (cap_ || cur.length >= 4 || w.a - cur[cur.length - 1].b > 0.2 || /[.,?!]$/.test(cur[cur.length - 1].w))) flush(); cur.push(w); }); flush(); });
 CAPS.forEach((c, i) => { const nx = CAPS[i + 1]; c.b = nx ? Math.min(nx.a, c.b + 0.35) : c.b + 0.8; c.txt = c.txt.replace(/[:\-"]/g, '.'); });
 function caption(c) { octx.save(); octx.font = '50px Russo'; octx.textAlign = 'center'; octx.textBaseline = 'middle'; const words = c.txt.split(' '); const lines = []; let cur = ''; for (const w of words) { const x = cur ? cur + ' ' + w : w; if (octx.measureText(x).width > 620 && cur) { lines.push(cur); cur = w; } else cur = x; } lines.push(cur); const y0 = 1100 - (lines.length - 1) * 31;
@@ -241,7 +241,7 @@ window.renderFrame = function (T) { const ci = CLI(T); const loop = T >= E.loop;
   const tk = prog(T, t0, t0 + 0.14); if (si > 0 && tk < 1 && !loop) { SNAP.getContext('2d').drawImage(out, 0, 0); const sc = 1 + (1 - tk) * 0.05; octx.drawImage(SNAP, 360 - 360 * sc, 640 - 640 * sc, W * sc, H * sc); }
   const vg = octx.createRadialGradient(360, 640, 420, 360, 640, 900); vg.addColorStop(0, 'rgba(0,0,0,0)'); vg.addColorStop(1, 'rgba(0,0,0,0.3)'); octx.fillStyle = vg; octx.fillRect(0, 0, W, H);
   const fi = (a, d = 0.12) => prog(T, a - 0.1, a - 0.1 + d);
-  if (ci === 0 || loop) { big('YOU vs YOUR BROTHER', 230, 54, '#fff', 1); big('THE RACE TO SCHOOL', 300, 44, '#ffd34a', 1); }
+  if (ci === 0 || loop) { big('YOU vs YOUR BRO', 230, 54, '#fff', 1); big('THE RACE TO SCHOOL', 300, 44, '#ffd34a', 1); }
   else if (ci === 1) { label(T, E.c1, '1817 . THE RUNNING MACHINE', 'NO PEDALS'); if (T > E.shit - 0.1) big('THE LITTLE S**T', 400, 58, '#ff6b6b', fi(E.shit)); }
   else if (ci === 2) { label(T, E.c2, '1860s . PEDALS ON THE FRONT', ''); if (T > E.bone - 0.1) big('REAL NICKNAME . THE BONESHAKER', 330, 38, '#fff', fi(E.bone)); }
   else if (ci === 3) { label(T, E.c3, '1870s . THE PENNY FARTHING', 'BIGGER WHEEL = FURTHER PER PEDAL'); if (T > E.genius - 0.1 && T < E.pebble - 0.1) big('GENIUS.', 400, 80, '#5ad88a', fi(E.genius)); if (T > E.pebble - 0.1 && T < E.over) callout(T, E.pebble, 'ONE PEBBLE', 470, 860, '#ff6b6b'); if (T > E.over) big('HEADFIRST', 400, 80, '#ff6b6b', fi(E.over)); }

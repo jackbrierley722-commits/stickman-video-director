@@ -42,11 +42,11 @@ function build() {
   // bikes
   R.bikes = [bikeDraisine(), bikeBoneshaker(), bikePenny(), bikeSafety()]; R.bikes.forEach(b => G.add(b));
   R.you = person({ s: 0.78, kid: true, skin: '#e0a878', top: '#2a6fdb', bot: '#2d3436', hair: '#3a2410', style: 'short', face: 'neutral' }); G.add(R.you); tag(R.you, 'YOU', '#9ad0ff');
-  R.bro = person({ s: 0.8, kid: true, skin: '#e0a878', top: '#2ecc71', bot: '#2d3436', hair: '#3a2410', style: 'spiky', face: 'grin', extras: ['bag'] }); G.add(R.bro); tag(R.bro, 'BROTHER', '#8ff0a4');
+  R.bro = person({ s: 0.8, kid: true, skin: '#e0a878', top: '#2ecc71', bot: '#2d3436', hair: '#3a2410', style: 'spiky', face: 'grin', extras: ['bag'] }); G.add(R.bro); tag(R.bro, 'BRO', '#8ff0a4');
   // bus
   R.bus = new T3.Group(); G.add(R.bus); add(R.bus, Bx(8, 2.8, 2.6), SM('#f1c40f'), 0, 1.8, 0); add(R.bus, Bx(8.02, 0.3, 2.62), SM('#222'), 0, 1.1, 0); for (let i = 0; i < 5; i++) add(R.bus, Bx(1.1, 0.9, 0.05), SM('#bfe6ff', { roughness: 0.1, transparent: true, opacity: 0.35 }), -3 + i * 1.5, 2.4, 1.31, false);
   for (const x of [-2.6, 2.6]) for (const z of [-1.2, 1.2]) add(R.bus, Cy(0.5, 0.5, 0.3, 12), SM('#151515'), x, 0.5, z).rotation.x = PI / 2;
-  R.broBus = person({ s: 0.8, kid: true, skin: '#e0a878', top: '#2ecc71', bot: '#2d3436', hair: '#3a2410', style: 'spiky', face: 'sad' }); R.broBus.position.set(-1.5, 1.35, 0.95); R.bus.add(R.broBus); tag(R.broBus, 'BROTHER', '#8ff0a4');
+  R.broBus = person({ s: 0.8, kid: true, skin: '#e0a878', top: '#2ecc71', bot: '#2d3436', hair: '#3a2410', style: 'spiky', face: 'sad' }); R.broBus.position.set(-1.5, 1.35, 0.95); R.bus.add(R.broBus); tag(R.broBus, 'BRO', '#8ff0a4');
   // tyre pump
   R.pump = new T3.Group(); G.add(R.pump); add(R.pump, Cy(0.06, 0.06, 0.7, 8), SM('#c0392b'), 0, 0.35, 0); add(R.pump, Bx(0.3, 0.05, 0.05), SM('#222'), 0, 0.75, 0); R.pumpH = R.pump.children[1];
   R.dust = []; for (let i = 0; i < 10; i++) R.dust.push(add(G, Sp(0.15, 6, 5), SM('#d9c9a8', { transparent: true, opacity: 0.6 }), 0, -5, 0, false));

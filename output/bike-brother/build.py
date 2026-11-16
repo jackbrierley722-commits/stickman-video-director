@@ -13,7 +13,7 @@ u = open(src + 'p_ui.js').read()
 a = u.index('const SEQ'); b = u.index('const CAPS')
 u = u[:a] + '''const SEQ = [[['shit'], 'S**T']];
 const VCOL = {}, VWHO = {};
-const HL = /^(brother|bike|pedals|boneshaker|massive|genius|pebble|handlebars|chain|safety|bicycle|air|bus|s\\*\\*t)$/i;
+const HL = /^(bro|brother|bike|pedals|boneshaker|massive|genius|pebble|handlebars|chain|safety|bicycle|air|bus|s\\*\\*t)$/i;
 ''' + u[b:]
 u = u.replace("!/^(I|LATE|Psychologists)$/", "!/^(I|Genius|They|The)$/")
 e = open(src + 'p_end.js').read()
