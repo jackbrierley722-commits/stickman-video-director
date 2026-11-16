@@ -217,3 +217,13 @@ Fast cuts (1–2s per beat), punchy SFX (boing, snap, crunch) on each fail, stif
 - [ ] No filler or empty space (length is flexible), ending loops, outro under 3s
 - [ ] Self-critique before delivery: would someone stop scrolling? Is any section boring? Does anything feel AI-generic?
 - [ ] Deliver the title plus 5 hashtags, together under 100 characters, plus the direct download link
+
+---
+
+## 9. Pending (user asked to do later)
+
+- **Make a short test video with VoiceStudio + Hallmark** (requested 16 Nov 2026).
+  - VoiceStudio (github.com/debpalash/VoiceStudio, AGPL app, OmniVoice engine, CPU-capable): try it for a more natural/acted narrator and character voices; compare against Kokoro before switching. Only clone a voice with its owner's permission.
+  - Hallmark (github.com/Nutlope/hallmark, MIT design skill): makes web pages, not video. Use it to design the HTML on-screen cards/text layouts so they look human-designed, then render them through our Playwright pipeline.
+  - Review both install scripts before running them.
+
