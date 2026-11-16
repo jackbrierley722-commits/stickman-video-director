@@ -77,6 +77,19 @@ The usual ceiling here is about 2k, so topic selection is the bottleneck.
 - **Horror:** connect it to a real fear the viewer owns. Example: "If your phone does this at 3am…"
 - **Facts:** use myth-busting angles on things everyone has.
 
+## 2b. House style for the "So you…" invention videos (from @oddtilt, structure only)
+
+The user wants our videos made much like this reference. Rules:
+1. **Hook:** second person, an awkward or gross everyday problem in one line ("You're taking a shit, but your friend keeps trying to watch"). Frame 1 shows that exact situation.
+2. **Loop:** "So you… / But… / So you…" through the REAL evolution of one everyday object, 5–6 steps, every fix true. Stock deadpan beats: "Clever!", "Except…", "Much better!"
+3. **One silent recurring pest** who exploits each weakness (the peeking friend, the neighbour, the cat).
+4. **Camera:** alternate close-ups of the mechanism being added or working (hinge, latch, bolt) with mid shots of reactions. A cut every 1–2 s.
+5. **Look:** realistic textured sets (stone, weathered wood, grass, sky), natural daylight, stiff slightly goofy people in modern clothes.
+6. **Text:** captions ONLY. No titles, labels, dates, stamps or counters. Small bold white captions with a soft dark shadow, 2–3 words at a time, centred in the MIDDLE of the frame.
+7. **Sound:** crisp foley on every mechanism (creak, click, slide, thud). No music (the user adds it).
+8. **Ending:** an absurd zoom-out reveal that breaks the setting's logic (the reference used cooling towers on the outhouse). No call to action. About 30–35 s.
+Never copy his actual topics or reveals; invent our own objects, pests and endings.
+
 ## 3. Script rules
 
 **Optional humour mode: "deadpan How It's Made" (use on SOME videos, not all).** Learned from a reference reel (trampoline invented to spy over a fence), structure only:
