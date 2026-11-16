@@ -126,7 +126,7 @@ function anim(T, si) { const ci = CLI(T), loop = T >= E.loop, Tt = loop ? 0 : T,
   const lidOpen = cl === 3 && T < E.power - 0.3 ? 1 - prog(T, E.frz, E.power - 0.3) : 0; R.lid.rotation.x = -1.4 * lidOpen; R.rugF.visible = lidOpen > 0.05;
   const dark = cl === 3 && T > E.power - 0.1 && T < E.smell - 0.1; R.bulbG.intensity = dark ? 0 : 20; R.bulbM.material.emissiveIntensity = dark ? 0 : 2; R.fzLight.material.emissiveIntensity = cl === 3 && T > E.power ? 0 : 2;
   const stinkOn = (cl === 3 && T > E.power) || cl === 4; R.stink.forEach((m, i) => { const ph = (Tt * 0.5 + i / 6) % 1; m.position.set(-1.6 + i * 0.4, 1.3 + ph * 2.2, -2.2 + S(i) * 0.3); m.rotation.set(0, 0.4, ph * 4); m.material.opacity = stinkOn ? 0.9 * S(ph * PI) : 0; });
-  R.youG.visible = cl === 3 || cl === 4; setFace(R.youG, cl === 4 ? 'tired' : (T > E.smell ? 'shock' : 'neutral')); R.youG.userData.armR.rotation.x = cl === 3 && T < E.power ? -1.3 : (cl === 4 ? -2.6 : 0);
+  R.youG.visible = cl === 3 || cl === 4; setFace(R.youG, cl === 4 ? (T > CL[4].start + 1.2 ? 'grin' : 'tired') : (T > E.smell ? 'shock' : 'neutral')); R.youG.userData.armR.rotation.x = cl === 3 && T < E.power ? -1.3 : (cl === 4 ? (T > CL[4].start + 1.2 ? -2.9 : -2.6) : 0);
   if (cl === 4) R.youG.userData.head.rotation.z = 0.1 * S(T * 3);
   R.landlord.visible = R.copsG[0].visible = (cl === 3 && T > E.smell - 0.1) || cl === 4; R.landlord.userData.armR.rotation.set(-2.5, 0, -0.4); R.landlord.userData.head.rotation.x = 0.1; setFace(R.landlord, 'angry');
   // ----- driveway -----

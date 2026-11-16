@@ -106,16 +106,9 @@ The usual ceiling here is about 2k, so topic selection is the bottleneck.
 
 ## 4. Calls to action
 
-**Like/follow**
-- Put it mid-video, after the first big reveal. Never in the first 6 to 8 seconds (that caused a big drop on the GTA video).
-- Add a follow reference at the end.
-- Show an on-screen like/follow pill whenever it is mentioned.
-
-**Comments (the weakest stat, so fix it first)**
-- Put the vote reward in the hook. Example: "Most votes gets a 3am reveal."
-- Ask for the vote mid-video, not only at the end. The hotel video had 0.0% comments because the ask came at 57s, after most viewers had left.
-- Use a one-word comment keyword or a single letter (A/B, A/B/C/D, or a word).
-- Options are always written with capital letters: A and B, never a and b.
+**No mid-video calls to action (user rule, Nov 2026).** Spoken or on-screen like/follow/comment asks in the middle of a video drop retention. Keep the middle 100% story or content.
+- The like/follow/comment ask goes **only at the very end**, in one short line (or on-screen only), after the payoff.
+- Use a one-word comment keyword or a single letter (A/B, A/B/C/D, or a word). Options are always capital letters.
 - Give them something to argue about: "Most people pick B. They're wrong."
 - Pin a comment or poll as soon as the video is posted. A poll once got 22 votes.
 
@@ -207,7 +200,7 @@ The usual ceiling here is about 2k, so topic selection is the bottleneck.
 - [ ] Frame 1 *shows* what the hook *says* (the payoff image, not the setup)
 - [ ] Triple hook lands by about 3s
 - [ ] The narration rhythm is right: short lines, pauses, describe then twist
-- [ ] Like/follow comes mid-video; the comment ask (with a reason) is early and is a single keyword or letter
+- [ ] No mid-video like/follow/comment asks; one short ask at the end only, single keyword or letter
 - [ ] Sound effects only on actions; whooshes only on big moments; no background music
 - [ ] Nobody floats: anyone sitting or lying is checked in snapshots (beds, chairs, crates)
 - [ ] Pronunciation checked
