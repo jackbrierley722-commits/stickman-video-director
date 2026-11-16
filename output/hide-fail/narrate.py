@@ -11,7 +11,7 @@ VO = [
  "Attempt one. ~ Bury it in the backyard. ~ Next morning, the neighbour's dog brings it back.",
  "Attempt two. ~ The lake. ~ A fisherman catches the biggest fish of his life.",
  "Attempt three. ~ The freezer. ~ Then the power goes out. ~ And your landlord wants to know about the smell.",
- "Okay. ~ Deep breath. ~ One last idea.",
+ "Like and follow. ~ Comment A, B or C. ~ Which fail was the dumbest?",
  "Attempt four. ~ A fresh concrete driveway. ~ Your builder posts his work online. ~ There's a hand sticking out.",
  "am_puck|I tried everything! ~ But the police still fucking find it!",
  "Caught. ~ Again. ~ The only way to never get caught? ~ Don't do it.",

@@ -44,8 +44,7 @@ thump(S0[3] + 0.9, 0.4, 90, 25)  # lid slam
 thump(power, 0.6, 45, 8); tone(power, 0.4, 120, 0.03, 6)  # power cut
 for k in range(4): thump(smell + 0.05 + k * 0.18, 0.25, 160, 40)  # knock knock
 siren(smell + 0.3, S0[4] - 0.1, 0.02); stamp(smell + 0.6)
-for k in range(3): thump(S0[4] + 0.2 + k * 0.6, 0.35, 48); thump(S0[4] + 0.42 + k * 0.6, 0.22, 45)  # nervous heartbeat
-tone(S0[4] + 1.6, 0.6, 880, 0.04, 4); tone(S0[4] + 1.72, 0.6, 1320, 0.03, 4)  # idea ding
+tone(S0[4] + 0.1, 0.12, 1400, 0.05, 30); tone(S0[4] + 0.16, 0.12, 2100, 0.035, 30); tone(comment, 0.2, 990, 0.04, 12)
 # driveway
 for k in range(int((posts - S0[5]) / 0.4)): add(S0[5] + 0.2 + k * 0.4, (nz(0.25, 2) - nz(0.25, 10)) * env(int(0.25 * SR), 0.01, 8) * 0.07)  # trowel scrapes
 tone(posts + 0.1, 0.15, 1800, 0.03, 30); tone(posts + 0.3, 0.2, 2400, 0.03, 20)  # camera + post ping
