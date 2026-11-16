@@ -223,5 +223,5 @@ Fast cuts (1–2s per beat), punchy SFX (boing, snap, crunch) on each fail, stif
 ## 9. Tools tested
 
 - **VoiceStudio / OmniVoice + Hallmark test video done** (16 Nov 2026, output/laugh-test).
-  - OmniVoice (VoiceStudio's engine, `pip install omnivoice`, venv in the scratchpad `omni/`): voice design from a text description (`instruct="male, low pitch, american accent"`), real `[laughter]`, `[sigh]`, `[surprise-oh]` tags. About 12s per line on this CPU. Lines with heavy laughter can swallow the words: always check every line with Whisper (`asr.py`) and regenerate until the words are heard.
+  - **Voice: not used (user decision).** Don't use VoiceStudio / OmniVoice; keep the normal Kokoro narrator.
   - Hallmark design rules carry over to on-screen video design: tokens for colours and fonts, sentence case, one idea per screen, no invented numbers. `sloplint.mjs` (static checks only, no network) lints the HTML; aim for 0 FAIL.
