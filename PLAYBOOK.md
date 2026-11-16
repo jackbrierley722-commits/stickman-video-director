@@ -79,6 +79,15 @@ The usual ceiling here is about 2k, so topic selection is the bottleneck.
 
 ## 3. Script rules
 
+**Optional humour mode: "deadpan How It's Made" (use on SOME videos, not all).** Learned from a reference reel (trampoline invented to spy over a fence), structure only:
+1. **Petty, ridiculous motive.** A real invention or fix explained as the solution to a dumb personal goal (beating the neighbour, getting the last slice, avoiding a sibling). Keep the motive petty or absurd, never genuinely creepy or harmful.
+2. **Real educational chain underneath.** Problem → prototype → it fails → real fix, with every step factually true (fits the "But… So…" format).
+3. **Deadpan narrator.** Calm, helpful documentary voice that never changes tone, even for the jokes.
+4. **Casual micro-insults and a sudden swear.** E.g. "the frame snaps under your fat ass". One or two per video, never at a real person. Swears are bleeped by default for reach (the user can ask for uncensored).
+5. **Slapstick treated as a routine bug.** Someone gets launched into the sky → "so you add a net". Big ragdoll physics, zero concern from the narrator.
+6. **Callback ending.** The last line returns to the petty motive as if it was a noble achievement.
+Fast cuts (1–2s per beat), punchy SFX (boing, snap, crunch) on each fail, stiff low-poly characters suit it. 30–40 seconds.
+
 **Rhythm**
 - Short sentences. Vary the length. Nothing repetitive.
 - Put longer pauses before the important beats (write "~" in the narration file for a long pause).
