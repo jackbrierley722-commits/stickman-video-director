@@ -1,0 +1,28 @@
+
+// ---------- timing ----------
+const E = { screams: AT(0, 'screams'), c1: CL[1].start, c2: CL[2].start, c3: CL[3].start, heLooks: AT(3, 'he'), c4: CL[4].start, graze: AT(4, 'graze'), acc: AT(4, 'by'), c5: CL[5].start, hand: AT(5, 'his'), c6: CL[6].start, c7: CL[7].start, out: AT(7, 'sends'), c8: CL[8].start };
+E.loop = TM.total - 0.4;
+const ROWZ = [-2.8, -1.0, 0.8, 2.6], COLX = [-3.2, 0, 3.2], ME = [-0.4, 0.8], BRO = [0.4, 0.8];
+function build() {
+  R.sun = new T3.DirectionalLight('#fff4e0', 1.6); R.sun.position.set(-12, 10, 2); R.sun.target.position.set(0, 0, 0); R.sun.castShadow = true; R.sun.shadow.mapSize.set(1024, 1024); const sc = R.sun.shadow.camera; sc.left = sc.bottom = -9; sc.right = sc.top = 9; sc.near = 1; sc.far = 40; scene.add(R.sun); scene.add(R.sun.target);
+  R.hemi = new T3.HemisphereLight('#e8ecf8', '#8a8070', 1.9); scene.add(R.hemi);
+  const G = R.G = new T3.Group(); scene.add(G); const wall = PM('#c8c0a8', 12, 16, 1), floor = PM('#8a7a62', 18, 16, 2);
+  boxM(G, 12.4, 0.1, 12.4, floor, 0, -0.05, 0, false); for (let i = 0; i < 12; i++) boxM(G, 12.4, 0.004, 0.02, PM('#6a5a46'), 0, 0.002, -6 + i, false); boxM(G, 12.4, 0.1, 12.4, PM('#d8d4c8', 8, 16, 3), 0, 3.25, 0, false);
+  boxM(G, 12.4, 3.3, 0.1, wall, 0, 1.65, -6.2, false); boxM(G, 12.4, 3.3, 0.1, wall, 0, 1.65, 6.2, false); boxM(G, 0.1, 3.3, 12.4, wall, 6.2, 1.65, 0, false); boxM(G, 0.1, 1.0, 12.4, wall, -6.2, 0.5, 0, false); boxM(G, 0.1, 0.5, 12.4, wall, -6.2, 3.05, 0, false);
+  const skyW = PT(16, 16, (c) => { const g = c.createLinearGradient(0, 0, 0, 16); g.addColorStop(0, '#8ab8e8'); g.addColorStop(0.7, '#c8e0f0'); g.addColorStop(0.71, '#5a8a4a'); g.addColorStop(1, '#4a7a3a'); c.fillStyle = g; c.fillRect(0, 0, 16, 16); }); for (let i = 0; i < 5; i++) { const z = -4.8 + i * 2.4; boxM(G, 0.05, 1.8, 2.0, LM({ map: skyW, emissive: '#ffffff', emissiveMap: skyW, emissiveIntensity: 0.8 }), -6.22, 1.9, z, false); boxM(G, 0.14, 1.9, 0.14, PM('#e8e4dc'), -6.15, 1.9, z + 1.1, false); }
+  for (const [x, z] of [[-2.5, -3], [2.5, -3], [-2.5, 2], [2.5, 2]]) boxM(G, 1.8, 0.04, 0.5, LM({ color: '#fffbf0', emissive: '#fffbf0', emissiveIntensity: 1 }), x, 3.19, z, false);
+  // chalkboard
+  const cb = PT(64, 24, (c) => { noisy(c, 64, 24, '#2a4a36', 14, 5); c.fillStyle = 'rgba(240,240,230,0.85)'; c.font = '7px monospace'; c.fillText('MATHS', 3, 7); c.fillText('2x + 5 = 17', 3, 15); c.fillText('x = 6', 40, 15); c.fillRect(3, 19, 26, 1); }); boxM(G, 5, 1.8, 0.06, [PM('#5a4030'), PM('#5a4030'), PM('#5a4030'), PM('#5a4030'), LM({ map: cb }), PM('#5a4030')], 0, 1.75, -6.12, false); boxM(G, 5.2, 0.08, 0.16, PM('#6a5040'), 0, 0.82, -6.06, false);
+  boxM(G, 1.4, 0.8, 0.7, PM('#7a5a3a', 18, 16, 6), -2.2, 0.4, -4.6); boxM(G, 0.1, 2.1, 1.0, PM('#6a4a30', 18, 16, 7), 6.14, 1.05, 3.0, false); boxM(G, 0.04, 0.5, 0.35, LM({ map: skyW }), 6.1, 1.6, 3.0, false);
+  const clock = PT(16, 16, (c) => { c.fillStyle = '#f0ece0'; c.beginPath(); c.arc(8, 8, 7.5, 0, 7); c.fill(); c.fillStyle = '#111'; c.fillRect(8, 3, 1, 5); c.fillRect(8, 8, 4, 1); }); boxM(G, 0.6, 0.6, 0.04, [PM('#111'), PM('#111'), PM('#111'), PM('#111'), LM({ map: clock, transparent: true }), PM('#111')], 3.2, 2.8, -6.12, false);
+  // desks + chairs
+  const wood = PM('#b8905a', 16, 16, 8), metal = PM('#4a4e56', 10, 8, 9), chair = PM('#3a5a8a', 14, 8, 10);
+  for (const z of ROWZ) for (const x of COLX) { const top_ = boxM(G, 1.6, 0.06, 0.6, wood, x, 0.75, z - 0.35); if (x === 0 && z === ME[1]) R.myDesk = top_; for (const [dx, dz] of [[-0.74, -0.27], [0.74, -0.27], [-0.74, 0.25], [0.74, 0.25]]) boxM(G, 0.05, 0.74, 0.05, metal, x + dx, 0.37, z - 0.35 + dz, false);
+    for (const sx of [-0.4, 0.4]) { boxM(G, 0.44, 0.05, 0.42, chair, x + sx, 0.46, z + 0.15); boxM(G, 0.44, 0.45, 0.05, chair, x + sx, 0.72, z + 0.38); for (const [dx, dz] of [[-0.2, -0.18], [0.2, -0.18], [-0.2, 0.18], [0.2, 0.18]]) boxM(G, 0.04, 0.46, 0.04, metal, x + sx + dx, 0.23, z + 0.15 + dz, false); } }
+  // books / pencil cases on desks
+  R.myBooks = []; for (const z of ROWZ) for (const x of COLX) for (const sx of [-0.4, 0.4]) { const bk = boxM(G, 0.32, 0.03, 0.24, PM(['#e8e4dc', '#c8d8e8', '#f0e0c0'][(Math.abs(x + z * 3 + sx * 7) | 0) % 3], 8, 8, 11), x + sx, 0.795, z - 0.4); if (x === 0 && z === ME[1]) R.myBooks.push(bk); }
+  // students
+  R.kids = []; let oi = 0; for (const z of ROWZ) for (const x of COLX) for (const sx of [-0.4, 0.4]) { if (z === ME[1] && x === 0) continue; if ((oi * 7) % 9 === 0) { oi++; continue; } const o = Object.assign({}, OUTFITS[[0, 2, 3, 7, 1][oi % 5]]); const p = person(o); p.position.set(x + sx, 0, z + 0.15); p.rotation.y = PI; seatP(p, 0.48); p.userData.armL.rotation.x = -0.9; p.userData.armR.rotation.x = -0.9; G.add(p); R.kids.push(p); oi++; }
+  R.you = person({ top: '#3a5aa8', bot: '#3a4a62', hair: '#3a2416', skin: '#d8a07c' }); G.add(R.you); R.bro = person({ top: '#2a8a3a', bot: '#3a3a40', hair: '#141010', skin: '#a8704c', cap: '#1e5a2a' }); G.add(R.bro);
+  R.teacher = person(OUTFITS[4]); G.add(R.teacher);
+}
