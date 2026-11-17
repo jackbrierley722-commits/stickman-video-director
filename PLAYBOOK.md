@@ -178,7 +178,8 @@ Fast cuts (1–2s per beat), punchy SFX (boing, snap, crunch) on each fail, stif
   - **3D:**
     - **Stylised-realistic 3D** (video-game look: smooth PBR, shadows, detailed sets). Example: Source Code v2.
     - **Smooth 3D (PS4-ish)**: warm lighting, rounded characters. Examples: 429A, Gas Station, prison 3rd-person.
-    - **PS3 low-poly first person**: faceted polygons, first-person hands. Examples: Prison Escape P1/P2.
+    - **Low-poly first person** (old name: "PS3 low-poly"): faceted polygons, first-person hands. Examples: Prison Escape P1/P2.
+    - **PS3 style** (user's name, saved 17 Nov 2026 from 3 reference images): blocky, Minecraft-like but realistically proportioned people and cars with chunky 16px pixel textures (nearest filtering, no smoothing). The world is rendered at 360x640 and scaled up with hard pixels. Hazy dusk light (lavender sky, warm low sun glow, purple-grey fog), LA-style city: palm trees, freeway overpass, billboards, shopfronts with awnings, skyline towers with pixel window lights. Keep the city alive: cars driving in lanes, pedestrians walking, lights flashing. Toolkit: `output/dino-return/ps3.js` (PT pixel textures, person(), car(), tower(), palm(), lampP()). Example: dino-return.
     - **Cosy pixel 3D**: low-res pixelated render, pixel font. Example: Pick a Planet.
     - **Neon glass 3D**: glowing glass shapes on dark. Example: Shapes (neon).
     - **Space / scale zoom**: continuous zoom across sizes. Example: Atom to Star.
