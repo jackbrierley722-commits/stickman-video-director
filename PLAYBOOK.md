@@ -86,7 +86,7 @@ The user wants our videos made much like this reference. Rules:
 4. **Camera:** alternate close-ups of the mechanism being added or working (hinge, latch, bolt) with mid shots of reactions. A cut every 1–2 s.
 5. **Look:** realistic textured sets (stone, weathered wood, grass, sky), natural daylight, stiff slightly goofy people in modern clothes.
 6. **Text:** captions ONLY. No titles, labels, dates, stamps or counters. Small bold white captions with a soft dark shadow, 2–3 words at a time, centred in the MIDDLE of the frame.
-7. **Sound:** crisp foley on every mechanism (creak, click, slide, thud). No music (the user adds it).
+7. **Sound:** crisp foley on every mechanism (creak, click, slide, thud), plus a low background music bed (see Sound rules).
 8. **Ending:** an absurd zoom-out reveal that breaks the setting's logic (the reference used cooling towers on the outhouse). No call to action. About 30–35 s.
 Never copy his actual topics or reveals; invent our own objects, pests and endings.
 
@@ -163,7 +163,7 @@ Fast cuts (1–2s per beat), punchy SFX (boing, snap, crunch) on each fail, stif
 **Sound**
 - Sound effects only on real on-screen actions: knocks, rings, locks, coins, crashes and so on.
 - Transition whooshes only on some cuts, where they fit (big reveals). Never on every cut.
-- **No background music.** The user adds music in the edit. Deliver narration plus sound effects only.
+- **Background music is back (user, 17 Nov 2026): keep it low, but always include it.** Every new video gets a quiet music bed that fits the mood (light and bouncy for bro/comedy, tense pulse for prison/horror, warm and curious for explainers). Mix it about 18 to 22 dB under the narration's peak, duck it a further ~50% under speech, fade it in and out, and make it loop cleanly. Only use music generated in code or properly licensed tracks, never copyrighted songs. Don't remake older videos to add music unless asked.
 - **Sound effects must never be louder than the narration.** That includes explosions, thunder and stings. In the mix, cap the SFX bus so its loud moments sit at least 6 dB below the narration's level (`sfx *= min(1, 0.5 * peak(voice) / peak(sfx))`, then a soft limiter), and duck it under speech by about 50 to 60%. The voice should always be the clearest thing you hear.
 
 ---
@@ -223,7 +223,7 @@ Fast cuts (1–2s per beat), punchy SFX (boing, snap, crunch) on each fail, stif
 - [ ] Triple hook lands by about 3s
 - [ ] The narration rhythm is right: short lines, pauses, describe then twist
 - [ ] No mid-video like/follow/comment asks; one short ask at the end only, single keyword or letter
-- [ ] Sound effects only on actions; whooshes only on big moments; no background music
+- [ ] Sound effects only on actions; whooshes only on big moments; low background music bed (about 20 dB under the voice, ducked under speech)
 - [ ] Nobody floats: anyone sitting or lying is checked in snapshots (beds, chairs, crates)
 - [ ] Pronunciation checked
 - [ ] On-screen text uses "." for ":" and "-"; options are capital A/B
