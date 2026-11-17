@@ -36,17 +36,18 @@ stamp(wt(0, 'lost')[0])                                   # LOST stamp on the ca
 add(wt(0, 'bro')[0] + 0.02, nz(0.05, 1) * env(int(0.05 * SR), 0.001, 70) * 0.18)  # facepalm slap
 thump(S0[1] + 0.05, 0.6, 55, 10)                         # flops on the floor
 squeak(wt(2, 'day')[0] - 0.1, 0.55)                       # marker writing DAY 1
+for k in range(5): tone(wt(2, 'then')[0] + k * 0.09, 0.5, [1568, 2093, 2637, 3136, 2637][k], 0.014, 6)  # shower-fresh sparkle
 stamp(wt(3, 'lost')[0])                                   # stamped again
 squeak(wt(3, 'rename')[0], 0.45, 0.03); squeak(wt(3, 'not')[0] - 0.15, 0.6, 0.025)  # cross out, write NOT NOW
 tone(wt(3, 'clever')[0], 0.6, 2093, 0.025, 5); tone(wt(3, 'clever')[0] + 0.08, 0.7, 2637, 0.02, 5)  # sparkle
 stamp(wt(4, 'lost')[0])                                   # banner stamped
 f0 = wt(4, 'fly')[0]; i0 = int(f0 * SR); i1 = int(S0[5] * SR); n = i1 - i0; jet = (ma(rng.normal(0, 1, n), 8) - ma(rng.normal(0, 1, n), 60)) * 0.05; out[i0:i1] += jet * np.clip(np.arange(n) / SR * 3, 0, 1) * np.clip((n - np.arange(n)) / SR * 4, 0, 1)  # jet engines
 whoosh(f0 - 0.05, 0.12, 0.6)
-tone(wt(4, 'much')[0], 0.6, 2093, 0.025, 5); tone(wt(4, 'much')[0] + 0.08, 0.7, 2637, 0.02, 5)
+thump(wt(4, 'bro')[0], 0.35, 160, 30); stamp(wt(4, 'bro')[0] + 0.45)  # bro pops into the seat, clock stamped LOST
 for k in range(12): tone(wt(5, 'tell')[0] + 0.15 + k * 0.1, 0.03, 3000, 0.012, 80)  # typing
 whoosh(wt(5, 'strong')[0] + 0.15, 0.06, 0.3)              # message sent
 for k in range(4): ping(S0[6] + 0.15 + k * 0.22, 1320 + k * 40)  # same, same, same, same
-ping(wt(6, 'dave', 1)[0] - 0.15, 990, 0.045)              # Dave
+ping(wt(6, 'bro', 1)[0] - 0.15, 990, 0.045)              # bro: I know
 for k in range(29): stamp(S0[7] + 0.25 + k * 0.075, 0.45)  # every day stamped LOST
 out *= np.interp(t, [0, 0.02, D - 0.03, D], [0, 1, 1, 0])
 vo, vsr = sf.read('vo.wav')

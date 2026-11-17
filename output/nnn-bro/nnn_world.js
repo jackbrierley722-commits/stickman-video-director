@@ -1,9 +1,9 @@
 
 // ---------- timing ----------
-const E = { lost: AT(0, 'lost'), bro0: AT(0, 'bro'), c1: CL[1].start, c2: CL[2].start, day: AT(2, 'day'), again2: AT(2, 'again'),
+const E = { lost: AT(0, 'lost'), bro0: AT(0, 'bro'), c1: CL[1].start, c2: CL[2].start, day: AT(2, 'day'), broIn: AT(2, 'then'),
   c3: CL[3].start, lost3: AT(3, 'lost'), rename: AT(3, 'rename'), notnow: AT(3, 'not'), clever: AT(3, 'clever'),
-  c4: CL[4].start, lost4: AT(4, 'lost'), fly: AT(4, 'fly'), much: AT(4, 'much'), c5: CL[5].start, tell: AT(5, 'tell'), strong: AT(5, 'strong'),
-  c6: CL[6].start, same: AT(6, 'same'), except: AT(6, 'except'), dave: AT(6, 'dave'), dave2: AT(6, 'dave', 1), c7: CL[7].start };
+  c4: CL[4].start, lost4: AT(4, 'lost'), fly: AT(4, 'fly'), seat: AT(4, 'bro'), c5: CL[5].start, tell: AT(5, 'tell'), strong: AT(5, 'strong'),
+  c6: CL[6].start, same: AT(6, 'same'), except: AT(6, 'except'), dave2: AT(6, 'bro', 1), c7: CL[7].start };
 E.loop = TM.total - 0.4;
 E.replies = [0, 1, 2, 3].map(i => E.c6 + 0.15 + i * 0.22);
 const GL = [0, 0, 400]; // the globe scene sits far from the bedroom
@@ -63,6 +63,9 @@ function build() {
   add(G, Bx(0.5, 0.5, 0.45), WOOD(), 1.25, 0.25, -2.2); add(G, Cy(0.08, 0.12, 0.05, 14), SM('#e8e0d0'), 1.25, 0.53, -2.2); add(G, Cy(0.015, 0.015, 0.3, 8), SM('#e8e0d0'), 1.25, 0.7, -2.2); add(G, Cy(0.09, 0.16, 0.18, 16), SM('#ffe0a0', { emissive: '#ffcc70', emissiveIntensity: 0.3 }), 1.25, 0.88, -2.2);
   // the bro
   const you = R.you = human({ top: '#e8453a', bot: '#2e3550', hair: '#3a2416', skin: '#e4b08a' }); scene.add(you);
+  R.bro = human({ top: '#2aa84a', bot: '#3a3a44', hair: '#1a1210', skin: '#c88a60' }); scene.add(R.bro);
+  R.broT = human({ top: '#c88a60', bot: '#ffffff', hair: '#1a1210', skin: '#c88a60', short: true }); scene.add(R.broT);
+  R.spark = []; for (let i = 0; i < 6; i++) R.spark.push(spr(scene, GLOW, '#fff6c0', 0.12, 0, 0, 0, 0));
   R.marker = add(you.userData.armR.userData.h, Cy(0.018, 0.018, 0.16, 8), SM('#222222'), 0, -0.07, 0.03); R.marker.rotation.x = PI / 2;
   const ph = R.phone = new T3.Group(); you.userData.armR.userData.h.add(ph); ph.position.set(-0.02, -0.06, 0.05); add(ph, RB(0.09, 0.17, 0.014, 0.012), SM('#1a1a1e'), 0, 0, 0); const scr = add(ph, new T3.PlaneGeometry(0.078, 0.155), BM('#bfe0ff'), 0, 0, -0.008, false); scr.rotation.y = PI;
   // globe scene
@@ -82,41 +85,46 @@ function build() {
 const CALV = [[-1.6, 1.55, -1.25], [-1.6, 1.55, -2.5]], CAL2 = [[-1.6, 1.55, -1.12], [-1.6, 1.55, -2.5]];
 const SH = [
   [0, (k, T) => TR(k, CALV[0], CAL2[0], CALV[1], CAL2[1])],
-  [E.bro0 - 0.05, (k, T) => TR(k, [-1.0, 1.5, 0.75], [-1.05, 1.48, 0.55], [-1.15, 1.32, -2.2], [-1.15, 1.32, -2.2])],
+  [E.bro0 - 0.05, (k, T) => TR(k, [-0.6, 1.55, 1.25], [-0.65, 1.52, 1.05], [-0.85, 1.25, -2.2], [-0.85, 1.25, -2.2])],
   [E.c1, (k, T) => TR(k, [0.0, 2.35, -0.24], [0.0, 2.1, -0.25], [0, 0, -0.3], [0, 0, -0.3])],
   [E.c2, (k, T) => TR(k, [1.15, 1.5, 0.45], [1.0, 1.48, 0.15], [0.45, 1.36, -2.5], [0.5, 1.36, -2.5])],
-  [E.again2 - 0.1, (k, T) => TR(k, [0.75, 1.42, -0.5], [0.72, 1.42, -0.62], [0.55, 1.3, -2.5], [0.55, 1.3, -2.5])],
+  [E.broIn - 0.1, (k, T) => TR(k, [-0.9, 1.5, 1.8], [-0.75, 1.48, 1.6], [1.15, 1.1, -0.9], [1.2, 1.15, -0.9])],
   [E.c3, (k, T) => TR(k, [0.65, 1.42, -0.85], [0.62, 1.42, -0.95], [0.6, 1.42, -2.5], [0.6, 1.42, -2.5])],
   [E.rename - 0.1, (k, T) => TR(k, [0.75, 1.75, 0.95], [0.7, 1.8, 0.7], [0.55, 1.75, -2.5], [0.58, 1.85, -2.5])],
   [E.clever - 0.1, (k, T) => TR(k, [0.45, 1.68, 0.35], [0.4, 1.68, 0.2], [0.12, 1.55, -1.4], [0.12, 1.58, -1.4])],
   [E.c4, (k, T) => TR(k, [0.6, 2.28, -1.15], [0.6, 2.28, -1.3], [0.6, 2.3, -2.5], [0.6, 2.3, -2.5])],
   [E.fly - 0.05, (k, T) => TR(k, [GL[0] - 1.5, GL[1] + 7.4, GL[2] + 7.5], [GL[0] + 0.5, GL[1] + 6.8, GL[2] + 13.5], [GL[0] - 0.4, GL[1] + 7.0, GL[2] + 1.2], [GL[0], GL[1] + 4.2, GL[2]])],
-  [E.much - 0.1, (k, T) => TR(k, [GL[0] - 2.6, GL[1] + 7.9, GL[2] + 3.6], [GL[0] - 2.7, GL[1] + 7.9, GL[2] + 3.4], [GL[0] - 0.3, GL[1] + 7.6, GL[2] + 1.2], [GL[0] - 0.3, GL[1] + 7.6, GL[2] + 1.2])],
+  [E.seat - 0.1, (k, T) => TR(k, [GL[0] - 2.6, GL[1] + 7.9, GL[2] + 3.6], [GL[0] - 2.7, GL[1] + 7.9, GL[2] + 3.4], [GL[0] - 0.3, GL[1] + 7.6, GL[2] + 1.2], [GL[0] - 0.3, GL[1] + 7.6, GL[2] + 1.2])],
   [E.c5, (k, T) => TR(k, [1.1, 1.35, 0.45], [1.15, 1.32, 0.25], [2.2, 0.95, -1.9], [2.2, 0.95, -1.9])],
   [E.c7, (k, T) => TR(k, CALV[0], CAL2[0], CALV[1], CAL2[1])],
   [E.loop, (k, T) => look(CALV[0], CALV[1])],
 ];
 const shotAt = T => { let i = 0; for (let j = 0; j < SH.length; j++) if (T >= SH[j][0]) i = j; return i; };
 function anim(T) { const ci = CLI(T), loop = T >= E.loop, cl = loop ? 0 : ci; const you = R.you, u = you.userData; rest(you); you.visible = true; you.scale.setScalar(1); you.rotation.set(0, 0, 0); R.marker.visible = false; R.phone.visible = false; face(you, 'neutral', T);
+  const bro = R.bro, bt = R.broT; rest(bro); rest(bt); bro.visible = bt.visible = false; bro.scale.setScalar(1); bro.rotation.set(0, 0, 0); bt.rotation.set(0, 0, 0); R.spark.forEach(s_ => s_.material.opacity = 0);
   // textures
   const st = {}; if (!loop) { st[3] = cl === 0 ? STAMP(T, E.lost) : 1; st.big = cl === 0; if (cl === 7) { const order = [...Array(30).keys()].map(i => i + 1).filter(d => d !== 3); order.forEach((d, i) => { st[d] = STAMP(T, E.c7 + 0.25 + i * 0.075); }); } }
   for (const d in st) if (typeof st[d] === 'number') st[d] = Math.round(st[d] * 20) / 20; updTex(R.calT, st);
-  const bw = cl === 2 ? prog(T, E.day - 0.15, E.day + 0.45) : cl === 3 ? 1 : 0; updTex(R.boardT, { w: Math.round(bw * 20) / 20, ag: cl === 2 ? Math.round(prog(T, E.again2, E.again2 + 0.3) * 10) / 10 : cl === 3 ? 1 : 0, s: cl === 3 ? Math.round(STAMP(T, E.lost3) * 20) / 20 : 0 });
+  const bw = cl === 2 ? prog(T, E.day - 0.15, E.day + 0.45) : cl === 3 ? 1 : 0; updTex(R.boardT, { w: Math.round(bw * 20) / 20, ag: cl === 2 ? Math.round(prog(T, E.day + 0.5, E.day + 0.8) * 10) / 10 : cl === 3 ? 1 : 0, s: cl === 3 ? Math.round(STAMP(T, E.lost3) * 20) / 20 : 0 });
   updTex(R.banT, { k: cl === 3 ? Math.round(prog(T, E.rename, E.rename + 0.5) * 20) / 20 : cl >= 4 ? 1 : 0, n: cl === 3 ? Math.round(prog(T, E.notnow - 0.2, E.notnow + 0.55) * 20) / 20 : cl >= 4 ? 1 : 0, s: cl === 4 ? Math.round(STAMP(T, E.lost4) * 20) / 20 : 0 });
   // the globe spins east under the plane, so the plane goes west
   R.globe.rotation.y = T * 0.9; R.plane.position.y = 7.0 + 0.08 * S(T * 3); R.plane.rotation.z = 0.04 * S(T * 2);
   R.trail.forEach((s_, i) => { s_.position.set(1.7 + i * 0.32, 7.0 + 0.08 * S((T - i * 0.05) * 3), 1.2); s_.material.opacity = 0.45 * (1 - i / 14); s_.scale.setScalar(0.25 + i * 0.03); });
-  if (cl === 0) { if (T < E.bro0 - 0.05 && !loop) you.visible = false; you.position.set(-0.72, 0, -1.55); you.rotation.y = 0.35;
-    u.armR.rotation.set(-2.35, 0, -0.55); u.armR.userData.e.rotation.x = -1.35; u.head.rotation.set(0.3, 0, 0); u.up.rotation.x = 0.12; face(you, 'angry', T); if (loop) you.visible = false; }
+  if (cl === 0) { if (T < E.bro0 - 0.05 && !loop) you.visible = false; you.position.set(-0.95, 0, -1.6); you.rotation.y = 0.3;
+    u.armR.rotation.set(-2.35, 0, -0.55); u.armR.userData.e.rotation.x = -1.35; u.head.rotation.set(0.3, 0, 0); u.up.rotation.x = 0.12; face(you, 'angry', T); if (loop) you.visible = false;
+    if (T > E.bro0 - 0.05 && !loop) { bro.visible = true; bro.position.set(-0.3, 0, -1.4); bro.rotation.y = -0.4; face(bro, 'grin', T); bro.userData.armL.rotation.set(-0.2, 0, -2.4 + 0.3 * S(T * 12)); bro.userData.head.rotation.z = 0.12; } }
   if (cl === 1) { you.position.set(0, 0.16, 0.6); you.rotation.set(-PI / 2, 0, 0); u.armL.rotation.z = -1.25; u.armR.rotation.z = 1.25; u.legL.rotation.z = -0.28; u.legR.rotation.z = 0.28; face(you, 'neutral', T); u.mouth.scale.set(0.5, 1, 1); }
-  if (cl === 2) { you.position.set(-0.05, 0, -1.95); you.rotation.y = PI * 0.78; R.marker.visible = true; const wr = T > E.day - 0.2 && T < E.again2; u.armR.rotation.set(wr ? -1.9 + 0.12 * S(T * 16) : -0.5, 0, wr ? 0.1 : 0); u.armR.userData.e.rotation.x = wr ? -0.3 : -0.4;
-    if (T > E.again2 - 0.1) { you.rotation.y = 0.5; face(you, 'neutral', T); u.mouth.scale.set(0.6, 1, 1); } }
+  if (cl === 2) { you.position.set(-0.05, 0, -1.95); you.rotation.y = PI * 0.78; R.marker.visible = true; const wr = T > E.day - 0.2 && T < E.broIn - 0.1; u.armR.rotation.set(wr ? -1.9 + 0.12 * S(T * 16) : -0.5, 0, wr ? 0.1 : 0); u.armR.userData.e.rotation.x = wr ? -0.3 : -0.4;
+    if (T > E.broIn - 0.1) { you.rotation.y = PI / 2 + 0.3; face(you, 'shock', T); u.head.rotation.y = 0.2;
+      const k = ease(prog(T, E.broIn - 0.1, E.broIn + 0.7)); bt.visible = true; bt.position.set(lerp(2.7, 1.25, k), 0, -0.2); bt.rotation.y = k < 1 ? -PI / 2 : -PI / 2 + 0.9 * ease(prog(T, E.broIn + 0.7, E.broIn + 1.0)); if (k < 1) walkPose(bt, T * 10, 0.8); face(bt, 'smug', T); bt.userData.armR.rotation.set(-0.3, 0, 2.6); bt.userData.armR.userData.e.rotation.x = -1.6; bt.userData.head.rotation.z = -0.1;
+      R.spark.forEach((s_, i) => { const ph = (T * 1.3 + i / 6) % 1; s_.position.set(bt.position.x + S(i * 2.3) * 0.35, 1.0 + i * 0.16 + ph * 0.1, bt.position.z + 0.3); s_.material.opacity = 0.9 * S(ph * PI); s_.scale.setScalar(0.1 + 0.1 * S(ph * PI)); }); } }
   if (cl === 3) { if (T < E.rename - 0.1) { you.position.set(-0.05, 0, -1.95); you.rotation.y = PI * 0.78; face(you, 'shock', T); }
     else { you.position.set(0.12, 0, -1.4); you.rotation.y = 0.15; R.marker.visible = true; const up_ = T < E.clever - 0.1; u.armR.rotation.set(up_ ? -2.7 : -0.9, 0, up_ ? 0.15 : -0.2); u.armR.userData.e.rotation.x = up_ ? -0.2 : -1.2; face(you, T > E.clever - 0.1 ? 'smug' : 'grin', T); } }
   if (cl === 4) { if (T < E.fly - 0.05) you.visible = false; else { const sc = 0.55, top = GL[1] + R.plane.position.y + 0.36; seatPose(you, 0); you.scale.setScalar(sc); you.position.set(GL[0] + 0.15, top + (0.06 - 0.92) * sc + 0.02, GL[2] + 1.2); you.rotation.y = -PI / 2;
-    u.armR.rotation.set(-1.6, 0, 0); u.armR.userData.e.rotation.x = 0; u.armL.rotation.set(-2.8, 0, -0.3); u.legL.rotation.z = -0.4; u.legR.rotation.z = 0.4; face(you, T > E.much - 0.1 ? 'grin' : 'yell', T); u.head.rotation.y = T > E.much - 0.1 ? 1.1 : 0; } }
+    u.armR.rotation.set(-1.6, 0, 0); u.armR.userData.e.rotation.x = 0; u.armL.rotation.set(-2.8, 0, -0.3); u.legL.rotation.z = -0.4; u.legR.rotation.z = 0.4; face(you, T > E.seat - 0.1 ? 'shock' : 'yell', T); u.head.rotation.y = 0;
+    if (T > E.seat - 0.1) { const pk = ease(prog(T, E.seat - 0.1, E.seat + 0.15)); seatPose(bro, 0); bro.visible = true; bro.scale.setScalar(sc * Math.max(0.01, pk)); bro.position.set(GL[0] - 0.55, top + (0.06 - 0.92) * sc + 0.02, GL[2] + 1.2); bro.rotation.y = -PI / 2; bro.userData.head.rotation.y = -1.2; face(bro, 'grin', T); bro.userData.armL.rotation.set(-0.3, 0, -2.5 + 0.3 * S(T * 12)); u.armR.rotation.set(-0.2, 0, 0); u.armL.rotation.set(-0.2, 0, 0); } } }
   if (cl === 5 || cl === 6) { seatPose(you, 0.55); you.position.x = 2.2; you.position.z = -1.95; you.rotation.y = 0; u.up.rotation.x = -0.15; R.phone.visible = true; u.armR.rotation.set(-1.15, 0, 0.25); u.armR.userData.e.rotation.set(-1.25, 0, 0); u.armR.userData.h.rotation.set(0.3, 0, 0);
-    u.armL.rotation.set(-0.35, 0, -0.1); u.head.rotation.set(0.25, 0.05, 0); face(you, cl === 6 && T > E.dave2 - 0.1 ? 'grin' : 'smug', T); }
+    u.armL.rotation.set(-0.35, 0, -0.1); u.head.rotation.set(0.25, 0.05, 0); face(you, cl === 6 && T > E.dave2 - 0.1 ? 'shock' : 'smug', T); }
   if (cl === 7) you.visible = false; }
 function shot(T) { const si = shotAt(T), sh = SH[si], t0 = sh[0], t1 = si + 1 < SH.length ? SH[si + 1][0] : TM.total; camera.fov = 64; camera.updateProjectionMatrix(); anim(T); sh[1](prog(T, t0, t1), T);
   const g = camera.position.z > 200; if (g) { R.sun.position.set(GL[0] + 10, GL[1] + 16, GL[2] + 14); R.sun.target.position.set(...GL); } else { R.sun.position.set(2.5, 9, 7); R.sun.target.position.set(0, 0, -1.2); } R.sun.target.updateMatrixWorld(); return { si, t0 }; }

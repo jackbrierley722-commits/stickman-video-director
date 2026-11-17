@@ -7,14 +7,14 @@ from kokoro import KPipeline
 
 VOICE = sys.argv[1] if len(sys.argv) > 1 else 'am_michael'
 VO = [
- "If it's No Nut November, ~ and you've already lost, bro.",
+ "If it's No Nut November, ~ and you lost to your bro.",
  "Don't panic.",
- "Just restart the counter. ~ Day one. ~ Again.",
+ "Restart the counter. ~ Day one. ~ Then bro walks out the shower.",
  "Lost again? ~ Rename it. ~ Not Now November. ~ Clever!",
- "Still lost? ~ Fly west forever, ~ so November never ends. ~ Much better!",
+ "Still lost? ~ Fly west forever, ~ so November never ends. ~ Bro takes the seat next to you.",
  "Or do what every bro does. ~ Tell the group chat you're still going strong.",
- "They all reply, same. ~ Except Dave. ~ Dave lost at three minutes past midnight.",
- "Send this to the bro who lost on day one.",
+ "They all reply, same. ~ Except bro. ~ Bro just says, I know.",
+ "Send this to the bro who made you lose.",
 ]
 SR = 24000; LEAD = 0.08; TAIL = 0.14
 pipe = KPipeline(lang_code='a')
