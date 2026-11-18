@@ -8,20 +8,20 @@ from kokoro import KPipeline
 VOICE = sys.argv[1] if len(sys.argv) > 1 else 'am_michael'
 VO = [
  "You're in class, ~ and your fucking bro screams,",
- "am_puck|STOP TOUCHING ME!",
+ "am_michael|STOP TOUCHING ME!",
  "The whole class turns around.",
- "am_eric|I barely touched you.",
- "am_puck|You grazed my leg. ~ I felt it in my soul.",
+ "I barely touched you.",
+ "You grazed my leg. ~ I felt it in my soul.",
  "He looks at you ~ like you're the problem.",
  "Meanwhile, ~ his hand is on your thigh. ~ Doing slow little circles.",
- "am_eric|Bro. ~ Your hand.",
- "am_puck|That's different. ~ I'm comfortable.",
+ "Bro. ~ Your hand.",
+ "That's different. ~ I'm comfortable.",
  "Apparently, ~ the rules only apply to your leg.",
- "bm_george|You. ~ Out.",
+ "You. ~ Out.",
  "You get sent out. ~ He waves.",
  "Five minutes later.",
  "He gets sent out too. ~ He sits right next to you.",
- "am_puck|Bro, stop touching me",
+ "Bro, stop touching me",
 ]
 SR = 24000; LEAD = 0.08; TAIL = 0.14
 pipe = KPipeline(lang_code='a')

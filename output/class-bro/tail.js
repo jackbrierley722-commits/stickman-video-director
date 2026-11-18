@@ -1,6 +1,6 @@
 // ---------- captions only: small white, 2-3 words, mid-frame (house style) ----------
-const WHO = { am_eric: ['YOU', '#9ac8ff'], am_puck: ['BRO', '#8af0a0'], bm_george: ['TEACHER', '#ffb07a'] };
-const CAPS = []; CL.forEach((c0, ci) => { if (ci === 1) return; const who = WHO[c0.voice]; let cur = []; const flush = () => { if (cur.length) CAPS.push({ a: cur[0].a, b: cur[cur.length - 1].b, t: cur.map(w => w.w).join(' '), who }); cur = []; };
+const TAGS = { 3: ['YOU', '#9ac8ff'], 4: ['BRO', '#8af0a0'], 7: ['YOU', '#9ac8ff'], 8: ['BRO', '#8af0a0'], 10: ['TEACHER', '#ffb07a'], 14: ['BRO', '#8af0a0'] };
+const CAPS = []; CL.forEach((c0, ci) => { if (ci === 1) return; const who = TAGS[ci]; let cur = []; const flush = () => { if (cur.length) CAPS.push({ a: cur[0].a, b: cur[cur.length - 1].b, t: cur.map(w => w.w).join(' '), who }); cur = []; };
   c0.words.forEach(w0 => { const w = Object.assign({}, w0, { w: /^fucking$/i.test(w0.w) ? 'f***ing' : w0.w }); const prev = cur[cur.length - 1]; if (cur.length && (cur.length >= 3 || w.a - prev.b > 0.25 || w.a - prev.a > 0.6 || /[.,!?]$/.test(prev.w))) flush(); cur.push(w); }); flush(); });
 CAPS.forEach((c, i) => { const nx = CAPS[i + 1]; c.b = nx ? Math.min(nx.a, c.b + 0.3) : c.b + 0.6; });
 function caption(c) { octx.save(); octx.font = '600 46px CapFont'; octx.textAlign = 'center'; octx.textBaseline = 'middle'; octx.lineJoin = 'round'; octx.lineWidth = 9; octx.strokeStyle = 'rgba(0,0,0,0.9)'; if (c.who) { octx.font = '600 24px CapFont'; octx.strokeText(c.who[0], 360, 856); octx.fillStyle = c.who[1]; octx.fillText(c.who[0], 360, 856); octx.font = '600 46px CapFont'; } octx.strokeText(c.t, 360, 900); octx.fillStyle = c.who ? c.who[1] : '#ffffff'; octx.fillText(c.t, 360, 900); octx.restore(); }

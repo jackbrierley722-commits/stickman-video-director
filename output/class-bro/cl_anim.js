@@ -38,7 +38,7 @@ function anim(T) { const ci = CLI(T); const under = ci === 6 || ci === 9; R.myDe
   // the corridor: you on the bench, then he gets sent out too and sits right next to you
   if (ci >= 12) { seatP(you, 0.48); you.position.x = 6.75; you.position.z = 1.0; you.rotation.y = PI / 2; faceP(you, 'd'); u.armL.rotation.x = -0.3; u.armR.rotation.x = -0.3;
     if (ci === 13 && T < E.sits) { const w = prog(T, E.c13 + 0.2, E.sits); stillP(bro); bro.position.set(lerp(6.6, 6.75, w), 0, lerp(3.0, 1.75, w)); bro.rotation.y = PI; walkP(bro, T * 6, 1); faceP(bro, 'n'); }
-    else if (ci >= 13) { seatP(bro, 0.48); bro.position.x = 6.75; bro.position.z = 1.65; bro.rotation.y = PI / 2; faceP(bro, ci === 14 ? 'o' : 's'); b.armR.rotation.set(-0.95, 0, 0.42); b.armR.userData.e.rotation.x = 0.35; b.armR.userData.e.rotation.y = 0.15 * S(T * 5); if (ci === 14) faceP(you, 'S'); }
+    else if (ci >= 13) { seatP(bro, 0.48); bro.position.x = 6.75; bro.position.z = 1.65; bro.rotation.y = PI / 2; faceP(bro, ci === 14 ? 'o' : 's'); b.armR.rotation.set(-1.0, 0, 0.3); b.armR.userData.e.rotation.x = 0.45; b.armR.userData.e.rotation.y = 0.15 * S(T * 5); if (ci === 14) faceP(you, 'S'); }
     else bro.visible = false; }
 }
 function shot(T) { camera.fov = 60; camera.updateProjectionMatrix(); anim(T); const c = camAt(T); look(c[0], c[1]);
