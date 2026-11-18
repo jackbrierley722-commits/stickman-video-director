@@ -237,7 +237,7 @@ Fast cuts (1–2s per beat), punchy SFX (boing, snap, crunch) on each fail, stif
 - [ ] On-screen text uses "." for ":" and "-"; options are capital A/B
 - [ ] No filler or empty space (length is flexible), ending loops, outro under 3s
 - [ ] Self-critique before delivery: would someone stop scrolling? Is any section boring? Does anything feel AI-generic?
-- [ ] Deliver the title plus exactly 5 hashtags, plus the direct download link. No length limit any more (user, 17 Nov 2026): titles can run past 100 characters, so write a fuller caption-style title when it helps (hook line + context). Never use the skull emoji (💀) in titles or captions.
+- [ ] Deliver the title plus exactly 5 hashtags, plus the direct download link. No length limit any more (user, 17 Nov 2026): titles can run past 100 characters, so write a fuller caption-style title when it helps (hook line + context). Never use the skull emoji (💀) in titles or captions. Always give the title and the 5 hashtags TOGETHER in one copy-paste block (title line, then the hashtags directly under it), never as separate sections (user, 18 Nov 2026).
 
 ---
 
