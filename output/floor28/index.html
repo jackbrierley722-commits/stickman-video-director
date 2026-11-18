@@ -1,0 +1,10 @@
+<!doctype html><html><head><meta charset="utf-8"><style>
+@font-face{font-family:Bangers;src:url(fonts/Bangers.woff2)}@font-face{font-family:Anton;src:url(fonts/Anton.woff2)}
+body{margin:0;background:#000}canvas{display:block}</style></head><body>
+<canvas id="c" width="720" height="1280"></canvas>
+<script src="engine.js"></script><script src="timing.js"></script><script src="floor28.js"></script>
+<script>
+window.ctx=document.getElementById('c').getContext('2d');
+window.ready=Promise.all([document.fonts.load('50px Anton'),document.fonts.load('50px Bangers')]);
+window.frame=(t,q)=>{renderFrame(ctx,t);return document.getElementById('c').toDataURL('image/jpeg',q||0.9)};
+</script></body></html>
