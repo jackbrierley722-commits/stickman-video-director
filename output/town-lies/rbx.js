@@ -1,0 +1,25 @@
+
+// ===================== ROBLOX-STYLE BLOCKY CHARACTERS + PLASTIC WORLD =====================
+const PL = (c, r = 0.38) => new T3.MeshStandardMaterial({ color: c, roughness: r, metalness: 0 });
+function faceDecal(ex) { return ctex(128, 112, (c, w, h) => { c.clearRect(0, 0, w, h); c.fillStyle = '#141414'; const eye = (x, y, sx = 1, sy = 1) => { c.beginPath(); c.ellipse(x, y, 7 * sx, 10 * sy, 0, 0, 7); c.fill(); };
+  if (ex === 'side') { eye(44, 42); eye(84, 42); c.fillStyle = '#fff'; c.beginPath(); c.arc(40, 39, 3, 0, 7); c.arc(80, 39, 3, 0, 7); c.fill(); } else if (ex === 'shock') { eye(44, 40, 1.2, 1.3); eye(84, 40, 1.2, 1.3); } else { eye(44, 42); eye(84, 42); }
+  c.strokeStyle = '#141414'; c.lineWidth = 6; c.lineCap = 'round'; c.beginPath();
+  if (ex === 'smile') { c.arc(64, 62, 26, 0.2 * PI, 0.8 * PI); } else if (ex === 'sad') { c.arc(64, 96, 22, 1.2 * PI, 1.8 * PI); } else if (ex === 'shock') { c.stroke(); c.beginPath(); c.fillStyle = '#141414'; c.ellipse(64, 82, 12, 15, 0, 0, 7); c.fill(); return; } else if (ex === 'smug' || ex === 'side') { c.moveTo(46, 82); c.quadraticCurveTo(70, 88, 86, 74); } else { c.moveTo(48, 82); c.lineTo(80, 82); }
+  c.stroke(); if (ex === 'sad') { c.beginPath(); c.moveTo(30, 30); c.lineTo(52, 22); c.moveTo(98, 30); c.lineTo(76, 22); c.stroke(); } }); }
+const DECALS = {}; function decal(ex) { if (!DECALS[ex]) DECALS[ex] = new T3.MeshBasicMaterial({ map: faceDecal(ex), transparent: true }); return DECALS[ex]; }
+function rbx(o) { const g = new T3.Group(); const skin = PL(o.skin || '#f2c89a'), shirt = PL(o.shirt), pants = PL(o.pants), hairM = PL(o.hair || '#3a2416', 0.6);
+  const up = new T3.Group(); up.position.y = 0.72; g.add(up); add(up, Bx(0.72, 0.72, 0.36), shirt, 0, 0.36, 0); if (o.logo) add(up, new T3.PlaneGeometry(0.36, 0.3), new T3.MeshBasicMaterial({ map: o.logo, transparent: true }), 0, 0.4, 0.182, false);
+  const head = new T3.Group(); head.position.y = 0.95; up.add(head); add(head, Cy(0.23, 0.23, 0.36, 24), skin, 0, 0, 0); add(head, Sp(0.23, 24, 12), skin, 0, 0.18, 0).scale.y = 0.28; add(head, Sp(0.23, 24, 12), skin, 0, -0.18, 0).scale.y = 0.28;
+  const fm = add(head, new T3.PlaneGeometry(0.34, 0.3), decal('smile'), 0, -0.01, 0.232, false);
+  if (o.hairStyle === 'cap') { add(head, new T3.SphereGeometry(0.25, 20, 10, 0, PI * 2, 0, PI * 0.5), PL(o.hair), 0, 0.13, 0); add(head, Bx(0.3, 0.03, 0.18), PL(o.hair), 0, 0.15, 0.24); }
+  else if (o.hairStyle === 'long') { add(head, new T3.SphereGeometry(0.26, 20, 10, 0, PI * 2, 0, PI * 0.55), hairM, 0, 0.12, -0.01); add(head, Bx(0.5, 0.5, 0.16), hairM, 0, -0.08, -0.18); }
+  else if (o.hairStyle !== 'bald') { add(head, new T3.SphereGeometry(0.26, 20, 10, 0, PI * 2, 0, PI * 0.48), hairM, 0, 0.12, -0.02).rotation.x = -0.2; for (let i = 0; i < 5; i++) add(head, Bx(0.1, 0.07, 0.12), hairM, -0.16 + i * 0.08, 0.3, 0.12).rotation.x = 0.4; }
+  const arm = (sx) => { const s = new T3.Group(); s.position.set(sx * 0.54, 0.66, 0); up.add(s); add(s, Bx(0.34, 0.72, 0.34), o.sleeve ? shirt : skin, 0, -0.3, 0); if (o.sleeve) add(s, Bx(0.345, 0.2, 0.345), skin, 0, -0.58, 0); const e = new T3.Group(); s.add(e); s.userData.e = e; return s; };
+  const leg = (sx) => { const h = new T3.Group(); h.position.set(sx * 0.18, 0.72, 0); g.add(h); add(h, Bx(0.35, 0.72, 0.35), pants, 0, -0.36, 0); const k = new T3.Group(); h.add(k); h.userData.k = k; return h; };
+  g.userData = { up, head, fm, armL: arm(-1), armR: arm(1), legL: leg(-1), legR: leg(1) }; return g; }
+function rface(p, ex) { const m = decal(ex); if (p.userData.fm.material !== m) p.userData.fm.material = m; }
+function rrest(p) { const u = p.userData; for (const k of ['armL', 'armR', 'legL', 'legR']) u[k].rotation.set(0, 0, 0); u.up.rotation.set(0, 0, 0); u.head.rotation.set(0, 0, 0); }
+function rwalk(p, ph, a = 1) { const u = p.userData, s = S(ph); u.legL.rotation.x = s * 0.6 * a; u.legR.rotation.x = -s * 0.6 * a; u.armL.rotation.x = -s * 0.6 * a; u.armR.rotation.x = s * 0.6 * a; }
+function studTex(col) { const t = ctex(64, 64, (c) => { c.fillStyle = col; c.fillRect(0, 0, 64, 64); for (const [x, y] of [[16, 16], [48, 16], [16, 48], [48, 48]]) { const g = c.createRadialGradient(x - 3, y - 3, 1, x, y, 9); g.addColorStop(0, 'rgba(255,255,255,0.35)'); g.addColorStop(1, 'rgba(0,0,0,0.12)'); c.fillStyle = g; c.beginPath(); c.arc(x, y, 9, 0, 7); c.fill(); } }); t.wrapS = t.wrapT = T3.RepeatWrapping; return t; }
+function cat() { const g = new T3.Group(); const o = PL('#e8902a'), w = PL('#f8f0e0'); add(g, Bx(0.5, 0.26, 0.24), o, 0, 0.28, 0); add(g, Bx(0.24, 0.22, 0.22), o, 0.3, 0.42, 0); for (const z of [-0.07, 0.07]) add(g, new T3.ConeGeometry(0.04, 0.08, 4), o, 0.32, 0.56, z); for (const [x, z] of [[-0.18, -0.08], [-0.18, 0.08], [0.18, -0.08], [0.18, 0.08]]) add(g, Bx(0.07, 0.18, 0.07), w, x, 0.09, z);
+  const tail = add(g, Bx(0.05, 0.32, 0.05), o, -0.27, 0.45, 0); tail.rotation.z = 0.4; add(g, new T3.PlaneGeometry(0.2, 0.16), decal('side'), 0.413, 0.42, 0, false).rotation.y = PI / 2; g.userData.tail = tail; return g; }
