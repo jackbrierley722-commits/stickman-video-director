@@ -120,9 +120,10 @@ function person(o) { const g = new T3.Group(); const skin = FS('#ffffff'), top =
   // hair styles
   if (o.cap) { add(head, new T3.SphereGeometry(R0 + 0.012, 12, 6, 0, PI * 2, 0, PI * 0.42), hairM, 0, 0, 0); const br = add(head, Bx(0.28, 0.025, 0.2), hairM, 0, 0.12, o.capBack ? -0.3 : 0.3); }
   else if (o.beanie) { add(head, new T3.SphereGeometry(R0 + 0.015, 12, 6, 0, PI * 2, 0, PI * 0.45), FS(o.beanie), 0, 0, 0); }
-  else if (o.hair) { const hc = add(head, new T3.SphereGeometry(R0 + 0.01, 12, 6, 0, PI * 2, 0, PI * 0.36), hairM, 0, 0, 0); hc.rotation.x = -0.25; }
-  if (o.long) { boxM(head, 0.44, 0.42, 0.14, FS(o.hair), 0, -0.12, -0.16); }
-  if (o.pony) add(head, new T3.SphereGeometry(0.08, 8, 6), FS(o.hair), 0, 0.05, -0.3);
+  else if (o.hair) { // messy hair: a clump of jagged low-poly tufts over the crown
+    const r = rng((o.hair.charCodeAt(1) * 31 + o.top.charCodeAt(2) * 7) | 0); for (let i = 0; i < 22; i++) { const a = r() * PI * 2, el = 0.6 + r() * 0.9; const n = new T3.Vector3(Math.cos(a) * Math.cos(el), Math.sin(el), Math.sin(a) * Math.cos(el) - 0.25).normalize(); if (n.z > 0.55 && n.y < 0.75) continue;
+      const tuft = add(head, new T3.ConeGeometry(0.07 + r() * 0.03, 0.09 + r() * 0.06, 4), hairM, n.x * (R0 - 0.01), n.y * (R0 - 0.01), n.z * (R0 - 0.01)); tuft.quaternion.setFromUnitVectors(new T3.Vector3(0, 1, 0), n); tuft.rotateX((r() - 0.5) * 0.7); tuft.rotateZ((r() - 0.5) * 0.7); }
+    add(head, new T3.SphereGeometry(R0 + 0.012, 12, 6, 0, PI * 2, 0, PI * 0.4), hairM, 0, 0, -0.01).rotation.x = -0.35; }
   if (o.phones) { const hp = FS(o.phones); add(head, new T3.TorusGeometry(R0 + 0.03, 0.018, 6, 16, PI), hp, 0, 0.0, 0).rotation.z = 0; for (const sx of [-1, 1]) add(head, Cy(0.07, 0.07, 0.05, 10), hp, sx * (R0 + 0.02), 0, 0).rotation.z = PI / 2; }
   if (o.chain) add(up, new T3.TorusGeometry(0.11, 0.015, 6, 16), FS('#e8c040'), 0, 0.5, 0.06).rotation.x = 1.3;
   // face: dot eyes, bar brows, line mouth (+ open mouth for shouting)
