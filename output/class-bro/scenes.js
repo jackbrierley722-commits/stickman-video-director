@@ -102,8 +102,9 @@ function palm(p, x, z, h, seed) { const r = rng(seed); const tr = PM('#5a4432', 
 function lampP(p, x, z, side) { const m = PM('#2a2a2e', 12, 8, 30); boxM(p, 0.18, 6, 0.18, m, x, 3, z, false); boxM(p, 1.4, 0.14, 0.18, m, x + side * 0.65, 6, z, false); boxM(p, 0.45, 0.14, 0.3, LM({ color: '#fff0c8', emissive: '#ffd890', emissiveIntensity: 0.6 }), x + side * 1.25, 5.9, z, false); }
 
 // ---------- timing ----------
-const E = { screams: AT(0, 'screams'), c1: CL[1].start, c2: CL[2].start, c3: CL[3].start, heLooks: AT(3, 'he'), c4: CL[4].start, graze: AT(4, 'graze'), acc: AT(4, 'by'), c5: CL[5].start, hand: AT(5, 'his'), c6: CL[6].start, c7: CL[7].start, out: AT(7, 'sends'), c8: CL[8].start };
-E.loop = TM.total - 0.4;
+const E = { screams: AT(0, 'screams'), soul: AT(4, 'i'), hand: AT(6, 'his'), circles: AT(6, 'doing'), out: AT(11, 'you'), waves: AT(11, 'he'), sits: AT(13, 'he', 1), cut: AT(14, 'me') + 0.08 };
+for (let i = 0; i < CL.length; i++) E['c' + i] = CL[i].start;
+E.loop = 1e9; const END = E.cut;
 const ROWZ = [-2.8, -1.0, 0.8, 2.6], COLX = [-3.2, 0, 3.2], ME = [-0.4, 0.8], BRO = [0.4, 0.8];
 function build() {
   R.sun = new T3.DirectionalLight('#fff4e0', 1.6); R.sun.position.set(-12, 10, 2); R.sun.target.position.set(0, 0, 0); R.sun.castShadow = true; R.sun.shadow.mapSize.set(1024, 1024); const sc = R.sun.shadow.camera; sc.left = sc.bottom = -9; sc.right = sc.top = 9; sc.near = 1; sc.far = 40; scene.add(R.sun); scene.add(R.sun.target);
@@ -127,50 +128,64 @@ function build() {
   R.kids = []; let oi = 0; for (const z of ROWZ) for (const x of COLX) for (const sx of [-0.4, 0.4]) { if (z === ME[1] && x === 0) continue; if ((oi * 7) % 9 === 0) { oi++; continue; } const o = Object.assign({}, OUTFITS[[0, 2, 3, 7, 1][oi % 5]]); const p = person(o); p.position.set(x + sx, 0, z + 0.15); p.rotation.y = PI; seatP(p, 0.48); p.userData.armL.rotation.x = -0.9; p.userData.armR.rotation.x = -0.9; G.add(p); R.kids.push(p); oi++; }
   R.you = person({ top: '#3a5aa8', bot: '#3a4a62', hair: '#3a2416', skin: '#d8a07c' }); G.add(R.you); R.bro = person({ top: '#2a8a3a', bot: '#3a3a40', hair: '#141010', skin: '#a8704c', cap: '#1e5a2a' }); G.add(R.bro);
   R.teacher = person(OUTFITS[4]); G.add(R.teacher);
+  const Cr = R.Cr = new T3.Group(); scene.add(Cr); boxM(Cr, 4.2, 0.1, 10, PM('#9a8a72', 16, 16, 40), 8.4, -0.05, 2, false); boxM(Cr, 4.2, 0.1, 10, PM('#d8d4c8', 8, 16, 41), 8.4, 3.25, 2, false); boxM(Cr, 0.1, 3.3, 10, PM('#b8c8b0', 12, 16, 42), 10.5, 1.65, 2, false); boxM(Cr, 0.1, 3.3, 10, PM('#b8c8b0', 12, 16, 42), 6.3, 1.65, 2, false);
+  boxM(Cr, 0.08, 2.1, 1.0, PM('#6a4a30', 18, 16, 7), 6.36, 1.05, 3.0, false); for (let i = 0; i < 9; i++) { const lk = PT(8, 32, (c) => { noisy(c, 8, 32, ['#3a6aa8', '#a83a3a', '#3a8a5a'][i % 3], 16, 50 + i); c.fillStyle = 'rgba(0,0,0,0.35)'; for (let y = 3; y < 9; y += 2) c.fillRect(2, y, 4, 1); c.fillRect(6, 14, 1, 3); }); boxM(Cr, 0.5, 2.0, 0.6, LM({ map: lk }), 10.2, 1.0, -1.6 + i * 0.62, false); }
+  boxM(Cr, 0.45, 0.06, 1.7, PM('#8a6a48', 18, 8, 43), 6.75, 0.45, 1.3); for (const z of [0.6, 2.0]) boxM(Cr, 0.4, 0.44, 0.06, PM('#4a4e56', 10, 8, 44), 6.75, 0.22, z, false);
+  for (const z of [-0.5, 3.6]) boxM(Cr, 1.6, 0.04, 0.5, LM({ color: '#fffbf0', emissive: '#fffbf0', emissiveIntensity: 1 }), 8.4, 3.19, z, false); const cl_ = new T3.PointLight('#fff4e0', 14, 10, 1.3); cl_.position.set(8.4, 2.8, 1.5); scene.add(cl_);
 }
 
 const SZ = 0.95; // seat z for you and bro
-const SH = [
-  [0, (k, T) => TR(k, [2.2, 2.3, -4.6], [1.8, 2.1, -4.0], [0, 0.9, 1.0], [0, 0.95, 1.0])],
-  [E.screams - 0.05, (k, T) => TR(k, [-0.4, 1.28, -0.45], [-0.35, 1.25, -0.3], [0.4, 1.15, SZ], [0.4, 1.15, SZ])],
-  [E.c2, (k, T) => TR(k, [-5.2, 2.4, -1.6], [-5.0, 2.3, -1.2], [0, 0.9, 0.6], [0, 0.9, 0.6])],
-  [E.c3, (k, T) => TR(k, [0.0, 1.2, -0.75], [0.0, 1.18, -0.55], [0, 1.05, SZ], [0, 1.05, SZ])],
-  [E.c4, (k, T) => TR(k, [-0.12, 2.0, SZ - 0.9], [-0.12, 1.9, SZ - 0.8], [-0.12, 0.5, SZ - 0.2], [-0.12, 0.5, SZ - 0.2])],
-  [E.c6 + 0.6, (k, T) => TR(k, [-0.35, 1.2, -0.45], [-0.38, 1.18, -0.3], [-0.4, 1.05, SZ], [-0.4, 1.05, SZ])],
-  [E.c7, (k, T) => TR(k, [4.4, 2.3, -1.4], [4.2, 2.2, -1.0], [0.8, 0.9, 1.4], [2.2, 0.9, 2.2])],
-  [E.c8, (k, T) => TR(k, [-0.9, 1.45, -0.7], [-0.8, 1.42, -0.5], [2.4, 1.1, 2.0], [2.8, 1.1, 2.2])],
-  [E.loop, (k, T) => look([2.2, 2.3, -4.6], [0, 0.9, 1.0])],
-];
-const shotAt = T => { let i = 0; for (let j = 0; j < SH.length; j++) if (T >= SH[j][0]) i = j; return i; };
-function anim(T) { const loop = T >= E.loop, ci = loop ? 0 : CLI(T); const under = !loop && (ci === 4 || ci === 5 || (ci === 6 && T < E.c6 + 0.6)); R.myDesk.visible = !under; R.myBooks.forEach(b_ => b_.visible = !under); const you = R.you, bro = R.bro, u = you.userData, b = bro.userData;
-  seatP(you, 0.48); seatP(bro, 0.48); you.position.x = ME[0]; you.position.z = SZ; bro.position.x = BRO[0]; bro.position.z = SZ; you.rotation.y = bro.rotation.y = PI; faceP(you, 'n'); faceP(bro, 'n');
+const head = p => { const v = new T3.Vector3(); p.userData.head.getWorldPosition(v); return [v.x, v.y + 0.12, v.z]; };
+// camera plan per clip (fixed framings, gentle push-ins)
+function camAt(T) { const ci = CLI(T), k = prog(T, CL[ci].start, CL[ci].start + CL[ci].dur);
+  if (ci === 0) return T < E.screams - 0.05 ? [L3([2.2, 2.3, -4.6], [1.8, 2.1, -4.0], ease(k)), [0, 0.9, 1.0]] : [[-0.4, 1.28, -0.45], [0.4, 1.15, SZ]];
+  if (ci === 1) return [[-0.35, 1.25, -0.3], [0.4, 1.15, SZ]];
+  if (ci === 2) return [L3([-5.2, 2.4, -1.6], [-5.0, 2.3, -1.2], ease(k)), [0, 0.9, 0.6]];
+  if (ci === 3 || ci === 7) { const h = head(R.you); return [[h[0] - 0.35, h[1] - 0.02, h[2] - 1.0 + 0.08 * k], h]; }
+  if (ci === 4 || ci === 8) { const h = head(R.bro); return [[h[0] + 0.35, h[1] - 0.02, h[2] - 1.0 + 0.08 * k], h]; }
+  if (ci === 5) return [[0.0, 1.2, -0.75 + 0.15 * k], [0, 1.05, SZ]];
+  if (ci === 6 || ci === 9) return [[-0.12, 2.0 - 0.1 * k, SZ - 0.9], [-0.12, 0.5, SZ - 0.2]];
+  if (ci === 10) { const h = head(R.teacher); return [[h[0] + 0.45, h[1] - 0.05, h[2] + 1.1 - 0.1 * k], h]; }
+  if (ci === 11) return T < E.waves - 0.1 ? [L3([4.4, 2.3, -1.4], [4.2, 2.2, -1.0], ease(k)), [2.2, 0.9, 2.2]] : [[-0.9, 1.45, -0.6], [0.6, 1.2, SZ]];
+  if (ci >= 13) return [[9.3, 1.3, 1.33], [6.75, 0.95, 1.33]];
+  return [[9.3, 1.3, 1.33], [6.75, 0.95, 1.33]]; }
+function anim(T) { const ci = CLI(T); const under = ci === 6 || ci === 9; R.myDesk.visible = !under; R.myBooks.forEach(b_ => b_.visible = !under); const you = R.you, bro = R.bro, u = you.userData, b = bro.userData;
+  seatP(you, 0.48); seatP(bro, 0.48); you.position.x = -0.4; you.position.z = SZ; bro.position.x = 0.4; bro.position.z = SZ; you.rotation.y = bro.rotation.y = PI; faceP(you, 'n'); faceP(bro, 'n'); you.visible = bro.visible = true;
   for (const p of [you, bro]) { p.userData.armL.rotation.x = -0.9; p.userData.armR.rotation.x = -0.9; }
   // the scream
-  if (ci === 1 || (ci === 0 && T > E.screams - 0.05 && !loop)) { faceP(bro, 'o'); bro.rotation.y = PI + 0.7; b.up.rotation.z = -0.25; b.armL.rotation.set(-1.2, 0, 1.3); b.armR.rotation.set(-1.2, 0, -1.3); b.armL.userData.e.rotation.x = -0.6; b.armR.userData.e.rotation.x = -0.6; faceP(you, 'S'); u.head.rotation.y = -0.5; }
-  // the class turns around
-  R.kids.forEach((p, i) => { const tu = (ci >= 2 && ci <= 3) || ci >= 7 ? 1 : 0; const front = p.position.z < SZ - 0.1; p.userData.head.rotation.y = 0; p.rotation.y = PI; if (tu && !loop) { if (front) { p.rotation.y = PI - (p.position.x < 0 ? 1 : -1) * 1.0; p.userData.head.rotation.y = (p.position.x < 0 ? 1 : -1) * 0.9; } else p.userData.head.rotation.y = (p.position.x < 0 ? -1 : 1) * 0.6; faceP(p, i % 3 ? 'd' : 'o'); } else faceP(p, 'n'); p.userData.head.rotation.x = 0.06 * S(T * 0.7 + i); });
-  if (ci >= 2 && ci <= 6 && !loop) { faceP(bro, 'a'); bro.rotation.y = PI + 0.25; b.armL.rotation.set(-0.5, 0, 0.5); }
-  if (ci === 2) { faceP(you, 'd'); }
-  if (ci === 3) { u.head.rotation.y = -0.6; faceP(you, 'S'); if (T > E.heLooks - 0.1) { faceP(bro, 's'); b.head.rotation.y = 0.5; b.head.rotation.x = -0.15; } }
-  if (under) { for (const p of [you, bro]) { p.userData.armL.rotation.set(0.1, 0, 0); p.userData.armR.rotation.set(0.1, 0, 0); p.userData.armL.userData.e.rotation.set(0, 0, 0); p.userData.armR.userData.e.rotation.set(0, 0, 0); } u.armL.rotation.z = 0.15; b.armL.rotation.z = -0.15; }
-  // under the desk: the graze, then his hand on your thigh
-  const graze = ci === 4 ? Math.max(0, 1 - Math.abs(T - E.graze - 0.1) / 0.35) : 0; u.legL.rotation.z = 0.12 * graze;
-  if ((ci === 5 && T > E.hand - 0.2) || ci === 6) { const k = ci === 5 ? ease(prog(T, E.hand - 0.2, E.hand + 0.3)) : 1; const circ = ci === 6 ? 1 : 0; b.armR.rotation.set(-0.85 * k, 0, 0.7 * k); b.armR.userData.e.rotation.x = -0.2 * k; b.armR.userData.e.rotation.z = -0.2 * k;
-    const hnd = b.armR.userData.e; hnd.rotation.y = circ ? 0.15 * S(T * 5) : 0; hnd.rotation.x += circ ? 0.08 * C(T * 5) : 0; faceP(bro, 'a'); }
-  if (ci === 6 && T > E.c6 + 0.6) { faceP(you, 'd'); u.head.rotation.y = 0; }
-  // teacher: writes at the board, turns, points you out
-  const t_ = R.teacher; stillP(t_); t_.position.set(-1.8, 0, -5.3); t_.rotation.y = ci >= 2 && !loop ? 0.1 : PI; faceP(t_, ci >= 2 && !loop ? 'a' : 'n'); if (ci < 2 || loop) { t_.userData.armR.rotation.set(-2.2 + 0.1 * S(T * 6), 0, 0); }
-  if (ci >= 7 && !loop) { t_.rotation.y = 0.5; t_.userData.armR.rotation.set(-1.6, 0, -1.1); faceP(t_, 'a');
-    const w = prog(T, E.out, E.c8 + 1.6); stillP(you); you.position.set(lerp(-0.4, 5.6, w), 0, lerp(SZ + 0.4, 3.0, w)); you.rotation.y = Math.PI / 2 + 0.25; walkP(you, T * 6, w > 0 && w < 1 ? 1 : 0); faceP(you, 'd'); u.head.rotation.y = 0.4;
-    faceP(bro, 's'); b.armL.rotation.set(-2.7 + 0.25 * S(T * 9), 0, 0.2); b.armR.rotation.set(-0.9, 0, 0); bro.rotation.y = PI - 0.35; }
+  if (ci === 1 || (ci === 0 && T > E.screams - 0.05)) { faceP(bro, 'o'); bro.rotation.y = PI + 0.7; b.up.rotation.z = -0.25; b.armL.rotation.set(-1.2, 0, 1.3); b.armR.rotation.set(-1.2, 0, -1.3); b.armL.userData.e.rotation.x = -0.6; b.armR.userData.e.rotation.x = -0.6; faceP(you, 'S'); u.head.rotation.y = -0.5; }
+  // the class turns round and stays turned for the argument
+  R.kids.forEach((p, i) => { const tu = ci >= 2 && ci <= 11; const front = p.position.z < SZ - 0.1; p.userData.head.rotation.y = 0; p.rotation.y = PI; if (tu) { if (front) { p.rotation.y = PI - (p.position.x < 0 ? 1 : -1) * 1.0; p.userData.head.rotation.y = (p.position.x < 0 ? 1 : -1) * 0.9; } else p.userData.head.rotation.y = (p.position.x < 0 ? -1 : 1) * 0.6; faceP(p, i % 3 ? 'd' : 'o'); } else faceP(p, 'n'); p.userData.head.rotation.x = 0.06 * S(T * 0.7 + i); });
+  if (ci >= 2 && ci <= 9) { faceP(bro, 'a'); bro.rotation.y = PI + 0.35; you.rotation.y = PI - 0.35; }
+  if (ci === 3) { faceP(you, 'd'); u.head.rotation.y = -0.4; u.armL.rotation.set(-1.3, 0, 0.6); u.armL.userData.e.rotation.x = -0.5; }
+  if (ci === 4) { faceP(bro, 'a'); if (T > E.soul - 0.1) { b.armR.rotation.set(-1.2, 0, 0.9); b.armR.userData.e.rotation.x = -1.6; b.head.rotation.x = -0.25; faceP(bro, 'o'); } }
+  if (ci === 5) { faceP(bro, 's'); b.head.rotation.y = 0.5; b.head.rotation.x = -0.15; faceP(you, 'S'); u.head.rotation.y = -0.5; }
+  // his hand on your thigh (desk top hidden for the lap shots)
+  if (under) { for (const p of [you, bro]) { p.userData.armL.rotation.set(0.1, 0, 0); p.userData.armR.rotation.set(0.1, 0, 0); p.userData.armL.userData.e.rotation.set(0, 0, 0); p.userData.armR.userData.e.rotation.set(0, 0, 0); } u.armL.rotation.z = 0.15; b.armL.rotation.z = -0.15; you.rotation.y = bro.rotation.y = PI; }
+  const handOn = (ci === 6 && T > E.hand - 0.2) || (ci >= 7 && ci <= 9); if (handOn) { const k = ci === 6 ? ease(prog(T, E.hand - 0.2, E.hand + 0.3)) : 1; const circ = (ci === 6 && T > E.circles - 0.1) || ci >= 7; if (under) { b.armR.rotation.set(-0.85 * k, 0, 0.7 * k); b.armR.userData.e.rotation.x = -0.2 * k; b.armR.userData.e.rotation.z = -0.2 * k; const hnd = b.armR.userData.e; hnd.rotation.y = circ ? 0.15 * S(T * 5) : 0; hnd.rotation.x += circ ? 0.08 * C(T * 5) : 0; } }
+  if (ci === 7) { faceP(you, 'd'); u.head.rotation.x = 0.35; u.head.rotation.y = -0.2; }
+  if (ci === 8) { faceP(bro, 's'); b.head.rotation.z = 0.15; b.head.rotation.y = 0.3; }
+  // teacher
+  const t_ = R.teacher; stillP(t_); t_.position.set(-1.8, 0, -5.3); t_.rotation.y = ci >= 2 ? 0.1 : PI; faceP(t_, ci >= 2 ? 'a' : 'n'); if (ci < 2) t_.userData.armR.rotation.set(-2.2 + 0.1 * S(T * 6), 0, 0);
+  if (ci === 10) { t_.rotation.y = 0.15; t_.userData.armR.rotation.set(-1.6, 0, 0); if (T > AT(10, 'out') - 0.1) t_.userData.armR.rotation.set(-1.6, 0, -1.2); }
+  if (ci === 11) { t_.rotation.y = 0.5; t_.userData.armR.rotation.set(-1.6, 0, -1.1); const w = prog(T, E.out, E.c12); stillP(you); you.position.set(lerp(-0.4, 5.6, w), 0, lerp(SZ + 0.4, 3.0, w)); you.rotation.y = PI / 2 + 0.25; walkP(you, T * 6, w > 0 && w < 1 ? 1 : 0); faceP(you, 'd');
+    faceP(bro, 's'); bro.rotation.y = PI - 0.35; if (T > E.waves - 0.1) b.armL.rotation.set(-2.7 + 0.25 * S(T * 9), 0, 0.2); }
+  // the corridor: you on the bench, then he gets sent out too and sits right next to you
+  if (ci >= 12) { seatP(you, 0.48); you.position.x = 6.75; you.position.z = 1.0; you.rotation.y = PI / 2; faceP(you, 'd'); u.armL.rotation.x = -0.3; u.armR.rotation.x = -0.3;
+    if (ci === 13 && T < E.sits) { const w = prog(T, E.c13 + 0.2, E.sits); stillP(bro); bro.position.set(lerp(6.6, 6.75, w), 0, lerp(3.0, 1.75, w)); bro.rotation.y = PI; walkP(bro, T * 6, 1); faceP(bro, 'n'); }
+    else if (ci >= 13) { seatP(bro, 0.48); bro.position.x = 6.75; bro.position.z = 1.65; bro.rotation.y = PI / 2; faceP(bro, ci === 14 ? 'o' : 's'); b.armR.rotation.set(-0.95, 0, 0.42); b.armR.userData.e.rotation.x = 0.35; b.armR.userData.e.rotation.y = 0.15 * S(T * 5); if (ci === 14) faceP(you, 'S'); }
+    else bro.visible = false; }
 }
-function shot(T) { const si = shotAt(T), sh = SH[si], t0 = sh[0], t1 = si + 1 < SH.length ? SH[si + 1][0] : TM.total; camera.fov = 60; camera.updateProjectionMatrix(); anim(T); sh[1](prog(T, t0, t1), T);
-  const ci = T >= E.loop ? 0 : CLI(T); if (ci === 1) { const k = 1 - prog(T, E.c1, E.c2); camera.position.x += 0.03 * k * S(T * 70); camera.rotation.z += 0.02 * k * S(T * 60); } return { si, t0 }; }
+function shot(T) { camera.fov = 60; camera.updateProjectionMatrix(); anim(T); const c = camAt(T); look(c[0], c[1]);
+  const ci = CLI(T); if (ci === 1 || ci === 14) { const k = ci === 1 ? 1 - prog(T, E.c1, E.c2) : 1; camera.position.x += 0.02 * k * S(T * 70); camera.rotation.z += 0.015 * k * S(T * 60); } return { si: 0, t0: 0 }; }
 // ---------- captions only: small white, 2-3 words, mid-frame (house style) ----------
-const CAPS = []; CL.forEach((c0, ci) => { if (c0.voice !== TM.voice) return; let cur = []; const flush = () => { if (cur.length) CAPS.push({ a: cur[0].a, b: cur[cur.length - 1].b, t: cur.map(w => w.w).join(' ') }); cur = []; };
+const WHO = { am_eric: ['YOU', '#9ac8ff'], am_puck: ['BRO', '#8af0a0'], bm_george: ['TEACHER', '#ffb07a'] };
+const CAPS = []; CL.forEach((c0, ci) => { if (ci === 1) return; const who = WHO[c0.voice]; let cur = []; const flush = () => { if (cur.length) CAPS.push({ a: cur[0].a, b: cur[cur.length - 1].b, t: cur.map(w => w.w).join(' '), who }); cur = []; };
   c0.words.forEach(w0 => { const w = Object.assign({}, w0, { w: /^fucking$/i.test(w0.w) ? 'f***ing' : w0.w }); const prev = cur[cur.length - 1]; if (cur.length && (cur.length >= 3 || w.a - prev.b > 0.25 || w.a - prev.a > 0.6 || /[.,!?]$/.test(prev.w))) flush(); cur.push(w); }); flush(); });
 CAPS.forEach((c, i) => { const nx = CAPS[i + 1]; c.b = nx ? Math.min(nx.a, c.b + 0.3) : c.b + 0.6; });
-function caption(c) { octx.save(); octx.font = '600 46px CapFont'; octx.textAlign = 'center'; octx.textBaseline = 'middle'; octx.lineJoin = 'round'; octx.lineWidth = 9; octx.strokeStyle = 'rgba(0,0,0,0.9)'; octx.strokeText(c.t, 360, 900); octx.fillStyle = '#ffffff'; octx.fillText(c.t, 360, 900); octx.restore(); }
+function caption(c) { octx.save(); octx.font = '600 46px CapFont'; octx.textAlign = 'center'; octx.textBaseline = 'middle'; octx.lineJoin = 'round'; octx.lineWidth = 9; octx.strokeStyle = 'rgba(0,0,0,0.9)'; if (c.who) { octx.font = '600 24px CapFont'; octx.strokeText(c.who[0], 360, 856); octx.fillStyle = c.who[1]; octx.fillText(c.who[0], 360, 856); octx.font = '600 46px CapFont'; } octx.strokeText(c.t, 360, 900); octx.fillStyle = c.who ? c.who[1] : '#ffffff'; octx.fillText(c.t, 360, 900); octx.restore(); }
+function rules(T) { const k = ease(prog(T, E.c9 + 0.2, E.c9 + 0.45)); if (k <= 0) return; octx.save(); octx.globalAlpha = k; octx.fillStyle = 'rgba(250,246,236,0.97)'; octx.beginPath(); octx.roundRect(120, 190, 480, 230, 20); octx.fill(); octx.strokeStyle = '#111'; octx.lineWidth = 6; octx.stroke(); octx.fillStyle = '#111'; octx.font = '40px Russo'; octx.textAlign = 'center'; octx.textBaseline = 'middle'; octx.fillText('THE RULES', 360, 235);
+  octx.font = '600 30px CapFont'; octx.textAlign = 'left'; octx.fillStyle = '#c82a2a'; octx.fillText('✗  your leg touches his', 160, 300); if (T > AT(9, 'your') - 0.1) { octx.fillStyle = '#2a9a4a'; octx.fillText('✓  his hand on your thigh', 160, 360); } octx.restore(); }
 function big(s_, y, size, col, a = 1, shake = 0) { if (a <= 0) return; octx.save(); octx.globalAlpha = Math.min(1, a); const sc = a < 1 ? 1 + (1 - a) * 0.4 : 1; octx.translate(360 + shake * (Math.random() - 0.5) * 10, y + shake * (Math.random() - 0.5) * 10); octx.scale(sc, sc); octx.font = `${size}px Russo`; octx.textAlign = 'center'; octx.textBaseline = 'middle'; octx.lineJoin = 'round'; octx.lineWidth = size * 0.22; octx.strokeStyle = '#111'; octx.strokeText(s_, 0, 0); octx.fillStyle = col; octx.fillText(s_, 0, 0); octx.restore(); }
 function ring(T, wp) { const v = wp.clone().project(camera); const x = (v.x + 1) / 2 * W, y = (1 - v.y) / 2 * H; const r = 70 + 8 * S(T * 8); octx.save(); octx.strokeStyle = '#ff3a3a'; octx.lineWidth = 7; octx.beginPath(); octx.arc(x, y, r, 0, PI * 2); octx.stroke(); octx.restore(); }
 window.initFootball = async function () {
@@ -181,13 +196,14 @@ window.initFootball = async function () {
   scene = new T3.Scene(); scene.background = new T3.Color('#c8c0a8'); camera = new T3.PerspectiveCamera(60, 360 / 640, 0.03, 200); scene.add(camera);
   build(); out = document.getElementById('c'); octx = out.getContext('2d');
 };
-window.DURATION = TM.total;
+window.DURATION = END;
 window.renderFrame = function (T) { const loop = T >= E.loop; const ci = loop ? 0 : CLI(T); shot(T); renderer.render(scene, camera);
   octx.imageSmoothingEnabled = false; octx.globalCompositeOperation = 'source-over'; octx.globalAlpha = 1; octx.filter = 'contrast(1.06) saturate(0.92)'; octx.drawImage(glc, 0, 0, W, H); octx.filter = 'none'; octx.imageSmoothingEnabled = true;
   const vg = octx.createRadialGradient(360, 640, 420, 360, 640, 900); vg.addColorStop(0, 'rgba(0,0,0,0)'); vg.addColorStop(1, 'rgba(0,0,0,0.32)'); octx.fillStyle = vg; octx.fillRect(0, 0, W, H);
   if (ci === 1) { big('STOP', 330, 120, '#ff3a2a', prog(T, E.c1, E.c1 + 0.08), 1); if (T > AT(1, 'touching') - 0.05) big('TOUCHING', 450, 92, '#ff3a2a', prog(T, AT(1, 'touching') - 0.05, AT(1, 'touching') + 0.05), 1); if (T > AT(1, 'me') - 0.05) big('ME!', 560, 120, '#ff3a2a', prog(T, AT(1, 'me') - 0.05, AT(1, 'me') + 0.05), 1); }
-  if (loop) big('STOP TOUCHING ME!', 330, 56, '#ff3a2a', 1);
-  if (ci === 4 && T > E.graze - 0.05 && T < E.c5) big('*graze*', 360, 54, '#fff', prog(T, E.graze - 0.05, E.graze + 0.1));
-  if ((ci === 5 && T > E.hand + 0.2) || (ci === 6 && T < E.c6 + 0.6)) { const e = R.bro.userData.armR.userData.e; const v = new T3.Vector3(0, -0.3, 0); e.localToWorld(v); ring(T, v); }
-  const cap = CAPS.find(c => T >= c.a && T < c.b); if (cap && !loop && ci !== 1) caption(cap); };
+  if ((ci === 6 && T > E.hand + 0.2) || ci === 9) { const e = R.bro.userData.armR.userData.e; const v = new T3.Vector3(0, -0.3, 0); e.localToWorld(v); ring(T, v); }
+  if (ci === 9) rules(T);
+  if (ci === 12) { octx.fillStyle = '#0a0a10'; octx.fillRect(0, 0, W, H); big('5 MINUTES', 600, 72, '#ffd27a', 1); big('LATER', 680, 50, '#fff', 1); }
+  if (ci === 14 && T > AT(14, 'stop') - 0.05) big('STOP TOUCHING M-', 330, 56, '#ff3a2a', prog(T, AT(14, 'stop') - 0.05, AT(14, 'stop') + 0.1), 1);
+  const cap = CAPS.find(c => T >= c.a && T < c.b); if (cap && !loop && ci !== 1 && ci !== 12) caption(cap); };
 })();

@@ -10,12 +10,18 @@ VO = [
  "You're in class, ~ and your fucking bro screams,",
  "am_puck|STOP TOUCHING ME!",
  "The whole class turns around.",
- "You look at him. ~ He looks at you, ~ like you're the problem.",
- "All you did was graze his leg. ~ By accident.",
- "Meanwhile, ~ his hand is on your thigh.",
- "Doing slow little circles.",
- "And the teacher sends you out.",
- "Send this to the bro who'd do this to you.",
+ "am_eric|I barely touched you.",
+ "am_puck|You grazed my leg. ~ I felt it in my soul.",
+ "He looks at you ~ like you're the problem.",
+ "Meanwhile, ~ his hand is on your thigh. ~ Doing slow little circles.",
+ "am_eric|Bro. ~ Your hand.",
+ "am_puck|That's different. ~ I'm comfortable.",
+ "Apparently, ~ the rules only apply to your leg.",
+ "bm_george|You. ~ Out.",
+ "You get sent out. ~ He waves.",
+ "Five minutes later.",
+ "He gets sent out too. ~ He sits right next to you.",
+ "am_puck|Bro, stop touching me",
 ]
 SR = 24000; LEAD = 0.08; TAIL = 0.14
 pipe = KPipeline(lang_code='a')
@@ -42,7 +48,7 @@ for i, text in enumerate(VO):
         gap = (0.5 if longp[si] else 0.22) if si < len(sents) - 1 else 0.1
         segs.append(np.zeros(int(gap * SR))); off += gap
     body = np.concatenate(segs)
-    if V != VOICE: body = np.tanh(body * 2.2) * 0.8  # shouting: a little hotter
+    if V != VOICE and text.rstrip().endswith('!'): body = np.tanh(body * 2.2) * 0.8  # shouting: a little hotter
     dur = LEAD + len(body) / SR + TAIL
     clip = np.zeros(int(round(dur * SR))); clip[int(LEAD * SR):int(LEAD * SR) + len(body)] = body
     audio.append(clip); clips.append({'start': round(t, 3), 'dur': round(dur, 3), 'words': words, 'voice': V}); t += dur

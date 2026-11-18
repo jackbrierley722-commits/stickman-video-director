@@ -1,7 +1,8 @@
 
 // ---------- timing ----------
-const E = { screams: AT(0, 'screams'), c1: CL[1].start, c2: CL[2].start, c3: CL[3].start, heLooks: AT(3, 'he'), c4: CL[4].start, graze: AT(4, 'graze'), acc: AT(4, 'by'), c5: CL[5].start, hand: AT(5, 'his'), c6: CL[6].start, c7: CL[7].start, out: AT(7, 'sends'), c8: CL[8].start };
-E.loop = TM.total - 0.4;
+const E = { screams: AT(0, 'screams'), soul: AT(4, 'i'), hand: AT(6, 'his'), circles: AT(6, 'doing'), out: AT(11, 'you'), waves: AT(11, 'he'), sits: AT(13, 'he', 1), cut: AT(14, 'me') + 0.08 };
+for (let i = 0; i < CL.length; i++) E['c' + i] = CL[i].start;
+E.loop = 1e9; const END = E.cut;
 const ROWZ = [-2.8, -1.0, 0.8, 2.6], COLX = [-3.2, 0, 3.2], ME = [-0.4, 0.8], BRO = [0.4, 0.8];
 function build() {
   R.sun = new T3.DirectionalLight('#fff4e0', 1.6); R.sun.position.set(-12, 10, 2); R.sun.target.position.set(0, 0, 0); R.sun.castShadow = true; R.sun.shadow.mapSize.set(1024, 1024); const sc = R.sun.shadow.camera; sc.left = sc.bottom = -9; sc.right = sc.top = 9; sc.near = 1; sc.far = 40; scene.add(R.sun); scene.add(R.sun.target);
@@ -25,4 +26,8 @@ function build() {
   R.kids = []; let oi = 0; for (const z of ROWZ) for (const x of COLX) for (const sx of [-0.4, 0.4]) { if (z === ME[1] && x === 0) continue; if ((oi * 7) % 9 === 0) { oi++; continue; } const o = Object.assign({}, OUTFITS[[0, 2, 3, 7, 1][oi % 5]]); const p = person(o); p.position.set(x + sx, 0, z + 0.15); p.rotation.y = PI; seatP(p, 0.48); p.userData.armL.rotation.x = -0.9; p.userData.armR.rotation.x = -0.9; G.add(p); R.kids.push(p); oi++; }
   R.you = person({ top: '#3a5aa8', bot: '#3a4a62', hair: '#3a2416', skin: '#d8a07c' }); G.add(R.you); R.bro = person({ top: '#2a8a3a', bot: '#3a3a40', hair: '#141010', skin: '#a8704c', cap: '#1e5a2a' }); G.add(R.bro);
   R.teacher = person(OUTFITS[4]); G.add(R.teacher);
+  const Cr = R.Cr = new T3.Group(); scene.add(Cr); boxM(Cr, 4.2, 0.1, 10, PM('#9a8a72', 16, 16, 40), 8.4, -0.05, 2, false); boxM(Cr, 4.2, 0.1, 10, PM('#d8d4c8', 8, 16, 41), 8.4, 3.25, 2, false); boxM(Cr, 0.1, 3.3, 10, PM('#b8c8b0', 12, 16, 42), 10.5, 1.65, 2, false); boxM(Cr, 0.1, 3.3, 10, PM('#b8c8b0', 12, 16, 42), 6.3, 1.65, 2, false);
+  boxM(Cr, 0.08, 2.1, 1.0, PM('#6a4a30', 18, 16, 7), 6.36, 1.05, 3.0, false); for (let i = 0; i < 9; i++) { const lk = PT(8, 32, (c) => { noisy(c, 8, 32, ['#3a6aa8', '#a83a3a', '#3a8a5a'][i % 3], 16, 50 + i); c.fillStyle = 'rgba(0,0,0,0.35)'; for (let y = 3; y < 9; y += 2) c.fillRect(2, y, 4, 1); c.fillRect(6, 14, 1, 3); }); boxM(Cr, 0.5, 2.0, 0.6, LM({ map: lk }), 10.2, 1.0, -1.6 + i * 0.62, false); }
+  boxM(Cr, 0.45, 0.06, 1.7, PM('#8a6a48', 18, 8, 43), 6.75, 0.45, 1.3); for (const z of [0.6, 2.0]) boxM(Cr, 0.4, 0.44, 0.06, PM('#4a4e56', 10, 8, 44), 6.75, 0.22, z, false);
+  for (const z of [-0.5, 3.6]) boxM(Cr, 1.6, 0.04, 0.5, LM({ color: '#fffbf0', emissive: '#fffbf0', emissiveIntensity: 1 }), 8.4, 3.19, z, false); const cl_ = new T3.PointLight('#fff4e0', 14, 10, 1.3); cl_.position.set(8.4, 2.8, 1.5); scene.add(cl_);
 }
