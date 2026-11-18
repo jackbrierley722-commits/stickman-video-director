@@ -8,7 +8,7 @@ from kokoro import KPipeline
 VOICE = sys.argv[1] if len(sys.argv) > 1 else 'am_michael'
 VO = [
  "You're in class, ~ and your fucking bro screams,",
- "am_michael|STOP TOUCHING ME!",
+ "Stop touching me.",
  "The whole class turns around.",
  "I barely touched you.",
  "You grazed my leg. ~ I felt it in my soul.",

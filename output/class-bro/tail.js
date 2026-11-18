@@ -1,6 +1,6 @@
 // ---------- captions only: small white, 2-3 words, mid-frame (house style) ----------
-const TAGS = { 3: ['YOU', '#9ac8ff'], 4: ['BRO', '#8af0a0'], 7: ['YOU', '#9ac8ff'], 8: ['BRO', '#8af0a0'], 10: ['TEACHER', '#ffb07a'], 14: ['BRO', '#8af0a0'] };
-const CAPS = []; CL.forEach((c0, ci) => { if (ci === 1) return; const who = TAGS[ci]; let cur = []; const flush = () => { if (cur.length) CAPS.push({ a: cur[0].a, b: cur[cur.length - 1].b, t: cur.map(w => w.w).join(' '), who }); cur = []; };
+const TAGS = { 1: ['BRO', '#8af0a0'], 3: ['YOU', '#9ac8ff'], 4: ['BRO', '#8af0a0'], 7: ['YOU', '#9ac8ff'], 8: ['BRO', '#8af0a0'], 10: ['TEACHER', '#ffb07a'], 14: ['BRO', '#8af0a0'] };
+const CAPS = []; CL.forEach((c0, ci) => { const who = TAGS[ci]; let cur = []; const flush = () => { if (cur.length) CAPS.push({ a: cur[0].a, b: cur[cur.length - 1].b, t: cur.map(w => w.w).join(' '), who }); cur = []; };
   c0.words.forEach(w0 => { const w = Object.assign({}, w0, { w: /^fucking$/i.test(w0.w) ? 'f***ing' : w0.w }); const prev = cur[cur.length - 1]; if (cur.length && (cur.length >= 3 || w.a - prev.b > 0.25 || w.a - prev.a > 0.6 || /[.,!?]$/.test(prev.w))) flush(); cur.push(w); }); flush(); });
 CAPS.forEach((c, i) => { const nx = CAPS[i + 1]; c.b = nx ? Math.min(nx.a, c.b + 0.3) : c.b + 0.6; });
 function caption(c) { octx.save(); octx.font = '600 46px CapFont'; octx.textAlign = 'center'; octx.textBaseline = 'middle'; octx.lineJoin = 'round'; octx.lineWidth = 9; octx.strokeStyle = 'rgba(0,0,0,0.9)'; if (c.who) { octx.font = '600 24px CapFont'; octx.strokeText(c.who[0], 360, 856); octx.fillStyle = c.who[1]; octx.fillText(c.who[0], 360, 856); octx.font = '600 46px CapFont'; } octx.strokeText(c.t, 360, 900); octx.fillStyle = c.who ? c.who[1] : '#ffffff'; octx.fillText(c.t, 360, 900); octx.restore(); }
@@ -11,19 +11,18 @@ function ring(T, wp) { const v = wp.clone().project(camera); const x = (v.x + 1)
 window.initFootball = async function () {
   await Promise.all(['600 44px CapFont', '44px Russo'].map(f => document.fonts.load(f)));
   GLOW = ctex(64, 64, (c, w, h) => { const gr = c.createRadialGradient(32, 32, 0, 32, 32, 32); gr.addColorStop(0, 'rgba(255,255,255,1)'); gr.addColorStop(0.3, 'rgba(255,255,255,0.5)'); gr.addColorStop(1, 'rgba(255,255,255,0)'); c.fillStyle = gr; c.fillRect(0, 0, w, h); });
-  glc = document.createElement('canvas'); glc.width = 360; glc.height = 640;
-  renderer = new T3.WebGLRenderer({ canvas: glc, antialias: false, preserveDrawingBuffer: true }); renderer.setPixelRatio(1); renderer.setSize(360, 640, false); renderer.outputColorSpace = T3.SRGBColorSpace; renderer.toneMapping = T3.ACESFilmicToneMapping; renderer.toneMappingExposure = 1.15; renderer.shadowMap.enabled = true; renderer.shadowMap.type = T3.PCFShadowMap;
-  scene = new T3.Scene(); scene.background = new T3.Color('#c8c0a8'); camera = new T3.PerspectiveCamera(60, 360 / 640, 0.03, 200); scene.add(camera);
+  glc = document.createElement('canvas'); glc.width = RW; glc.height = RH;
+  renderer = new T3.WebGLRenderer({ canvas: glc, antialias: true, preserveDrawingBuffer: true }); renderer.setPixelRatio(1); renderer.setSize(RW, RH, false); renderer.outputColorSpace = T3.SRGBColorSpace; renderer.toneMapping = T3.ACESFilmicToneMapping; renderer.toneMappingExposure = 1.15; renderer.shadowMap.enabled = true; renderer.shadowMap.type = T3.PCFSoftShadowMap;
+  scene = new T3.Scene(); scene.background = new T3.Color('#c8c0a8'); camera = new T3.PerspectiveCamera(60, RW / RH, 0.03, 200); scene.add(camera);
   build(); out = document.getElementById('c'); octx = out.getContext('2d');
 };
 window.DURATION = END;
 window.renderFrame = function (T) { const loop = T >= E.loop; const ci = loop ? 0 : CLI(T); shot(T); renderer.render(scene, camera);
-  octx.imageSmoothingEnabled = false; octx.globalCompositeOperation = 'source-over'; octx.globalAlpha = 1; octx.filter = 'contrast(1.06) saturate(0.92)'; octx.drawImage(glc, 0, 0, W, H); octx.filter = 'none'; octx.imageSmoothingEnabled = true;
+  octx.imageSmoothingEnabled = true; octx.globalCompositeOperation = 'source-over'; octx.globalAlpha = 1; octx.filter = 'contrast(1.06) saturate(0.92)'; octx.drawImage(glc, 0, 0, W, H); octx.filter = 'none'; octx.imageSmoothingEnabled = true;
   const vg = octx.createRadialGradient(360, 640, 420, 360, 640, 900); vg.addColorStop(0, 'rgba(0,0,0,0)'); vg.addColorStop(1, 'rgba(0,0,0,0.32)'); octx.fillStyle = vg; octx.fillRect(0, 0, W, H);
-  if (ci === 1) { big('STOP', 330, 120, '#ff3a2a', prog(T, E.c1, E.c1 + 0.08), 1); if (T > AT(1, 'touching') - 0.05) big('TOUCHING', 450, 92, '#ff3a2a', prog(T, AT(1, 'touching') - 0.05, AT(1, 'touching') + 0.05), 1); if (T > AT(1, 'me') - 0.05) big('ME!', 560, 120, '#ff3a2a', prog(T, AT(1, 'me') - 0.05, AT(1, 'me') + 0.05), 1); }
   if ((ci === 6 && T > E.hand + 0.2) || ci === 9) { const e = R.bro.userData.armR.userData.e; const v = new T3.Vector3(0, -0.3, 0); e.localToWorld(v); ring(T, v); }
   if (ci === 9) rules(T);
   if (ci === 12) { octx.fillStyle = '#0a0a10'; octx.fillRect(0, 0, W, H); big('5 MINUTES', 600, 72, '#ffd27a', 1); big('LATER', 680, 50, '#fff', 1); }
-  if (ci === 14 && T > AT(14, 'stop') - 0.05) big('STOP TOUCHING M-', 330, 56, '#ff3a2a', prog(T, AT(14, 'stop') - 0.05, AT(14, 'stop') + 0.1), 1);
-  const cap = CAPS.find(c => T >= c.a && T < c.b); if (cap && !loop && ci !== 1 && ci !== 12) caption(cap); };
+
+  const cap = CAPS.find(c => T >= c.a && T < c.b); if (cap && !loop && ci !== 12) caption(cap); };
 })();

@@ -61,7 +61,7 @@ const hex = (c) => [parseInt(c.slice(1, 3), 16), parseInt(c.slice(3, 5), 16), pa
 function noisy(c, w, h, col, amt, seed, x0 = 0, y0 = 0) { const r = rng(seed); const [R_, G_, B_] = hex(col); for (let y = y0; y < y0 + h; y++) for (let x = x0; x < x0 + w; x++) { const v = (r() - 0.5) * amt; c.fillStyle = `rgb(${clamp(R_ + v, 0, 255) | 0},${clamp(G_ + v, 0, 255) | 0},${clamp(B_ + v, 0, 255) | 0})`; c.fillRect(x, y, 1, 1); } }
 const LM = (o) => new T3.MeshLambertMaterial(o);
 const TXC = new Map(); function nT(col, amt = 26, size = 16, seed = 1) { const k = col + amt + size + seed; if (!TXC.has(k)) TXC.set(k, PT(size, size, (c) => noisy(c, size, size, col, amt, seed))); return TXC.get(k); }
-const PM = (col, amt = 26, size = 16, seed = 1) => LM({ map: nT(col, amt, size, seed) });
+const PM = (col, amt = 26, size = 16, seed = 1) => new T3.MeshStandardMaterial({ color: col, roughness: 0.85, flatShading: true });
 function boxM(p, w, h, d, mats, x, y, z, sh = true) { const m = new T3.Mesh(Bx(w, h, d), mats); m.position.set(x, y, z); m.castShadow = sh; m.receiveShadow = true; p.add(m); return m; }
 // ---------- blocky people ----------
 const OUTFITS = [
@@ -108,6 +108,38 @@ function palm(p, x, z, h, seed) { const r = rng(seed); const tr = PM('#5a4432', 
   for (let k = 0; k < 7; k++) { const a = k / 7 * PI * 2 + r(); const f = new T3.Group(); f.position.set(x, y, z); f.rotation.y = a; p.add(f); boxM(f, 0.5, 0.12, 2.2, lf, 0, -0.2, 1.0, false).rotation.x = 0.45; boxM(f, 0.45, 0.1, 1.2, lf, 0, -0.85, 2.3, false).rotation.x = 0.9; } }
 function lampP(p, x, z, side) { const m = PM('#2a2a2e', 12, 8, 30); boxM(p, 0.18, 6, 0.18, m, x, 3, z, false); boxM(p, 1.4, 0.14, 0.18, m, x + side * 0.65, 6, z, false); boxM(p, 0.45, 0.14, 0.3, LM({ color: '#fff0c8', emissive: '#ffd890', emissiveIntensity: 0.6 }), x + side * 1.25, 5.9, z, false); }
 
+// ===================== ROUND-HEAD LOW-POLY CHARACTERS (flat-shaded, dot eyes, bar brows) =====================
+const FS = (c) => new T3.MeshStandardMaterial({ color: c, roughness: 0.82, flatShading: true });
+const INKM = new T3.MeshBasicMaterial({ color: '#141414' });
+function onHead(head, R0, x, y, mesh) { const z = Math.sqrt(Math.max(0, R0 * R0 - x * x - y * y)) + 0.004; mesh.position.set(x, y, z); mesh.lookAt(x * 3, y * 3, z * 3 + 0.0001); head.add(mesh); return mesh; }
+function person(o) { const g = new T3.Group(); const skin = FS('#ffffff'), top = FS(o.top), bot = FS(o.bot), shoe = FS('#2a2622'), hairM = FS(o.cap || o.hair);
+  const up = new T3.Group(); up.position.y = 0.92; g.add(up); const tor = boxM(up, 0.44, 0.52, 0.26, top, 0, 0.27, 0); boxM(up, 0.4, 0.06, 0.24, top, 0, 0.53, 0);
+  if (o.open) boxM(up, 0.12, 0.44, 0.01, FS(o.open), 0, 0.3, 0.131, false); if (o.tie) boxM(up, 0.05, 0.36, 0.012, FS(o.tie), 0, 0.3, 0.138, false);
+  add(up, Cy(0.06, 0.07, 0.12, 8), skin, 0, 0.6, 0);
+  const R0 = 0.27, head = new T3.Group(); head.position.set(0, 0.86, 0); up.add(head); add(head, new T3.SphereGeometry(R0, 12, 9), skin, 0, 0, 0);
+  // hair styles
+  if (o.cap) { add(head, new T3.SphereGeometry(R0 + 0.012, 12, 6, 0, PI * 2, 0, PI * 0.42), hairM, 0, 0, 0); const br = add(head, Bx(0.28, 0.025, 0.2), hairM, 0, 0.12, o.capBack ? -0.3 : 0.3); }
+  else if (o.beanie) { add(head, new T3.SphereGeometry(R0 + 0.015, 12, 6, 0, PI * 2, 0, PI * 0.45), FS(o.beanie), 0, 0, 0); }
+  else if (o.hair) { const hc = add(head, new T3.SphereGeometry(R0 + 0.01, 12, 6, 0, PI * 2, 0, PI * 0.36), hairM, 0, 0, 0); hc.rotation.x = -0.25; }
+  if (o.long) { boxM(head, 0.44, 0.42, 0.14, FS(o.hair), 0, -0.12, -0.16); }
+  if (o.pony) add(head, new T3.SphereGeometry(0.08, 8, 6), FS(o.hair), 0, 0.05, -0.3);
+  if (o.phones) { const hp = FS(o.phones); add(head, new T3.TorusGeometry(R0 + 0.03, 0.018, 6, 16, PI), hp, 0, 0.0, 0).rotation.z = 0; for (const sx of [-1, 1]) add(head, Cy(0.07, 0.07, 0.05, 10), hp, sx * (R0 + 0.02), 0, 0).rotation.z = PI / 2; }
+  if (o.chain) add(up, new T3.TorusGeometry(0.11, 0.015, 6, 16), FS('#e8c040'), 0, 0.5, 0.06).rotation.x = 1.3;
+  // face: dot eyes, bar brows, line mouth (+ open mouth for shouting)
+  const F = { eyes: [], pup: [], brows: [], mouth: null, open: null }; for (const sx of [-1, 1]) { const e = onHead(head, R0, sx * 0.085, 0.02, new T3.Mesh(new T3.CircleGeometry(0.03, 14), INKM)); e.scale.y = 1.25; F.eyes.push(e); const b = onHead(head, R0, sx * 0.09, 0.12, new T3.Mesh(Bx(0.1, 0.018, 0.01), INKM)); b.userData.sx = sx; F.brows.push(b); }
+  F.mouth = onHead(head, R0, 0.0, -0.1, new T3.Mesh(Bx(0.1, 0.016, 0.01), INKM)); F.open = onHead(head, R0, 0.0, -0.11, new T3.Mesh(new T3.CircleGeometry(0.05, 14), new T3.MeshBasicMaterial({ color: '#3a1010' }))); F.open.scale.set(1.1, 0.8, 1); F.open.visible = false;
+  if (o.glasses) { for (const sx of [-1, 1]) onHead(head, R0, sx * 0.085, 0.02, new T3.Mesh(new T3.TorusGeometry(0.055, 0.008, 6, 18), INKM)); onHead(head, R0, 0, 0.03, new T3.Mesh(Bx(0.06, 0.01, 0.01), INKM)); }
+  if (o.build) up.scale.set(o.build, 1, o.build);
+  const arm = (sx) => { const s = new T3.Group(); s.position.set(sx * 0.26, 0.48, 0); up.add(s); boxM(s, 0.15, 0.2, 0.17, top, 0, -0.07, 0); boxM(s, 0.1, 0.22, 0.11, skin, 0, -0.26, 0); const e = new T3.Group(); e.position.y = -0.36; s.add(e); boxM(e, 0.095, 0.26, 0.1, skin, 0, -0.12, 0); boxM(e, 0.1, 0.09, 0.1, skin, 0, -0.29, 0); s.userData.e = e; return s; };
+  const leg = (sx) => { const h = new T3.Group(); h.position.set(sx * 0.11, 0.92, 0); g.add(h); boxM(h, 0.17, 0.46, 0.2, bot, 0, -0.23, 0); const k = new T3.Group(); k.position.y = -0.46; h.add(k); boxM(k, 0.16, 0.4, 0.19, bot, 0, -0.2, 0); boxM(k, 0.17, 0.08, 0.27, shoe, 0, -0.42, 0.04); h.userData.k = k; return h; };
+  g.userData = { up, head, armL: arm(-1), armR: arm(1), legL: leg(-1), legR: leg(1), F }; return g; }
+function faceP(p, ex) { const F = p.userData.F; const br = F.brows; F.open.visible = ex === 'o'; F.mouth.visible = ex !== 'o'; F.mouth.scale.set(1, 1, 1); F.eyes.forEach(e => { e.scale.set(1, ex === 'd' ? 0.7 : 1.25, 1); });
+  br.forEach(b => { b.rotation.z = 0; b.position.y = b.userData.y0 === undefined ? (b.userData.y0 = b.position.y) : b.userData.y0; });
+  if (ex === 'a' || ex === 'o') br.forEach(b => b.rotation.z = b.userData.sx * 0.35);
+  if (ex === 's' || ex === 'S') { br.forEach(b => { if (b.userData.sx === (ex === 's' ? 1 : -1)) b.position.y = b.userData.y0 + 0.03; }); F.mouth.scale.set(0.7, 1, 1); }
+  if (ex === 'd') br.forEach(b => b.position.y = b.userData.y0 - 0.015); }
+function seatP(p, y) { stillP(p); const u = p.userData; u.legL.rotation.x = u.legR.rotation.x = -PI / 2; u.legL.userData.k.rotation.x = u.legR.userData.k.rotation.x = PI / 2; p.position.y = y - 0.92 + 0.06; }
+
 // ---------- timing ----------
 const E = { screams: AT(0, 'screams'), soul: AT(4, 'i'), hand: AT(6, 'his'), circles: AT(6, 'doing'), out: AT(11, 'you'), waves: AT(11, 'he'), sits: AT(13, 'he', 1), cut: AT(14, 'me') + 0.08 };
 for (let i = 0; i < CL.length; i++) E['c' + i] = CL[i].start;
@@ -148,8 +180,8 @@ function camAt(T) { const ci = CLI(T), k = prog(T, CL[ci].start, CL[ci].start + 
   if (ci === 0) return T < E.screams - 0.05 ? [L3([2.2, 2.3, -4.6], [1.8, 2.1, -4.0], ease(k)), [0, 0.9, 1.0]] : [[-0.4, 1.28, -0.45], [0.4, 1.15, SZ]];
   if (ci === 1) return [[-0.35, 1.25, -0.3], [0.4, 1.15, SZ]];
   if (ci === 2) return [L3([-5.2, 2.4, -1.6], [-5.0, 2.3, -1.2], ease(k)), [0, 0.9, 0.6]];
-  if (ci === 3 || ci === 7) { const h = head(R.you); return [[h[0] - 0.35, h[1] - 0.02, h[2] - 1.0 + 0.08 * k], h]; }
-  if (ci === 4 || ci === 8) { const h = head(R.bro); return [[h[0] + 0.35, h[1] - 0.02, h[2] - 1.0 + 0.08 * k], h]; }
+  if (ci === 3 || ci === 7) { const h = head(R.you); return [[h[0] + 0.45, h[1] + 0.02, h[2] - 1.35 + 0.08 * k], [h[0], h[1] - 0.08, h[2]]]; }
+  if (ci === 4 || ci === 8) { const h = head(R.bro); return [[h[0] - 0.45, h[1] + 0.02, h[2] - 1.35 + 0.08 * k], [h[0], h[1] - 0.08, h[2]]]; }
   if (ci === 5) return [[0.0, 1.2, -0.75 + 0.15 * k], [0, 1.05, SZ]];
   if (ci === 6 || ci === 9) return [[-0.12, 2.0 - 0.1 * k, SZ - 0.9], [-0.12, 0.5, SZ - 0.2]];
   if (ci === 10) { const h = head(R.teacher); return [[h[0] + 0.45, h[1] - 0.05, h[2] + 1.1 - 0.1 * k], h]; }
@@ -164,14 +196,14 @@ function anim(T) { const ci = CLI(T); const under = ci === 6 || ci === 9; R.myDe
   // the class turns round and stays turned for the argument
   R.kids.forEach((p, i) => { const tu = ci >= 2 && ci <= 11; const front = p.position.z < SZ - 0.1; p.userData.head.rotation.y = 0; p.rotation.y = PI; if (tu) { if (front) { p.rotation.y = PI - (p.position.x < 0 ? 1 : -1) * 1.0; p.userData.head.rotation.y = (p.position.x < 0 ? 1 : -1) * 0.9; } else p.userData.head.rotation.y = (p.position.x < 0 ? -1 : 1) * 0.6; faceP(p, i % 3 ? 'd' : 'o'); } else faceP(p, 'n'); p.userData.head.rotation.x = 0.06 * S(T * 0.7 + i); });
   if (ci >= 2 && ci <= 9) { faceP(bro, 'a'); bro.rotation.y = PI + 0.35; you.rotation.y = PI - 0.35; }
-  if (ci === 3) { faceP(you, 'd'); u.head.rotation.y = -0.4; u.armL.rotation.set(-1.3, 0, 0.6); u.armL.userData.e.rotation.x = -0.5; }
+  if (ci === 3) { faceP(you, 'd'); u.head.rotation.y = -0.15; u.armL.rotation.set(-1.3, 0, 0.6); u.armL.userData.e.rotation.x = -0.5; }
   if (ci === 4) { faceP(bro, 'a'); if (T > E.soul - 0.1) { b.armR.rotation.set(-1.2, 0, 0.9); b.armR.userData.e.rotation.x = -1.6; b.head.rotation.x = -0.25; faceP(bro, 'o'); } }
   if (ci === 5) { faceP(bro, 's'); b.head.rotation.y = 0.5; b.head.rotation.x = -0.15; faceP(you, 'S'); u.head.rotation.y = -0.5; }
   // his hand on your thigh (desk top hidden for the lap shots)
   if (under) { for (const p of [you, bro]) { p.userData.armL.rotation.set(0.1, 0, 0); p.userData.armR.rotation.set(0.1, 0, 0); p.userData.armL.userData.e.rotation.set(0, 0, 0); p.userData.armR.userData.e.rotation.set(0, 0, 0); } u.armL.rotation.z = 0.15; b.armL.rotation.z = -0.15; you.rotation.y = bro.rotation.y = PI; }
   const handOn = (ci === 6 && T > E.hand - 0.2) || (ci >= 7 && ci <= 9); if (handOn) { const k = ci === 6 ? ease(prog(T, E.hand - 0.2, E.hand + 0.3)) : 1; const circ = (ci === 6 && T > E.circles - 0.1) || ci >= 7; if (under) { b.armR.rotation.set(-0.85 * k, 0, 0.7 * k); b.armR.userData.e.rotation.x = -0.2 * k; b.armR.userData.e.rotation.z = -0.2 * k; const hnd = b.armR.userData.e; hnd.rotation.y = circ ? 0.15 * S(T * 5) : 0; hnd.rotation.x += circ ? 0.08 * C(T * 5) : 0; } }
-  if (ci === 7) { faceP(you, 'd'); u.head.rotation.x = 0.35; u.head.rotation.y = -0.2; }
-  if (ci === 8) { faceP(bro, 's'); b.head.rotation.z = 0.15; b.head.rotation.y = 0.3; }
+  if (ci === 7) { faceP(you, 'd'); u.head.rotation.x = 0.3; u.head.rotation.y = -0.1; }
+  if (ci === 8) { faceP(bro, 's'); b.head.rotation.z = 0.15; b.head.rotation.y = 0.1; }
   // teacher
   const t_ = R.teacher; stillP(t_); t_.position.set(-1.8, 0, -5.3); t_.rotation.y = ci >= 2 ? 0.1 : PI; faceP(t_, ci >= 2 ? 'a' : 'n'); if (ci < 2) t_.userData.armR.rotation.set(-2.2 + 0.1 * S(T * 6), 0, 0);
   if (ci === 10) { t_.rotation.y = 0.15; t_.userData.armR.rotation.set(-1.6, 0, 0); if (T > AT(10, 'out') - 0.1) t_.userData.armR.rotation.set(-1.6, 0, -1.2); }
@@ -184,10 +216,10 @@ function anim(T) { const ci = CLI(T); const under = ci === 6 || ci === 9; R.myDe
     else bro.visible = false; }
 }
 function shot(T) { camera.fov = 60; camera.updateProjectionMatrix(); anim(T); const c = camAt(T); look(c[0], c[1]);
-  const ci = CLI(T); if (ci === 1 || ci === 14) { const k = ci === 1 ? 1 - prog(T, E.c1, E.c2) : 1; camera.position.x += 0.02 * k * S(T * 70); camera.rotation.z += 0.015 * k * S(T * 60); } return { si: 0, t0: 0 }; }
+  const ci = CLI(T);  return { si: 0, t0: 0 }; }
 // ---------- captions only: small white, 2-3 words, mid-frame (house style) ----------
-const TAGS = { 3: ['YOU', '#9ac8ff'], 4: ['BRO', '#8af0a0'], 7: ['YOU', '#9ac8ff'], 8: ['BRO', '#8af0a0'], 10: ['TEACHER', '#ffb07a'], 14: ['BRO', '#8af0a0'] };
-const CAPS = []; CL.forEach((c0, ci) => { if (ci === 1) return; const who = TAGS[ci]; let cur = []; const flush = () => { if (cur.length) CAPS.push({ a: cur[0].a, b: cur[cur.length - 1].b, t: cur.map(w => w.w).join(' '), who }); cur = []; };
+const TAGS = { 1: ['BRO', '#8af0a0'], 3: ['YOU', '#9ac8ff'], 4: ['BRO', '#8af0a0'], 7: ['YOU', '#9ac8ff'], 8: ['BRO', '#8af0a0'], 10: ['TEACHER', '#ffb07a'], 14: ['BRO', '#8af0a0'] };
+const CAPS = []; CL.forEach((c0, ci) => { const who = TAGS[ci]; let cur = []; const flush = () => { if (cur.length) CAPS.push({ a: cur[0].a, b: cur[cur.length - 1].b, t: cur.map(w => w.w).join(' '), who }); cur = []; };
   c0.words.forEach(w0 => { const w = Object.assign({}, w0, { w: /^fucking$/i.test(w0.w) ? 'f***ing' : w0.w }); const prev = cur[cur.length - 1]; if (cur.length && (cur.length >= 3 || w.a - prev.b > 0.25 || w.a - prev.a > 0.6 || /[.,!?]$/.test(prev.w))) flush(); cur.push(w); }); flush(); });
 CAPS.forEach((c, i) => { const nx = CAPS[i + 1]; c.b = nx ? Math.min(nx.a, c.b + 0.3) : c.b + 0.6; });
 function caption(c) { octx.save(); octx.font = '600 46px CapFont'; octx.textAlign = 'center'; octx.textBaseline = 'middle'; octx.lineJoin = 'round'; octx.lineWidth = 9; octx.strokeStyle = 'rgba(0,0,0,0.9)'; if (c.who) { octx.font = '600 24px CapFont'; octx.strokeText(c.who[0], 360, 856); octx.fillStyle = c.who[1]; octx.fillText(c.who[0], 360, 856); octx.font = '600 46px CapFont'; } octx.strokeText(c.t, 360, 900); octx.fillStyle = c.who ? c.who[1] : '#ffffff'; octx.fillText(c.t, 360, 900); octx.restore(); }
@@ -198,19 +230,18 @@ function ring(T, wp) { const v = wp.clone().project(camera); const x = (v.x + 1)
 window.initFootball = async function () {
   await Promise.all(['600 44px CapFont', '44px Russo'].map(f => document.fonts.load(f)));
   GLOW = ctex(64, 64, (c, w, h) => { const gr = c.createRadialGradient(32, 32, 0, 32, 32, 32); gr.addColorStop(0, 'rgba(255,255,255,1)'); gr.addColorStop(0.3, 'rgba(255,255,255,0.5)'); gr.addColorStop(1, 'rgba(255,255,255,0)'); c.fillStyle = gr; c.fillRect(0, 0, w, h); });
-  glc = document.createElement('canvas'); glc.width = 360; glc.height = 640;
-  renderer = new T3.WebGLRenderer({ canvas: glc, antialias: false, preserveDrawingBuffer: true }); renderer.setPixelRatio(1); renderer.setSize(360, 640, false); renderer.outputColorSpace = T3.SRGBColorSpace; renderer.toneMapping = T3.ACESFilmicToneMapping; renderer.toneMappingExposure = 1.15; renderer.shadowMap.enabled = true; renderer.shadowMap.type = T3.PCFShadowMap;
-  scene = new T3.Scene(); scene.background = new T3.Color('#c8c0a8'); camera = new T3.PerspectiveCamera(60, 360 / 640, 0.03, 200); scene.add(camera);
+  glc = document.createElement('canvas'); glc.width = RW; glc.height = RH;
+  renderer = new T3.WebGLRenderer({ canvas: glc, antialias: true, preserveDrawingBuffer: true }); renderer.setPixelRatio(1); renderer.setSize(RW, RH, false); renderer.outputColorSpace = T3.SRGBColorSpace; renderer.toneMapping = T3.ACESFilmicToneMapping; renderer.toneMappingExposure = 1.15; renderer.shadowMap.enabled = true; renderer.shadowMap.type = T3.PCFSoftShadowMap;
+  scene = new T3.Scene(); scene.background = new T3.Color('#c8c0a8'); camera = new T3.PerspectiveCamera(60, RW / RH, 0.03, 200); scene.add(camera);
   build(); out = document.getElementById('c'); octx = out.getContext('2d');
 };
 window.DURATION = END;
 window.renderFrame = function (T) { const loop = T >= E.loop; const ci = loop ? 0 : CLI(T); shot(T); renderer.render(scene, camera);
-  octx.imageSmoothingEnabled = false; octx.globalCompositeOperation = 'source-over'; octx.globalAlpha = 1; octx.filter = 'contrast(1.06) saturate(0.92)'; octx.drawImage(glc, 0, 0, W, H); octx.filter = 'none'; octx.imageSmoothingEnabled = true;
+  octx.imageSmoothingEnabled = true; octx.globalCompositeOperation = 'source-over'; octx.globalAlpha = 1; octx.filter = 'contrast(1.06) saturate(0.92)'; octx.drawImage(glc, 0, 0, W, H); octx.filter = 'none'; octx.imageSmoothingEnabled = true;
   const vg = octx.createRadialGradient(360, 640, 420, 360, 640, 900); vg.addColorStop(0, 'rgba(0,0,0,0)'); vg.addColorStop(1, 'rgba(0,0,0,0.32)'); octx.fillStyle = vg; octx.fillRect(0, 0, W, H);
-  if (ci === 1) { big('STOP', 330, 120, '#ff3a2a', prog(T, E.c1, E.c1 + 0.08), 1); if (T > AT(1, 'touching') - 0.05) big('TOUCHING', 450, 92, '#ff3a2a', prog(T, AT(1, 'touching') - 0.05, AT(1, 'touching') + 0.05), 1); if (T > AT(1, 'me') - 0.05) big('ME!', 560, 120, '#ff3a2a', prog(T, AT(1, 'me') - 0.05, AT(1, 'me') + 0.05), 1); }
   if ((ci === 6 && T > E.hand + 0.2) || ci === 9) { const e = R.bro.userData.armR.userData.e; const v = new T3.Vector3(0, -0.3, 0); e.localToWorld(v); ring(T, v); }
   if (ci === 9) rules(T);
   if (ci === 12) { octx.fillStyle = '#0a0a10'; octx.fillRect(0, 0, W, H); big('5 MINUTES', 600, 72, '#ffd27a', 1); big('LATER', 680, 50, '#fff', 1); }
-  if (ci === 14 && T > AT(14, 'stop') - 0.05) big('STOP TOUCHING M-', 330, 56, '#ff3a2a', prog(T, AT(14, 'stop') - 0.05, AT(14, 'stop') + 0.1), 1);
-  const cap = CAPS.find(c => T >= c.a && T < c.b); if (cap && !loop && ci !== 1 && ci !== 12) caption(cap); };
+
+  const cap = CAPS.find(c => T >= c.a && T < c.b); if (cap && !loop && ci !== 12) caption(cap); };
 })();
