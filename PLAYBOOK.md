@@ -160,6 +160,9 @@ Fast cuts (1–2s per beat), punchy SFX (boing, snap, crunch) on each fail, stif
 - Keep the same fonts across videos (Russo, Poppins).
 - Captions are word-synced, about 3 to 5 words each, with numbers merged (2006, 95%, 429A).
 
+**Scripts (user, 18 Nov 2026)**
+- **Never use another creator's script**, even if the user pastes one. Learn the humour *style* only (fast back-and-forth dialogue, deadpan narrator asides like "your hand disagrees", petty escalation, a time-skip card, a hard cut mid-swear) and write original lines for our own characters. A shower-argument video built from a pasted script was deleted for this reason.
+
 **Sound**
 - Sound effects only on real on-screen actions: knocks, rings, locks, coins, crashes and so on.
 - Transition whooshes only on some cuts, where they fit (big reveals). Never on every cut.
