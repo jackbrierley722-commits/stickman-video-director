@@ -119,6 +119,7 @@ Fast cuts (1–2s per beat), punchy SFX (boing, snap, crunch) on each fail, stif
 
 **Series rules**
 - Every part must work for a brand-new viewer: a standalone hook plus a 3-second recap.
+- **Assume it's their FIRST video (user, 19 Nov 2026):** right after the hook, explain in 1-2 short lines who you are, who the other characters are ("Dex, your cellmate who betrayed you"), and why things are happening. Set up the reward early ("to get home to your wife") so the ending pays it off. Label characters on screen the first time they appear.
 - The next part must actually follow the audience's vote.
 - Pay off earlier mysteries instead of piling on new ones.
 - Show rules as a quick on-screen recap in later parts instead of reading them all out again.

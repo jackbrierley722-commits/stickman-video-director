@@ -14,8 +14,9 @@ def whisper(a, SR=24000):
 VOICE = sys.argv[1] if len(sys.argv) > 1 else 'am_michael'
 VO = [
  "Don't breathe. ~ The police dog is right above you.",
- "Dex drove into a roadblock. ~ But one cop saw you walking away.",
- "He let the dog off the lead.",
+ "You're innocent. ~ Tonight, ~ you broke out of prison, ~ to get home to your wife.",
+ "Your cellmate Dex got out too. ~ He betrayed you once, ~ so when he offered you a ride, ~ you walked away.",
+ "He drove into a police roadblock. ~ One cop saw you, ~ and let the dog off the lead.",
  "You sprint into the trees. ~ The barking gets closer, ~ and closer.",
  "There's a river. ~ You jump.",
  "Underwater, ~ the dog loses your scent.",

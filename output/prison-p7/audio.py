@@ -24,7 +24,7 @@ def thump(at, amp=0.5, f=50, d=18): n = int(0.35 * SR); x = np.arange(n) / SR; a
 def sting(at, f=98, amp=0.07): m = int(2.2 * SR); x = np.arange(m) / SR; add(at, (np.sin(2 * np.pi * f * x) + np.sin(2 * np.pi * f * 1.06 * x) + 0.5 * np.sin(2 * np.pi * f * 2 * x)) * env(m, 0.01, 1.3) * amp)
 def creak(at, dur=1.0, f0=200, amp=0.06): m = int(dur * SR); x = np.arange(m) / SR; add(at, ma(np.sign(np.sin(2 * np.pi * np.cumsum(f0 + 60 * np.sin(x * 5)) / SR)), 6) * np.hanning(m) * amp)
 S0 = [c['start'] for c in CL]
-E = dict(c1=S0[1], saw=wt(1, 'saw'), c2=S0[2], lead=wt(2, 'off'), c3=S0[3], barking=wt(3, 'barking'), c4=S0[4], jump=wt(4, 'jump'), c5=S0[5], scent=wt(5, 'scent'), c6=S0[6], c7=S0[7], knock=wt(7, 'knock'), c8=S0[8], opens=wt(8, 'opens'), girl=wt(8, 'girl'))
+E = dict(c1=S0[3], saw=wt(3, 'saw'), c2=wt(3, 'off') - 0.1, lead=wt(3, 'off'), c3=S0[4], barking=wt(4, 'barking'), c4=S0[5], jump=wt(5, 'jump'), c5=S0[6], scent=wt(6, 'scent'), c6=S0[7], c7=S0[8], knock=wt(8, 'knock'), c8=S0[9], opens=wt(9, 'opens'), girl=wt(9, 'girl'))
 def rustle(at, dur=0.8, amp=0.06): m = int(dur * SR); add(at, (nz(dur, 1) - nz(dur, 3)) * np.abs(np.sin(np.linspace(0, 7 * np.pi, m))) * np.hanning(m) * amp)
 def step(at, amp=0.06): add(at, (nz(0.08, 1) - nz(0.08, 4)) * env(int(0.08 * SR), 0.002, 40) * amp)
 def bark(at, amp=0.06, f=380):
@@ -36,7 +36,7 @@ def underwater(a, b, amp=0.05):
 # underwater hook: muffled, the dog sniffing and a muffled bark above
 underwater(0, S0[1]); bark(1.0, 0.025, 300); bark(2.3, 0.02, 300)
 # roadblock: siren whoop, radio, the dog barking at the cop's side
-night = (t > S0[1]) & (t < S0[5]); out += ((nz(D, 2) - nz(D, 10)) * 0.01 + nz(D, 60) * 0.015) * night
+night = (t > S0[1]) & (t < S0[6]); out += ((nz(D, 2) - nz(D, 10)) * 0.01 + nz(D, 60) * 0.015) * night
 m = int(0.6 * SR); x = np.arange(m) / SR; add(E['c1'] + 0.2, np.sin(2 * np.pi * np.cumsum(600 + 500 * x / 0.6) / SR) * np.hanning(m) * 0.02)
 k = E['c1'] + 0.1
 while k < E['c2']: step(k, 0.05); k += 0.5
@@ -53,7 +53,7 @@ for i in range(int((E['jump'] - E['c3']) / 0.55)): thump(E['c3'] + 0.1 + i * 0.5
 # the jump: whoosh, splash, then underwater
 n = int(0.5 * SR); x = np.arange(n) / SR; add(E['jump'], (nz(0.5, 4) - nz(0.5, 30)) * np.sin(np.pi * x / 0.5) ** 2 * 0.1)
 sp = E['jump'] + 0.45; add(sp, (nz(0.8, 1) - nz(0.8, 6)) * env(int(0.8 * SR), 0.002, 5) * 0.25); thump(sp, 0.6, 60, 8)
-underwater(sp + 0.1, S0[6] + 0.1); bark(E['c5'] + 0.3, 0.025, 300); bark(E['c5'] + 0.7, 0.02, 300); add(E['scent'] + 0.1, nz(0.4, 3) * np.hanning(int(0.4 * SR)) * 0.01)  # dog whimpers off
+underwater(sp + 0.1, S0[7] + 0.1); bark(E['c5'] + 0.3, 0.025, 300); bark(E['c5'] + 0.7, 0.02, 300); add(E['scent'] + 0.1, nz(0.4, 3) * np.hanning(int(0.4 * SR)) * 0.01)  # dog whimpers off
 # drifting: gentle water lapping, distant city
 for i in range(6): rustle(E['c6'] + i * 0.4, 0.4, 0.02)
 i0 = int(E['c6'] * SR); i1 = int(E['c7'] * SR); out[i0:i1] += ma(rng.normal(0, 1, i1 - i0), 80) * 0.15
@@ -67,6 +67,13 @@ creak(E['c8'] + 0.1, 0.8, 300, 0.02)  # door opens
 # warm swell at the reunion (major chord, slow attack)
 for f, g in [(261.6, 0.03), (329.6, 0.024), (392.0, 0.022), (523.2, 0.014)]:
     a0 = E['opens']; n = int((D - a0) * SR); x = np.arange(n) / SR; add(a0, np.sin(2 * np.pi * f * x) * np.clip(x / 2.5, 0, 1) * np.clip((D - a0 - x) / 1.5, 0, 1) * g)
+# setup clips: prison alarm behind you, footsteps; Dex's car idling beside you, then pulling away
+for k in range(int((S0[2] - S0[1]) / 0.5)): tone(S0[1] + k * 0.5, 0.25, 900 if k % 2 else 700, 0.008, 3)
+k = S0[1] + 0.1
+while k < S0[3]: step(k, 0.05); k += 0.5
+wk = wt(2, 'walked'); lvl = np.interp(t, [S0[2], wk, wk + 0.4, S0[3]], [0.8, 0.8, 2.2, 0.3]) * ((t > S0[2]) & (t < S0[3]))
+out += (np.sin(2 * np.pi * np.cumsum(34 * np.maximum(lvl, 0.5)) / SR) * 0.03 + ma(rng.normal(0, 1, N), 40) * 0.04 * lvl) * (lvl > 0)
+tone(wt(2, 'betrayed'), 1.2, 98, 0.03, 1.5)  # low sting on "betrayed"
 # ---------- low tense music bed (original, generated here) ----------
 mus = np.zeros(N); beat = 60 / 92
 for root_i, tb in enumerate(np.arange(0, D, beat * 8)):
@@ -79,7 +86,7 @@ for tb in np.arange(0, D, beat / 2):
 for tb in np.arange(0, D, beat):
     m = int(0.25 * SR); x = np.arange(m) / SR; i = int(tb * SR); y = np.sin(2 * np.pi * 50 * x * (1 - 0.3 * x)) * np.exp(-x * 14) * 0.6
     mus[i:i + m] += y[:max(0, N - i)]
-mus *= np.interp(t, [0, 1.0, S0[7] - 0.5, S0[7] + 0.5, D], [0, 1, 1, 0, 0])  # tense bed stops at sunrise; the warm chord takes over
+mus *= np.interp(t, [0, 1.0, S0[8] - 0.5, S0[8] + 0.5, D], [0, 1, 1, 0, 0])  # tense bed stops at sunrise; the warm chord takes over
 out *= np.interp(t, [0, 0.02, D - 0.03, D], [0, 1, 1, 0])
 vo, vsr = sf.read('vo.wav')
 if vo.ndim > 1: vo = vo.mean(1)

@@ -18,10 +18,10 @@ function fp(p, l, T, bob = 0, sway = 1) { const br = S(T * 1.7) * 0.006 * sway, 
   look([p[0] + bx, p[1] + br + b, p[2]], [l[0] + sw, l[1] + br * 3 + b * 0.5, l[2]]); }
 
 // ---------- timing ----------
-const E = { c1: CL[1].start, saw: AT(1, 'saw'), c2: CL[2].start, lead: AT(2, 'off'), c3: CL[3].start, barking: AT(3, 'barking'), closer2: AT(3, 'and'), c4: CL[4].start, jump: AT(4, 'jump'), c5: CL[5].start, scent: AT(5, 'scent'), c6: CL[6].start,
-  c7: CL[7].start, knock: AT(7, 'knock'), three: AT(7, 'three'), c8: CL[8].start, opens: AT(8, 'opens'), behind: AT(8, 'behind'), girl: AT(8, 'girl'), eyes: AT(8, 'your', 1) + 0.35,
-  past: 999, sunrise: 999, note: 999, welcome: 999, seven: 999, one: 999, every: 999, comment: 999, nobody: 999, rb: 999, drove: 999, c9: 999,
-  gotin: 999, coffee: 999, says: 999, brother: 999, smiles: 999, waves: 999, photo: 999, atYou: 999, atDex: 999, train: 999, dexR: 999,
+const E = { c1: CL[1].start, photo: AT(1, 'your') + 0.05, c2: CL[2].start, betrayed: AT(2, 'betrayed'), walked: AT(2, 'walked'), c3: CL[3].start, saw: AT(3, 'saw'), lead: AT(3, 'off'), c4: CL[4].start, barking: AT(4, 'barking'), closer2: AT(4, 'and'), c5: CL[5].start, jump: AT(5, 'jump'), c6: CL[6].start, scent: AT(6, 'scent'), c7: CL[7].start,
+  c8: CL[8].start, knock: AT(8, 'knock'), three: AT(8, 'three'), c9: CL[9].start, opens: AT(9, 'opens'), behind: AT(9, 'behind'), girl: AT(9, 'girl'), eyes: AT(9, 'your', 1) + 0.35,
+  past: 999, sunrise: 999, note: 999, welcome: 999, seven: 999, one: 999, every: 999, comment: 999, nobody: 999, rb: 999, drove: 999,
+  gotin: 999, coffee: 999, says: 999, brother: 999, smiles: 999, waves: 999, photo2: 999, atYou: 999, atDex: 999, train: 999, dexR: 999,
   recap: CL[1].start, id: 999, lifted: 999, swap: 999, ditch: 999, sirens: 999, window: 999, dex: 999, optA: 999, optB: 999,
   threw: 999, lightF: 999, climbed: 999, found: 999, engine: 999, guard: 999, think: 999, leaves: 999, cap: 999, driver: 999, wants: 999, steps: 999, torch: 999, c4_: 0 };
 E.loop = 999;
@@ -311,77 +311,86 @@ function build6() {
   add(hm, Cy(0.2, 0.25, 2.5, 8), SM('#5a3a24'), 4.0, 1.25, 4); add(hm, Sp(1.6, 10, 8), SM('#3a6a2a'), 4.0, 3.4, 4);
   for (const x of [-14, 14]) { add(hm, Bx(8, 3.4, 6), SM(x < 0 ? '#d8c8b0' : '#c8d0d8'), x, 1.7, -3); const rf = add(hm, new T3.ConeGeometry(6.4, 2.2, 4), SM('#5a4a4a'), x, 4.5, -3); rf.rotation.y = PI / 4; rf.scale.z = 0.7; }
   R.hSun = new T3.DirectionalLight('#ffd8b0', 0); R.hSun.position.set(HOMEW[0] + 30, 20, HOMEW[2] + 40); R.hSun.target.position.set(...HOMEW); scene.add(R.hSun); scene.add(R.hSun.target); R.hHemi = new T3.HemisphereLight('#ffe8d0', '#6a5a4a', 0); scene.add(R.hHemi);
+  R.photo = add(R.vm, new T3.PlaneGeometry(0.2, 0.24), new T3.MeshBasicMaterial({ map: ctex(150, 180, c => { c.fillStyle = '#f4f0e6'; c.fillRect(0, 0, 150, 180); c.fillStyle = '#e8b890'; c.fillRect(10, 10, 130, 130); c.fillStyle = '#ffe0a8'; c.fillRect(10, 10, 130, 60); c.fillStyle = '#4a2a18'; c.beginPath(); c.ellipse(75, 66, 34, 40, 0, 0, PI * 2); c.fill(); c.fillRect(41, 66, 68, 60); c.fillStyle = '#d8a882'; c.beginPath(); c.ellipse(75, 72, 24, 30, 0, 0, PI * 2); c.fill(); c.fillStyle = '#c86a7a'; c.fillRect(38, 112, 74, 28); c.fillStyle = '#222'; c.fillRect(64, 66, 5, 5); c.fillRect(81, 66, 5, 5); c.fillStyle = '#a04a4a'; c.fillRect(68, 86, 14, 3); c.fillStyle = '#3a3a5a'; c.font = 'italic 17px Russo'; c.textAlign = 'center'; c.fillText('come home', 75, 166); }), toneMapped: false }), 0, -0.06, -0.6, false);
   R.wife = person({ skin: '#d8a882', top: '#c86a7a', bot: '#3a3a4a', hair: '#4a2a18', w: 0.92 }); add(R.wife.userData.head, Bx(0.24, 0.34, 0.1), SM('#4a2a18', { roughness: 0.95 }), 0, -0.1, -0.08); hm.add(R.wife);
   R.girl = person({ skin: '#d8a882', top: '#f0c040', bot: '#e88aa8', hair: '#4a2a18', w: 0.95 }); for (const sx of [-1, 1]) add(R.girl.userData.head, Sp(0.05, 8, 6), SM('#4a2a18'), sx * 0.12, 0.02, -0.04); R.girl.scale.setScalar(0.55); hm.add(R.girl);
 }
 // ---------- where you are ----------
-const WALK = T => { const ci = CLI(T); if (ci === 1) return [lerp(-184, -186, prog(T, E.c1, E.c2)), -8.4]; return [-186, -8.4]; };
-const RUN = T => { const k = prog(T, E.c3, E.c4); return [lerp(-186, -188, k), lerp(-6, 18, k)]; };
-const DEXOUT = () => true;
-const carX = () => STOPC;
-function jumpCam(T) { const j = prog(T, E.jump - 0.05, E.jump + 0.65); if (T < E.jump - 0.05) { const k = prog(T, E.c4, E.jump - 0.05); return RV(0, 1.6, lerp(-12, -3.6, k)); } return RV(0, j < 0.4 ? lerp(1.6, 2.1, j / 0.4) : lerp(2.1, -1.5, (j - 0.4) / 0.6), lerp(-3.6, -0.2, j)); }
+// clips: 0 hook underwater . 1 prison behind you + photo of your wife . 2 Dex pulls up, you walk away . 3 roadblock, cop sees you, dog released
+//        4 sprint . 5 river jump . 6 underwater, scent lost . 7 drift under bridge . 8 sunrise walk + knock . 9 the door
+const WALK = T => { const ci = CLI(T); if (ci === 1) return [lerp(-60, -62, prog(T, E.c1, E.c2)), -8.4]; if (ci === 2) return [lerp(-161, -163.5, prog(T, E.c2, E.c3)), -8.4]; if (ci === 3) return [lerp(-184, -186, prog(T, E.c3, E.saw)), -8.4]; return [-186, -8.4]; };
+const RUN = T => { const k = prog(T, E.c4, E.c5); return [lerp(-186, -188, k), lerp(-6, 18, k)]; };
+const DEXOUT = T => CLI(T) >= 3;
+const carX = T => { const ci = CLI(T); if (ci === 2) { const w = WALK(T)[0]; return T < E.walked ? w + 0.25 : w + 0.25 - 30 * prog(T, E.walked, E.c3) ** 1.6; } return STOPC; };
+function jumpCam(T) { const j = prog(T, E.jump - 0.05, E.jump + 0.65); if (T < E.jump - 0.05) { const k = prog(T, E.c5, E.jump - 0.05); return RV(0, 1.6, lerp(-12, -3.6, k)); } return RV(0, j < 0.4 ? lerp(1.6, 2.1, j / 0.4) : lerp(2.1, -1.5, (j - 0.4) / 0.6), lerp(-3.6, -0.2, j)); }
 const SH = [
   [0, (k, T) => fp(RV(0, -1.5, 0.3), RV(0.2, 1.4, -3.6), T, 0, 1.0)],
-  [E.c1, (k, T) => { const w = WALK(T); fp(Y(w[0], 1.62, w[1]), Y(STOPC - 0.2, 1.3, -10.0), T, 0.6, 0.5); }],
-  [E.saw - 0.1, (k, T) => { const w = WALK(T); fp(Y(w[0], 1.62, w[1]), Y(STOPC - 1.3, 1.5, -9.3), T, 0, 0.4); }],
-  [E.c2, (k, T) => { const w = WALK(T); const d = R.dog.position; fp(Y(w[0], 1.62, w[1]), Y(d.x, 0.6, d.z), T, 0, 0.6); }],
-  [E.c3, (k, T) => { const p = RUN(T); fp(Y(p[0], 1.5, p[1]), Y(p[0] - 0.5, 1.3, p[1] + 10), T, 2.2, 1.5); }],
+  [E.c1, (k, T) => { const w = WALK(T); fp(Y(w[0], 1.62, w[1]), Y(-5, 4, -12), T, 0.5, 0.5); }],
+  [E.photo - 0.15, (k, T) => { const w = WALK(T); fp(Y(w[0], 1.62, w[1]), Y(w[0] - 1.2, 0.6, w[1] - 0.2), T, 0, 0.3); }],
+  [E.c2, (k, T) => { const w = WALK(T); fp(Y(w[0], 1.62, w[1]), T < E.walked - 0.1 ? Y(carX(T) - 0.3, 1.2, -11.0) : Y(w[0] - 20, 1.6, -9.5), T, 0.6, 0.5); }],
+  [E.c3, (k, T) => { const w = WALK(T); fp(Y(w[0], 1.62, w[1]), Y(STOPC - 0.2, 1.3, -10.0), T, 0.6, 0.5); }],
+  [E.saw - 0.1, (k, T) => { const w = WALK(T); fp(Y(w[0], 1.62, w[1]), T < E.lead - 0.1 ? Y(STOPC - 1.3, 1.5, -9.3) : Y(R.dog.position.x, 0.6, R.dog.position.z), T, 0, 0.4); }],
+  [E.c4, (k, T) => { const p = RUN(T); fp(Y(p[0], 1.5, p[1]), Y(p[0] - 0.5, 1.3, p[1] + 10), T, 2.2, 1.5); }],
   [E.barking - 0.1, (k, T) => { const p = RUN(T); fp(Y(p[0], 1.5, p[1]), Y(p[0] + 0.4, 0.5, p[1] - 6), T, 2.2, 1.5); }],
   [E.closer2 - 0.15, (k, T) => { const p = RUN(T); fp(Y(p[0], 1.5, p[1]), Y(p[0] - 0.5, 1.3, p[1] + 10), T, 2.5, 1.6); }],
-  [E.c4, (k, T) => { const c = jumpCam(T); const under = c[1] < RIVW[1] - 0.5; fp(c, under ? RV(0, 0.6, -3.0) : RV(0, 0.2, 2.5), T, T < E.jump ? 2.2 : 0, 1.4); }],
-  [E.c5, (k, T) => fp(RV(0, -1.5, 0.3), RV(0.2, 1.4, -3.6), T, 0, 1.0)],
-  [E.c6, (k, T) => { const x = lerp(0, 22, k); fp(RV(x, -0.22, 0.3), RV(x + 12, 0.9, 0.3), T, 0, 1.2); }],
-  [E.c7, (k, T) => { const z = T < E.knock - 0.1 ? lerp(7, 1.3, prog(T, E.c7, E.knock - 0.1)) : 1.3; fp(HM(0, 1.62, z), HM(0, 1.45, -0.2), T, T < E.knock - 0.1 ? 0.8 : 0, 0.4); }],
-  [E.c8, (k, T) => { const z = lerp(1.7, 1.3, ease(k)); fp(HM(0, 1.6, z), HM(0.08, 1.15, -0.7), T, 0, 0.3); }],
+  [E.c5, (k, T) => { const c = jumpCam(T); const under = c[1] < RIVW[1] - 0.5; fp(c, under ? RV(0, 0.6, -3.0) : RV(0, 0.2, 2.5), T, T < E.jump ? 2.2 : 0, 1.4); }],
+  [E.c6, (k, T) => fp(RV(0, -1.5, 0.3), RV(0.2, 1.4, -3.6), T, 0, 1.0)],
+  [E.c7, (k, T) => { const x = lerp(0, 22, k); fp(RV(x, -0.22, 0.3), RV(x + 12, 0.9, 0.3), T, 0, 1.2); }],
+  [E.c8, (k, T) => { const z = T < E.knock - 0.1 ? lerp(7, 1.3, prog(T, E.c8, E.knock - 0.1)) : 1.3; fp(HM(0, 1.62, z), HM(0, 1.45, -0.2), T, T < E.knock - 0.1 ? 0.8 : 0, 0.4); }],
+  [E.c9, (k, T) => { const z = lerp(1.7, 1.3, ease(k)); fp(HM(0, 1.6, z), HM(0.08, 1.15, -0.7), T, 0, 0.3); }],
 ];
 function shotAt(T) { let i = 0; for (let k = 0; k < SH.length; k++) if (T >= SH[k][0]) i = k; return i; }
-const SECTION = T => { const ci = CLI(T); if (ci === 0 || ci === 4 || ci === 5 || ci === 6) return 'riv'; if (ci >= 7) return 'home'; return 'yard'; };
-function vmPose(T) { const hr = R.handR, hl = R.handL; hr.visible = hl.visible = false; R.key.visible = R.brim.visible = R.idc.visible = R.jkH.visible = R.hood.visible = false; R.note.visible = false; R.sleeveM.color.set('#7a7a82'); const ci = CLI(T);
+const SECTION = T => { const ci = CLI(T); if (ci === 0 || (ci >= 5 && ci <= 7)) return 'riv'; if (ci >= 8) return 'home'; return 'yard'; };
+function vmPose(T) { const hr = R.handR, hl = R.handL; hr.visible = hl.visible = false; R.key.visible = R.brim.visible = R.idc.visible = R.jkH.visible = R.hood.visible = false; R.note.visible = false; R.photo.visible = false; R.sleeveM.color.set('#7a7a82'); const ci = CLI(T);
   const swing = (sp, a) => { const s = S(T * sp); hr.visible = hl.visible = true; hr.position.set(0.18, -0.3 + s * 0.06 * a, -0.38 + s * 0.05 * a); hr.rotation.set(0.4 + s * 0.4 * a, 0.2, -0.2); hl.position.set(-0.2, -0.3 - s * 0.06 * a, -0.4 - s * 0.05 * a); hl.rotation.set(0.4 - s * 0.4 * a, -0.2, 0.2); };
-  if (ci === 1 || ci === 2) swing(9, 0.6);
-  if (ci === 3 || (ci === 4 && T < E.jump)) swing(16, 1.6);
+  if (ci === 1 && T < E.photo - 0.15) swing(8, 0.5);
+  if (ci === 1 && T >= E.photo - 0.15) { const a = ease(prog(T, E.photo - 0.15, E.photo + 0.3)); hr.visible = hl.visible = R.photo.visible = true; R.photo.position.set(0, lerp(-0.42, -0.06, a), -0.6); hr.position.set(0.16, lerp(-0.43, -0.1, a), -0.45); hr.rotation.set(1.3, 0, -0.5); hl.position.set(-0.16, lerp(-0.43, -0.1, a), -0.45); hl.rotation.set(1.3, 0, 0.5); }
+  if (ci === 2 || ci === 3) swing(9, 0.6);
+  if (ci === 4 || (ci === 5 && T < E.jump)) swing(16, 1.6);
   const float = () => { hr.visible = hl.visible = true; const s = S(T * 2); hr.position.set(0.26, -0.18 + 0.03 * s, -0.42); hr.rotation.set(0.2, 0.5, -0.9 + 0.15 * s); hl.position.set(-0.26, -0.18 - 0.03 * s, -0.42); hl.rotation.set(0.2, -0.5, 0.9 - 0.15 * s); };
-  if (ci === 0 || ci === 5 || (ci === 4 && T > E.jump + 0.5)) float();
-  if (ci === 7) { if (T < E.knock - 0.1) swing(8, 0.5); else { hr.visible = true; const kn = [0, 0.28, 0.56].some(d => T > E.knock + d && T < E.knock + d + 0.12); hr.position.set(0.06, -0.12, kn ? -0.5 : -0.4); hr.rotation.set(1.5, 0, 0); } } }
+  if (ci === 0 || ci === 6 || (ci === 5 && T > E.jump + 0.5)) float();
+  if (ci === 8) { if (T < E.knock - 0.1) swing(8, 0.5); else { hr.visible = true; const kn = [0, 0.28, 0.56].some(d => T > E.knock + d && T < E.knock + d + 0.12); hr.position.set(0.06, -0.12, kn ? -0.5 : -0.4); hr.rotation.set(1.5, 0, 0); } } }
 function anim(T) { const ci = CLI(T), sec = SECTION(T); R.yardG.visible = sec === 'yard'; R.riv.visible = sec === 'riv'; R.home.visible = sec === 'home'; R.train.visible = false;
-  R.truck.position.set(DITCH[0], 0, DITCH[2]); R.smoke.forEach(m => m.material.opacity = 0); R.tLamp.intensity = 0; R.slBeam.material.opacity = 0.05; R.dexWin.intensity = 0; R.jk.visible = false; R.guards.forEach(p => p.visible = false); R.driver.visible = false; R.cabCap.visible = false; R.gL.intensity = 0; R.cops.forEach(c => c.material.opacity = 0); R.mug.visible = false; R.cup.visible = false; R.alarm.forEach(a_ => { a_.l.intensity = 0; });
+  R.truck.position.set(DITCH[0], 0, DITCH[2]); R.smoke.forEach(m => m.material.opacity = 0); R.tLamp.intensity = 0; R.slBeam.material.opacity = ci === 1 ? 0.12 : 0.05; R.dexWin.intensity = 0; R.jk.visible = false; R.guards.forEach(p => p.visible = false); R.driver.visible = false; R.cabCap.visible = false; R.gL.intensity = 0; R.mug.visible = false; R.cup.visible = false;
+  R.alarm.forEach((a_, i) => { const on = ci === 1 && Math.floor(T * 4 + i) % 2 === 0; a_.m.material.color.set(on ? '#ff3030' : '#401010'); a_.l.intensity = on ? 14 : 0; }); R.cops.forEach((c, i) => { c.material.opacity = ci === 1 ? (Math.floor(T * 5 + i) % 2 ? 0.95 : 0.15) : 0; });
   R.tLight.intensity = 0; R.tFill.intensity = 0; R.moon.intensity = sec === 'riv' ? 2.2 : 0; R.bankL.intensity = sec === 'riv' ? 18 : 0; R.hSun.intensity = sec === 'home' ? 1.5 : 0; R.hHemi.intensity = sec === 'home' ? 0.7 : 0;
   const fogs = { yard: ['#05060e', 30, 180, '#05060a'], riv: ['#16284a', 6, 60, '#22365e'], home: ['#f4c8a0', 40, 220, '#f4c49a'] }[sec]; scene.fog.color.set(fogs[0]); scene.fog.near = fogs[1]; scene.fog.far = fogs[2]; scene.background.set(fogs[3]);
   const ph = Math.floor(T * 5) % 2; R.pbar[0].material.opacity = ph ? 1 : 0.15; R.pbar[1].material.opacity = ph ? 0.15 : 1; R.pbarL[0].intensity = ph ? 20 : 2; R.pbarL[1].intensity = ph ? 2 : 20;
-  // roadblock: Dex against the car, cops around him; one spots you and lets the dog go
-  R.car.position.set(STOPC, 0, -11.2); R.carL.intensity = 40; R.carWin.scale.y = 0.02;
-  const dx = R.dex, u = dx.userData; pose(dx); attach(dx, R.yardG, STOPC - 0.3, 0, -9.8); dx.rotation.set(0, PI, 0); dx.scale.setScalar(1); u.armL.rotation.set(-2.2, 0, 0); u.armR.rotation.set(-2.2, 0, 0); u.head.rotation.y = 0.4; dx.visible = true;
-  const c = R.gg, g_ = c.userData, g1 = R.guards[0], g2 = R.guards[1]; [c, g1, g2].forEach(p => { pose(p); p.visible = true; });
+  // Dex: beside you in his car (clip 2), then pinned at the roadblock
+  R.car.position.set(carX(T), 0, -11.2); R.carL.intensity = 40; R.carWin.scale.y = 0.02; R.carWin.position.y = 1.05;
+  const dx = R.dex, u = dx.userData; pose(dx); dx.visible = sec === 'yard' && ci >= 2; R.dexEyes.forEach(e => e.material.opacity = 0.5);
+  if (!DEXOUT(T)) { sit(dx); dx.scale.setScalar(0.85); dx.rotation.set(0, -PI / 2, 0); attach(dx, R.car, -0.25, -0.12, 0.4); u.armL.rotation.set(-1.1, 0, 0); u.armR.rotation.set(-1.1, 0, 0); u.armL.userData.e.rotation.x = -0.3; u.armR.userData.e.rotation.x = -0.3; u.head.rotation.y = T < E.walked ? 1.2 : 0; }
+  else { attach(dx, R.yardG, STOPC - 0.3, 0, -9.8); dx.rotation.set(0, PI, 0); dx.scale.setScalar(1); u.armL.rotation.set(-2.2, 0, 0); u.armR.rotation.set(-2.2, 0, 0); u.head.rotation.y = 0.4; }
+  const c = R.gg, g_ = c.userData, g1 = R.guards[0], g2 = R.guards[1]; [c, g1, g2].forEach(p => { pose(p); p.visible = ci >= 3; });
   c.position.set(STOPC + 0.5, 0, -9.6); c.rotation.set(0, -PI / 2, 0); g_.armR.rotation.set(-1.4, 0, 0.2); g2.position.set(STOPC - 0.3, 0, -8.5); g2.rotation.set(0, PI, 0);
   g1.position.set(STOPC - 1.3, 0, -9.3); g1.rotation.set(0, PI / 2, 0); g1.userData.armR.rotation.set(-1.5, 0, 0);
-  const seen = ci > 1 || (ci === 1 && T > E.saw - 0.1); if (seen) { g1.rotation.y = Math.atan2(WALK(T)[0] - g1.position.x, WALK(T)[1] - g1.position.z); g1.userData.armR.rotation.set(-1.6, 0, 0); }
-  if (ci === 2) { g1.userData.up.rotation.x = 0.5 * (1 - prog(T, E.lead, E.lead + 0.4)); }
-  R.ggL.position.set(g1.position.x + 0.3, 1.4, g1.position.z); if (seen) { const w = WALK(T); R.ggLT.position.set(w[0], 1.5, w[1]); } else R.ggLT.position.set(STOPC - 0.3, 1.4, -9.8); R.ggL.intensity = sec === 'yard' ? 16 : 0;
+  const seen = ci > 3 || (ci === 3 && T > E.saw - 0.1); if (seen) { g1.rotation.y = Math.atan2(WALK(T)[0] - g1.position.x, WALK(T)[1] - g1.position.z); g1.userData.armR.rotation.set(-1.6, 0, 0); }
+  if (ci === 3 && T > E.lead - 0.3) g1.userData.up.rotation.x = 0.5 * (1 - prog(T, E.lead, E.lead + 0.4));
+  R.ggL.position.set(g1.position.x + 0.3, 1.4, g1.position.z); if (seen) { const w = WALK(T); R.ggLT.position.set(w[0], 1.5, w[1]); } else R.ggLT.position.set(STOPC - 0.3, 1.4, -9.8); R.ggL.intensity = sec === 'yard' && ci >= 3 ? 16 : 0;
   // the dog: at the cop's side, released, chasing you through the trees
-  const d = R.dog; d.visible = sec === 'yard' && ci >= 1; dogStill(d, T, false); d.position.set(STOPC - 0.9, 0, -8.8); d.rotation.y = PI / 2;
-  if (ci === 2) { const k = prog(T, E.lead, E.c3); const w = WALK(T); d.position.set(lerp(STOPC - 0.9, w[0] - 3, k), 0, lerp(-8.8, w[1] - 0.6, k)); d.rotation.y = Math.atan2(w[0] - d.position.x, w[1] - d.position.z); if (k > 0) dogRun(d, T); else { dogStill(d, T, false); d.userData.head.rotation.x = -0.3; } }
-  if (ci === 3) { const p = RUN(T), k = prog(T, E.c3, E.c4); d.position.set(p[0] + 0.4, 0, p[1] - lerp(8, 2.6, k)); d.rotation.y = 0; dogRun(d, T); }
+  const d = R.dog; d.visible = sec === 'yard' && ci >= 3; dogStill(d, T, false); d.position.set(STOPC - 0.9, 0, -8.8); d.rotation.y = PI / 2;
+  if (ci === 3 && T > E.lead) { const k = prog(T, E.lead, E.c4); const w = WALK(T); d.position.set(lerp(STOPC - 0.9, w[0] - 3, k), 0, lerp(-8.8, w[1] - 0.6, k)); d.rotation.y = Math.atan2(w[0] - d.position.x, w[1] - d.position.z); dogRun(d, T); }
+  if (ci === 4) { const p = RUN(T), k = prog(T, E.c4, E.c5); d.position.set(p[0] + 0.4, 0, p[1] - lerp(8, 2.6, k)); d.rotation.y = 0; dogRun(d, T); }
   // river: dog sniffing the bank, cop's torch on the water; then the dog gives up
-  const rd = R.rdog; rd.visible = ci === 0 || ci === 5; R.rcop.visible = rd.visible; R.torch.intensity = rd.visible ? 30 : 0;
+  const rd = R.rdog; rd.visible = ci === 0 || ci === 6; R.rcop.visible = rd.visible; R.torch.intensity = rd.visible ? 30 : 0;
   rd.position.set(0.3, 0, -3.5); rd.rotation.y = 0; dogStill(rd, T, true); pose(R.rcop); R.rcop.position.set(-1.6, 0, -5.4); R.rcop.rotation.y = 0.3; R.rcop.userData.armR.rotation.set(-1.3, 0, 0);
   R.torch.position.set(-1.4, 1.5, -5.0); R.torchT.position.set(0.3 + 1.5 * S(T * 1.3), -0.5, 0.5);
-  if (ci === 5) { const arrive = prog(T, E.c5, E.c5 + 0.8); if (arrive < 1) { rd.position.z = lerp(-9, -3.5, arrive); dogRun(rd, T); } if (T > E.scent) { const a = prog(T, E.scent, E.c6); rd.rotation.y = PI * Math.min(1, a * 3); rd.position.z = -3.5 - 3 * Math.max(0, a - 0.3); dogStill(rd, T, false); if (a > 0.3) dogRun(rd, T, 0.6); } }
+  if (ci === 6) { const arrive = prog(T, E.c6, E.c6 + 0.8); if (arrive < 1) { rd.position.z = lerp(-9, -3.5, arrive); dogRun(rd, T); } if (T > E.scent) { const a = prog(T, E.scent, E.c7); rd.rotation.y = PI * Math.min(1, a * 3); rd.position.z = -3.5 - 3 * Math.max(0, a - 0.3); dogStill(rd, T, false); if (a > 0.3) dogRun(rd, T, 0.6); } }
   // home: door opens, wife, then the girl peeks out
-  R.hall.intensity = sec === 'home' ? 8 : 0; R.hdoor.rotation.y = ci === 8 ? 1.6 * ease(prog(T, E.c8, E.opens + 0.5)) : 0;
-  const wf = R.wife, wu = wf.userData, gl = R.girl, gu = gl.userData; pose(wf); pose(gl); wf.visible = gl.visible = ci === 8; wf.position.set(0.05, 0, -0.55); wf.rotation.y = 0;
-  if (ci === 8) { const h = ease(prog(T, E.opens + 0.3, E.opens + 0.8)) * (1 - ease(prog(T, E.girl, E.girl + 0.6))); wu.armR.rotation.set(-0.7 * h, 0, 0.35 * h); wu.armR.userData.e.rotation.x = -2.4 * h; wu.armL.rotation.set(-0.7 * h, 0, -0.35 * h); wu.armL.userData.e.rotation.x = -2.4 * h; wu.head.rotation.x = -0.05;
+  R.hall.intensity = sec === 'home' ? 8 : 0; R.hdoor.rotation.y = ci === 9 ? 1.6 * ease(prog(T, E.c9, E.opens + 0.5)) : 0;
+  const wf = R.wife, wu = wf.userData, gl = R.girl, gu = gl.userData; pose(wf); pose(gl); wf.visible = gl.visible = ci === 9; wf.position.set(0.05, 0, -0.55); wf.rotation.y = 0;
+  if (ci === 9) { const h = ease(prog(T, E.opens + 0.3, E.opens + 0.8)) * (1 - ease(prog(T, E.girl, E.girl + 0.6))); wu.armR.rotation.set(-0.7 * h, 0, 0.35 * h); wu.armR.userData.e.rotation.x = -2.4 * h; wu.armL.rotation.set(-0.7 * h, 0, -0.35 * h); wu.armL.userData.e.rotation.x = -2.4 * h; wu.head.rotation.x = -0.05;
     const reach = ease(prog(T, E.girl + 0.4, E.girl + 1.4)); if (reach > 0) { wu.armR.rotation.set(-1.2 * reach, 0, 0); wu.armL.rotation.set(-1.2 * reach, 0, 0); wf.position.z = -0.55 + 0.25 * reach; } wu.mouth.scale.y = T > E.girl ? 0.5 : 2.2 * h + 1;
     const pk = ease(prog(T, E.behind, E.behind + 0.6)); gl.position.set(lerp(0.0, 0.42, pk), 0, -0.95); gl.rotation.y = -0.3 * pk; gu.up.rotation.z = 0.25 * pk; gu.armL.rotation.set(-0.4, 0, 0); gu.head.rotation.z = 0.2 * pk; }
   vmPose(T); }
-window.DBG = (t) => { const c = camera.position; return JSON.stringify({ ci: CLI(t), sec: SECTION(t), cam: [c.x, c.y, c.z].map(v => +v.toFixed(2)), hv: R.home.visible, wife: R.wife.visible, wifeP: R.wife.getWorldPosition(new T3.Vector3()).toArray().map(v => +v.toFixed(2)), hr: R.handR.visible, fog: [scene.fog.near, scene.fog.far] }); };
 function shot(T) { const si = shotAt(T), sh = SH[si], t0 = sh[0], t1 = si + 1 < SH.length ? SH[si + 1][0] : TM.total; camera.fov = 62; camera.updateProjectionMatrix(); anim(T); sh[1](prog(T, t0, t1), T); return { si, t0 }; }
 // ---------- overlay ----------
 function txt(s_, x, y, size, col, align = 'center', font = 'Russo') { octx.font = `${size}px ${font}`; octx.fillStyle = col; octx.textAlign = align; octx.textBaseline = 'middle'; octx.fillText(s_, x, y); }
 function big(s_, y, size, col, a = 1, x = 360) { if (a <= 0) return; octx.save(); octx.globalAlpha = Math.min(1, a); octx.font = `${size}px Russo`; octx.textAlign = 'center'; octx.textBaseline = 'middle'; octx.lineJoin = 'round'; octx.lineWidth = size * 0.2; octx.strokeStyle = 'rgba(4,4,8,0.92)'; const sc = a < 1 ? 1 + (1 - a) * 0.35 : 1; octx.translate(x, y); octx.scale(sc, sc); octx.strokeText(s_, 0, 0); octx.fillStyle = col; octx.fillText(s_, 0, 0); octx.restore(); }
 function nameTag(name, role, col, a, y = 860) { if (a <= 0) return; octx.save(); octx.globalAlpha = Math.min(1, a); octx.font = '40px Russo'; const w = Math.max(octx.measureText(name).width, 200) + 70; const x = 360 - w / 2; octx.fillStyle = 'rgba(6,6,10,0.86)'; octx.beginPath(); octx.roundRect(x, y - 46, w, 98, 16); octx.fill(); octx.fillStyle = col; octx.fillRect(x, y - 46, 8, 98); txt(name, 364, y - 10, 40, col); txt(role, 364, y + 30, 22, '#c8c8d2'); octx.restore(); }
-function hud(T) { const ci = CLI(T); if (ci >= 6) return; octx.save(); octx.fillStyle = 'rgba(6,6,10,0.8)'; octx.beginPath(); octx.roundRect(24, 36, 270, 64, 32); octx.fill(); octx.strokeStyle = '#ffd27a'; octx.lineWidth = 3; octx.stroke(); txt('ESCAPE . FINALE', 159, 69, 26, '#ffd27a'); octx.restore();
+function hud(T) { const ci = CLI(T); if (ci >= 7) return; octx.save(); octx.fillStyle = 'rgba(6,6,10,0.8)'; octx.beginPath(); octx.roundRect(24, 36, 270, 64, 32); octx.fill(); octx.strokeStyle = '#ffd27a'; octx.lineWidth = 3; octx.stroke(); txt('ESCAPE . FINALE', 159, 69, 26, '#ffd27a'); octx.restore();
   octx.save(); octx.fillStyle = 'rgba(6,6,10,0.8)'; octx.beginPath(); octx.roundRect(496, 36, 200, 64, 32); octx.fill(); txt('2.47 AM', 596, 69, 32, '#ff3a2a'); octx.restore();
-  if (ci >= 2 && ci <= 4 || ci === 0) { const dist = ci === 0 ? 2 : ci === 2 ? 20 : ci === 3 ? Math.round(lerp(14, 3, prog(T, E.c3, E.c4))) : 3; octx.save(); octx.fillStyle = Math.floor(T * 4) % 2 ? 'rgba(150,0,0,0.92)' : 'rgba(100,0,0,0.92)'; octx.beginPath(); octx.roundRect(470, 116, 226, 80, 22); octx.fill(); txt('K9 UNIT', 583, 142, 20, '#ffb0a0'); txt(ci === 4 && T > E.jump ? 'LOST YOU?' : 'DOG ' + dist + ' M', 583, 174, 28, '#fff'); octx.restore(); } }
+  if ((ci === 3 && T > E.lead) || ci === 4 || ci === 5 || ci === 0) { const dist = ci === 0 ? 2 : ci === 3 ? 20 : ci === 4 ? Math.round(lerp(14, 3, prog(T, E.c4, E.c5))) : 3; octx.save(); octx.fillStyle = Math.floor(T * 4) % 2 ? 'rgba(150,0,0,0.92)' : 'rgba(100,0,0,0.92)'; octx.beginPath(); octx.roundRect(470, 116, 226, 80, 22); octx.fill(); txt('K9 UNIT', 583, 142, 20, '#ffb0a0'); txt(ci === 5 && T > E.jump ? 'LOST YOU?' : 'DOG ' + dist + ' M', 583, 174, 28, '#fff'); octx.restore(); } }
 function likePill(T, l0, l1, fT) { if (T < l0 - 0.15 || T > l1 + 0.2) return; const k = ease(prog(T, l0 - 0.15, l0 + 0.15)) * (1 - ease(prog(T, l1 - 0.1, l1 + 0.2))); octx.save(); octx.globalAlpha = k; octx.fillStyle = 'rgba(8,8,12,0.88)'; octx.beginPath(); octx.roundRect(170, 920, 380, 70, 35); octx.fill(); octx.strokeStyle = '#ff9a5a'; octx.lineWidth = 3; octx.stroke();
   octx.fillStyle = '#ff5a6a'; octx.save(); octx.translate(216, 955); octx.beginPath(); octx.moveTo(0, 12); octx.bezierCurveTo(-26, -6, -12, -26, 0, -12); octx.bezierCurveTo(12, -26, 26, -6, 0, 12); octx.fill(); octx.restore(); txt('LIKE', 270, 956, 24, '#fff'); const fo = T > fT; octx.fillStyle = fo ? '#5ad88a' : '#ff9a5a'; octx.beginPath(); octx.roundRect(340, 933, 190, 44, 22); octx.fill(); txt(fo && T > fT + 0.3 ? 'FOLLOWING' : '+ FOLLOW', 435, 956, 20, '#0a0a10'); octx.restore(); }
 const SEQ = [[['ten', 'minutes'], '10 minutes']];
@@ -405,7 +414,7 @@ window.initFootball = async function () {
 window.DURATION = TM.total;
 window.renderFrame = function (T) { const ci = CLI(T); const { si, t0 } = shot(T); const loop = T >= E.loop; renderer.render(scene, camera);
   octx.globalCompositeOperation = 'source-over'; octx.globalAlpha = 1; octx.filter = 'contrast(1.1) saturate(1.05)'; octx.drawImage(glc, 0, 0, W, H); octx.filter = 'blur(2px)'; octx.globalAlpha = 0.12; octx.drawImage(glc, 0, 0, W, H); octx.globalAlpha = 1; octx.filter = 'none';
-  const tk = prog(T, t0, t0 + 0.16); if (si > 0 && tk < 1 && !loop && ![2, 5, 6].includes(si)) { SNAP.getContext('2d').drawImage(out, 0, 0); for (let i = 1; i <= 4; i++) { const sc = 1 + (1 - tk) * 0.04 * i; octx.globalAlpha = 0.2 * (1 - tk); octx.drawImage(SNAP, 360 - 360 * sc, 640 - 640 * sc, W * sc, H * sc); } octx.globalAlpha = 1; }
+  const tk = prog(T, t0, t0 + 0.16); if (si > 0 && tk < 1 && !loop && ![2, 5, 7, 8].includes(si)) { SNAP.getContext('2d').drawImage(out, 0, 0); for (let i = 1; i <= 4; i++) { const sc = 1 + (1 - tk) * 0.04 * i; octx.globalAlpha = 0.2 * (1 - tk); octx.drawImage(SNAP, 360 - 360 * sc, 640 - 640 * sc, W * sc, H * sc); } octx.globalAlpha = 1; }
   sctx.filter = 'brightness(0.65) contrast(2.3)'; sctx.drawImage(out, 0, 0, 90, 160); sctx.filter = 'none'; octx.globalCompositeOperation = 'screen'; octx.globalAlpha = 0.35; octx.drawImage(small, 0, 0, W, H); octx.globalAlpha = 1;
   octx.globalCompositeOperation = 'overlay'; octx.globalAlpha = 0.07; octx.drawImage(GRAIN, -Math.floor(Math.random() * 300), -Math.floor(Math.random() * 300), W + 300, H + 300); octx.globalAlpha = 1; octx.globalCompositeOperation = 'source-over';
   const fl = flashAt(T); if (fl > 0) { octx.fillStyle = `rgba(210,225,255,${0.3 * fl})`; octx.fillRect(0, 0, W, H); }
@@ -413,19 +422,23 @@ window.renderFrame = function (T) { const ci = CLI(T); const { si, t0 } = shot(T
   const under = SECTION(T) === 'riv' && camera.position.y < RIVW[1] - 0.5;
   if (under) { octx.fillStyle = 'rgba(20,80,120,0.3)'; octx.fillRect(0, 0, W, H); octx.save(); octx.globalAlpha = 0.07; for (let i = 0; i < 5; i++) { const x = 120 + i * 130 + 30 * S(T + i); octx.fillStyle = '#9ad8ff'; octx.beginPath(); octx.moveTo(x - 30, 0); octx.lineTo(x + 30, 0); octx.lineTo(x + 90, H); octx.lineTo(x - 10, H); octx.fill(); } octx.restore();
     octx.save(); octx.strokeStyle = 'rgba(220,240,255,0.7)'; octx.lineWidth = 2; R.bubbles.forEach(b => { const ph = (T * 0.25 + b.ph) % 1; octx.beginPath(); octx.arc(b.x * W + 20 * S(T * 3 + b.ph * 9), H - ph * H * 1.1, b.s, 0, PI * 2); octx.stroke(); }); octx.restore(); }
-  if (ci >= 2 && ci <= 4 && !under) { const hb = Math.max(0, S(T * 9)) ** 4; const vg = octx.createRadialGradient(360, 640, 300, 360, 640, 820); vg.addColorStop(0, 'rgba(0,0,0,0)'); vg.addColorStop(1, `rgba(150,0,0,${0.25 + 0.3 * hb})`); octx.fillStyle = vg; octx.fillRect(0, 0, W, H); }
-  if (ci === 3) { const r_ = rng(Math.floor(T * 3)); if (r_() < 0.45) { octx.save(); octx.strokeStyle = 'rgba(12,24,14,0.85)'; octx.lineCap = 'round'; octx.lineWidth = 26 + r_() * 30; const x0 = r_() * W; octx.beginPath(); octx.moveTo(x0, -20); octx.lineTo(x0 + (r_() - 0.5) * 500, H * (0.4 + r_() * 0.5)); octx.stroke(); octx.restore(); } }
-  if (ci === 4 && T > E.jump + 0.42 && T < E.jump + 0.75) { octx.fillStyle = `rgba(235,250,255,${1 - prog(T, E.jump + 0.42, E.jump + 0.75)})`; octx.fillRect(0, 0, W, H); }
-  if (ci === 6) { const a = 1 - prog(T, E.c6, E.c6 + 0.4); octx.fillStyle = `rgba(8,50,80,${0.6 * a})`; octx.fillRect(0, 0, W, H); }
-  if (ci === 7) { const a = 1 - prog(T, E.c7, E.c7 + 0.8); octx.fillStyle = `rgba(255,236,200,${a})`; octx.fillRect(0, 0, W, H); }
-  if (ci === 8) { const a = prog(T, E.eyes, E.eyes + 2.2); const vg = octx.createRadialGradient(360, 640, 200, 360, 640, 820); vg.addColorStop(0, 'rgba(255,220,170,0)'); vg.addColorStop(1, `rgba(255,220,170,${0.35 * a})`); octx.fillStyle = vg; octx.fillRect(0, 0, W, H); }
+  if (((ci === 3 && T > E.saw - 0.1) || ci === 4 || ci === 5) && !under) { const hb = Math.max(0, S(T * 9)) ** 4; const vg = octx.createRadialGradient(360, 640, 300, 360, 640, 820); vg.addColorStop(0, 'rgba(0,0,0,0)'); vg.addColorStop(1, `rgba(150,0,0,${0.25 + 0.3 * hb})`); octx.fillStyle = vg; octx.fillRect(0, 0, W, H); }
+  if (ci === 4) { const r_ = rng(Math.floor(T * 3)); if (r_() < 0.45) { octx.save(); octx.strokeStyle = 'rgba(12,24,14,0.85)'; octx.lineCap = 'round'; octx.lineWidth = 26 + r_() * 30; const x0 = r_() * W; octx.beginPath(); octx.moveTo(x0, -20); octx.lineTo(x0 + (r_() - 0.5) * 500, H * (0.4 + r_() * 0.5)); octx.stroke(); octx.restore(); } }
+  if (ci === 5 && T > E.jump + 0.42 && T < E.jump + 0.75) { octx.fillStyle = `rgba(235,250,255,${1 - prog(T, E.jump + 0.42, E.jump + 0.75)})`; octx.fillRect(0, 0, W, H); }
+  if (ci === 7) { const a = 1 - prog(T, E.c7, E.c7 + 0.4); octx.fillStyle = `rgba(8,50,80,${0.6 * a})`; octx.fillRect(0, 0, W, H); }
+  if (ci === 8) { const a = 1 - prog(T, E.c8, E.c8 + 0.8); octx.fillStyle = `rgba(255,236,200,${a})`; octx.fillRect(0, 0, W, H); }
+  if (ci === 9) { const a = prog(T, E.eyes, E.eyes + 2.2); const vg = octx.createRadialGradient(360, 640, 200, 360, 640, 820); vg.addColorStop(0, 'rgba(255,220,170,0)'); vg.addColorStop(1, `rgba(255,220,170,${0.35 * a})`); octx.fillStyle = vg; octx.fillRect(0, 0, W, H); }
   hud(T);
+  const tag = (s1, s2, col, a) => { octx.save(); octx.globalAlpha = a; octx.fillStyle = 'rgba(6,6,10,0.85)'; octx.beginPath(); octx.roundRect(150, 560, 420, 96, 24); octx.fill(); octx.strokeStyle = col; octx.lineWidth = 3; octx.stroke(); txt(s1, 360, 592, 30, col); txt(s2, 360, 630, 22, '#fff'); octx.restore(); };
   if (ci === 0) big("DON'T BREATHE", 480, 64, '#ff4a4a', 1);
-  if (ci === 1 && T > E.saw - 0.1) big('HE SAW YOU', 480, 64, '#ff4a4a', prog(T, E.saw - 0.1, E.saw + 0.1));
-  if (ci === 2) big('K9 RELEASED', 480, 64, '#ff4a4a', prog(T, E.c2, E.c2 + 0.15));
-  if (ci === 4 && T > E.jump - 0.1 && T < E.jump + 0.45) big('JUMP', 480, 110, '#fff', prog(T, E.jump - 0.1, E.jump + 0.05));
-  if (ci === 5 && T > E.scent - 0.1) big('SCENT LOST', 480, 66, '#5ad88a', prog(T, E.scent - 0.1, E.scent + 0.1));
-  if (ci === 7 && T > E.three - 0.1) big('3 YEARS', 480, 70, '#ffd27a', prog(T, E.three - 0.1, E.three + 0.1));
-  if (ci === 8 && T > E.eyes + 0.6) big('HOME', 150, 80, '#ffd27a', prog(T, E.eyes + 0.6, E.eyes + 1.2));
+  if (ci === 1) { big('INNOCENT', 480, 70, '#5ad88a', prog(T, AT(1, 'innocent') - 0.1, AT(1, 'innocent') + 0.1)); }
+  if (ci === 2) { if (T < E.betrayed - 0.1) tag('DEX', 'YOUR CELLMATE', '#ffad6a', prog(T, AT(2, 'dex') - 0.1, AT(2, 'dex') + 0.1)); else if (T < E.walked - 0.1) big('HE BETRAYED YOU', 480, 50, '#ff4a4a', prog(T, E.betrayed - 0.1, E.betrayed + 0.1)); else big('YOU WALK AWAY', 480, 54, '#fff', prog(T, E.walked - 0.1, E.walked + 0.1)); }
+  if (ci === 3 && T < E.saw - 0.1) big('ROADBLOCK', 480, 64, '#ff4a4a', prog(T, AT(3, 'roadblock') - 0.1, AT(3, 'roadblock') + 0.1));
+  if (ci === 3 && T > E.saw - 0.1 && T < E.lead - 0.1) big('HE SAW YOU', 480, 64, '#ff4a4a', prog(T, E.saw - 0.1, E.saw + 0.1));
+  if (ci === 3 && T > E.lead - 0.1) big('K9 RELEASED', 480, 64, '#ff4a4a', prog(T, E.lead - 0.1, E.lead + 0.1));
+  if (ci === 5 && T > E.jump - 0.1 && T < E.jump + 0.45) big('JUMP', 480, 110, '#fff', prog(T, E.jump - 0.1, E.jump + 0.05));
+  if (ci === 6 && T > E.scent - 0.1) big('SCENT LOST', 480, 66, '#5ad88a', prog(T, E.scent - 0.1, E.scent + 0.1));
+  if (ci === 8 && T > E.three - 0.1) big('3 YEARS', 480, 70, '#ffd27a', prog(T, E.three - 0.1, E.three + 0.1));
+  if (ci === 9 && T > E.eyes + 0.6) big('HOME', 150, 80, '#ffd27a', prog(T, E.eyes + 0.6, E.eyes + 1.2));
   const cap = CAPS.find(c => T >= c.a && T < c.b); if (cap && !loop) caption(cap); };
 })();
