@@ -1,4 +1,4 @@
-# Prison escape Part 6 (vote B, through the gate): SFX + low music bed, under the narration
+# Prison escape Part 7 finale (vote B, keep walking): SFX + low music bed, under the narration
 import json, numpy as np, soundfile as sf
 SR = 44100
 TM = json.load(open('timing.json')); CL = TM['clips']; D = TM['total']; N = int(SR * D); t = np.arange(N) / SR; rng = np.random.default_rng(77)
@@ -24,37 +24,31 @@ def thump(at, amp=0.5, f=50, d=18): n = int(0.35 * SR); x = np.arange(n) / SR; a
 def sting(at, f=98, amp=0.07): m = int(2.2 * SR); x = np.arange(m) / SR; add(at, (np.sin(2 * np.pi * f * x) + np.sin(2 * np.pi * f * 1.06 * x) + 0.5 * np.sin(2 * np.pi * f * 2 * x)) * env(m, 0.01, 1.3) * amp)
 def creak(at, dur=1.0, f0=200, amp=0.06): m = int(dur * SR); x = np.arange(m) / SR; add(at, ma(np.sign(np.sin(2 * np.pi * np.cumsum(f0 + 60 * np.sin(x * 5)) / SR)), 6) * np.hanning(m) * amp)
 S0 = [c['start'] for c in CL]
-E = dict(c1=S0[1], id=wt(1, 'handed'), lifted=wt(2, 'then', 1), c3=S0[3], swap=wt(3, 'swap'), c4=S0[4], ditch=wt(4, 'you'), c5=S0[5], sirens=wt(5, 'sirens'), c6=S0[6], window=wt(6, 'the'), c7=S0[7], dex=wt(7, 'dex'),
-         optA=S0[8], optB=wt(8, 'option', 1), comment=wt(8, 'comment'))
-out += (nz(D, 2) - nz(D, 10)) * 0.01 + nz(D, 60) * 0.015  # night air
-def clunk(at): thump(at, 0.5, 120, 40); tone(at, 0.06, 900, 0.03, 50)
+E = dict(c1=S0[1], c2=S0[2], rb=wt(2, 'roadblock'), c3=S0[3], c4=S0[4], past=wt(4, 'past'), c5=S0[5], c6=S0[6], note=wt(6, 'note'), welcome=wt(6, "you're"), c7=S0[7], comment=wt(7, 'comment'))
+night = t < E['c5']; out += ((nz(D, 2) - nz(D, 10)) * 0.01 + nz(D, 60) * 0.015) * night  # night air
 def scrape(at, dur=0.35, amp=0.05): m = int(dur * SR); add(at, (nz(dur, 1) - nz(dur, 5)) * np.hanning(m) * amp)
 def rustle(at, dur=0.8, amp=0.06): m = int(dur * SR); add(at, (nz(dur, 1) - nz(dur, 3)) * np.abs(np.sin(np.linspace(0, 7 * np.pi, m))) * np.hanning(m) * amp)
-# truck engine: driving (clip 0 and 2 end), idling at gate, pulled over, off at the ditch
-lvl = np.interp(t, [0, E['c1'] - 0.1, E['c1'], E['lifted'], E['lifted'] + 0.8, E['c3'] - 0.1, E['c3'], E['c4'] - 0.3, E['c4']], [2.0, 2.0, 1.0, 1.0, 2.0, 2.0, 0.8, 0.8, 0])
-eng = (np.sin(2 * np.pi * np.cumsum(36 * lvl) / SR) * 0.03 + ma(rng.normal(0, 1, N), 40) * 0.05 * lvl) * (lvl > 0)
-road = (nz(D, 3) - nz(D, 25)) * 0.02 * np.clip(lvl - 1, 0, 1); out += eng + road
-tone(E['c1'] + 0.05, 0.5, 2200, 0.01, 8)  # brakes at the gate
-scrape(E['id'] + 0.1, 0.25, 0.03)  # card passed over
-creak(E['lifted'] + 0.05, 0.9, 180, 0.05); clunk(E['lifted'] + 0.95)  # barrier lifts
-thump(E['c3'] + 0.2, 0.3, 60, 12)  # handbrake
-rustle(E['c3'] + 1.0, 1.4, 0.05); rustle(E['swap'] - 0.1, 1.2, 0.07)  # digging through laundry bags, changing
-thump(E['c4'] - 0.2, 0.25, 160, 30); thump(E['ditch'] + 0.2, 0.3, 90, 20)  # door, truck into the bushes
-for k in range(4): rustle(E['ditch'] + 0.4 + k * 0.3, 0.25, 0.04)  # branches
-# footsteps on gravel while walking (clips 4-6)
-st = E['ditch'] + 0.8
-while st < E['window'] - 0.2: add(st, (nz(0.08, 1) - nz(0.08, 4)) * env(int(0.08 * SR), 0.002, 40) * 0.06); st += 0.48
-# sirens far behind
-i0 = int((E['sirens'] - 0.3) * SR); xx = np.arange(N - i0) / SR; f = 700 + 250 * np.sin(2 * np.pi * 0.35 * xx)
-out[i0:] += np.sin(2 * np.pi * np.cumsum(f) / SR) * 0.012 * np.clip(xx * 0.8, 0, 1)
-# car approaches from behind and stops
-n = int((E['window'] - E['c6'] + 0.4) * SR); x = np.arange(n) / SR; k = x / x[-1]; ce = np.clip(k * 1.2, 0, 1) ** 2 * (1 - np.clip((k - 0.85) * 6, 0, 1) * 0.6)
-add(E['c6'] - 0.4, ((nz(n / SR, 3) - nz(n / SR, 30)) * 0.08 + np.sin(2 * np.pi * np.cumsum(42 + 20 * (1 - k)) / SR) * 0.03) * ce)
-tone(E['window'] - 0.15, 0.4, 1800, 0.008, 6)  # brakes
-i1 = int((E['window'] - 0.1) * SR); out[i1:] += np.sin(2 * np.pi * 34 * t[i1:]) * 0.02 + ma(rng.normal(0, 1, N - i1), 50) * 0.03  # car idling
-m = int(0.9 * SR); x = np.arange(m) / SR; add(E['window'] + 0.05, (np.sign(np.sin(2 * np.pi * 120 * x)) * 0.5 + nz(0.9, 4)) * np.hanning(m) * 0.02)  # window motor
-sting(E['dex'], 98, 0.08)
-tone(E['optA'] + 0.2, 0.2, 660, 0.05, 12); tone(E['optB'], 0.2, 990, 0.05, 12); tone(E['comment'], 0.2, 880, 0.04, 12)
+def step(at, amp=0.06): add(at, (nz(0.08, 1) - nz(0.08, 4)) * env(int(0.08 * SR), 0.002, 40) * amp)
+# footsteps whenever you walk (clips 0-4)
+k = 0.1
+while k < E['c5'] - 0.2: step(k, 0.07 if (k < E['c1'] or k > E['c3']) else 0.05); k += 0.48
+for k in range(6): rustle(E['c4'] + 0.3 + k * 0.5, 0.35, 0.05)  # branches in the trees
+# roadblock: siren whoops, radio crackle, car door, Dex hauled out
+for at in (0.3, E['c3'] + 0.4): m = int(0.6 * SR); x = np.arange(m) / SR; add(at, np.sin(2 * np.pi * np.cumsum(600 + 500 * x / 0.6) / SR) * np.hanning(m) * 0.02)
+for at in (1.0, E['c3'] + 1.6, E['c4'] + 0.8): add(at, (nz(0.5, 1) - nz(0.5, 2)) * (np.random.default_rng(int(at * 10)).random(int(0.5 * SR)) > 0.6) * 0.03)  # radio
+thump(0.25, 0.4, 150, 30); thump(1.5, 0.35, 90, 20)  # door, Dex against the car
+# clip 1: car idling beside you, then pulls away; clip 2: drives off and brakes at the roadblock
+lvl = np.interp(t, [E['c1'], E['c2'] - 0.5, E['c2'], E['rb'], E['rb'] + 0.5, E['c3']], [0.8, 0.8, 2.2, 2.0, 0.7, 0.4]) * ((t > E['c1']) & (t < E['c3']))
+fade = np.interp(t, [E['c2'], E['c3']], [1, 0.45]); out += (np.sin(2 * np.pi * np.cumsum(34 * np.maximum(lvl, 0.5)) / SR) * 0.03 + ma(rng.normal(0, 1, N), 40) * 0.04 * lvl) * fade
+tone(E['rb'] + 0.1, 0.5, 1900, 0.006, 6)  # distant brakes
+# train: rhythmic wheel clatter + hum from sunrise on
+i0 = int(E['c5'] * SR); out[i0:] += (np.sin(2 * np.pi * 55 * t[i0:]) * 0.01 + ma(rng.normal(0, 1, N - i0), 30) * 0.02)
+k = E['c5']
+while k < D - 0.5: thump(k, 0.12, 70, 30); thump(k + 0.16, 0.1, 70, 30); k += 1.1
+# paper unfolding, then a warm ending sting
+rustle(E['c6'] + 0.2, 0.7, 0.07)
+tone(E['welcome'], 1.6, 523, 0.02, 1.5); tone(E['welcome'] + 0.05, 1.6, 659, 0.016, 1.5); tone(E['welcome'] + 0.1, 1.6, 784, 0.014, 1.5)
+tone(E['comment'], 0.2, 880, 0.04, 12)
 # ---------- low tense music bed (original, generated here) ----------
 mus = np.zeros(N); beat = 60 / 92
 for root_i, tb in enumerate(np.arange(0, D, beat * 8)):

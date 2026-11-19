@@ -13,13 +13,13 @@ def whisper(a, SR=24000):
 
 VOICE = sys.argv[1] if len(sys.argv) > 1 else 'am_michael'
 VO = [
- "Don't blink. ~ The cop has your mugshot in his hand.",
- "Ten minutes ago, ~ you kept walking. ~ But Dex rolled along beside you.",
- "Get in, ~ he said. ~ They're checking everyone on foot. ~ So you got in.",
- "Now the cop looks at the photo. ~ Then at you. ~ Then at Dex.",
- "Dex hands him a coffee, ~ and says, ~ evening, little brother.",
- "The cop smiles, ~ and waves you through.",
+ "Don't look. ~ The cops just pulled Dex out of his car.",
+ "Ten minutes ago, ~ you kept walking, ~ and pretended you didn't know him.",
+ "So he drove off, ~ straight into a police roadblock.",
+ "Now every cop is looking at Dex. ~ Nobody is looking at you.",
+ "So you slip into the trees, ~ past the roadblock, ~ and into the city.",
  "By sunrise, ~ you're on a train, ~ watching the city disappear.",
+ "In your pocket, ~ there's a note from Dex. ~ It just says, ~ you're welcome.",
  "Seven parts. ~ One escape. ~ And you made every choice. ~ Comment what we escape next.",
 ]
 
