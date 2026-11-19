@@ -123,6 +123,7 @@ Fast cuts (1–2s per beat), punchy SFX (boing, snap, crunch) on each fail, stif
 - Pay off earlier mysteries instead of piling on new ones.
 - Show rules as a quick on-screen recap in later parts instead of reading them all out again.
 - Use a fixed season length (for example "Night 1/7"), so viewers know where they are.
+- **Finales (user feedback, 19 Nov 2026):** a finale must be the most intense part AND end on an emotional REWARD the viewer waited for (e.g. the escaped prisoner finally sees his wife, and meets the daughter he never knew). Put the protagonist through a real ordeal on the way (chase, dog, river jump), not an easy walk. NEVER end on a recap outro ("7 parts, all your choices" kills retention). End on the reward moment itself, held for 2-3 seconds, with no ask, or one tiny ask at most.
 
 ---
 
