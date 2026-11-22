@@ -32,28 +32,23 @@ def cash(at): tone(at, 0.08, 2600, 0.03, 30); tone(at + 0.07, 0.25, 3300, 0.025,
 def hammer(at): thump(at, 0.35, 220, 40); tone(at, 0.05, 1800, 0.015, 60)
 def swish(at, dur=0.3, amp=0.05): m = int(dur * SR); add(at, (nz(dur, 1) - nz(dur, 4)) * np.hanning(m) * amp)
 def hiss(at, dur=0.7, amp=0.04): m = int(dur * SR); add(at, (nz(dur, 1) - nz(dur, 2)) * np.hanning(m) * amp)
-E = dict(roof=wt(1, 'roof')[0], painted=wt(1, 'painted')[0], fancy=wt(1, 'fancy')[0], snake=wt(2, 'snake')[0], washed=wt(3, 'washed')[0], watered=wt(3, 'watered')[0], paid=wt(3, 'paid')[0], lit=wt(5, 'lit')[0], indoors=wt(5, 'indoors')[0], blew=wt(6, 'blew')[0], surv=wt(7, 'survived')[0])
+E = dict(stairs=wt(1, 'stairs')[0], roof=wt(1, 'roof')[0], railing=wt(1, 'railing')[0], wall=wt(1, 'bedroom')[0] + 0.25, peach=wt(2, 'peach')[0], reps=wt(3, 'reps')[0], hid=wt(3, 'hid')[0], fed=wt(3, 'fed')[0], day=wt(4, 'day')[0], c4=S0[4], blew=wt(5, 'blew')[0], surv=wt(6, 'survived')[0])
 boom = E['blew'] - 0.05
-# hook: fuse fizz in his hand
-m = int(3.6 * SR); add(0.1, (nz(3.6, 1) - nz(3.6, 3)) * (0.6 + 0.4 * np.abs(np.sin(np.arange(m) / SR * 40))) * 0.012)
-# fixing up: hammering, paint swishes, couch thud, each purchase rings the till
-for k in range(4): hammer(E['roof'] - 0.4 + k * 0.18)
-for k in range(3): swish(E['painted'] + k * 0.25)
-thump(E['fancy'] + 0.15, 0.5, 70, 14)
-for t_ in (E['roof'], E['painted'], E['fancy'], E['snake'], E['washed'], E['watered'], E['paid']): cash(t_ + 0.05)
-hiss(E['snake'] - 0.1, 0.6, 0.03); thump(E['snake'] - 0.3, 0.15, 300, 50)  # mouse drop, snake strikes
-m = int(1.0 * SR); add(E['washed'], (nz(1.0, 1) - nz(1.0, 3)) * np.hanning(m) * 0.05)  # hose spray
-m = int(0.8 * SR); add(E['watered'], ma(rng.normal(0, 1, m), 6) * np.hanning(m) * 0.05)  # watering can pour
-thump(E['paid'] + 0.3, 0.6, 120, 30)  # stamp: PAID
-# the firework: lighter flick, fuse fizz getting faster
-add(E['lit'] - 0.05, nz(0.05, 1) * env(int(0.05 * SR), 0.001, 80) * 0.06); tone(E['lit'], 0.05, 2400, 0.01, 50)
-n = int((boom - E['lit']) * SR); x = np.arange(n) / SR; add(E['lit'] + 0.1, (nz(n / SR, 1) - nz(n / SR, 3)) * (0.5 + 0.5 * np.abs(np.sin(x * (30 + 40 * x)))) * 0.02 * np.clip(x * 2, 0, 1))
-# BOOM: sub thump, wide noise burst, long rumble, debris raining down
+# repairs: hammering, sawing, each one rings the till
+for k in range(3): hammer(E['stairs'] - 0.3 + k * 0.15)
+for k in range(4): hammer(E['roof'] - 0.4 + k * 0.12)
+for k in range(2): swish(E['railing'] - 0.2 + k * 0.2, 0.18, 0.06)
+thump(E['wall'], 0.5, 110, 20); hammer(E['wall'] + 0.15)
+for k in range(3): swish(E['peach'] - 0.2 + k * 0.22)
+for t_ in (E['stairs'], E['roof'], E['railing'], E['wall'], E['peach'], E['hid']): cash(t_ + 0.05)
+for k in range(3): thump(E['reps'] - 0.2 + k * 0.4, 0.25, 160, 40); tone(E['reps'] - 0.2 + k * 0.4, 0.05, 900, 0.01, 40)  # weight clanks
+thump(E['hid'] - 0.05, 0.25, 260, 40); add(E['hid'] + 0.2, nz(0.3, 2) * np.hanning(int(0.3 * SR)) * 0.03)  # floorboard pried up, cash rustle
+hiss(E['fed'] + 0.1, 0.6, 0.03); thump(E['fed'] - 0.1, 0.15, 300, 50)
+# leaving: car doors, engine pulling away
+thump(E['c4'] + 0.3, 0.3, 140, 30); thump(E['c4'] + 0.45, 0.3, 140, 30); n = int(1.2 * SR); x = np.arange(n) / SR; add(E['c4'] + 0.5, (np.sin(2 * np.pi * np.cumsum(40 + 30 * x) / SR) * 0.04 + ma(rng.normal(0, 1, n), 40) * 0.05) * np.exp(-x * 1.2))
+# BOOM
 thump(boom, 1.4, 40, 3); thump(boom, 0.9, 70, 5); m = int(2.5 * SR); xx = np.arange(m) / SR; add(boom, ma(rng.normal(0, 1, m), 8) * np.exp(-xx * 1.8) * 0.5); add(boom, ma(rng.normal(0, 1, m), 60) * 6 * np.exp(-xx * 0.8) * 0.12)
 for k in range(24): tt = boom + 0.6 + rng.random() * 1.6; thump(tt, 0.08 + 0.1 * rng.random(), 150 + rng.random() * 200, 35)
-thump(boom + 1.1, 0.5, 90, 16)  # the car lands
-# aftermath: fire crackle, car alarm, smug snake hiss
-i0 = int((boom + 0.5) * SR)
 for k in range(int((D - boom) / 0.07)): add(boom + 0.5 + k * 0.07 + rng.random() * 0.05, nz(0.02, 1) * env(int(0.02 * SR), 0.001, 90) * 0.03)
 for k in range(int((D - boom - 1.6) / 0.5)): tone(boom + 1.6 + k * 0.5, 0.24, 1250 if k % 2 else 950, 0.008, 2)
 hiss(E['surv'] + 0.5, 0.9, 0.04)
@@ -70,7 +65,7 @@ out *= np.interp(t, [0, 0.02, D - 0.03, D], [0, 1, 1, 0])
 vo, vsr = sf.read('vo.wav')
 if vo.ndim > 1: vo = vo.mean(1)
 vo = np.interp(np.arange(N) / SR, np.arange(len(vo)) / vsr, vo, right=0)
-fa, fb = wt(6, 'fucking'); i0, i1 = int((fa + 0.01) * SR), int((fb - 0.01) * SR); lvl = np.percentile(np.abs(vo), 99) * 0.5; vo[i0:i1] = np.sin(2 * np.pi * 1000 * np.arange(i1 - i0) / SR) * lvl  # bleep
+fa, fb = wt(5, 'fucking'); i0, i1 = int((fa + 0.01) * SR), int((fb - 0.01) * SR); lvl = np.percentile(np.abs(vo), 99) * 0.5; vo[i0:i1] = np.sin(2 * np.pi * 1000 * np.arange(i1 - i0) / SR) * lvl  # bleep
 e = ma(np.abs(vo), 4000); duck = 1 - 0.55 * np.clip(e / (e.max() * 0.25), 0, 1)
 bus = out * duck; pk = lambda y: np.percentile(np.abs(y), 99.9); mus *= 0.1 * pk(vo * 1.6) / max(pk(mus), 1e-9); mus *= (1 - 0.5 * np.clip(e / (e.max() * 0.25), 0, 1))
 bus *= min(1, 0.5 * pk(vo * 1.6) / pk(bus))  # SFX at least 6 dB under the narration
