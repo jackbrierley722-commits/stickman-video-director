@@ -7,12 +7,11 @@ from kokoro import KPipeline
 
 VOICE = sys.argv[1] if len(sys.argv) > 1 else 'am_michael'
 VO = [
- "Don't light that firework. ~ You spent forty hours on this house.",
- "You fixed the roof, ~ painted every wall, ~ and bought the fancy couch.",
- "You fed the snake.",
- "You washed the car, ~ watered the plants, ~ and paid off the whole mortgage.",
- "Your partner said, ~ it's perfect. ~ Don't touch anything.",
- "So you lit one tiny firework. ~ Indoors.",
+ "Don't get attached to this house. ~ You'll spend forty hours on it.",
+ "You fixed the stairs, ~ the roof, ~ the railing, ~ and the bedroom wall.",
+ "You painted it pastel peach.",
+ "You did your reps on the deck, ~ hid your cash under the floorboards, ~ and fed the snake.",
+ "Then you left for one day.",
  "And the whole fucking house blew up.",
  "The snake survived.",
 ]
