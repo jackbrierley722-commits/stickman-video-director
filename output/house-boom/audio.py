@@ -1,4 +1,4 @@
-# House boom: SFX + low music bed, under the narration (swear bleeped)
+# House boom: SFX + low music bed, under the narration (no bleeps on this version)
 import json, numpy as np, soundfile as sf
 SR = 44100
 TM = json.load(open('timing.json')); CL = TM['clips']; D = TM['total']; N = int(SR * D); t = np.arange(N) / SR; rng = np.random.default_rng(11)
@@ -32,7 +32,7 @@ def cash(at): tone(at, 0.08, 2600, 0.03, 30); tone(at + 0.07, 0.25, 3300, 0.025,
 def hammer(at): thump(at, 0.35, 220, 40); tone(at, 0.05, 1800, 0.015, 60)
 def swish(at, dur=0.3, amp=0.05): m = int(dur * SR); add(at, (nz(dur, 1) - nz(dur, 4)) * np.hanning(m) * amp)
 def hiss(at, dur=0.7, amp=0.04): m = int(dur * SR); add(at, (nz(dur, 1) - nz(dur, 2)) * np.hanning(m) * amp)
-E = dict(stairs=wt(2, 'stairs')[0], roof=wt(2, 'roof')[0], railing=wt(2, 'railing')[0], wall=wt(2, 'bedroom')[0] + 0.25, peach=wt(3, 'peach')[0], reps=wt(3, 'reps')[0], hid=wt(3, 'hid')[0], fed=wt(1, 'fed')[0] + 0.25, day=wt(4, 'day')[0], c4=S0[4], blew=wt(6, 'blew')[0], masked=wt(5, 'masked')[0], fought=wt(5, 'fought')[0], every=wt(5, 'every')[0], c7=S0[7], c8=S0[8])
+E = dict(stairs=wt(2, 'stairs')[0], roof=wt(2, 'roof')[0], railing=wt(2, 'railing')[0], wall=wt(2, 'bedroom')[0] + 0.25, peach=wt(3, 'peach')[0], reps=wt(3, 'reps')[0], hid=wt(3, 'hid')[0], fed=wt(1, 'fed')[0] + 0.25, day=wt(4, 'day')[0], c4=S0[4], blew=wt(6, 'blew')[0], masked=S0[5] + 0.1, fought=S0[5] + 1.35, every=S0[5] + 1.95, run=S0[5] + 2.35, c7=S0[7], c8=S0[8])
 boom = E['blew'] - 0.05
 # repairs: hammering, sawing, each one rings the till
 for k in range(3): hammer(E['stairs'] - 0.3 + k * 0.15)
@@ -55,6 +55,8 @@ for k in range(int((D - boom - 1.6) / 0.5)): tone(boom + 1.6 + k * 0.5, 0.24, 12
 thump(E['masked'] - 0.05, 0.7, 90, 12); add(E['masked'], nz(0.3, 1) * env(int(0.3 * SR), 0.001, 14) * 0.12)
 for tt in (E['fought'] - 0.55, E['every'] - 0.1): thump(tt, 0.8, 120, 22); add(tt, nz(0.06, 1) * env(int(0.06 * SR), 0.001, 50) * 0.15); thump(tt + 0.5, 0.6, 70, 14)
 i0 = int(E['fought'] * SR); i1 = int(boom * SR); xx = np.arange(i1 - i0) / SR; out[i0:i1] += ma(rng.normal(0, 1, i1 - i0), 30) * 0.12 * np.clip(xx, 0, 1)
+k = E['run']
+while k < boom: thump(k, 0.12, 140, 35); k += 0.2  # her running out
 # lost the snake: glass tinkle; lost the money: falling sad tones
 for k in range(8): tone(E['c7'] + 0.2 + k * 0.07, 0.15, 2800 + 400 * (k % 3), 0.01, 25)
 for k, f in enumerate([392, 370, 349, 294]): tone(E['c8'] + 0.4 + k * 0.38, 0.5 if k < 3 else 1.2, f, 0.03, 2.5)
@@ -71,9 +73,7 @@ out *= np.interp(t, [0, 0.02, D - 0.03, D], [0, 1, 1, 0])
 vo, vsr = sf.read('vo.wav')
 if vo.ndim > 1: vo = vo.mean(1)
 vo = np.interp(np.arange(N) / SR, np.arange(len(vo)) / vsr, vo, right=0)
-lvl = np.percentile(np.abs(vo), 99) * 0.5
-for ci_ in (0, 1, 6, 7, 8):
-    fa, fb = wt(ci_, 'fucking'); i0, i1 = int((fa + 0.01) * SR), int((fb - 0.01) * SR); vo[i0:i1] = np.sin(2 * np.pi * 1000 * np.arange(i1 - i0) / SR) * lvl  # bleep
+# no bleeps on this one (user asked)
 e = ma(np.abs(vo), 4000); duck = 1 - 0.55 * np.clip(e / (e.max() * 0.25), 0, 1)
 bus = out * duck; pk = lambda y: np.percentile(np.abs(y), 99.9); mus *= 0.1 * pk(vo * 1.6) / max(pk(mus), 1e-9); mus *= (1 - 0.5 * np.clip(e / (e.max() * 0.25), 0, 1))
 bus *= min(1, 0.5 * pk(vo * 1.6) / pk(bus))  # SFX at least 6 dB under the narration
