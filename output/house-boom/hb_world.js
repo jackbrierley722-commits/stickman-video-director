@@ -9,7 +9,7 @@ const I3 = (x, y, z) => [INT[0] + x, INT[1] + y, INT[2] + z];
 // money: repairs cost, the stash goes under the floor
 const BUYS = [[0, 61850], [E.stairs, -2200], [E.roof, -9500], [E.railing, -1800], [E.wall, -3100], [E.peach, -1250], [E.hid, -25000]];
 const money = T => { let m = 0; BUYS.forEach(([t, d]) => { if (T >= t) m += d; }); if (T >= E.c7) m = Math.round(lerp(m, 0, ease(prog(T, E.c7, E.c7 + 1.3)))); return T < E.c2 ? 61850 : m; };
-const TASKS = [[E.stairs, 'STAIRS FIXED'], [E.roof, 'ROOF FIXED'], [E.railing, 'RAILING FIXED'], [E.wall, 'WALL PANELS IN'], [E.peach, 'PAINT: PASTEL PEACH'], [E.reps, 'WORKOUT +1'], [E.hid, 'CASH STASHED'], [E.fed, 'SNAKE FED']];
+const TASKS = [[E.stairs, 'STAIRS FIXED'], [E.roof, 'ROOF FIXED'], [E.railing, 'RAILING FIXED'], [E.wall, 'WALL PANELS IN'], [E.peach, 'BEDROOM: PASTEL PEACH'], [E.reps, 'WORKOUT +1'], [E.hid, 'CASH STASHED'], [E.fed, 'SNAKE FED']];
 function stubbleTex() { return PT(16, 8, (c) => { const r = rng(5); for (let i = 0; i < 60; i++) { c.fillStyle = 'rgba(30,20,14,0.55)'; c.fillRect((r() * 16) | 0, (r() * 8) | 0, 1, 1); } }); }
 function him() { const p = person({ top: '#4a7aa8', open: '#e8e2d6', bot: '#34343a', hair: '#24160e', skin: '#c8946a' }); const h = p.userData.head; boxM(h, 0.33, 0.14, 0.02, LM({ map: stubbleTex(), transparent: true }), 0, 0.06, 0.165, false); boxM(h, 0.34, 0.08, 0.34, PM('#24160e', 20, 8, 9), 0, 0.33, -0.01); return p; }
 function her() { const sk = '#c88a62'; const p = person({ top: '#ecebe6', bot: '#3a4a6a', hair: '#140e0a', skin: sk, sleeve: sk }); const h = p.userData.head; const hair = PM('#140e0a', 20, 8, 12);
@@ -65,6 +65,7 @@ function build() {
   R.couch = new T3.Group(); R.couch.position.set(-0.6, 0, -1.8); I.add(R.couch); const cm = PM('#e86a8a', 20, 8, 705); boxM(R.couch, 2.6, 0.45, 0.9, cm, 0, 0.3, 0); boxM(R.couch, 2.6, 0.6, 0.25, cm, 0, 0.75, -0.35); for (const sx of [-1, 1]) boxM(R.couch, 0.25, 0.5, 0.9, cm, sx * 1.3, 0.55, 0);
   boxM(I, 1.2, 0.4, 0.7, PM('#3a2a1e', 16, 8, 706), -0.6, 0.2, -0.3); boxM(I, 0.9, 0.8, 0.5, PM('#3a2a1e', 16, 8, 707), 2.8, 0.4, -2.4); R.intTank = tank(I, 2.8, 0.8, -2.4);
   R.board = boxM(I, 1.2, 0.05, 0.3, PM('#b8986a', 22, 8, 720), -2.4, 0.03, 1.2); R.boardHole = boxM(I, 1.2, 0.02, 0.3, LM({ color: '#120e0a' }), -2.4, 0.005, 1.2, false); R.cash = []; for (let k = 0; k < 4; k++) R.cash.push(boxM(I, 0.3, 0.08, 0.14, LM({ color: '#5aa85a' }), -2.75 + k * 0.24, 0.02, 1.2, false));
+  R.bed = new T3.Group(); R.bed.position.set(-1.6, 0, -2.0); I.add(R.bed); boxM(R.bed, 2.0, 0.4, 1.4, PM('#5a3a2a', 18, 8, 730), 0, 0.2, 0); boxM(R.bed, 1.9, 0.2, 1.3, PM('#f0ece4', 10, 8, 731), 0, 0.5, 0); boxM(R.bed, 0.5, 0.15, 1.0, PM('#ffffff', 8, 8, 732), -0.65, 0.66, 0); boxM(R.bed, 0.1, 0.9, 1.4, PM('#5a3a2a', 18, 8, 733), -1.0, 0.45, 0); R.roller = boxM(I, 0.3, 0.08, 0.08, PM('#f6c2a0', 10, 8, 734), 0, -5, 0, false);
   R.mouse = boxM(I, 0.08, 0.05, 0.12, PM('#b8b0a8', 20, 8, 708), 2.8, 1.5, -2.4, false); R.mouse.visible = false;
   R.lightI = new T3.PointLight('#ffd8b0', 6, 12, 1.2); R.lightI.position.set(0, 2.6, 0); I.add(R.lightI);
   R.firework = new T3.Group(); I.add(R.firework); boxM(R.firework, 0.08, 0.3, 0.08, PM('#e82a2a', 16, 8, 709), 0, 0.15, 0, false); boxM(R.firework, 0.1, 0.1, 0.1, PM('#e8c020', 10, 8, 710), 0, 0.34, 0, false); R.spark = spr(R.firework, GLOW, '#ffe080', 0.35, 0, 0.42, 0, 0);
@@ -85,7 +86,7 @@ const SH = [
   [E.roof - 0.2, (k, T) => TR(k, [5, 9, 4], [4, 8.6, 3.4], [-2, 6, -5.6], [-2, 6, -5.6])],
   [E.railing - 0.2, (k, T) => TR(k, [3.2, 4.8, 1.8], [2.8, 4.6, 1.4], [-1, 4.1, -2.45], [-1.2, 4.1, -2.45])],
   [E.wall - 0.25, (k, T) => TR(k, [7.5, 5.2, -4.2], [7.0, 5.0, -4.6], [2.3, 4.8, -6.8], [2.3, 4.8, -6.8])],
-  [E.c3, (k, T) => TR(k, [7.5, 3.2, 8.5], [6.2, 2.9, 7.2], [0, 2.5, -5], [0, 2.5, -5])],
+  [E.c3, (k, T) => TR(k, I3(1.6, 1.8, 3.4), I3(1.2, 1.7, 3.0), I3(-1.6, 1.3, -2.2), I3(-1.6, 1.3, -2.2))],
   [E.reps - 0.2, (k, T) => TR(k, [-5.8, 2.8, -2.6], [-6.3, 2.6, -2.9], [-8.5, 0.8, -5.2], [-8.5, 0.8, -5.2])],
   [E.hid - 0.15, (k, T) => TR(k, I3(-0.4, 1.5, 0.4), I3(-0.7, 1.3, 0.5), I3(-2.4, 0.15, 1.3), I3(-2.4, 0.15, 1.3))],
   [E.c4, (k, T) => TR(k, [11, 3.2, 11], [12, 3.5, 12], [3, 1, 0], [10, 1, 5])],
@@ -96,7 +97,7 @@ const SH = [
   [E.c7, (k, T) => TR(k, [-1.5, 1.6, -1.0], [-1.6, 2.0, -0.6], [-2.4, 0.4, -4.6], [-2.4, 1.2, -4.6])],
 ];
 const shotAt = T => { let i = 0; for (let j = 0; j < SH.length; j++) if (T >= SH[j][0]) i = j; return i; };
-const inside = T => CLI(T) === 1 || (T >= E.fightA && T < E.run) || (CLI(T) === 3 && T > E.hid - 0.15);
+const inside = T => CLI(T) === 1 || (CLI(T) === 3 && T < E.reps - 0.2) || (T >= E.fightA && T < E.run) || (CLI(T) === 3 && T > E.hid - 0.15);
 function anim(T) { const ci = CLI(T), ins = inside(T); const done = t => ci === 0 || T > t;
   R.I.visible = ins; R.G.visible = !ins; R.sun.intensity = ins ? 0.4 : 2.0; R.hemi.intensity = ins ? 0.9 : 1.2;
   // the five repairs + the paint job
@@ -104,7 +105,7 @@ function anim(T) { const ci = CLI(T), ins = inside(T); const done = t => ci === 
   R.roofHole.visible = !done(E.roof); R.boards.forEach(b => b.visible = !done(E.roof)); R.weeds.forEach(w => w.visible = !done(E.roof));
   R.railG.forEach(b => b.visible = done(E.railing)); R.railB.forEach(b => b.visible = !done(E.railing)); R.railTop.visible = done(E.railing);
   R.wallPanel.visible = done(E.wall); R.wallHole.visible = !done(E.wall);
-  R.extWall.color.set(done(E.peach) ? '#f6c2a0' : '#8a8478'); R.intWalls[0].material.color.set('#6ac8c0'); R.couch.visible = true; R.couch.scale.setScalar(1);
+  R.extWall.color.set('#e8dcc8'); R.intWalls[0].material.color.set(T > E.peach ? '#f2a07a' : '#7a7a80'); const bedShot = ci === 3 && T < E.reps - 0.2; R.bed.visible = bedShot; R.couch.visible = !bedShot; R.couch.scale.setScalar(1);
   R.carDirt.visible = false; R.sign.visible = false; R.plants.forEach(p => p.userData.lf.scale.setScalar(1.3)); R.bubbles.forEach(b => b.material.opacity = 0); R.water.forEach(w => w.material.opacity = 0);
   // floorboard stash
   const lift = ci === 3 ? ease(prog(T, E.hid - 0.1, E.hid + 0.3)) : 0; if (ci === 1) R.couch.visible = true; R.board.position.set(-2.4, 0.03 + 0.25 * lift, 1.2 + 0.25 * lift); R.board.rotation.x = -1.3 * lift; R.cash.forEach((c, i) => c.visible = lift > 0.5);
@@ -116,10 +117,10 @@ function anim(T) { const ci = CLI(T), ins = inside(T); const done = t => ci === 
   const hm = R.him, hr = R.her, hu = hm.userData, ru = hr.userData; stillP(hm); stillP(hr); hm.visible = hr.visible = true; R.soot.forEach(s => s.visible = false); hm.rotation.set(0, 0, 0); hr.rotation.set(0, 0, 0); hm.position.y = 0;
   hm.position.set(0.4, 0.95, -1.3); hm.rotation.y = 0.2; hr.position.set(-1.2, 0.95, -1.3); hr.rotation.y = 0.1;
   if (ci === 2) { hm.position.set(1.2, 0, -0.6); hm.rotation.y = -0.8; hu.armR.rotation.set(-2.2 + 0.4 * S(T * 9), 0, 0); hr.visible = false; }
-  if (ci === 3 && T < E.reps - 0.2) { hm.position.set(2.6, 0, 1.6); hm.rotation.y = -0.4; hr.position.set(1.6, 0, 1.8); hr.rotation.y = -0.2; hu.armR.rotation.set(-1.5, 0, 0); hu.armR.userData.e.rotation.x = -0.3 * Math.abs(S(T * 6)); ru.armL.rotation.set(-0.3, 0, -0.5); ru.armL.userData.e.rotation.set(0, 0, 1.2); }
+  if (bedShot) { hm.position.set(...I3(0.9, 0, -2.3)); hm.rotation.y = PI; hr.visible = false; hu.armR.rotation.set(-2.6 + 0.4 * S(T * 8), 0, 0); ru.armL.rotation.set(-0.3, 0, -0.5); ru.armL.userData.e.rotation.set(0, 0, 1.2); }
   if (gym) { hm.position.set(-8.5, 0.72, -4.4); hm.rotation.set(-PI / 2, 0, 0); hu.armL.rotation.set(-1.4 - 0.5 * rep, 0, 0); hu.armR.rotation.set(-1.4 - 0.5 * rep, 0, 0); hu.armL.userData.e.rotation.x = -0.9 * (1 - rep); hu.armR.userData.e.rotation.x = -0.9 * (1 - rep); hu.legL.rotation.x = -1.4; hu.legR.rotation.x = -1.4; hu.legL.userData.k.rotation.x = 1.4; hu.legR.userData.k.rotation.x = 1.4;
     hr.position.set(-10.2, 0.25, -6.6); hr.rotation.y = 0.9; ru.armL.rotation.set(-0.3, 0, -0.5); ru.armL.userData.e.rotation.set(0, 0, 1.2); ru.armR.rotation.set(-0.3, 0, 0.5); ru.armR.userData.e.rotation.set(0, 0, -1.2); }
-  if (ins && ci !== 5) { hr.visible = false; if (ci === 3) { hm.position.set(...I3(-2.4, -0.35, 1.95)); hm.rotation.y = PI; hu.legL.rotation.x = -1.5; hu.legR.rotation.x = -0.2; hu.legL.userData.k.rotation.x = 1.6; hu.legR.userData.k.rotation.x = 1.9; hu.up.rotation.x = 0.4; hu.armR.rotation.set(-1.2, 0, 0); } else { hm.position.set(...I3(3.7, 0, -1.7)); hm.rotation.y = -2.4; hu.armR.rotation.set(-1.6, 0, 0); } }
+  if (ins && ci !== 5 && !bedShot) { hr.visible = false; if (ci === 3) { hm.position.set(...I3(-2.4, -0.35, 1.95)); hm.rotation.y = PI; hu.legL.rotation.x = -1.5; hu.legR.rotation.x = -0.2; hu.legL.userData.k.rotation.x = 1.6; hu.legR.userData.k.rotation.x = 1.9; hu.up.rotation.x = 0.4; hu.armR.rotation.set(-1.2, 0, 0); } else { hm.position.set(...I3(3.7, 0, -1.7)); hm.rotation.y = -2.4; hu.armR.rotation.set(-1.6, 0, 0); } }
   // leaving for a day: walk to the car, drive off
   const drive = ci === 4 ? ease(prog(T, E.c4 + 0.3, E.fightA)) : 0;
   if (ci === 4) { hm.visible = hr.visible = T < E.c4 + 0.5; hm.position.set(4.0, 0, 1.0); hm.rotation.y = 0.3; hr.position.set(3.2, 0, 1.2); hr.rotation.y = 0.3; walkP(hm, T * 8, 0.7); walkP(hr, T * 8 + 1, 0.7); }

@@ -10,7 +10,7 @@ VO = [
  "You just fucking fixed the house!",
  "You fed the fucking snake every morning!",
  "You fixed the stairs, ~ the roof, ~ the railing, ~ and the bedroom wall!",
- "You painted it pastel peach, ~ did your reps on the deck, ~ and hid your cash under the floorboards!",
+ "You painted the bedroom pastel peach, ~ did your reps on the deck, ~ and hid your cash under the floorboards!",
  "Then you left for one day!",
  "And the whole fucking house blew up!",
  "You lost the fucking snake!",
