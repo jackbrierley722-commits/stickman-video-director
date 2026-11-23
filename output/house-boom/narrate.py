@@ -12,8 +12,10 @@ VO = [
  "You fixed the stairs, ~ the roof, ~ the railing, ~ and the bedroom wall.",
  "You painted it pastel peach, ~ did your reps on the deck, ~ and hid your cash under the floorboards.",
  "Then you left for one day.",
- "And the whole fucking house blew up.",
- "The snake survived.",
+ "Masked guys broke in, ~ and your partner fought every single one.",
+ "Then the whole fucking house blew up.",
+ "You lost the fucking snake.",
+ "You lost all your fucking money.",
 ]
 SR = 24000; LEAD = 0.08; TAIL = 0.14
 pipe = KPipeline(lang_code='a')

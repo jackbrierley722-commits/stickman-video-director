@@ -1,13 +1,13 @@
 
 // ---------- timing ----------
 const E = { c1: CL[1].start, fed: AT(1, 'fed') + 0.25, c2: CL[2].start, stairs: AT(2, 'stairs'), roof: AT(2, 'roof'), railing: AT(2, 'railing'), wall: AT(2, 'bedroom') + 0.25, c3: CL[3].start, peach: AT(3, 'peach'), reps: AT(3, 'reps'), hid: AT(3, 'hid'),
-  c4: CL[4].start, day: AT(4, 'day'), c5: CL[5].start, blew: AT(5, 'blew'), c6: CL[6].start };
+  c4: CL[4].start, day: AT(4, 'day'), c5: CL[5].start, masked: AT(5, 'masked'), fought: AT(5, 'fought'), every: AT(5, 'every'), c6: CL[6].start, blew: AT(6, 'blew'), c7: CL[7].start, c8: CL[8].start };
 E.loop = 999; E.boom = E.blew - 0.05;
 const INT = [80, 0, 0];
 const I3 = (x, y, z) => [INT[0] + x, INT[1] + y, INT[2] + z];
 // money: repairs cost, the stash goes under the floor
 const BUYS = [[0, 61850], [E.stairs, -2200], [E.roof, -9500], [E.railing, -1800], [E.wall, -3100], [E.peach, -1250], [E.hid, -25000]];
-const money = T => { let m = 0; BUYS.forEach(([t, d]) => { if (T >= t) m += d; }); return T < E.c2 ? 61850 : m; };
+const money = T => { let m = 0; BUYS.forEach(([t, d]) => { if (T >= t) m += d; }); if (T >= E.c8) m = Math.round(lerp(m, 0, ease(prog(T, E.c8, E.c8 + 1.3)))); return T < E.c2 ? 61850 : m; };
 const TASKS = [[E.stairs, 'STAIRS FIXED'], [E.roof, 'ROOF FIXED'], [E.railing, 'RAILING FIXED'], [E.wall, 'WALL PANELS IN'], [E.peach, 'PAINT: PASTEL PEACH'], [E.reps, 'WORKOUT +1'], [E.hid, 'CASH STASHED'], [E.fed, 'SNAKE FED']];
 function stubbleTex() { return PT(16, 8, (c) => { const r = rng(5); for (let i = 0; i < 60; i++) { c.fillStyle = 'rgba(30,20,14,0.55)'; c.fillRect((r() * 16) | 0, (r() * 8) | 0, 1, 1); } }); }
 function him() { const p = person({ top: '#4a7aa8', open: '#e8e2d6', bot: '#34343a', hair: '#24160e', skin: '#c8946a' }); const h = p.userData.head; boxM(h, 0.33, 0.14, 0.02, LM({ map: stubbleTex(), transparent: true }), 0, 0.06, 0.165, false); boxM(h, 0.34, 0.08, 0.34, PM('#24160e', 20, 8, 9), 0, 0.33, -0.01); return p; }
@@ -67,6 +67,11 @@ function build() {
   R.mouse = boxM(I, 0.08, 0.05, 0.12, PM('#b8b0a8', 20, 8, 708), 2.8, 1.5, -2.4, false); R.mouse.visible = false;
   R.lightI = new T3.PointLight('#ffd8b0', 6, 12, 1.2); R.lightI.position.set(0, 2.6, 0); I.add(R.lightI);
   R.firework = new T3.Group(); I.add(R.firework); boxM(R.firework, 0.08, 0.3, 0.08, PM('#e82a2a', 16, 8, 709), 0, 0.15, 0, false); boxM(R.firework, 0.1, 0.1, 0.1, PM('#e8c020', 10, 8, 710), 0, 0.34, 0, false); R.spark = spr(R.firework, GLOW, '#ffe080', 0.35, 0, 0.42, 0, 0);
+  // two masked burglars
+  R.thugs = [0, 1].map(i => { const p = person({ top: '#1c1c20', bot: '#24242a', hair: '#0a0a0c', skin: '#b88a6a' }); const h = p.userData.head; boxM(h, 0.34, 0.36, 0.34, LM({ map: PT(16, 16, c => { c.fillStyle = '#0e0e10'; c.fillRect(0, 0, 16, 16); c.fillStyle = '#c8946a'; c.fillRect(3, 6, 10, 3); c.fillStyle = '#f0ece4'; c.fillRect(4, 7, 2, 1); c.fillRect(10, 7, 2, 1); }) }), 0, 0.17, 0.0, false); scene.add(p); return p; });
+  R.ifire = []; for (let i = 0; i < 18; i++) R.ifire.push(spr(R.I, GLOW, i % 2 ? '#ff6a10' : '#ffb030', 1, 0, 0, 0, 0)); R.ifireL = new T3.PointLight('#ff7a20', 0, 10, 1.2); R.ifireL.position.set(-1, 1.5, -1.5); R.I.add(R.ifireL);
+  R.notes = []; for (let i = 0; i < 24; i++) { const n = boxM(scene, 0.32, 0.01, 0.15, LM({ color: i % 4 ? '#5aa85a' : '#3a2a1a', side: T3.DoubleSide }), 0, -50, 0, false); R.notes.push(n); }
+  R.brokenGlass = []; for (let i = 0; i < 8; i++) R.brokenGlass.push(boxM(scene, 0.15 + (i % 3) * 0.08, 0.01, 0.1, LM({ color: '#cfe8f0', transparent: true, opacity: 0.6 }), 0, -50, 0, false));
   // the two of them
   R.him = him(); scene.add(R.him); R.her = her(); scene.add(R.her);
   R.soot = [R.him, R.her].map(p => { const b = boxM(p.userData.head, 0.33, 0.3, 0.02, LM({ color: '#1a1614', transparent: true, opacity: 0.75 }), 0, 0.15, 0.17, false); b.visible = false; return b; });
@@ -83,11 +88,13 @@ const SH = [
   [E.reps - 0.2, (k, T) => TR(k, [-5.8, 2.8, -2.6], [-6.3, 2.6, -2.9], [-8.5, 0.8, -5.2], [-8.5, 0.8, -5.2])],
   [E.hid - 0.15, (k, T) => TR(k, I3(-0.4, 1.5, 0.4), I3(-0.7, 1.3, 0.5), I3(-2.4, 0.15, 1.3), I3(-2.4, 0.15, 1.3))],
   [E.c4, (k, T) => TR(k, [11, 3.2, 11], [12, 3.5, 12], [3, 1, 0], [10, 1, 5])],
-  [E.c5, (k, T) => TR(k, [16, 6, 18], [18, 7, 20], [0, 3, -6], [0, 4, -6])],
-  [E.c6, (k, T) => TR(k, [0.2, 2.3, 6.5], [0.1, 1.2, -2.6], [0, 0.8, -4], [0, 0.5, -5.4])],
+  [E.c5, (k, T) => TR(k, I3(-0.2, 1.9, 4.6), I3(-0.3, 1.7, 3.9), I3(0.2, 1.0, -0.4), I3(0.4, 1.0, -0.4))],
+  [E.c6, (k, T) => TR(k, [16, 6, 18], [18, 7, 20], [0, 3, -6], [2, 5, -4])],
+  [E.c7, (k, T) => TR(k, [0.2, 2.6, 2.0], [0.1, 1.4, -2.8], [0, 0.6, -5], [0, 0.4, -5.4])],
+  [E.c8, (k, T) => TR(k, [-1.5, 1.6, -1.0], [-1.6, 2.0, -0.6], [-2.4, 0.4, -4.6], [-2.4, 1.2, -4.6])],
 ];
 const shotAt = T => { let i = 0; for (let j = 0; j < SH.length; j++) if (T >= SH[j][0]) i = j; return i; };
-const inside = T => CLI(T) === 1 || (CLI(T) === 3 && T > E.hid - 0.15);
+const inside = T => CLI(T) === 1 || CLI(T) === 5 || (CLI(T) === 3 && T > E.hid - 0.15);
 function anim(T) { const ci = CLI(T), ins = inside(T); const done = t => ci === 0 || T > t;
   R.I.visible = ins; R.G.visible = !ins; R.sun.intensity = ins ? 0.4 : 2.0; R.hemi.intensity = ins ? 0.9 : 1.2;
   // the five repairs + the paint job
@@ -110,23 +117,36 @@ function anim(T) { const ci = CLI(T), ins = inside(T); const done = t => ci === 
   if (ci === 3 && T < E.reps - 0.2) { hm.position.set(2.6, 0, 1.6); hm.rotation.y = -0.4; hr.position.set(1.6, 0, 1.8); hr.rotation.y = -0.2; hu.armR.rotation.set(-1.5, 0, 0); hu.armR.userData.e.rotation.x = -0.3 * Math.abs(S(T * 6)); ru.armL.rotation.set(-0.3, 0, -0.5); ru.armL.userData.e.rotation.set(0, 0, 1.2); }
   if (gym) { hm.position.set(-8.5, 0.72, -4.4); hm.rotation.set(-PI / 2, 0, 0); hu.armL.rotation.set(-1.4 - 0.5 * rep, 0, 0); hu.armR.rotation.set(-1.4 - 0.5 * rep, 0, 0); hu.armL.userData.e.rotation.x = -0.9 * (1 - rep); hu.armR.userData.e.rotation.x = -0.9 * (1 - rep); hu.legL.rotation.x = -1.4; hu.legR.rotation.x = -1.4; hu.legL.userData.k.rotation.x = 1.4; hu.legR.userData.k.rotation.x = 1.4;
     hr.position.set(-10.2, 0.25, -6.6); hr.rotation.y = 0.9; ru.armL.rotation.set(-0.3, 0, -0.5); ru.armL.userData.e.rotation.set(0, 0, 1.2); ru.armR.rotation.set(-0.3, 0, 0.5); ru.armR.userData.e.rotation.set(0, 0, -1.2); }
-  if (ins) { hr.visible = false; if (ci === 3) { hm.position.set(...I3(-2.4, -0.35, 1.95)); hm.rotation.y = PI; hu.legL.rotation.x = -1.5; hu.legR.rotation.x = -0.2; hu.legL.userData.k.rotation.x = 1.6; hu.legR.userData.k.rotation.x = 1.9; hu.up.rotation.x = 0.4; hu.armR.rotation.set(-1.2, 0, 0); } else { hm.position.set(...I3(3.7, 0, -1.7)); hm.rotation.y = -2.4; hu.armR.rotation.set(-1.6, 0, 0); } }
+  if (ins && ci !== 5) { hr.visible = false; if (ci === 3) { hm.position.set(...I3(-2.4, -0.35, 1.95)); hm.rotation.y = PI; hu.legL.rotation.x = -1.5; hu.legR.rotation.x = -0.2; hu.legL.userData.k.rotation.x = 1.6; hu.legR.userData.k.rotation.x = 1.9; hu.up.rotation.x = 0.4; hu.armR.rotation.set(-1.2, 0, 0); } else { hm.position.set(...I3(3.7, 0, -1.7)); hm.rotation.y = -2.4; hu.armR.rotation.set(-1.6, 0, 0); } }
   // leaving for a day: walk to the car, drive off
   const drive = ci === 4 ? ease(prog(T, E.c4 + 0.5, E.c5)) : 0;
   if (ci === 4) { hm.visible = hr.visible = T < E.c4 + 0.5; hm.position.set(4.0, 0, 1.0); hm.rotation.y = 0.3; hr.position.set(3.2, 0, 1.2); hr.rotation.y = 0.3; walkP(hm, T * 8, 0.7); walkP(hr, T * 8 + 1, 0.7); }
-  if (ci >= 5) { hm.position.set(6.4, 0, 5.4); hm.rotation.y = PI - 0.4; hr.position.set(5.2, 0, 5.6); hr.rotation.y = PI - 0.3; const bt_ = T - E.boom; if (ci === 5 && bt_ > 0) { const bl = prog(T, E.boom, E.boom + 0.3) * (1 - prog(T, E.boom + 0.5, E.c6)); hm.rotation.x = 0.5 * bl; hr.rotation.x = 0.5 * bl; ru.armL.rotation.set(-2.6, 0, 0); ru.armR.rotation.set(-2.6, 0, 0); hu.armL.rotation.set(-2.6, 0, 0); hu.armR.rotation.set(-2.6, 0, 0); } }
-  if (ci === 6) { hm.position.set(1.4, 0, 1.6); hm.rotation.y = -0.3; hr.position.set(-1.3, 0, 1.6); hr.rotation.y = 0.3; R.soot.forEach(s => s.visible = true); }
-  R.car.userData.p0.set(ci === 4 ? lerp(4.5, 30, drive) : ci >= 5 ? 8 : 4.5, 0, ci === 4 ? lerp(-0.5, 7.5, Math.min(1, drive * 3)) : ci >= 5 ? 7.6 : -0.5); R.car.userData.r0.set(0, ci === 4 && drive > 0.05 ? PI / 2 : ci >= 5 ? PI / 2 : 0, 0);
+  // the break-in: she takes on both of them while the place catches fire
+  R.thugs.forEach(p => { stillP(p); p.visible = ci === 5; p.rotation.set(0, 0, 0); });
+  if (ci === 5) { hm.visible = false; hr.position.set(...I3(-0.6, 0, -0.2)); hr.rotation.y = PI / 2; const [a, b] = R.thugs, au = a.userData, bu = b.userData; const enter = ease(prog(T, E.c5, E.masked + 0.6));
+    const p1 = E.fought - 0.55, k1 = E.every - 0.1; a.position.set(...I3(lerp(4.5, 0.4, enter), 0, -0.1)); a.rotation.y = -PI / 2; b.position.set(...I3(lerp(5.2, 1.0, enter), 0, 0.7)); b.rotation.y = -PI / 2 - 0.3; if (enter < 1) { walkP(a, T * 9, 1); walkP(b, T * 9 + 1, 1); }
+    au.armR.rotation.set(-1.4, 0, 0); bu.armL.rotation.set(-1.4, 0, 0);
+    if (T > p1 - 0.15 && T < p1 + 0.25) { ru.armR.rotation.set(-1.6, 0, 0); hr.rotation.y = PI / 2 - 0.2; }
+    if (T > p1) { const d = Math.min(1, (T - p1) * 1.6); a.position.set(...I3(0.4 + 3.2 * d, 0.6 * S(PI * d), -0.1 - 1.4 * d)); a.rotation.set(0, -PI / 2, -1.3 * d); }
+    if (T > k1 - 0.15 && T < k1 + 0.3) { ru.legR.rotation.x = -1.6; hr.rotation.y = PI / 2 + 0.3; }
+    if (T > k1) { const d = Math.min(1, (T - k1) * 1.6); b.position.set(...I3(1.0 + 2.8 * d, 0.8 * S(PI * d), 0.7 + 1.6 * d)); b.rotation.set(1.2 * d, -PI / 2, 0); }
+    if (T > k1 + 0.4) { ru.armL.rotation.set(-2.8, 0, 0); ru.armR.rotation.set(-2.8, 0, 0); } }
+  const fireK = ci === 5 ? prog(T, E.fought, E.c6) : 0; R.ifire.forEach((f, i) => { const a = i * 1.3; f.position.set(-3.2 + (i % 6) * 1.2, 0.4 + (i % 3) * 0.5 + 0.2 * S(T * 7 + i), -2.6 + (i % 2) * 0.4); f.scale.setScalar((0.6 + 0.6 * Math.abs(S(T * 5 + i))) * (0.5 + fireK)); f.material.opacity = fireK > 0 ? 0.9 * Math.min(1, fireK * 2) : 0; }); R.ifireL.intensity = 25 * fireK;
+  // the blast: she gets thrown clear, spinning off into the sky (you were away)
+  if (ci >= 6) { hm.visible = false; hr.visible = ci === 6; const d = clamp((T - E.boom) / 1.6); hr.position.set(-1 + 14 * d, 1.2 + 11 * d - 6 * d * d, -2 + 12 * d); hr.rotation.set(9 * d, 2 * d, 7 * d); ru.armL.rotation.set(-2.8, 0, -0.6); ru.armR.rotation.set(-2.8, 0, 0.6); ru.legL.rotation.x = -0.6; ru.legR.rotation.x = 0.5; if (T < E.boom) { hr.position.set(-1, 1.2, -2); hr.visible = false; } }
+  R.car.userData.p0.set(ci === 4 ? lerp(4.5, 30, drive) : ci >= 5 ? 300 : 4.5, 0, ci === 4 ? lerp(-0.5, 7.5, Math.min(1, drive * 3)) : ci >= 5 ? 7.6 : -0.5); R.car.userData.r0.set(0, ci === 4 && drive > 0.05 ? PI / 2 : ci >= 5 ? PI / 2 : 0, 0);
   R.firework.visible = false; R.spark.material.opacity = 0;
   // the blast
-  const bt = T - E.boom, boom = ci >= 5 && bt > 0; R.extTank.visible = ci === 6; animSnake(R.extTank.userData.snake, T, ci === 6 ? 0.6 : 0);
+  const bt = T - E.boom, boom = ci >= 6 && bt > 0; R.extTank.visible = ci === 7; R.extTank.userData.snake.visible = false; R.extTank.rotation.z = 0.5; R.extTank.position.y = 0.1;
+  R.brokenGlass.forEach((g, i) => { g.position.set(-0.7 + (i % 4) * 0.4, 0.06, -5.0 + Math.floor(i / 4) * 0.5); g.rotation.y = i; g.visible = ci === 7; });
+  R.notes.forEach((n, i) => { if (ci !== 8) { n.position.y = -50; return; } const ph = (T * 0.35 + i / 24) % 1; n.position.set(-2.4 + 1.6 * S(i * 1.7 + T), 3.2 - ph * 3.2, -4.6 + 1.2 * C(i * 2.3 + T * 0.7)); n.rotation.set(T * 3 + i, i, T * 2); n.material.color.set(ph > 0.6 ? '#2a1a10' : (i % 4 ? '#5aa85a' : '#3a2a1a')); });
   R.parts.forEach((p, i) => { const u = p.userData; p.position.copy(u.p0); p.rotation.copy(u.r0); if (boom && p !== R.car) { const d = Math.min(bt, 1.6); const dir = new T3.Vector3(u.p0.x, 0, u.p0.z + (p.parent === R.house ? 0 : 6)).normalize(); p.position.set(u.p0.x + dir.x * 9 * d + S(i) * 2 * d, u.p0.y + 12 * d - 9 * d * d, u.p0.z + dir.z * 9 * d + C(i) * 2 * d); p.rotation.set(u.r0.x + d * (i % 3 + 1), u.r0.y + d * 2, u.r0.z + d * (i % 2 + 1)); p.visible = d < 1.5; } else p.visible = true; });
   [R.stepsG, R.railG, [R.railTop, R.wallPanel]].flat().forEach(b => { if (boom) b.visible = false; });
   R.debris.forEach((b, i) => { const u = b.userData; if (!boom) { b.position.set(0, -5, -6); return; } const d = Math.min(bt, 2.2); b.position.set(u.v[0] * d, Math.max(0.1, 2 + u.v[1] * d - 9.8 * d * d), -6 + u.v[2] * d); b.rotation.set(u.s[0] * d, u.s[1] * d, 0); });
-  R.fire.forEach((f, i) => { if (!boom) { f.material.opacity = 0; return; } const k = clamp(bt / 1.4), a = i * 2.4; f.position.set(Math.cos(a) * 5 * k * (0.4 + (i % 3) * 0.3), 3 + 9 * k * (0.3 + (i % 4) * 0.2), -1.5 + Math.sin(a) * 2 * k); f.scale.setScalar(3 + 9 * k); f.material.opacity = 1 - k * 0.6; if (ci === 6) { f.position.set(-3.5 + (i % 9) * 0.9, 0.5 + 0.3 * Math.abs(S(T * 6 + i)), -8 + (i % 5) * 1.2); f.scale.setScalar(0.8 + 0.4 * Math.abs(S(T * 5 + i))); f.material.opacity = 0.9; } });
+  R.fire.forEach((f, i) => { if (!boom) { f.material.opacity = 0; return; } const k = clamp(bt / 1.4), a = i * 2.4; f.position.set(Math.cos(a) * 5 * k * (0.4 + (i % 3) * 0.3), 3 + 9 * k * (0.3 + (i % 4) * 0.2), -1.5 + Math.sin(a) * 2 * k); f.scale.setScalar(3 + 9 * k); f.material.opacity = 1 - k * 0.6; if (ci >= 7) { f.position.set(-3.5 + (i % 9) * 0.9, 0.5 + 0.3 * Math.abs(S(T * 6 + i)), -8 + (i % 5) * 1.2); f.scale.setScalar(0.8 + 0.4 * Math.abs(S(T * 5 + i))); f.material.opacity = 0.9; } });
   R.smoke.forEach((s, i) => { if (!boom) { s.material.opacity = 0; return; } const k = clamp(bt / 3), a = i * 1.9; s.position.set(Math.cos(a) * 5 * k, 4 + 10 * k + (i % 5), -6 + Math.sin(a) * 3 * k); s.scale.setScalar(4 + 10 * k); s.material.opacity = 0.75 * (1 - 0.3 * k); });
-  R.crater.visible = ci === 6; R.rubble.forEach(b => b.visible = ci === 6); R.burnL.intensity = boom ? (ci === 6 ? 6 + 2 * S(T * 9) : 40 * (1 - clamp(bt / 1.2)) + 8) : 0;
-  if (ci === 6) R.parts.forEach(p => { if (p !== R.car) p.visible = false; }); }
+  R.crater.visible = ci >= 7; R.rubble.forEach(b => b.visible = ci >= 7); R.burnL.intensity = boom ? (ci >= 7 ? 6 + 2 * S(T * 9) : 40 * (1 - clamp(bt / 1.2)) + 8) : 0;
+  if (ci >= 7) R.parts.forEach(p => { if (p !== R.car) p.visible = false; }); }
 function shot(T) { const si = shotAt(T), sh = SH[si], t0 = sh[0], t1 = si + 1 < SH.length ? SH[si + 1][0] : TM.total; camera.fov = 60; camera.updateProjectionMatrix(); anim(T); sh[1](prog(T, t0, t1), T);
   const bt = T - E.boom; if (bt > 0 && bt < 1.2) { const a = 0.35 * (1 - bt / 1.2); camera.position.x += a * S(T * 70); camera.position.y += a * S(T * 53 + 1); }
   const c = camera.position; R.sun.position.set(c.x + 40, 50, c.z + 30); R.sun.target.position.set(c.x, 0, c.z - 6); R.sun.target.updateMatrixWorld(); return { si, t0 }; }

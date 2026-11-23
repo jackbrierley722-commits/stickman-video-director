@@ -7,7 +7,7 @@ function caption(c) { octx.save(); octx.font = '600 46px CapFont'; octx.textAlig
 function txt(s_, x, y, size, col, font = 'Russo', align = 'center') { octx.font = `${size}px ${font}`; octx.fillStyle = col; octx.textAlign = align; octx.textBaseline = 'middle'; octx.fillText(s_, x, y); }
 function big(s_, y, size, col, a = 1) { if (a <= 0) return; octx.save(); octx.globalAlpha = Math.min(1, a); octx.font = `${size}px Russo`; octx.textAlign = 'center'; octx.textBaseline = 'middle'; octx.lineJoin = 'round'; octx.lineWidth = size * 0.2; octx.strokeStyle = 'rgba(0,0,0,0.9)'; octx.strokeText(s_, 360, y); octx.fillStyle = col; octx.fillText(s_, 360, y); octx.restore(); }
 // ---------- game HUD ----------
-function hud(T) { const ci = CLI(T); const m = money(T); const neg = ci >= 5;
+function hud(T) { const ci = CLI(T); const m = money(T); const neg = ci >= 6;
   octx.save(); octx.font = '44px Russo'; octx.textAlign = 'right'; octx.textBaseline = 'middle'; octx.lineJoin = 'round'; octx.lineWidth = 9; octx.strokeStyle = 'rgba(0,0,0,0.9)'; const ms = '$' + m.toLocaleString('en-US'); octx.strokeText(ms, 690, 70); octx.fillStyle = neg && Math.floor(T * 4) % 2 ? '#ff4a3a' : '#7ae07a'; octx.fillText(ms, 690, 70);
   const lastBuy = BUYS.filter(([t]) => t > 0.5 && T >= t && T < t + 0.9).pop(); if (lastBuy) { octx.font = '30px Russo'; octx.globalAlpha = 1 - prog(T, lastBuy[0] + 0.5, lastBuy[0] + 0.9); const d = '-$' + Math.abs(lastBuy[1]).toLocaleString('en-US'); octx.strokeText(d, 690, 115); octx.fillStyle = '#ff6a5a'; octx.fillText(d, 690, 115); } octx.restore();
   // minimap
@@ -34,7 +34,9 @@ window.renderFrame = function (T) { const loop = T >= E.loop; const ci = loop ? 
   if (ci === 1 && T > AT(1, 'every') - 0.1) big('EVERY MORNING', 480, 56, '#ffd23a', prog(T, AT(1, 'every') - 0.1, AT(1, 'every') + 0.1));
   if (ci === 3 && T < E.reps - 0.2) { const sw = [['TROPICAL GREEN', '#3aa86a'], ['STORMY BLUE', '#4a6a9a'], ['PASTEL PEACH', '#f6c2a0']]; const pick = T > E.peach - 0.1; sw.forEach(([n, c], i) => { const x = 130 + i * 230, sel = i === 2 && pick; octx.save(); octx.fillStyle = 'rgba(0,0,0,0.7)'; octx.fillRect(x - 100, 470, 200, 150); octx.fillStyle = c; octx.fillRect(x - 85, 485, 170, 90); if (sel) { octx.strokeStyle = '#ffd23a'; octx.lineWidth = 8; octx.strokeRect(x - 100, 470, 200, 150); } txt(n, x, 598, 18, sel ? '#ffd23a' : '#fff'); octx.restore(); }); }
   if (ci === 4 && T > E.day - 0.15) big('1 DAY LATER', 500, 64, '#fff', prog(T, E.day - 0.15, E.day + 0.05));
-  if (bt > 0.15 && ci === 5) { const a = prog(T, E.boom + 0.15, E.boom + 0.4); octx.save(); octx.globalAlpha = a; octx.fillStyle = 'rgba(0,0,0,0.65)'; octx.fillRect(0, 420, W, 150); octx.restore(); big('HOUSE DESTROYED', 495, 64, '#ff3a2a', a); }
-  if (ci === 6 && T > AT(6, 'survived') - 0.1) big('SNAKE: FINE', 470, 56, '#7ae07a', prog(T, AT(6, 'survived') - 0.1, AT(6, 'survived') + 0.1));
+  if (bt > 0.15 && ci === 6) { const a = prog(T, E.boom + 0.15, E.boom + 0.4); octx.save(); octx.globalAlpha = a; octx.fillStyle = 'rgba(0,0,0,0.65)'; octx.fillRect(0, 420, W, 150); octx.restore(); big('HOUSE DESTROYED', 495, 64, '#ff3a2a', a); }
+  if (ci === 5) { big('BREAK-IN', 470, 64, '#ff3a2a', prog(T, E.masked - 0.1, E.masked + 0.1)); if (T > E.fought - 0.6) big('POW', 600, 90, '#ffd23a', T < E.fought + 0.1 ? 1 : 0); if (T > E.every - 0.15 && T < E.every + 0.4) big('BAM', 600, 90, '#ffd23a', 1); }
+  if (ci === 7) big('SNAKE: GONE', 470, 60, '#ff3a2a', prog(T, AT(7, 'snake') - 0.1, AT(7, 'snake') + 0.1));
+  if (ci === 8 && T > AT(8, 'money') - 0.1) big('$0', 470, 110, '#ff3a2a', prog(T, AT(8, 'money') - 0.1, AT(8, 'money') + 0.1));
   const cap = CAPS.find(c => T >= c.a && T < c.b); if (cap && !loop) caption(cap); };
 })();

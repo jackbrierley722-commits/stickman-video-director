@@ -32,7 +32,7 @@ def cash(at): tone(at, 0.08, 2600, 0.03, 30); tone(at + 0.07, 0.25, 3300, 0.025,
 def hammer(at): thump(at, 0.35, 220, 40); tone(at, 0.05, 1800, 0.015, 60)
 def swish(at, dur=0.3, amp=0.05): m = int(dur * SR); add(at, (nz(dur, 1) - nz(dur, 4)) * np.hanning(m) * amp)
 def hiss(at, dur=0.7, amp=0.04): m = int(dur * SR); add(at, (nz(dur, 1) - nz(dur, 2)) * np.hanning(m) * amp)
-E = dict(stairs=wt(2, 'stairs')[0], roof=wt(2, 'roof')[0], railing=wt(2, 'railing')[0], wall=wt(2, 'bedroom')[0] + 0.25, peach=wt(3, 'peach')[0], reps=wt(3, 'reps')[0], hid=wt(3, 'hid')[0], fed=wt(1, 'fed')[0] + 0.25, day=wt(4, 'day')[0], c4=S0[4], blew=wt(5, 'blew')[0], surv=wt(6, 'survived')[0])
+E = dict(stairs=wt(2, 'stairs')[0], roof=wt(2, 'roof')[0], railing=wt(2, 'railing')[0], wall=wt(2, 'bedroom')[0] + 0.25, peach=wt(3, 'peach')[0], reps=wt(3, 'reps')[0], hid=wt(3, 'hid')[0], fed=wt(1, 'fed')[0] + 0.25, day=wt(4, 'day')[0], c4=S0[4], blew=wt(6, 'blew')[0], masked=wt(5, 'masked')[0], fought=wt(5, 'fought')[0], every=wt(5, 'every')[0], c7=S0[7], c8=S0[8])
 boom = E['blew'] - 0.05
 # repairs: hammering, sawing, each one rings the till
 for k in range(3): hammer(E['stairs'] - 0.3 + k * 0.15)
@@ -51,7 +51,13 @@ thump(boom, 1.4, 40, 3); thump(boom, 0.9, 70, 5); m = int(2.5 * SR); xx = np.ara
 for k in range(24): tt = boom + 0.6 + rng.random() * 1.6; thump(tt, 0.08 + 0.1 * rng.random(), 150 + rng.random() * 200, 35)
 for k in range(int((D - boom) / 0.07)): add(boom + 0.5 + k * 0.07 + rng.random() * 0.05, nz(0.02, 1) * env(int(0.02 * SR), 0.001, 90) * 0.03)
 for k in range(int((D - boom - 1.6) / 0.5)): tone(boom + 1.6 + k * 0.5, 0.24, 1250 if k % 2 else 950, 0.008, 2)
-hiss(E['surv'] + 0.5, 0.9, 0.04)
+# break-in: door smashed, punch, kick, bodies hitting the wall, fire catching
+thump(E['masked'] - 0.05, 0.7, 90, 12); add(E['masked'], nz(0.3, 1) * env(int(0.3 * SR), 0.001, 14) * 0.12)
+for tt in (E['fought'] - 0.55, E['every'] - 0.1): thump(tt, 0.8, 120, 22); add(tt, nz(0.06, 1) * env(int(0.06 * SR), 0.001, 50) * 0.15); thump(tt + 0.5, 0.6, 70, 14)
+i0 = int(E['fought'] * SR); i1 = int(boom * SR); xx = np.arange(i1 - i0) / SR; out[i0:i1] += ma(rng.normal(0, 1, i1 - i0), 30) * 0.12 * np.clip(xx, 0, 1)
+# lost the snake: glass tinkle; lost the money: falling sad tones
+for k in range(8): tone(E['c7'] + 0.2 + k * 0.07, 0.15, 2800 + 400 * (k % 3), 0.01, 25)
+for k, f in enumerate([392, 370, 349, 294]): tone(E['c8'] + 0.4 + k * 0.38, 0.5 if k < 3 else 1.2, f, 0.03, 2.5)
 # ---------- low cinematic music bed: dark pulse + low strings, original ----------
 mus = np.zeros(N); mf = lambda m: 440 * 2 ** ((m - 69) / 12); beat = 60 / 100
 for k in range(int(D / beat) + 1):
@@ -66,7 +72,7 @@ vo, vsr = sf.read('vo.wav')
 if vo.ndim > 1: vo = vo.mean(1)
 vo = np.interp(np.arange(N) / SR, np.arange(len(vo)) / vsr, vo, right=0)
 lvl = np.percentile(np.abs(vo), 99) * 0.5
-for ci_ in (0, 1, 5):
+for ci_ in (0, 1, 6, 7, 8):
     fa, fb = wt(ci_, 'fucking'); i0, i1 = int((fa + 0.01) * SR), int((fb - 0.01) * SR); vo[i0:i1] = np.sin(2 * np.pi * 1000 * np.arange(i1 - i0) / SR) * lvl  # bleep
 e = ma(np.abs(vo), 4000); duck = 1 - 0.55 * np.clip(e / (e.max() * 0.25), 0, 1)
 bus = out * duck; pk = lambda y: np.percentile(np.abs(y), 99.9); mus *= 0.1 * pk(vo * 1.6) / max(pk(mus), 1e-9); mus *= (1 - 0.5 * np.clip(e / (e.max() * 0.25), 0, 1))
