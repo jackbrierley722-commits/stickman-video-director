@@ -32,7 +32,8 @@ def cash(at): tone(at, 0.08, 2600, 0.03, 30); tone(at + 0.07, 0.25, 3300, 0.025,
 def hammer(at): thump(at, 0.35, 220, 40); tone(at, 0.05, 1800, 0.015, 60)
 def swish(at, dur=0.3, amp=0.05): m = int(dur * SR); add(at, (nz(dur, 1) - nz(dur, 4)) * np.hanning(m) * amp)
 def hiss(at, dur=0.7, amp=0.04): m = int(dur * SR); add(at, (nz(dur, 1) - nz(dur, 2)) * np.hanning(m) * amp)
-E = dict(stairs=wt(2, 'stairs')[0], roof=wt(2, 'roof')[0], railing=wt(2, 'railing')[0], wall=wt(2, 'bedroom')[0] + 0.25, peach=wt(3, 'peach')[0], reps=wt(3, 'reps')[0], hid=wt(3, 'hid')[0], fed=wt(1, 'fed')[0] + 0.25, day=wt(4, 'day')[0], c4=S0[4], blew=wt(6, 'blew')[0], masked=S0[5] + 0.1, fought=S0[5] + 1.35, every=S0[5] + 1.95, run=S0[5] + 2.35, c7=S0[7], c8=S0[8])
+E = dict(stairs=wt(2, 'stairs')[0], roof=wt(2, 'roof')[0], railing=wt(2, 'railing')[0], wall=wt(2, 'bedroom')[0] + 0.25, peach=wt(3, 'peach')[0], reps=wt(3, 'reps')[0], hid=wt(3, 'hid')[0], fed=wt(1, 'fed')[0] + 0.25, day=wt(4, 'day')[0], c4=S0[4], blew=wt(5, 'blew')[0], c7=S0[6], c8=S0[7])
+E['masked'] = E['day'] + 0.15; E['fought'] = E['masked'] + 0.8; E['every'] = E['masked'] + 0.7; E['run'] = E['blew'] - 0.7
 boom = E['blew'] - 0.05
 # repairs: hammering, sawing, each one rings the till
 for k in range(3): hammer(E['stairs'] - 0.3 + k * 0.15)

@@ -12,7 +12,6 @@ VO = [
  "You fixed the stairs, ~ the roof, ~ the railing, ~ and the bedroom wall!",
  "You painted it pastel peach, ~ did your reps on the deck, ~ and hid your cash under the floorboards!",
  "Then you left for one day!",
- "SILENT:3.6",
  "And the whole fucking house blew up!",
  "You lost the fucking snake!",
  "You lost all your fucking money!",
