@@ -1,13 +1,13 @@
 
 // ---------- timing ----------
-const E = { c1: CL[1].start, stairs: AT(1, 'stairs'), roof: AT(1, 'roof'), railing: AT(1, 'railing'), wall: AT(1, 'bedroom') + 0.25, c2: CL[2].start, peach: AT(2, 'peach'), c3: CL[3].start, reps: AT(3, 'reps'), hid: AT(3, 'hid'), fed: AT(3, 'fed'),
+const E = { c1: CL[1].start, fed: AT(1, 'fed') + 0.25, c2: CL[2].start, stairs: AT(2, 'stairs'), roof: AT(2, 'roof'), railing: AT(2, 'railing'), wall: AT(2, 'bedroom') + 0.25, c3: CL[3].start, peach: AT(3, 'peach'), reps: AT(3, 'reps'), hid: AT(3, 'hid'),
   c4: CL[4].start, day: AT(4, 'day'), c5: CL[5].start, blew: AT(5, 'blew'), c6: CL[6].start };
 E.loop = 999; E.boom = E.blew - 0.05;
 const INT = [80, 0, 0];
 const I3 = (x, y, z) => [INT[0] + x, INT[1] + y, INT[2] + z];
 // money: repairs cost, the stash goes under the floor
 const BUYS = [[0, 61850], [E.stairs, -2200], [E.roof, -9500], [E.railing, -1800], [E.wall, -3100], [E.peach, -1250], [E.hid, -25000]];
-const money = T => { let m = 0; BUYS.forEach(([t, d]) => { if (T >= t) m += d; }); return T < E.c1 ? 19000 : m; };
+const money = T => { let m = 0; BUYS.forEach(([t, d]) => { if (T >= t) m += d; }); return T < E.c2 ? 61850 : m; };
 const TASKS = [[E.stairs, 'STAIRS FIXED'], [E.roof, 'ROOF FIXED'], [E.railing, 'RAILING FIXED'], [E.wall, 'WALL PANELS IN'], [E.peach, 'PAINT: PASTEL PEACH'], [E.reps, 'WORKOUT +1'], [E.hid, 'CASH STASHED'], [E.fed, 'SNAKE FED']];
 function stubbleTex() { return PT(16, 8, (c) => { const r = rng(5); for (let i = 0; i < 60; i++) { c.fillStyle = 'rgba(30,20,14,0.55)'; c.fillRect((r() * 16) | 0, (r() * 8) | 0, 1, 1); } }); }
 function him() { const p = person({ top: '#4a7aa8', open: '#e8e2d6', bot: '#34343a', hair: '#24160e', skin: '#c8946a' }); const h = p.userData.head; boxM(h, 0.33, 0.14, 0.02, LM({ map: stubbleTex(), transparent: true }), 0, 0.06, 0.165, false); boxM(h, 0.34, 0.08, 0.34, PM('#24160e', 20, 8, 9), 0, 0.33, -0.01); return p; }
@@ -74,20 +74,20 @@ function build() {
 // ---------- shots ----------
 const SH = [
   [0, (k, T) => TR(k, [13, 4.5, 13], [9, 3.4, 9.5], [0, 2.5, -4.5], [0, 2.5, -4.5])],
-  [E.c1, (k, T) => TR(k, [1.8, 1.5, 2.2], [1.5, 1.3, 1.8], [-0.4, 0.5, -1.8], [-0.4, 0.4, -1.8])],
+  [E.c1, (k, T) => TR(k, I3(1.9, 1.5, -1.0), I3(2.1, 1.4, -1.3), I3(2.8, 1.0, -2.4), I3(2.8, 1.0, -2.4))],
+  [E.c2, (k, T) => TR(k, [1.8, 1.5, 2.2], [1.5, 1.3, 1.8], [-0.4, 0.5, -1.8], [-0.4, 0.4, -1.8])],
   [E.roof - 0.2, (k, T) => TR(k, [5, 9, 4], [4, 8.6, 3.4], [-2, 6, -5.6], [-2, 6, -5.6])],
   [E.railing - 0.2, (k, T) => TR(k, [3.2, 4.8, 1.8], [2.8, 4.6, 1.4], [-1, 4.1, -2.45], [-1.2, 4.1, -2.45])],
   [E.wall - 0.25, (k, T) => TR(k, [7.5, 5.2, -4.2], [7.0, 5.0, -4.6], [2.3, 4.8, -6.8], [2.3, 4.8, -6.8])],
-  [E.c2, (k, T) => TR(k, [7.5, 3.2, 8.5], [6.2, 2.9, 7.2], [0, 2.5, -5], [0, 2.5, -5])],
-  [E.c3, (k, T) => TR(k, [-5.8, 2.8, -2.6], [-6.3, 2.6, -2.9], [-8.5, 0.8, -5.2], [-8.5, 0.8, -5.2])],
+  [E.c3, (k, T) => TR(k, [7.5, 3.2, 8.5], [6.2, 2.9, 7.2], [0, 2.5, -5], [0, 2.5, -5])],
+  [E.reps - 0.2, (k, T) => TR(k, [-5.8, 2.8, -2.6], [-6.3, 2.6, -2.9], [-8.5, 0.8, -5.2], [-8.5, 0.8, -5.2])],
   [E.hid - 0.15, (k, T) => TR(k, I3(-0.4, 1.5, 0.4), I3(-0.7, 1.3, 0.5), I3(-2.4, 0.15, 1.3), I3(-2.4, 0.15, 1.3))],
-  [E.fed - 0.2, (k, T) => TR(k, I3(1.9, 1.5, -1.0), I3(2.1, 1.4, -1.3), I3(2.8, 1.0, -2.4), I3(2.8, 1.0, -2.4))],
   [E.c4, (k, T) => TR(k, [11, 3.2, 11], [12, 3.5, 12], [3, 1, 0], [10, 1, 5])],
   [E.c5, (k, T) => TR(k, [16, 6, 18], [18, 7, 20], [0, 3, -6], [0, 4, -6])],
   [E.c6, (k, T) => TR(k, [0.2, 2.3, 6.5], [0.1, 1.2, -2.6], [0, 0.8, -4], [0, 0.5, -5.4])],
 ];
 const shotAt = T => { let i = 0; for (let j = 0; j < SH.length; j++) if (T >= SH[j][0]) i = j; return i; };
-const inside = T => CLI(T) === 3 && T > E.hid - 0.15;
+const inside = T => CLI(T) === 1 || (CLI(T) === 3 && T > E.hid - 0.15);
 function anim(T) { const ci = CLI(T), ins = inside(T); const done = t => ci === 0 || T > t;
   R.I.visible = ins; R.G.visible = !ins; R.sun.intensity = ins ? 0.4 : 2.0; R.hemi.intensity = ins ? 0.9 : 1.2;
   // the five repairs + the paint job
@@ -98,19 +98,19 @@ function anim(T) { const ci = CLI(T), ins = inside(T); const done = t => ci === 
   R.extWall.color.set(done(E.peach) ? '#f6c2a0' : '#8a8478'); R.intWalls[0].material.color.set('#6ac8c0'); R.couch.visible = true; R.couch.scale.setScalar(1);
   R.carDirt.visible = false; R.sign.visible = false; R.plants.forEach(p => p.userData.lf.scale.setScalar(1.3)); R.bubbles.forEach(b => b.material.opacity = 0); R.water.forEach(w => w.material.opacity = 0);
   // floorboard stash
-  const lift = ci === 3 ? ease(prog(T, E.hid - 0.1, E.hid + 0.3)) : 0; R.board.position.set(-2.4, 0.03 + 0.25 * lift, 1.2 + 0.25 * lift); R.board.rotation.x = -1.3 * lift; R.cash.forEach((c, i) => c.visible = lift > 0.5);
+  const lift = ci === 3 ? ease(prog(T, E.hid - 0.1, E.hid + 0.3)) : 0; if (ci === 1) R.couch.visible = true; R.board.position.set(-2.4, 0.03 + 0.25 * lift, 1.2 + 0.25 * lift); R.board.rotation.x = -1.3 * lift; R.cash.forEach((c, i) => c.visible = lift > 0.5);
   // snake
-  animSnake(R.intTank.userData.snake, T, ci === 3 ? ease(prog(T, E.fed - 0.1, E.fed + 0.4)) : 0); R.mouse.visible = ci === 3 && T > E.fed - 0.5 && T < E.fed + 0.3; R.mouse.position.y = lerp(1.6, 0.9, prog(T, E.fed - 0.5, E.fed));
+  animSnake(R.intTank.userData.snake, T, ci === 1 ? ease(prog(T, E.fed - 0.1, E.fed + 0.4)) : 0); R.mouse.visible = ci === 1 && T > E.fed - 0.5 && T < E.fed + 0.3; R.mouse.position.y = lerp(1.6, 0.9, prog(T, E.fed - 0.5, E.fed));
   // gym bar goes up and down
-  const rep = ci === 3 && T < E.hid - 0.15 ? Math.abs(S(T * 4)) : 0; R.bar.position.set(-8.5, 1.15 + 0.4 * rep, -5.3);
+  const gym = ci === 3 && T > E.reps - 0.2 && T < E.hid - 0.15; const rep = gym ? Math.abs(S(T * 4)) : 0; R.bar.position.set(-8.5, 1.15 + 0.4 * rep, -5.3);
   // the two of them
   const hm = R.him, hr = R.her, hu = hm.userData, ru = hr.userData; stillP(hm); stillP(hr); hm.visible = hr.visible = true; R.soot.forEach(s => s.visible = false); hm.rotation.set(0, 0, 0); hr.rotation.set(0, 0, 0); hm.position.y = 0;
   hm.position.set(0.4, 0.95, -1.3); hm.rotation.y = 0.2; hr.position.set(-1.2, 0.95, -1.3); hr.rotation.y = 0.1;
-  if (ci === 1) { hm.position.set(1.2, 0, -0.6); hm.rotation.y = -0.8; hu.armR.rotation.set(-2.2 + 0.4 * S(T * 9), 0, 0); hr.visible = false; }
-  if (ci === 2) { hm.position.set(2.6, 0, 1.6); hm.rotation.y = -0.4; hr.position.set(1.6, 0, 1.8); hr.rotation.y = -0.2; hu.armR.rotation.set(-1.5, 0, 0); hu.armR.userData.e.rotation.x = -0.3 * Math.abs(S(T * 6)); ru.armL.rotation.set(-0.3, 0, -0.5); ru.armL.userData.e.rotation.set(0, 0, 1.2); }
-  if (ci === 3 && !ins) { hm.position.set(-8.5, 0.72, -4.4); hm.rotation.set(-PI / 2, 0, 0); hu.armL.rotation.set(-1.4 - 0.5 * rep, 0, 0); hu.armR.rotation.set(-1.4 - 0.5 * rep, 0, 0); hu.armL.userData.e.rotation.x = -0.9 * (1 - rep); hu.armR.userData.e.rotation.x = -0.9 * (1 - rep); hu.legL.rotation.x = -1.4; hu.legR.rotation.x = -1.4; hu.legL.userData.k.rotation.x = 1.4; hu.legR.userData.k.rotation.x = 1.4;
+  if (ci === 2) { hm.position.set(1.2, 0, -0.6); hm.rotation.y = -0.8; hu.armR.rotation.set(-2.2 + 0.4 * S(T * 9), 0, 0); hr.visible = false; }
+  if (ci === 3 && T < E.reps - 0.2) { hm.position.set(2.6, 0, 1.6); hm.rotation.y = -0.4; hr.position.set(1.6, 0, 1.8); hr.rotation.y = -0.2; hu.armR.rotation.set(-1.5, 0, 0); hu.armR.userData.e.rotation.x = -0.3 * Math.abs(S(T * 6)); ru.armL.rotation.set(-0.3, 0, -0.5); ru.armL.userData.e.rotation.set(0, 0, 1.2); }
+  if (gym) { hm.position.set(-8.5, 0.72, -4.4); hm.rotation.set(-PI / 2, 0, 0); hu.armL.rotation.set(-1.4 - 0.5 * rep, 0, 0); hu.armR.rotation.set(-1.4 - 0.5 * rep, 0, 0); hu.armL.userData.e.rotation.x = -0.9 * (1 - rep); hu.armR.userData.e.rotation.x = -0.9 * (1 - rep); hu.legL.rotation.x = -1.4; hu.legR.rotation.x = -1.4; hu.legL.userData.k.rotation.x = 1.4; hu.legR.userData.k.rotation.x = 1.4;
     hr.position.set(-10.2, 0.25, -6.6); hr.rotation.y = 0.9; ru.armL.rotation.set(-0.3, 0, -0.5); ru.armL.userData.e.rotation.set(0, 0, 1.2); ru.armR.rotation.set(-0.3, 0, 0.5); ru.armR.userData.e.rotation.set(0, 0, -1.2); }
-  if (ins) { hr.visible = false; if (T < E.fed - 0.2) { hm.position.set(...I3(-2.4, -0.35, 1.95)); hm.rotation.y = PI; hu.legL.rotation.x = -1.5; hu.legR.rotation.x = -0.2; hu.legL.userData.k.rotation.x = 1.6; hu.legR.userData.k.rotation.x = 1.9; hu.up.rotation.x = 0.4; hu.armR.rotation.set(-1.2, 0, 0); } else { hm.position.set(...I3(3.7, 0, -1.7)); hm.rotation.y = -2.4; hu.armR.rotation.set(-1.6, 0, 0); } }
+  if (ins) { hr.visible = false; if (ci === 3) { hm.position.set(...I3(-2.4, -0.35, 1.95)); hm.rotation.y = PI; hu.legL.rotation.x = -1.5; hu.legR.rotation.x = -0.2; hu.legL.userData.k.rotation.x = 1.6; hu.legR.userData.k.rotation.x = 1.9; hu.up.rotation.x = 0.4; hu.armR.rotation.set(-1.2, 0, 0); } else { hm.position.set(...I3(3.7, 0, -1.7)); hm.rotation.y = -2.4; hu.armR.rotation.set(-1.6, 0, 0); } }
   // leaving for a day: walk to the car, drive off
   const drive = ci === 4 ? ease(prog(T, E.c4 + 0.5, E.c5)) : 0;
   if (ci === 4) { hm.visible = hr.visible = T < E.c4 + 0.5; hm.position.set(4.0, 0, 1.0); hm.rotation.y = 0.3; hr.position.set(3.2, 0, 1.2); hr.rotation.y = 0.3; walkP(hm, T * 8, 0.7); walkP(hr, T * 8 + 1, 0.7); }

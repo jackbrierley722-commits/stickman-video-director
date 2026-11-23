@@ -30,8 +30,9 @@ window.renderFrame = function (T) { const loop = T >= E.loop; const ci = loop ? 
   const bt = T - E.boom;
   if (bt > 0 && bt < 0.5) { octx.fillStyle = `rgba(255,245,220,${1 - bt / 0.5})`; octx.fillRect(0, 0, W, H); }
   hud(T);
-  if (ci === 0) { big("DON'T GET ATTACHED", 470, 56, '#ff4a3a', prog(T, 0, 0.15)); if (T > AT(0, "you'll") - 0.1) big('40 HOURS OF WORK', 550, 44, '#fff', prog(T, AT(0, "you'll") - 0.1, AT(0, "you'll") + 0.1)); }
-  if (ci === 2) { const sw = [['TROPICAL GREEN', '#3aa86a'], ['STORMY BLUE', '#4a6a9a'], ['PASTEL PEACH', '#f6c2a0']]; const pick = T > E.peach - 0.1; sw.forEach(([n, c], i) => { const x = 130 + i * 230, sel = i === 2 && pick; octx.save(); octx.fillStyle = 'rgba(0,0,0,0.7)'; octx.fillRect(x - 100, 470, 200, 150); octx.fillStyle = c; octx.fillRect(x - 85, 485, 170, 90); if (sel) { octx.strokeStyle = '#ffd23a'; octx.lineWidth = 8; octx.strokeRect(x - 100, 470, 200, 150); } txt(n, x, 598, 18, sel ? '#ffd23a' : '#fff'); octx.restore(); }); }
+  if (ci === 0) big('HOUSE: FIXED', 480, 60, '#7ae07a', prog(T, AT(0, 'fixed') - 0.1, AT(0, 'fixed') + 0.1));
+  if (ci === 1 && T > AT(1, 'every') - 0.1) big('EVERY MORNING', 480, 56, '#ffd23a', prog(T, AT(1, 'every') - 0.1, AT(1, 'every') + 0.1));
+  if (ci === 3 && T < E.reps - 0.2) { const sw = [['TROPICAL GREEN', '#3aa86a'], ['STORMY BLUE', '#4a6a9a'], ['PASTEL PEACH', '#f6c2a0']]; const pick = T > E.peach - 0.1; sw.forEach(([n, c], i) => { const x = 130 + i * 230, sel = i === 2 && pick; octx.save(); octx.fillStyle = 'rgba(0,0,0,0.7)'; octx.fillRect(x - 100, 470, 200, 150); octx.fillStyle = c; octx.fillRect(x - 85, 485, 170, 90); if (sel) { octx.strokeStyle = '#ffd23a'; octx.lineWidth = 8; octx.strokeRect(x - 100, 470, 200, 150); } txt(n, x, 598, 18, sel ? '#ffd23a' : '#fff'); octx.restore(); }); }
   if (ci === 4 && T > E.day - 0.15) big('1 DAY LATER', 500, 64, '#fff', prog(T, E.day - 0.15, E.day + 0.05));
   if (bt > 0.15 && ci === 5) { const a = prog(T, E.boom + 0.15, E.boom + 0.4); octx.save(); octx.globalAlpha = a; octx.fillStyle = 'rgba(0,0,0,0.65)'; octx.fillRect(0, 420, W, 150); octx.restore(); big('HOUSE DESTROYED', 495, 64, '#ff3a2a', a); }
   if (ci === 6 && T > AT(6, 'survived') - 0.1) big('SNAKE: FINE', 470, 56, '#7ae07a', prog(T, AT(6, 'survived') - 0.1, AT(6, 'survived') + 0.1));

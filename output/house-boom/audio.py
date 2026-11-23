@@ -32,7 +32,7 @@ def cash(at): tone(at, 0.08, 2600, 0.03, 30); tone(at + 0.07, 0.25, 3300, 0.025,
 def hammer(at): thump(at, 0.35, 220, 40); tone(at, 0.05, 1800, 0.015, 60)
 def swish(at, dur=0.3, amp=0.05): m = int(dur * SR); add(at, (nz(dur, 1) - nz(dur, 4)) * np.hanning(m) * amp)
 def hiss(at, dur=0.7, amp=0.04): m = int(dur * SR); add(at, (nz(dur, 1) - nz(dur, 2)) * np.hanning(m) * amp)
-E = dict(stairs=wt(1, 'stairs')[0], roof=wt(1, 'roof')[0], railing=wt(1, 'railing')[0], wall=wt(1, 'bedroom')[0] + 0.25, peach=wt(2, 'peach')[0], reps=wt(3, 'reps')[0], hid=wt(3, 'hid')[0], fed=wt(3, 'fed')[0], day=wt(4, 'day')[0], c4=S0[4], blew=wt(5, 'blew')[0], surv=wt(6, 'survived')[0])
+E = dict(stairs=wt(2, 'stairs')[0], roof=wt(2, 'roof')[0], railing=wt(2, 'railing')[0], wall=wt(2, 'bedroom')[0] + 0.25, peach=wt(3, 'peach')[0], reps=wt(3, 'reps')[0], hid=wt(3, 'hid')[0], fed=wt(1, 'fed')[0] + 0.25, day=wt(4, 'day')[0], c4=S0[4], blew=wt(5, 'blew')[0], surv=wt(6, 'survived')[0])
 boom = E['blew'] - 0.05
 # repairs: hammering, sawing, each one rings the till
 for k in range(3): hammer(E['stairs'] - 0.3 + k * 0.15)
@@ -65,7 +65,9 @@ out *= np.interp(t, [0, 0.02, D - 0.03, D], [0, 1, 1, 0])
 vo, vsr = sf.read('vo.wav')
 if vo.ndim > 1: vo = vo.mean(1)
 vo = np.interp(np.arange(N) / SR, np.arange(len(vo)) / vsr, vo, right=0)
-fa, fb = wt(5, 'fucking'); i0, i1 = int((fa + 0.01) * SR), int((fb - 0.01) * SR); lvl = np.percentile(np.abs(vo), 99) * 0.5; vo[i0:i1] = np.sin(2 * np.pi * 1000 * np.arange(i1 - i0) / SR) * lvl  # bleep
+lvl = np.percentile(np.abs(vo), 99) * 0.5
+for ci_ in (0, 1, 5):
+    fa, fb = wt(ci_, 'fucking'); i0, i1 = int((fa + 0.01) * SR), int((fb - 0.01) * SR); vo[i0:i1] = np.sin(2 * np.pi * 1000 * np.arange(i1 - i0) / SR) * lvl  # bleep
 e = ma(np.abs(vo), 4000); duck = 1 - 0.55 * np.clip(e / (e.max() * 0.25), 0, 1)
 bus = out * duck; pk = lambda y: np.percentile(np.abs(y), 99.9); mus *= 0.1 * pk(vo * 1.6) / max(pk(mus), 1e-9); mus *= (1 - 0.5 * np.clip(e / (e.max() * 0.25), 0, 1))
 bus *= min(1, 0.5 * pk(vo * 1.6) / pk(bus))  # SFX at least 6 dB under the narration
