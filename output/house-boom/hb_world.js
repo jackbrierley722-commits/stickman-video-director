@@ -1,7 +1,7 @@
 
 // ---------- timing ----------
 const E = { c1: CL[1].start, fed: AT(1, 'fed') + 0.25, c2: CL[2].start, stairs: AT(2, 'stairs'), roof: AT(2, 'roof'), railing: AT(2, 'railing'), wall: AT(2, 'bedroom') + 0.25, c3: CL[3].start, peach: AT(3, 'peach'), reps: AT(3, 'reps'), hid: AT(3, 'hid'),
-  c4: CL[4].start, day: AT(4, 'day'), c5: CL[5].start, masked: AT(5, 'masked'), fought: AT(5, 'fought'), every: AT(5, 'every'), c6: CL[6].start, blew: AT(6, 'blew'), c7: CL[7].start, c8: CL[8].start };
+  c4: CL[4].start, day: AT(4, 'day'), c5: CL[5].start, masked: CL[5].start + 0.1, fought: CL[5].start + 1.35, every: CL[5].start + 1.95, run: CL[5].start + 2.35, c6: CL[6].start, blew: AT(6, 'blew'), c7: CL[7].start, c8: CL[8].start };
 E.loop = 999; E.boom = E.blew - 0.05;
 const INT = [80, 0, 0];
 const I3 = (x, y, z) => [INT[0] + x, INT[1] + y, INT[2] + z];
@@ -89,12 +89,13 @@ const SH = [
   [E.hid - 0.15, (k, T) => TR(k, I3(-0.4, 1.5, 0.4), I3(-0.7, 1.3, 0.5), I3(-2.4, 0.15, 1.3), I3(-2.4, 0.15, 1.3))],
   [E.c4, (k, T) => TR(k, [11, 3.2, 11], [12, 3.5, 12], [3, 1, 0], [10, 1, 5])],
   [E.c5, (k, T) => TR(k, I3(-0.2, 1.9, 4.6), I3(-0.3, 1.7, 3.9), I3(0.2, 1.0, -0.4), I3(0.4, 1.0, -0.4))],
-  [E.c6, (k, T) => TR(k, [16, 6, 18], [18, 7, 20], [0, 3, -6], [2, 5, -4])],
+  [E.run, (k, T) => TR(k, [2.6, 1.5, 7.0], [2.2, 1.6, 6.0], [-0.4, 1.2, -1.5], [-0.2, 1.3, 0.5])],
+  [E.c6, (k, T) => TR(k, [7, 2.8, 11], [9, 3.6, 13], [0, 2.2, -2], [1, 3, 0])],
   [E.c7, (k, T) => TR(k, [0.2, 2.6, 2.0], [0.1, 1.4, -2.8], [0, 0.6, -5], [0, 0.4, -5.4])],
   [E.c8, (k, T) => TR(k, [-1.5, 1.6, -1.0], [-1.6, 2.0, -0.6], [-2.4, 0.4, -4.6], [-2.4, 1.2, -4.6])],
 ];
 const shotAt = T => { let i = 0; for (let j = 0; j < SH.length; j++) if (T >= SH[j][0]) i = j; return i; };
-const inside = T => CLI(T) === 1 || CLI(T) === 5 || (CLI(T) === 3 && T > E.hid - 0.15);
+const inside = T => CLI(T) === 1 || (CLI(T) === 5 && T < E.run) || (CLI(T) === 3 && T > E.hid - 0.15);
 function anim(T) { const ci = CLI(T), ins = inside(T); const done = t => ci === 0 || T > t;
   R.I.visible = ins; R.G.visible = !ins; R.sun.intensity = ins ? 0.4 : 2.0; R.hemi.intensity = ins ? 0.9 : 1.2;
   // the five repairs + the paint job
@@ -122,8 +123,8 @@ function anim(T) { const ci = CLI(T), ins = inside(T); const done = t => ci === 
   const drive = ci === 4 ? ease(prog(T, E.c4 + 0.5, E.c5)) : 0;
   if (ci === 4) { hm.visible = hr.visible = T < E.c4 + 0.5; hm.position.set(4.0, 0, 1.0); hm.rotation.y = 0.3; hr.position.set(3.2, 0, 1.2); hr.rotation.y = 0.3; walkP(hm, T * 8, 0.7); walkP(hr, T * 8 + 1, 0.7); }
   // the break-in: she takes on both of them while the place catches fire
-  R.thugs.forEach(p => { stillP(p); p.visible = ci === 5; p.rotation.set(0, 0, 0); });
-  if (ci === 5) { hm.visible = false; hr.position.set(...I3(-0.6, 0, -0.2)); hr.rotation.y = PI / 2; const [a, b] = R.thugs, au = a.userData, bu = b.userData; const enter = ease(prog(T, E.c5, E.masked + 0.6));
+  R.thugs.forEach(p => { stillP(p); p.visible = ci === 5 && T < E.run; p.rotation.set(0, 0, 0); });
+  if (ci === 5 && T < E.run) { hm.visible = false; hr.position.set(...I3(-0.6, 0, -0.2)); hr.rotation.y = PI / 2; const [a, b] = R.thugs, au = a.userData, bu = b.userData; const enter = ease(prog(T, E.c5, E.masked + 0.6));
     const p1 = E.fought - 0.55, k1 = E.every - 0.1; a.position.set(...I3(lerp(4.5, 0.4, enter), 0, -0.1)); a.rotation.y = -PI / 2; b.position.set(...I3(lerp(5.2, 1.0, enter), 0, 0.7)); b.rotation.y = -PI / 2 - 0.3; if (enter < 1) { walkP(a, T * 9, 1); walkP(b, T * 9 + 1, 1); }
     au.armR.rotation.set(-1.4, 0, 0); bu.armL.rotation.set(-1.4, 0, 0);
     if (T > p1 - 0.15 && T < p1 + 0.25) { ru.armR.rotation.set(-1.6, 0, 0); hr.rotation.y = PI / 2 - 0.2; }
@@ -133,7 +134,9 @@ function anim(T) { const ci = CLI(T), ins = inside(T); const done = t => ci === 
     if (T > k1 + 0.4) { ru.armL.rotation.set(-2.8, 0, 0); ru.armR.rotation.set(-2.8, 0, 0); } }
   const fireK = ci === 5 ? prog(T, E.fought, E.c6) : 0; R.ifire.forEach((f, i) => { const a = i * 1.3; f.position.set(-3.2 + (i % 6) * 1.2, 0.4 + (i % 3) * 0.5 + 0.2 * S(T * 7 + i), -2.6 + (i % 2) * 0.4); f.scale.setScalar((0.6 + 0.6 * Math.abs(S(T * 5 + i))) * (0.5 + fireK)); f.material.opacity = fireK > 0 ? 0.9 * Math.min(1, fireK * 2) : 0; }); R.ifireL.intensity = 25 * fireK;
   // the blast: she gets thrown clear, spinning off into the sky (you were away)
-  if (ci >= 6) { hm.visible = false; hr.visible = ci === 6; const d = clamp((T - E.boom) / 1.6); hr.position.set(-1 + 14 * d, 1.2 + 11 * d - 6 * d * d, -2 + 12 * d); hr.rotation.set(9 * d, 2 * d, 7 * d); ru.armL.rotation.set(-2.8, 0, -0.6); ru.armR.rotation.set(-2.8, 0, 0.6); ru.legL.rotation.x = -0.6; ru.legR.rotation.x = 0.5; if (T < E.boom) { hr.position.set(-1, 1.2, -2); hr.visible = false; } }
+  const running = (ci === 5 && T >= E.run) || (ci === 6 && T < E.boom);
+  if (running) { hm.visible = false; hr.visible = true; const k = prog(T, E.run, E.boom); hr.position.set(lerp(-0.4, 0.8, k), 0, lerp(-2.3, 3.6, k)); hr.rotation.set(0.15, 0.1, 0); walkP(hr, T * 15, 1.5); ru.armL.rotation.x = -1.0 * S(T * 15); ru.armR.rotation.x = 1.0 * S(T * 15); }
+  if (ci >= 6 && !running) { hm.visible = false; hr.visible = ci === 6; const d = clamp((T - E.boom) / 1.3); hr.position.set(0.8 + 5 * d, 0.4 + 9 * d - 5 * d * d, 3.6 + 9 * d); hr.rotation.set(-8 * d, 1.5 * d, 6 * d); ru.armL.rotation.set(-2.8, 0, -0.7); ru.armR.rotation.set(-2.8, 0, 0.7); ru.legL.rotation.x = -0.7; ru.legR.rotation.x = 0.6; }
   R.car.userData.p0.set(ci === 4 ? lerp(4.5, 30, drive) : ci >= 5 ? 300 : 4.5, 0, ci === 4 ? lerp(-0.5, 7.5, Math.min(1, drive * 3)) : ci >= 5 ? 7.6 : -0.5); R.car.userData.r0.set(0, ci === 4 && drive > 0.05 ? PI / 2 : ci >= 5 ? PI / 2 : 0, 0);
   R.firework.visible = false; R.spark.material.opacity = 0;
   // the blast
@@ -143,7 +146,7 @@ function anim(T) { const ci = CLI(T), ins = inside(T); const done = t => ci === 
   R.parts.forEach((p, i) => { const u = p.userData; p.position.copy(u.p0); p.rotation.copy(u.r0); if (boom && p !== R.car) { const d = Math.min(bt, 1.6); const dir = new T3.Vector3(u.p0.x, 0, u.p0.z + (p.parent === R.house ? 0 : 6)).normalize(); p.position.set(u.p0.x + dir.x * 9 * d + S(i) * 2 * d, u.p0.y + 12 * d - 9 * d * d, u.p0.z + dir.z * 9 * d + C(i) * 2 * d); p.rotation.set(u.r0.x + d * (i % 3 + 1), u.r0.y + d * 2, u.r0.z + d * (i % 2 + 1)); p.visible = d < 1.5; } else p.visible = true; });
   [R.stepsG, R.railG, [R.railTop, R.wallPanel]].flat().forEach(b => { if (boom) b.visible = false; });
   R.debris.forEach((b, i) => { const u = b.userData; if (!boom) { b.position.set(0, -5, -6); return; } const d = Math.min(bt, 2.2); b.position.set(u.v[0] * d, Math.max(0.1, 2 + u.v[1] * d - 9.8 * d * d), -6 + u.v[2] * d); b.rotation.set(u.s[0] * d, u.s[1] * d, 0); });
-  R.fire.forEach((f, i) => { if (!boom) { f.material.opacity = 0; return; } const k = clamp(bt / 1.4), a = i * 2.4; f.position.set(Math.cos(a) * 5 * k * (0.4 + (i % 3) * 0.3), 3 + 9 * k * (0.3 + (i % 4) * 0.2), -1.5 + Math.sin(a) * 2 * k); f.scale.setScalar(3 + 9 * k); f.material.opacity = 1 - k * 0.6; if (ci >= 7) { f.position.set(-3.5 + (i % 9) * 0.9, 0.5 + 0.3 * Math.abs(S(T * 6 + i)), -8 + (i % 5) * 1.2); f.scale.setScalar(0.8 + 0.4 * Math.abs(S(T * 5 + i))); f.material.opacity = 0.9; } });
+  R.fire.forEach((f, i) => { if (running) { const w = [[-3, 1.6, -2.4], [2.6, 1.6, -2.4], [-1, 4.9, -3.7], [-0.4, 1.1, -2.4]][i % 4]; f.position.set(w[0] + 0.3 * S(i * 3.1), w[1] + 0.25 * Math.abs(S(T * 7 + i)), w[2]); f.scale.setScalar(0.9 + 0.5 * Math.abs(S(T * 6 + i))); f.material.opacity = 0.85; return; } if (!boom) { f.material.opacity = 0; return; } const k = clamp(bt / 1.4), a = i * 2.4; f.position.set(Math.cos(a) * 5 * k * (0.4 + (i % 3) * 0.3), 3 + 9 * k * (0.3 + (i % 4) * 0.2), -1.5 + Math.sin(a) * 2 * k); f.scale.setScalar(3 + 9 * k); f.material.opacity = 1 - k * 0.6; if (ci >= 7) { f.position.set(-3.5 + (i % 9) * 0.9, 0.5 + 0.3 * Math.abs(S(T * 6 + i)), -8 + (i % 5) * 1.2); f.scale.setScalar(0.8 + 0.4 * Math.abs(S(T * 5 + i))); f.material.opacity = 0.9; } });
   R.smoke.forEach((s, i) => { if (!boom) { s.material.opacity = 0; return; } const k = clamp(bt / 3), a = i * 1.9; s.position.set(Math.cos(a) * 5 * k, 4 + 10 * k + (i % 5), -6 + Math.sin(a) * 3 * k); s.scale.setScalar(4 + 10 * k); s.material.opacity = 0.75 * (1 - 0.3 * k); });
   R.crater.visible = ci >= 7; R.rubble.forEach(b => b.visible = ci >= 7); R.burnL.intensity = boom ? (ci >= 7 ? 6 + 2 * S(T * 9) : 40 * (1 - clamp(bt / 1.2)) + 8) : 0;
   if (ci >= 7) R.parts.forEach(p => { if (p !== R.car) p.visible = false; }); }

@@ -7,21 +7,23 @@ from kokoro import KPipeline
 
 VOICE = sys.argv[1] if len(sys.argv) > 1 else 'am_michael'
 VO = [
- "You just fucking fixed the house.",
- "You fed the fucking snake every morning.",
- "You fixed the stairs, ~ the roof, ~ the railing, ~ and the bedroom wall.",
- "You painted it pastel peach, ~ did your reps on the deck, ~ and hid your cash under the floorboards.",
- "Then you left for one day.",
- "Masked guys broke in, ~ and your partner fought every single one.",
- "Then the whole fucking house blew up.",
- "You lost the fucking snake.",
- "You lost all your fucking money.",
+ "You just fucking fixed the house!",
+ "You fed the fucking snake every morning!",
+ "You fixed the stairs, ~ the roof, ~ the railing, ~ and the bedroom wall!",
+ "You painted it pastel peach, ~ did your reps on the deck, ~ and hid your cash under the floorboards!",
+ "Then you left for one day!",
+ "SILENT:3.6",
+ "And the whole fucking house blew up!",
+ "You lost the fucking snake!",
+ "You lost all your fucking money!",
 ]
 SR = 24000; LEAD = 0.08; TAIL = 0.14
 pipe = KPipeline(lang_code='a')
 audio = []; clips = []; t = 0.0
 for i, text in enumerate(VO):
-    V = VOICE; SP = 1.25
+    V = VOICE; SP = 1.3 if text.endswith('!') else 1.25
+    if text.startswith('SILENT:'):
+        dur = float(text.split(':')[1]); audio.append(np.zeros(int(round(dur * SR)))); clips.append({'start': round(t, 3), 'dur': round(dur, 3), 'words': [], 'voice': V}); t += dur; continue
     if '|' in text: V, text = text.split('|', 1); SP = 1.15
     segs = []; words = []; off = LEAD
     sents = [x for x in re.split(r'(?<=[.?!])\s+', text) if x.strip()]
@@ -42,7 +44,7 @@ for i, text in enumerate(VO):
         gap = (0.5 if longp[si] else 0.22) if si < len(sents) - 1 else 0.1
         segs.append(np.zeros(int(gap * SR))); off += gap
     body = np.concatenate(segs)
-    if V != VOICE: body = np.tanh(body * 2.2) * 0.8  # shouting: a little hotter
+    if text.endswith('!'): body = np.tanh(body * 3.2) * 0.85  # shouted delivery (user asked for it on this video)
     dur = LEAD + len(body) / SR + TAIL
     clip = np.zeros(int(round(dur * SR))); clip[int(LEAD * SR):int(LEAD * SR) + len(body)] = body
     audio.append(clip); clips.append({'start': round(t, 3), 'dur': round(dur, 3), 'words': words, 'voice': V}); t += dur
