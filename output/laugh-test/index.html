@@ -1,0 +1,62 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><title>The friend who laughs at their own jokes</title><meta name="description" content="A short video about the friend who laughs before the punchline.">
+<style>/* Hallmark · v2.0.0 · theme: custom (editorial, warm paper) · genre: editorial · signature: the laugh bubbles that will not stop · fonts: Fraunces + Inter */
+/* critique: one idea per screen and type carries it; the only figure is real and cited (Provine), supplied by research not invented; transform and opacity motion only */
+/* waive 38iii: the coloured clause is the video's one signature, used once, in the opening screen */
+/* waive 58: the opening line is the spoken hook, read aloud word for word, so it cannot be cut to seven words */
+@font-face { font-family: 'Fraunces'; src: url(fonts/Fraunces.woff2) format('woff2'); font-weight: 600; }
+@font-face { font-family: 'Inter'; src: url(fonts/Inter.woff2) format('woff2'); font-weight: 400; }
+@font-face { font-family: 'Inter'; src: url(fonts/InterSemi.woff2) format('woff2'); font-weight: 600; }
+:root {
+  --paper: #f3ede2; --paper-2: #e8dfcf; --ink: #1d1b18; --muted: #6d6458; --accent: #d9452b; --bubble-him: #1d1b18; --bubble-him-ink: #f3ede2; --rule: #cfc4b2;
+  --display: 'Fraunces', Georgia, serif; --body: 'Inter', system-ui, sans-serif;
+  --s1: 8px; --s2: 16px; --s3: 24px; --s4: 40px; --s5: 64px; --r: 28px;
+}
+html, body { margin: 0; overflow-x: clip; background: var(--paper); }
+body { width: 720px; height: 1280px; overflow: hidden; position: relative; font-family: var(--body); color: var(--ink); }
+.scene { position: absolute; inset: 0; padding: 0 var(--s5) 120px; opacity: 0; box-sizing: border-box; display: flex; flex-direction: column; justify-content: center; }
+h1, h2 { font-family: var(--display); font-weight: 600; margin: 0; line-height: 1.02; color: var(--ink); overflow-wrap: break-word; min-width: 0; letter-spacing: -0.01em; text-wrap: balance; }
+h1 { font-size: 100px; } h2 { font-size: 80px; }
+p { margin: 0; font-size: 36px; line-height: 1.35; color: var(--muted); }
+.accent { color: var(--accent); }
+.who { font-size: 28px; color: var(--muted); margin: 0 0 var(--s1) var(--s2); }
+.bubble { display: inline-block; max-width: 592px; background: var(--bubble-him); color: var(--bubble-him-ink); font-size: 48px; line-height: 1.3; padding: 24px 32px; border-radius: var(--r) var(--r) var(--r) 8px; transform-origin: 0 100%; }
+.ha { display: inline-block; background: var(--paper-2); color: var(--ink); font-family: var(--display); font-size: 60px; padding: 16px 32px; border-radius: var(--r); margin: 12px 12px 0 0; transform-origin: 0 100%; }
+.stack { display: flex; flex-direction: column; gap: var(--s2); align-items: flex-start; }
+.big-figure { font-family: var(--display); font-weight: 600; font-size: 360px; line-height: 0.9; color: var(--accent); letter-spacing: -0.03em; font-variant-numeric: tabular-nums; }
+.source { font-size: 26px; color: var(--muted); border-top: 2px solid var(--rule); padding-top: var(--s2); margin-top: var(--s4); }
+.receipt { display: flex; gap: var(--s5); margin-top: var(--s5); font-size: 36px; }
+.receipt b { font-family: var(--display); font-size: 120px; display: block; color: var(--ink); }
+.caption { position: absolute; left: var(--s5); right: var(--s5); bottom: 150px; font-family: var(--body); font-weight: 600; font-size: 40px; line-height: 1.25; color: var(--ink); opacity: 0; }
+.halo { position: absolute; right: -40px; top: 760px; font-family: var(--display); font-size: 220px; color: var(--paper-2); line-height: 0.85; text-align: right; }
+@media (prefers-reduced-motion: reduce) { .scene, .bubble, .ha { transition: none; } }
+</style></head><body>
+<section class="scene" id="s0"><div class="halo" id="halo">ha<br>ha<br>ha</div><h1>Send this to the friend</h1><h1 class="accent" style="margin-top:12px">who laughs at their own jokes.</h1></section>
+<section class="scene" id="s1"><p class="who">Him</p><div class="stack"><div class="bubble" id="b1">Okay, okay. Why did the chicken cross the road?</div><div id="h1"></div></div></section>
+<section class="scene" id="s2"><h2>He hasn’t said the punchline yet.</h2><p style="margin-top:24px">Already laughing.</p></section>
+<section class="scene" id="s3"><p class="who">Him</p><div class="stack"><div class="bubble" id="b3">To get to the… sorry. Sorry. I can’t do it.</div><div id="h3"></div></div></section>
+<section class="scene" id="s4"><div class="big-figure" id="fig">46%</div><h2 style="font-size:64px;margin-top:16px">more laughing from the person telling the joke.</h2><p style="margin-top:20px">Compared with the people listening.</p><p class="source">Robert R. Provine, psychologist, from his studies of everyday laughter.</p></section>
+<section class="scene" id="s5"><p class="who">Him</p><div class="stack"><div class="bubble" id="b5" style="font-size:68px">To get to the other side!</div></div><div class="receipt" id="rc"><div><b>4</b>people heard it</div><div><b class="accent">1</b>laughed</div></div></section>
+<section class="scene" id="s6"><h1>Nobody laughed.</h1><h1 class="accent" id="ex" style="margin-top:20px">Except him.</h1></section>
+<section class="scene" id="s7"><h1>Send it to him.</h1><p style="margin-top:32px;font-size:44px">He’ll laugh before he finishes reading it.</p></section>
+<div class="caption" id="cap"></div>
+<script src="timing.js"></script>
+<script>
+const TM = window.TIMING, CL = TM.clips; const clamp = (v, a = 0, b = 1) => Math.max(a, Math.min(b, v)), prog = (t, a, b) => clamp((t - a) / (b - a)), ease = t => { t = clamp(t); return 1 - Math.pow(1 - t, 3); };
+const $ = id => document.getElementById(id); const scenes = [0, 1, 2, 3, 4, 5, 6, 7].map(i => $('s' + i));
+function haBubbles(el, n) { el.innerHTML = ''; for (let i = 0; i < n; i++) { const d = document.createElement('span'); d.className = 'ha'; d.textContent = ['ha', 'haha', 'HAHA', 'ha ha ha', 'hahahaha'][i % 5]; el.appendChild(d); } return [...el.children]; }
+const H1 = haBubbles($('h1'), 4), H3 = haBubbles($('h3'), 7);
+// captions: narrator lines only (his lines are on screen as bubbles), 4 to 6 words at a time
+const CAPS = []; CL.forEach(c => { if (c !== CL[4]) return; const ws = c.text.replace(/\[[^\]]+\]/g, '').trim().split(/\s+/); const per = c.dur / ws.length; for (let i = 0; i < ws.length; i += 5) CAPS.push({ a: c.start + i * per, b: c.start + Math.min(ws.length, i + 5) * per + 0.15, t: ws.slice(i, i + 5).join(' ') }); });
+window.DURATION = TM.total; const LOOP = TM.total - 0.4;
+window.renderFrame = function (T) { const loop = T >= LOOP; let ci = CL.findIndex(c => T >= c.start && T < c.start + c.dur); if (ci < 0 || loop) ci = loop ? 0 : CL.length - 1; const c = CL[ci]; const lt = loop ? 2 : T - c.start;
+  scenes.forEach((s, i) => { const on = i === ci; s.style.opacity = on ? ease(prog(lt, 0, 0.18)) : 0; s.style.transform = on ? `translateY(${(1 - ease(prog(lt, 0, 0.25))) * 30}px)` : 'none'; });
+  $('halo').style.transform = `translateY(${-((loop ? 2 : T) * 18)}px)`;
+  const pop = (el, t0) => { const k = ease(prog(lt, t0, t0 + 0.2)); el.style.opacity = k; el.style.transform = `scale(${0.85 + 0.15 * k})`; };
+  if (ci === 1) { pop($('b1'), 0.05); H1.forEach((h, i) => pop(h, 2.0 + i * 0.28)); }
+  if (ci === 3) { pop($('b3'), 0.05); H3.forEach((h, i) => pop(h, 1.4 + i * 0.22)); }
+  if (ci === 4) { const k = ease(prog(lt, 0.2, 0.9)); $('fig').style.transform = `translateY(${(1 - k) * 60}px)`; $('fig').style.opacity = k; }
+  if (ci === 5) { pop($('b5'), 0.05); $('rc').style.opacity = ease(prog(lt, 0.9, 1.2)); }
+  if (ci === 6) { $('ex').style.opacity = ease(prog(lt, 0.8, 1.0)); }
+  const cap = CAPS.find(k => T >= k.a && T < k.b && !loop); $('cap').textContent = cap ? cap.t : ''; $('cap').style.opacity = cap ? 1 : 0; };
+window.ready = document.fonts.ready.then(() => { window.renderFrame(0); });
+</script></body></html>
